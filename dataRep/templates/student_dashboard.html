@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard - Data Quest</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        .navbar {
+            background: #2563eb;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .stat-card h2 {
+            font-size: 32px;
+            margin: 10px 0;
+            color: #2563eb;
+        }
+
+        .stat-card p {
+            margin: 0;
+            color: #666;
+        }
+
+        .levels {
+            margin-top: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .level {
+            padding: 18px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 800px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🎯 Data Quest
+    </div>
+    
+<a href="{% url 'student_logout' %}" class="logout">
+    Logout
+</a>
+
+
+</nav>
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1>
+            Welcome, {{ student.full_name }}! 👋
+        </h1>
+
+        <p>
+            Welcome to your Data Quest student dashboard.
+            Learn, play, earn points, and unlock new levels!
+        </p>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <h2>{{ student.total_points }}</h2>
+            <p>⭐ Total Points</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ student.total_stars }}</h2>
+            <p>🌟 Total Stars</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ student.best_streak }}</h2>
+            <p>🔥 Best Streak</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ student.completed_levels }}</h2>
+            <p>🏆 Levels Completed</p>
+        </div>
+
+    </div>
+
+    <div class="levels">
+
+        <h2>🎮 Your Data Quest Levels</h2>
+
+        <div class="level">
+            <span>🔤 Level 1 — ASCII</span>
+            <span>🔓 Start</span>
+        </div>
+
+        <div class="level">
+            <span>📝 Level 2 — Text</span>
+            <span>🔒 Locked</span>
+        </div>
+
+        <div class="level">
+            <span>🖼️ Level 3 — Image</span>
+            <span>🔒 Locked</span>
+        </div>
+
+        <div class="level">
+            <span>🎵 Level 4 — Audio</span>
+            <span>🔒 Locked</span>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
