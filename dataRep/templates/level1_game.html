@@ -1,620 +1,571 @@
-```html
+{% load static %}
+
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCII Quest | Data Quest</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f3f6ff;
-        color: #1f2937;
-    }
+    <title>Data Quest - Level 1</title>
 
-    .navbar {
-        background: #2563eb;
-        color: white;
-        padding: 18px 6%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
+    <style>
 
-    .logo {
-        font-size: 23px;
-        font-weight: bold;
-    }
-
-    .score-pill {
-        background: white;
-        color: #1d4ed8;
-        padding: 9px 16px;
-        border-radius: 30px;
-        font-weight: bold;
-    }
-
-    .container {
-        max-width: 900px;
-        margin: 32px auto;
-        padding: 16px;
-    }
-
-    .card {
-        background: white;
-        padding: 30px;
-        border-radius: 22px;
-        box-shadow: 0 8px 30px rgba(30, 58, 138, 0.08);
-    }
-
-    .topline {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-        color: #64748b;
-        font-weight: bold;
-    }
-
-    .progress {
-        height: 10px;
-        background: #e2e8f0;
-        border-radius: 20px;
-        overflow: hidden;
-        margin: 16px 0 26px;
-    }
-
-    .progress-bar {
-        height: 100%;
-        width: 5%;
-        background: #22c55e;
-        transition: width 0.3s;
-    }
-
-    .tag {
-        display: inline-block;
-        padding: 7px 12px;
-        border-radius: 20px;
-        background: #dbeafe;
-        color: #1d4ed8;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    h1 {
-        color: #1d4ed8;
-        margin-bottom: 8px;
-    }
-
-    .instruction {
-        color: #64748b;
-        line-height: 1.6;
-    }
-
-    .question {
-        font-size: 23px;
-        font-weight: bold;
-        line-height: 1.5;
-        margin: 24px 0;
-    }
-
-    .options {
-        display: grid;
-        gap: 12px;
-    }
-
-    .option {
-        display: block;
-        width: 100%;
-        padding: 15px;
-        text-align: left;
-        background: white;
-        color: #1f2937;
-        border: 2px solid #dbeafe;
-        border-radius: 12px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.15s;
-    }
-
-    .option:hover:not(:disabled) {
-        border-color: #2563eb;
-        background: #eff6ff;
-    }
-
-    .option:disabled {
-        cursor: default;
-    }
-
-    .option.correct {
-        border-color: #16a34a;
-        background: #dcfce7;
-    }
-
-    .option.wrong {
-        border-color: #dc2626;
-        background: #fee2e2;
-    }
-
-    .letter {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-        border-radius: 8px;
-        background: #eff6ff;
-        color: #1d4ed8;
-        font-weight: bold;
-    }
-
-    .fill-input {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #cbd5e1;
-        border-radius: 12px;
-        font-size: 17px;
-        margin-bottom: 14px;
-    }
-
-    .fill-input:focus {
-        outline: 2px solid #93c5fd;
-        border-color: #2563eb;
-    }
-
-    /* MATCHING GAME */
-
-    .matching-instruction {
-        background: #eff6ff;
-        padding: 15px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        color: #1e40af;
-        font-weight: bold;
-    }
-
-    .matching-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
-
-    .matching-table th {
-        background: #2563eb;
-        color: white;
-        padding: 14px;
-        text-align: left;
-    }
-
-    .matching-table td {
-        padding: 14px;
-        border-bottom: 1px solid #e2e8f0;
-        vertical-align: middle;
-    }
-
-    .character-box {
-        font-size: 22px;
-        font-weight: bold;
-        background: #f8fafc;
-        border-radius: 10px;
-        padding: 12px 18px;
-        display: inline-block;
-        min-width: 70px;
-        text-align: center;
-    }
-
-    .drop-cell {
-        min-height: 52px;
-        border: 2px dashed #93c5fd;
-        border-radius: 10px;
-        padding: 12px;
-        text-align: center;
-        background: #eff6ff;
-        color: #1d4ed8;
-        font-weight: bold;
-        transition: 0.2s;
-    }
-
-    .drop-cell.drag-over {
-        background: #dbeafe;
-        border-color: #2563eb;
-        transform: scale(1.02);
-    }
-
-    .drop-cell.correct-match {
-        background: #dcfce7;
-        border-color: #16a34a;
-        color: #166534;
-    }
-
-    .drop-cell.wrong-match {
-        background: #fee2e2;
-        border-color: #dc2626;
-        color: #991b1b;
-    }
-
-    .code-bank {
-        background: #f8fafc;
-        border-radius: 15px;
-        padding: 18px;
-        margin-top: 20px;
-    }
-
-    .code-bank-title {
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
-
-    .code-options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    .code-option {
-        padding: 13px 22px;
-        border: 2px solid #bfdbfe;
-        border-radius: 10px;
-        background: white;
-        color: #1d4ed8;
-        font-weight: bold;
-        font-size: 17px;
-        cursor: grab;
-        user-select: none;
-    }
-
-    .code-option:hover {
-        background: #eff6ff;
-        border-color: #2563eb;
-    }
-
-    .code-option.selected {
-        background: #dbeafe;
-        border-color: #2563eb;
-    }
-
-    .code-option.used {
-        opacity: 0.35;
-        cursor: default;
-    }
-
-    .feedback {
-        margin-top: 18px;
-        padding: 14px;
-        border-radius: 12px;
-        line-height: 1.6;
-    }
-
-    .feedback.good {
-        background: #dcfce7;
-        color: #166534;
-    }
-
-    .feedback.bad {
-        background: #fee2e2;
-        color: #991b1b;
-    }
-
-    .actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        margin-top: 22px;
-        flex-wrap: wrap;
-    }
-
-    .btn {
-        border: none;
-        border-radius: 11px;
-        padding: 14px 22px;
-        background: #2563eb;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background: #1d4ed8;
-    }
-
-    .btn:disabled {
-        background: #94a3b8;
-        cursor: not-allowed;
-    }
-
-    .btn.secondary {
-        background: #e2e8f0;
-        color: #334155;
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    .result {
-        text-align: center;
-    }
-
-    .result-emoji {
-        font-size: 65px;
-    }
-
-    .result-score {
-        font-size: 48px;
-        color: #2563eb;
-        font-weight: bold;
-        margin: 15px;
-    }
-
-    .result-stars {
-        font-size: 40px;
-        margin: 10px 0 20px;
-        letter-spacing: 5px;
-    }
-
-    .result-box {
-        background: #eff6ff;
-        border-radius: 14px;
-        padding: 18px;
-        margin: 20px 0;
-    }
-
-    .back-link {
-        display: inline-block;
-        margin-top: 20px;
-        color: #2563eb;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    @media (max-width: 600px) {
-
-        .container {
-            margin: 15px auto;
+        * {
+            box-sizing: border-box;
         }
 
-        .card {
-            padding: 20px;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .score-box {
+            font-size: 18px;
+            font-weight: bold;
+            background: #eef4ff;
+            padding: 10px 18px;
+            border-radius: 10px;
+        }
+
+        .progress-container {
+            width: 100%;
+            background: #ddd;
+            border-radius: 20px;
+            height: 12px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #4a90e2;
+            transition: width 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
         }
 
         .question {
-            font-size: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* ==============================
+           MCQ OPTIONS
+           ============================== */
+
+        .option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            border-color: #4a90e2;
+            background: #f1f7ff;
+        }
+
+        /*
+            Selected answer.
+
+            This does NOT mean correct.
+            It only means the student selected it.
+        */
+
+        .option.selected {
+            border-color: #4a90e2;
+            background: #e8f2ff;
+            font-weight: bold;
+        }
+
+        /* ==============================
+           FILL IN THE BLANK
+           ============================== */
+
+        .fill-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .fill-input:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        .fill-input:disabled {
+            background: #f3f3f3;
+        }
+
+        /* ==============================
+           BUTTONS
+           ============================== */
+
+        .btn {
+            border: none;
+            padding: 13px 24px;
+            border-radius: 10px;
+            background: #4a90e2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: #777;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ==============================
+           HINT
+           ============================== */
+
+        .hint-button {
+            background: #f5b642;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        .hint-box {
+            background: #fff7dc;
+            border-left: 5px solid #f5b642;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .hint-box.show {
+            display: block;
+        }
+
+        /* ==============================
+           MATCHING
+           ============================== */
+
+        .matching-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
         .matching-table th,
         .matching-table td {
-            padding: 9px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
         }
 
-        .character-box {
-            min-width: 50px;
-            padding: 10px;
+        .matching-table th {
+            background: #f1f4f8;
         }
-    }
-</style>
+
+        .drop-cell {
+            min-height: 50px;
+        }
+
+        .drop-zone {
+            min-height: 45px;
+            border: 2px dashed #aaa;
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #4a90e2;
+            background: #eef6ff;
+        }
+
+        .answer-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 15px;
+            background: #f7f8fa;
+            border-radius: 10px;
+        }
+
+        .answer-item {
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .answer-item:active {
+            cursor: grabbing;
+        }
+
+        /* ==============================
+           NEXT BUTTON
+           ============================== */
+
+        .next-area {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        /* ==============================
+           RESULTS
+           ============================== */
+
+        .result-card {
+            text-align: center;
+        }
+
+        .final-score {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .percentage {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            font-size: 35px;
+            margin: 15px 0 25px;
+        }
+
+        .review {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .review h3 {
+            margin-bottom: 20px;
+        }
+
+        .review-item {
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border-left: 5px solid;
+        }
+
+        .review-item.correct {
+            background: #edf9f0;
+            border-color: #38a169;
+        }
+
+        .review-item.wrong {
+            background: #fff0f0;
+            border-color: #e53e3e;
+        }
+
+        .review-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .review-line {
+            margin-top: 6px;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+                margin: 15px auto;
+            }
+
+            .game-card {
+                padding: 20px;
+            }
+
+            .question {
+                font-size: 20px;
+            }
+
+            .title {
+                font-size: 23px;
+            }
+
+            .matching-table {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-<nav class="navbar">
 
-    <div class="logo">
-        🎯 Data Quest
-    </div>
-
-    <div class="score-pill">
-        ⭐ Score: <span id="score">0</span>
-    </div>
-
-</nav>
+<div class="container">
 
 
-<main class="container">
-
-<!-- GAME -->
-
-<section class="card" id="game">
-
-    <div class="topline">
-
-        <span id="question-count">
-            Question 1 of 20
-        </span>
-
-        <span>
-            🔥 Keep learning!
-        </span>
-
-    </div>
+    <div class="game-card">
 
 
-    <div class="progress">
+        <!-- ==============================
+             TOP BAR
+             ============================== -->
 
-        <div
-            class="progress-bar"
-            id="progress-bar">
+        <div class="top-bar">
+
+            <div class="title">
+                🎮 Data Quest - Level 1
+            </div>
+
+            <div class="score-box">
+
+                Score:
+                <span id="score">0</span>
+
+            </div>
+
         </div>
 
+
+        <!-- ==============================
+             PROGRESS
+             ============================== -->
+
+        <div class="progress-container">
+
+            <div id="progressBar"
+                 class="progress-bar">
+            </div>
+
+        </div>
+
+
+        <!-- ==============================
+             GAME AREA
+             ============================== -->
+
+        <div id="gameArea">
+
+
+            <div class="question-number"
+                 id="questionNumber">
+            </div>
+
+
+            <div class="question"
+                 id="question">
+            </div>
+
+
+            <!-- HINT -->
+
+            <button
+                id="hintButton"
+                class="btn hint-button"
+                type="button">
+
+                💡 Hint
+
+            </button>
+
+
+            <div id="hintBox"
+                 class="hint-box">
+            </div>
+
+
+            <!-- ANSWER AREA -->
+
+            <div id="answerArea">
+            </div>
+
+
+            <!-- NEXT -->
+
+            <div class="next-area">
+
+                <button
+                    id="nextButton"
+                    class="btn hidden"
+                    type="button">
+
+                    Next Question →
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==============================
+             RESULT AREA
+             ============================== -->
+
+        <div id="resultArea"
+             class="result-card hidden">
+
+
+            <h2>
+                🎉 Level 1 Completed!
+            </h2>
+
+
+            <div class="final-score"
+                 id="finalScore">
+            </div>
+
+
+            <div class="percentage"
+                 id="finalPercentage">
+            </div>
+
+
+            <div class="stars"
+                 id="finalStars">
+            </div>
+
+
+            <!-- ANSWER REVIEW -->
+
+            <div id="review"
+                 class="review">
+            </div>
+
+
+            <!-- SAVE RESULT -->
+
+            <form
+                method="POST"
+                action="{% url 'save_level1_result' %}">
+
+                {% csrf_token %}
+
+
+                <input
+                    type="hidden"
+                    name="score"
+                    id="resultScore">
+
+
+                <input
+                    type="hidden"
+                    name="total_questions"
+                    id="resultTotal">
+
+
+                <input
+                    type="hidden"
+                    name="percentage"
+                    id="resultPercentage">
+
+
+                <input
+                    type="hidden"
+                    name="stars"
+                    id="resultStars">
+
+
+                <button
+                    type="submit"
+                    class="btn">
+
+                    💾 Save Result
+
+                </button>
+
+
+            </form>
+
+
+            <button
+                id="playAgainButton"
+                class="btn btn-secondary"
+                type="button">
+
+                🔄 Play Again
+
+            </button>
+
+
+        </div>
+
+
     </div>
 
 
-    <span class="tag" id="type-tag">
-        MULTIPLE CHOICE
-    </span>
+</div>
 
-
-    <h1>
-        🔤 ASCII Quest
-    </h1>
-
-
-    <p class="instruction" id="instruction">
-        Select one correct answer.
-    </p>
-
-
-    <div
-        class="question"
-        id="question">
-    </div>
-
-
-    <div id="answer-area"></div>
-
-
-    <div
-        id="feedback"
-        class="feedback hidden"
-        aria-live="polite">
-    </div>
-
-
-    <div class="actions">
-
-        <button
-            class="btn secondary"
-            id="restart-top">
-
-            ↻ Restart
-
-        </button>
-
-
-        <button
-            class="btn"
-            id="check-button">
-
-            Check Answer
-
-        </button>
-
-
-        <button
-            class="btn hidden"
-            id="next-button">
-
-            Next Question →
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- RESULTS -->
-
-<section
-    class="card result hidden"
-    id="results">
-
-    <div
-        class="result-emoji"
-        id="result-emoji">
-
-        🏆
-
-    </div>
-
-
-    <h1 id="result-title">
-
-        Quest Completed!
-
-    </h1>
-
-
-    <p>
-
-        You have finished all 20 ASCII questions.
-
-    </p>
-
-
-    <div
-        class="result-score"
-        id="final-score">
-
-        0 / 20
-
-    </div>
-
-
-    <!-- STAR RATING -->
-
-    <div
-        class="result-stars"
-        id="result-stars">
-
-        ⭐
-
-    </div>
-
-
-    <div class="result-box">
-
-        <h2 id="result-message">
-
-            Good effort!
-
-        </h2>
-
-
-        <p id="result-details"></p>
-
-    </div>
-
-
-    <button
-        class="btn"
-        id="play-again">
-
-        🔄 Play Again
-
-    </button>
-
-
-    <br>
-
-
-    <a
-        class="back-link"
-        href="{% url 'level1' %}">
-
-        ← Back to Level 1
-
-    </a>
-
-</section>
-
-</main>
 
 
 <script>
 
 
-/* =========================
+/* =====================================================
    QUESTIONS
-   ========================= */
+   ===================================================== */
+
 
 const questions = [
-
-    /* =========================
-       MCQ QUESTIONS 1 - 8
-       ========================= */
 
     {
         type: "mcq",
@@ -624,15 +575,16 @@ const questions = [
 
         options: [
             "American Standard Code for Information Interchange",
-            "Advanced System for Computer Internet Information",
-            "Automatic Standard Computer Information Interface",
-            "American System for Coding Internet Instructions"
+            "Advanced System Code for Internet Information",
+            "American System Character Code Interface",
+            "Automatic Standard Code for Information"
         ],
 
-        answer: 0,
+        answer:
+            "American Standard Code for Information Interchange",
 
-        explanation:
-            "ASCII stands for American Standard Code for Information Interchange."
+        hint:
+            "ASCII is a standard used to represent characters using numbers."
     },
 
 
@@ -640,19 +592,20 @@ const questions = [
         type: "mcq",
 
         question:
-            "What is the standard ASCII code for uppercase A in decimal?",
+            "What is the decimal ASCII value of uppercase A?",
 
         options: [
-            "97",
+            "64",
             "65",
-            "48",
-            "32"
+            "66",
+            "67"
         ],
 
-        answer: 1,
+        answer:
+            "65",
 
-        explanation:
-            "The decimal ASCII code for uppercase A is 65."
+        hint:
+            "Uppercase A comes just after 64."
     },
 
 
@@ -664,15 +617,16 @@ const questions = [
 
         options: [
             "4 bits",
-            "8 bits",
             "7 bits",
+            "8 bits",
             "16 bits"
         ],
 
-        answer: 2,
+        answer:
+            "7 bits",
 
-        explanation:
-            "Standard ASCII uses 7 bits and can represent 128 different values."
+        hint:
+            "Standard ASCII can represent 128 different values."
     },
 
 
@@ -680,19 +634,41 @@ const questions = [
         type: "mcq",
 
         question:
-            "What is the decimal ASCII code for the digit character 0?",
+            "What is the decimal ASCII value of digit 0?",
+
+        options: [
+            "32",
+            "48",
+            "65",
+            "97"
+        ],
+
+        answer:
+            "48",
+
+        hint:
+            "The ASCII values for digits 0 to 9 start at 48."
+    },
+
+
+    {
+        type: "mcq",
+
+        question:
+            "What is the ASCII decimal value of a space character?",
 
         options: [
             "0",
-            "65",
+            "16",
             "32",
-            "48"
+            "64"
         ],
 
-        answer: 3,
+        answer:
+            "32",
 
-        explanation:
-            "The character '0' has ASCII decimal value 48."
+        hint:
+            "The space character has a value between 31 and 33."
     },
 
 
@@ -700,39 +676,20 @@ const questions = [
         type: "mcq",
 
         question:
-            "Which ASCII code represents a space character?",
-
-        options: [
-            "32",
-            "10",
-            "65",
-            "127"
-        ],
-
-        answer: 0,
-
-        explanation:
-            "The ASCII decimal code for a space is 32."
-    },
-
-
-    {
-        type: "mcq",
-
-        question:
-            "What is the decimal ASCII code for uppercase B?",
+            "What is the decimal ASCII value of uppercase B?",
 
         options: [
             "65",
             "66",
-            "97",
-            "98"
+            "67",
+            "68"
         ],
 
-        answer: 1,
+        answer:
+            "66",
 
-        explanation:
-            "Uppercase B has decimal ASCII value 66."
+        hint:
+            "B comes immediately after A."
     },
 
 
@@ -740,19 +697,20 @@ const questions = [
         type: "mcq",
 
         question:
-            "Which ASCII value represents lowercase a?",
+            "What is the decimal ASCII value of lowercase a?",
 
         options: [
             "65",
-            "66",
+            "90",
             "97",
-            "48"
+            "122"
         ],
 
-        answer: 2,
+        answer:
+            "97",
 
-        explanation:
-            "Lowercase a has decimal ASCII value 97."
+        hint:
+            "Lowercase a starts at 97."
     },
 
 
@@ -763,38 +721,31 @@ const questions = [
             "What is the main purpose of ASCII?",
 
         options: [
-            "To increase screen brightness",
-            "To store only photographs",
-            "To make computers run faster",
-            "To represent characters using numeric codes"
+            "To represent characters using numeric codes",
+            "To increase internet speed",
+            "To store only images",
+            "To connect computers to Wi-Fi"
         ],
 
-        answer: 3,
+        answer:
+            "To represent characters using numeric codes",
 
-        explanation:
-            "ASCII assigns numeric codes to characters so computers can represent and process text."
+        hint:
+            "ASCII gives characters numerical values."
     },
 
-
-    /* =========================
-       FILL IN THE BLANK 9 - 14
-       ========================= */
 
     {
         type: "fill",
 
         question:
-            "Standard ASCII uses _____ bits per character.",
+            "Standard ASCII uses ______ bits.",
 
-        answers: [
+        answer:
             "7",
-            "seven",
-            "7 bits",
-            "seven bits"
-        ],
 
-        explanation:
-            "Standard ASCII uses 7 bits."
+        hint:
+            "Think about the number of values standard ASCII can represent: 128."
     },
 
 
@@ -802,16 +753,13 @@ const questions = [
         type: "fill",
 
         question:
-            "The decimal ASCII code for uppercase A is _____.",
+            "The decimal ASCII value of uppercase A is ______.",
 
-        answers: [
+        answer:
             "65",
-            "sixty five",
-            "sixty-five"
-        ],
 
-        explanation:
-            "Uppercase A has decimal ASCII value 65."
+        hint:
+            "Uppercase A is the first letter and its ASCII value is in the 60s."
     },
 
 
@@ -819,16 +767,13 @@ const questions = [
         type: "fill",
 
         question:
-            "The decimal ASCII code for lowercase a is _____.",
+            "The decimal ASCII value of lowercase a is ______.",
 
-        answers: [
+        answer:
             "97",
-            "ninety seven",
-            "ninety-seven"
-        ],
 
-        explanation:
-            "Lowercase a has decimal ASCII value 97."
+        hint:
+            "Lowercase letters start at a value higher than uppercase letters."
     },
 
 
@@ -836,16 +781,13 @@ const questions = [
         type: "fill",
 
         question:
-            "The decimal ASCII code for a space is _____.",
+            "The decimal ASCII value of a space is ______.",
 
-        answers: [
+        answer:
             "32",
-            "thirty two",
-            "thirty-two"
-        ],
 
-        explanation:
-            "A space character has decimal ASCII value 32."
+        hint:
+            "It is a common ASCII value and is less than 48."
     },
 
 
@@ -853,16 +795,13 @@ const questions = [
         type: "fill",
 
         question:
-            "Standard ASCII can represent _____ different values.",
+            "Standard ASCII can represent ______ different values.",
 
-        answers: [
+        answer:
             "128",
-            "one hundred twenty eight",
-            "one hundred and twenty eight"
-        ],
 
-        explanation:
-            "Seven bits provide 2⁷ = 128 possible values."
+        hint:
+            "Calculate 2 to the power of 7."
     },
 
 
@@ -870,29 +809,21 @@ const questions = [
         type: "fill",
 
         question:
-            "In binary, 01000001 represents uppercase letter _____.",
+            "Binary 01000001 represents the uppercase letter ______.",
 
-        answers: [
-            "a"
-        ],
+        answer:
+            "A",
 
-        explanation:
-            "01000001₂ equals 65₁₀, which represents uppercase A."
+        hint:
+            "Its decimal value is 65."
     },
 
-
-    /* =========================
-       MATCHING QUESTIONS 15 - 20
-       ========================= */
 
     {
         type: "matching",
 
         question:
-            "Match each character with its correct ASCII decimal code.",
-
-        explanation:
-            "Each character has a unique ASCII decimal code.",
+            "Match each character with its ASCII decimal value.",
 
         matches: [
 
@@ -919,11 +850,14 @@ const questions = [
         ],
 
         codes: [
-            "97",
-            "48",
+            "65",
             "66",
-            "65"
-        ]
+            "97",
+            "48"
+        ],
+
+        hint:
+            "Remember: A = 65, B = 66, a = 97, and digit 0 = 48."
     },
 
 
@@ -931,10 +865,7 @@ const questions = [
         type: "matching",
 
         question:
-            "Match each character with its ASCII decimal code.",
-
-        explanation:
-            "Uppercase and lowercase letters have different ASCII codes.",
+            "Match each character with its ASCII decimal value.",
 
         matches: [
 
@@ -961,11 +892,14 @@ const questions = [
         ],
 
         codes: [
-            "122",
             "65",
+            "90",
             "97",
-            "90"
-        ]
+            "122"
+        ],
+
+        hint:
+            "Uppercase letters range from 65 to 90. Lowercase letters range from 97 to 122."
     },
 
 
@@ -973,10 +907,7 @@ const questions = [
         type: "matching",
 
         question:
-            "Match each character with its correct ASCII decimal code.",
-
-        explanation:
-            "Digits also have ASCII codes. The character 0 is 48 and 1 is 49.",
+            "Match each digit with its ASCII decimal value.",
 
         matches: [
 
@@ -1003,11 +934,14 @@ const questions = [
         ],
 
         codes: [
-            "51",
             "48",
+            "49",
             "50",
-            "49"
-        ]
+            "51"
+        ],
+
+        hint:
+            "The ASCII value of 0 is 48. Each following digit increases by 1."
     },
 
 
@@ -1015,10 +949,7 @@ const questions = [
         type: "matching",
 
         question:
-            "Match each character with its ASCII decimal code.",
-
-        explanation:
-            "ASCII includes common control and printable characters.",
+            "Match each character with its ASCII decimal value.",
 
         matches: [
 
@@ -1045,11 +976,14 @@ const questions = [
         ],
 
         codes: [
-            "67",
             "32",
+            "65",
             "66",
-            "65"
-        ]
+            "67"
+        ],
+
+        hint:
+            "Space is 32. The uppercase letters start at A = 65."
     },
 
 
@@ -1057,10 +991,7 @@ const questions = [
         type: "matching",
 
         question:
-            "Match each character with its correct ASCII decimal code.",
-
-        explanation:
-            "The ASCII codes for consecutive uppercase letters increase by one.",
+            "Match each character with its ASCII decimal value.",
 
         matches: [
 
@@ -1087,11 +1018,14 @@ const questions = [
         ],
 
         codes: [
-            "90",
-            "97",
             "88",
-            "89"
-        ]
+            "89",
+            "90",
+            "97"
+        ],
+
+        hint:
+            "X, Y, and Z are the last three uppercase letters."
     },
 
 
@@ -1099,10 +1033,7 @@ const questions = [
         type: "matching",
 
         question:
-            "Match the binary representation with the correct ASCII character.",
-
-        explanation:
-            "01000001₂ = 65₁₀ = A, 01000010₂ = 66₁₀ = B, and so on.",
+            "Match each binary ASCII code with its character.",
 
         matches: [
 
@@ -1129,161 +1060,131 @@ const questions = [
         ],
 
         codes: [
-            "C",
-            "0",
             "A",
-            "B"
-        ]
+            "B",
+            "C",
+            "0"
+        ],
+
+        hint:
+            "Convert the binary values to decimal first. 01000001 is 65."
     }
 
 ];
 
 
-let current = 0;
+/* =====================================================
+   GAME VARIABLES
+   ===================================================== */
+
+
+let currentQuestion = 0;
+
+
+/*
+    Score remains 0 while playing.
+    It is calculated only after Q20.
+*/
 
 let score = 0;
+
+
+/*
+    This tells us whether the current
+    question has been answered.
+*/
 
 let answered = false;
 
 
-/* =========================
-   ELEMENTS
-   ========================= */
+/*
+    Store all student answers here.
+*/
 
-const questionEl =
-    document.getElementById("question");
-
-const answerArea =
-    document.getElementById("answer-area");
-
-const feedback =
-    document.getElementById("feedback");
-
-const checkButton =
-    document.getElementById("check-button");
-
-const nextButton =
-    document.getElementById("next-button");
+let userAnswers = [];
 
 
-/* =========================
-   NORMALIZE TEXT
-   ========================= */
-
-function normalize(value) {
-
-    return value
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
-}
+/* =====================================================
+   HTML ELEMENTS
+   ===================================================== */
 
 
-/* =========================
-   RENDER QUESTION
-   ========================= */
-
-function renderQuestion() {
-
-    answered = false;
-
-    const q = questions[current];
-
-
+const questionNumber =
     document.getElementById(
-        "question-count"
-    ).textContent =
-        `Question ${current + 1} of ${questions.length}`;
-
-
-    document.getElementById(
-        "progress-bar"
-    ).style.width =
-        `${(current / questions.length) * 100}%`;
-
-
-    let tagText = "";
-
-
-    if (q.type === "mcq") {
-
-        tagText =
-            "MULTIPLE CHOICE";
-    }
-
-
-    if (q.type === "fill") {
-
-        tagText =
-            "FILL IN THE BLANK";
-    }
-
-
-    if (q.type === "matching") {
-
-        tagText =
-            "MATCHING GAME";
-    }
-
-
-    document.getElementById(
-        "type-tag"
-    ).textContent =
-        tagText;
-
-
-    let instructionText = "";
-
-
-    if (q.type === "mcq") {
-
-        instructionText =
-            "Select one correct answer. Each question is worth one point.";
-    }
-
-
-    if (q.type === "fill") {
-
-        instructionText =
-            "Type your answer in the blank. Each question is worth one point.";
-    }
-
-
-    if (q.type === "matching") {
-
-        instructionText =
-            "Drag each answer from the answer bank into the correct row.";
-    }
-
-
-    document.getElementById(
-        "instruction"
-    ).textContent =
-        instructionText;
-
-
-    questionEl.textContent =
-        q.question;
-
-
-    answerArea.innerHTML = "";
-
-
-    feedback.className =
-        "feedback hidden";
-
-
-    feedback.textContent =
-        "";
-
-
-    checkButton.classList.remove(
-        "hidden"
+        "questionNumber"
     );
 
 
-    checkButton.disabled =
-        false;
+const questionElement =
+    document.getElementById(
+        "question"
+    );
+
+
+const answerArea =
+    document.getElementById(
+        "answerArea"
+    );
+
+
+const nextButton =
+    document.getElementById(
+        "nextButton"
+    );
+
+
+const scoreElement =
+    document.getElementById(
+        "score"
+    );
+
+
+const progressBar =
+    document.getElementById(
+        "progressBar"
+    );
+
+
+const hintButton =
+    document.getElementById(
+        "hintButton"
+    );
+
+
+const hintBox =
+    document.getElementById(
+        "hintBox"
+    );
+
+
+const gameArea =
+    document.getElementById(
+        "gameArea"
+    );
+
+
+const resultArea =
+    document.getElementById(
+        "resultArea"
+    );
+
+
+/* =====================================================
+   LOAD QUESTION
+   ===================================================== */
+
+
+function loadQuestion() {
+
+    const q =
+        questions[currentQuestion];
+
+
+    answered = false;
+
+
+    answerArea.innerHTML =
+        "";
 
 
     nextButton.classList.add(
@@ -1291,1141 +1192,1460 @@ function renderQuestion() {
     );
 
 
-    /* =========================
-       MCQ
-       ========================= */
+    hintBox.classList.remove(
+        "show"
+    );
+
+
+    hintBox.textContent =
+        q.hint;
+
+
+    questionNumber.textContent =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+
+
+    questionElement.textContent =
+        q.question;
+
+
+    /*
+        Update progress only.
+
+        This does NOT update score.
+    */
+
+    const progress =
+        (
+            currentQuestion /
+            questions.length
+        ) * 100;
+
+
+    progressBar.style.width =
+        `${progress}%`;
+
+
+    /*
+        Always keep score at 0
+        until the final result.
+    */
+
+    scoreElement.textContent =
+        "0";
+
 
     if (q.type === "mcq") {
 
-        const options =
-            document.createElement("div");
+        loadMCQ(q);
 
-        options.className =
-            "options";
-
-
-        q.options.forEach(
-            (option, index) => {
-
-                const button =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                button.className =
-                    "option";
-
-
-                button.type =
-                    "button";
-
-
-                button.innerHTML =
-                    `<span class="letter">
-                        ${String.fromCharCode(65 + index)}
-                    </span>`;
-
-
-                button.appendChild(
-                    document.createTextNode(
-                        option
-                    )
-                );
-
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        if (answered) return;
-
-
-                        options
-                            .querySelectorAll(
-                                ".option"
-                            )
-                            .forEach(button => {
-
-                                button.style.outline =
-                                    "none";
-                            });
-
-
-                        button.style.outline =
-                            "3px solid #93c5fd";
-
-
-                        button.dataset.selected =
-                            "true";
-                    }
-                );
-
-
-                options.appendChild(
-                    button
-                );
-
-            }
-        );
-
-
-        answerArea.appendChild(
-            options
-        );
     }
 
+    else if (q.type === "fill") {
 
-    /* =========================
-       FILL IN THE BLANK
-       ========================= */
+        loadFill(q);
 
-    if (q.type === "fill") {
-
-        const input =
-            document.createElement(
-                "input"
-            );
-
-
-        input.className =
-            "fill-input";
-
-
-        input.type =
-            "text";
-
-
-        input.id =
-            "fill-answer";
-
-
-        input.placeholder =
-            "Type your answer here...";
-
-
-        input.autocomplete =
-            "off";
-
-
-        input.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" &&
-                    !answered
-                ) {
-
-                    checkAnswer();
-                }
-
-            }
-        );
-
-
-        answerArea.appendChild(
-            input
-        );
-
-
-        input.focus();
     }
 
+    else if (q.type === "matching") {
 
-    /* =========================
-       MATCHING GAME
-       ========================= */
+        loadMatching(q);
 
-    if (q.type === "matching") {
-
-        const instruction =
-            document.createElement(
-                "div"
-            );
-
-
-        instruction.className =
-            "matching-instruction";
-
-
-        instruction.textContent =
-            "🎯 Drag each answer code into the correct row.";
-
-
-        answerArea.appendChild(
-            instruction
-        );
-
-
-        const table =
-            document.createElement(
-                "table"
-            );
-
-
-        table.className =
-            "matching-table";
-
-
-        table.innerHTML = `
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Character / Value
-                    </th>
-
-                    <th>
-                        Matching Answer
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody></tbody>
-
-        `;
-
-
-        const tbody =
-            table.querySelector(
-                "tbody"
-            );
-
-
-        q.matches.forEach(
-            (match, index) => {
-
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                const characterCell =
-                    document.createElement(
-                        "td"
-                    );
-
-
-                const characterBox =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                characterBox.className =
-                    "character-box";
-
-
-                characterBox.textContent =
-                    match.label;
-
-
-                characterCell.appendChild(
-                    characterBox
-                );
-
-
-                const dropCell =
-                    document.createElement(
-                        "td"
-                    );
-
-
-                const dropZone =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                dropZone.className =
-                    "drop-cell";
-
-
-                dropZone.textContent =
-                    "⬇ Drop answer here";
-
-
-                dropZone.dataset.index =
-                    index;
-
-
-                dropZone.dataset.answer =
-                    match.answer;
-
-
-                dropZone.addEventListener(
-                    "dragover",
-                    event => {
-
-                        if (answered) return;
-
-
-                        event.preventDefault();
-
-
-                        dropZone.classList.add(
-                            "drag-over"
-                        );
-                    }
-                );
-
-
-                dropZone.addEventListener(
-                    "dragleave",
-                    () => {
-
-                        dropZone.classList.remove(
-                            "drag-over"
-                        );
-                    }
-                );
-
-
-                dropZone.addEventListener(
-                    "drop",
-                    event => {
-
-                        event.preventDefault();
-
-
-                        if (answered) return;
-
-
-                        dropZone.classList.remove(
-                            "drag-over"
-                        );
-
-
-                        const value =
-                            event.dataTransfer.getData(
-                                "text/plain"
-                            );
-
-
-                        placeMatch(
-                            dropZone,
-                            value
-                        );
-                    }
-                );
-
-
-                dropCell.appendChild(
-                    dropZone
-                );
-
-
-                row.appendChild(
-                    characterCell
-                );
-
-
-                row.appendChild(
-                    dropCell
-                );
-
-
-                tbody.appendChild(
-                    row
-                );
-
-            }
-        );
-
-
-        answerArea.appendChild(
-            table
-        );
-
-
-        /* ANSWER BANK */
-
-        const bank =
-            document.createElement(
-                "div"
-            );
-
-
-        bank.className =
-            "code-bank";
-
-
-        const bankTitle =
-            document.createElement(
-                "div"
-            );
-
-
-        bankTitle.className =
-            "code-bank-title";
-
-
-        bankTitle.textContent =
-            "🔀 Answer Bank";
-
-
-        bank.appendChild(
-            bankTitle
-        );
-
-
-        const codeOptions =
-            document.createElement(
-                "div"
-            );
-
-
-        codeOptions.className =
-            "code-options";
-
-
-        q.codes.forEach(
-            code => {
-
-                const option =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                option.className =
-                    "code-option";
-
-
-                option.textContent =
-                    code;
-
-
-                option.draggable =
-                    true;
-
-
-                option.dataset.value =
-                    code;
-
-
-                option.addEventListener(
-                    "dragstart",
-                    event => {
-
-                        if (answered) {
-
-                            event.preventDefault();
-
-                            return;
-                        }
-
-
-                        event.dataTransfer.setData(
-                            "text/plain",
-                            code
-                        );
-                    }
-                );
-
-
-                codeOptions.appendChild(
-                    option
-                );
-
-            }
-        );
-
-
-        bank.appendChild(
-            codeOptions
-        );
-
-
-        answerArea.appendChild(
-            bank
-        );
     }
+
 }
 
 
-/* =========================
-   PLACE MATCH
-   ========================= */
-
-function placeMatch(
-    dropZone,
-    value
-) {
-
-    if (answered) return;
+/* =====================================================
+   HINT
+   ===================================================== */
 
 
-    const q =
-        questions[current];
+hintButton.addEventListener(
+    "click",
+    function() {
 
-
-    const alreadyUsed =
-        [
-            ...answerArea.querySelectorAll(
-                ".drop-cell .drop-zone"
-            )
-        ].some(
-            zone =>
-                zone !== dropZone &&
-                zone.dataset.value === value
+        hintBox.classList.toggle(
+            "show"
         );
 
+    }
+);
 
-    if (alreadyUsed) {
 
-        alert(
-            "That answer is already being used. Choose another answer."
-        );
+/* =====================================================
+   LOAD MCQ
+   ===================================================== */
 
+
+function loadMCQ(q) {
+
+    q.options.forEach(
+        function(option) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "option";
+
+
+            button.textContent =
+                option;
+
+
+            button.type =
+                "button";
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    selectAnswer(
+                        button
+                    );
+
+                }
+            );
+
+
+            answerArea.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SELECT / UNSELECT MCQ
+   ===================================================== */
+
+
+function selectAnswer(button) {
+
+    if (answered) {
 
         return;
+
     }
-
-
-    dropZone.textContent =
-        `✓ ${value}`;
-
-
-    dropZone.dataset.value =
-        value;
 
 
     const options =
         answerArea.querySelectorAll(
-            ".code-option"
+            ".option"
         );
 
 
+    /*
+        If this answer is already selected,
+        clicking it again will unselect it.
+    */
+
+    if (
+        button.classList.contains(
+            "selected"
+        )
+    ) {
+
+        button.classList.remove(
+            "selected"
+        );
+
+
+        nextButton.classList.add(
+            "hidden"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+        Remove selection from every option.
+    */
+
     options.forEach(
-        option => {
+        function(option) {
 
             option.classList.remove(
                 "selected"
             );
+
         }
     );
-}
 
 
-/* =========================
-   CHECK ANSWER
-   ========================= */
+    /*
+        Select the new option.
+    */
 
-function checkAnswer() {
-
-    if (answered) return;
-
-
-    const q =
-        questions[current];
-
-
-    let correct =
-        false;
-
-
-    /* =========================
-       MCQ CHECK
-       ========================= */
-
-    if (q.type === "mcq") {
-
-        const selected =
-            answerArea.querySelector(
-                '[data-selected="true"]'
-            );
-
-
-        if (!selected) {
-
-            alert(
-                "Please select an answer first."
-            );
-
-
-            return;
-        }
-
-
-        const buttons =
-            [
-                ...answerArea.querySelectorAll(
-                    ".option"
-                )
-            ];
-
-
-        const selectedIndex =
-            buttons.indexOf(
-                selected
-            );
-
-
-        correct =
-            selectedIndex === q.answer;
-
-
-        buttons.forEach(
-            (button, index) => {
-
-                button.disabled =
-                    true;
-
-
-                if (
-                    index === q.answer
-                ) {
-
-                    button.classList.add(
-                        "correct"
-                    );
-                }
-
-
-                if (
-                    index === selectedIndex &&
-                    !correct
-                ) {
-
-                    button.classList.add(
-                        "wrong"
-                    );
-                }
-
-            }
-        );
-    }
-
-
-    /* =========================
-       FILL CHECK
-       ========================= */
-
-    if (q.type === "fill") {
-
-        const input =
-            document.getElementById(
-                "fill-answer"
-            );
-
-
-        if (!input.value.trim()) {
-
-            alert(
-                "Please type your answer first."
-            );
-
-
-            input.focus();
-
-
-            return;
-        }
-
-
-        correct =
-            q.answers.some(
-                answer =>
-                    normalize(answer) ===
-                    normalize(input.value)
-            );
-
-
-        input.disabled =
-            true;
-
-
-        input.style.borderColor =
-            correct
-                ? "#16a34a"
-                : "#dc2626";
-    }
-
-
-    /* =========================
-       MATCHING CHECK
-       ========================= */
-
-    if (q.type === "matching") {
-
-        const zones =
-            [
-                ...answerArea.querySelectorAll(
-                    ".drop-zone"
-                )
-            ];
-
-
-        const allFilled =
-            zones.every(
-                zone =>
-                    zone.dataset.value
-            );
-
-
-        if (!allFilled) {
-
-            alert(
-                "Please complete all matching rows before checking."
-            );
-
-
-            return;
-        }
-
-
-        let correctMatches =
-            0;
-
-
-        zones.forEach(
-            zone => {
-
-                const expected =
-                    zone.dataset.answer;
-
-
-                const actual =
-                    zone.dataset.value;
-
-
-                if (
-                    actual === expected
-                ) {
-
-                    correctMatches++;
-
-
-                    zone.classList.add(
-                        "correct-match"
-                    );
-
-                } else {
-
-                    zone.classList.add(
-                        "wrong-match"
-                    );
-                }
-
-            }
-        );
-
-
-        correct =
-            correctMatches ===
-            zones.length;
-
-
-        if (!correct) {
-
-            feedback.className =
-                "feedback bad";
-
-
-            feedback.innerHTML =
-                `<strong>
-                    ❌ Some matches are incorrect.
-                </strong>
-                <br>
-                Check the red rows. The correct answers are highlighted in green.`;
-        }
-    }
-
-
-    /* =========================
-       SCORE
-       ========================= */
-
-    answered =
-        true;
-
-
-    if (correct) {
-
-        score++;
-    }
-
-
-    document.getElementById(
-        "score"
-    ).textContent =
-        score;
-
-
-    /* =========================
-       FEEDBACK
-       ========================= */
-
-    if (
-        q.type !== "matching" ||
-        correct
-    ) {
-
-        feedback.className =
-            `feedback ${
-                correct
-                    ? "good"
-                    : "bad"
-            }`;
-
-
-        feedback.innerHTML =
-            `<strong>
-
-                ${
-                    correct
-                        ? "✅ Correct! +1 point"
-                        : "❌ Not quite!"
-                }
-
-            </strong>
-
-            <br>
-
-            ${q.explanation}
-
-            ${
-                !correct
-                    ? `<br>
-                       <strong>
-                       Correct answer:
-                       </strong>
-
-                       ${
-                           q.type === "mcq"
-                               ? q.options[q.answer]
-
-                               : q.type === "fill"
-                                   ? q.answers[0]
-
-                                   : "See the green matching rows above."
-                       }`
-
-                    : ""
-            }`;
-    }
-
-
-    if (
-        q.type === "matching" &&
-        !correct
-    ) {
-
-        feedback.className =
-            "feedback bad";
-
-
-        feedback.innerHTML +=
-
-            `<br><br>
-
-             <strong>
-             Correct matches are shown in green.
-             </strong>
-
-             <br>
-
-             ${q.explanation}`;
-    }
-
-
-    checkButton.classList.add(
-        "hidden"
+    button.classList.add(
+        "selected"
     );
 
+
+    /*
+        Show Next Question.
+    */
 
     nextButton.classList.remove(
         "hidden"
     );
 
-
-    nextButton.textContent =
-
-        current === questions.length - 1
-
-            ? "See My Results 🏆"
-
-            : "Next Question →";
-
-
-    document.getElementById(
-        "progress-bar"
-    ).style.width =
-
-        `${((current + 1) / questions.length) * 100}%`;
 }
 
 
-/* =========================
-   NEXT QUESTION
-   ========================= */
+/* =====================================================
+   GET SELECTED MCQ ANSWER
+   ===================================================== */
 
-function nextQuestion() {
 
-    if (!answered) return;
+function getSelectedMCQAnswer() {
 
-
-    if (
-        current ===
-        questions.length - 1
-    ) {
-
-        showResults();
-
-
-        return;
-    }
-
-
-    current++;
-
-
-    renderQuestion();
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-}
-
-
-/* =========================
-   RESULTS
-   ========================= */
-
-function showResults() {
-
-    document.getElementById(
-        "game"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "results"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    /* FINAL SCORE */
-
-    document.getElementById(
-        "final-score"
-    ).textContent =
-        `${score} / 20`;
-
-
-    /* PERCENTAGE */
-
-    const percentage =
-        score * 5;
-
-
-    /* RESULT EMOJI */
-
-    document.getElementById(
-        "result-emoji"
-    ).textContent =
-
-        score >= 18
-            ? "🏆"
-            : score >= 14
-                ? "🌟"
-                : score >= 10
-                    ? "👏"
-                    : "💪";
-
-
-    /* RESULT TITLE */
-
-    document.getElementById(
-        "result-title"
-    ).textContent =
-
-        score >= 18
-            ? "ASCII Champion!"
-            : score >= 14
-                ? "Great Work!"
-                : score >= 10
-                    ? "Good Progress!"
-                    : "Keep Practising!";
-
-
-    /* STAR RATING */
-
-    let stars = 1;
-
-
-    if (score >= 18) {
-
-        stars = 5;
-
-    } else if (score >= 14) {
-
-        stars = 4;
-
-    } else if (score >= 10) {
-
-        stars = 3;
-
-    } else if (score >= 5) {
-
-        stars = 2;
-    }
-
-
-    document.getElementById(
-        "result-stars"
-    ).textContent =
-        "⭐".repeat(stars);
-
-
-    /* RESULT MESSAGE */
-
-    document.getElementById(
-        "result-message"
-    ).textContent =
-        `${percentage}% achieved`;
-
-
-    /* RESULT DETAILS */
-
-    document.getElementById(
-        "result-details"
-    ).textContent =
-
-        `You answered ${score} out of 20 questions correctly. ` +
-
-        (
-
-            score >= 18
-
-                ? "Excellent understanding of ASCII!"
-
-                : score >= 14
-
-                    ? "You are doing well. Review a few concepts and try again."
-
-                    : score >= 10
-
-                        ? "Good progress! Review the lesson and try again to improve."
-
-                        : "Review the ASCII lesson and play again to improve your score."
-
+    const selected =
+        answerArea.querySelector(
+            ".option.selected"
         );
 
 
-    window.scrollTo({
+    if (!selected) {
 
-        top: 0,
+        return null;
 
-        behavior: "smooth"
+    }
 
-    });
+
+    return selected.textContent;
+
 }
 
 
-/* =========================
-   RESTART
-   ========================= */
-
-function restartGame() {
-
-    current = 0;
+/* =====================================================
+   LOAD FILL QUESTION
+   ===================================================== */
 
 
-    score = 0;
+function loadFill(q) {
+
+    const input =
+        document.createElement(
+            "input"
+        );
 
 
-    answered = false;
+    input.type =
+        "text";
 
 
-    document.getElementById(
-        "score"
-    ).textContent =
-        "0";
+    input.className =
+        "fill-input";
 
 
-    document.getElementById(
-        "results"
-    ).classList.add(
-        "hidden"
+    input.id =
+        "fillAnswer";
+
+
+    input.placeholder =
+        "Type your answer here...";
+
+
+    answerArea.appendChild(
+        input
     );
 
 
-    document.getElementById(
-        "game"
-    ).classList.remove(
-        "hidden"
+    /*
+        Next Question will save the answer.
+
+        Enter key also moves to the next question.
+    */
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                nextQuestion();
+
+            }
+
+        }
     );
 
 
-    renderQuestion();
+    /*
+        Show Next button when the
+        student starts typing.
+    */
 
+    input.addEventListener(
+        "input",
+        function() {
 
-    window.scrollTo({
+            if (
+                input.value.trim() !== ""
+            ) {
 
-        top: 0,
+                nextButton.classList.remove(
+                    "hidden"
+                );
 
-        behavior: "smooth"
+            }
 
-    });
+            else {
+
+                nextButton.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+    );
+
 }
 
 
-/* =========================
-   BUTTON EVENTS
-   ========================= */
+/* =====================================================
+   SAVE FILL ANSWER
+   ===================================================== */
 
-checkButton.addEventListener(
-    "click",
-    checkAnswer
-);
+
+function saveFillAnswer() {
+
+    if (answered) {
+
+        return true;
+
+    }
+
+
+    const q =
+        questions[currentQuestion];
+
+
+    const input =
+        document.getElementById(
+            "fillAnswer"
+        );
+
+
+    if (!input) {
+
+        return false;
+
+    }
+
+
+    const answer =
+        input.value.trim();
+
+
+    if (answer === "") {
+
+        return false;
+
+    }
+
+
+    answered = true;
+
+
+    userAnswers.push({
+
+        questionNumber:
+            currentQuestion + 1,
+
+        question:
+            q.question,
+
+        userAnswer:
+            answer,
+
+        correctAnswer:
+            q.answer,
+
+        isCorrect:
+            answer.toLowerCase() ===
+            q.answer.toLowerCase()
+
+    });
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   LOAD MATCHING
+   ===================================================== */
+
+
+function loadMatching(q) {
+
+    const table =
+        document.createElement(
+            "table"
+        );
+
+
+    table.className =
+        "matching-table";
+
+
+    const header =
+        document.createElement(
+            "tr"
+        );
+
+
+    header.innerHTML =
+        "<th>Character / Code</th><th>Your Answer</th>";
+
+
+    table.appendChild(
+        header
+    );
+
+
+    q.matches.forEach(
+        function(match, index) {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            const labelCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            labelCell.textContent =
+                match.label;
+
+
+            const dropCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            const dropZone =
+                document.createElement(
+                    "div"
+                );
+
+
+            dropZone.className =
+                "drop-zone";
+
+
+            dropZone.dataset.answer =
+                match.answer;
+
+
+            dropZone.dataset.index =
+                index;
+
+
+            dropZone.addEventListener(
+                "dragover",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    if (!answered) {
+
+                        dropZone.classList.add(
+                            "drag-over"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            dropZone.addEventListener(
+                "dragleave",
+                function() {
+
+                    dropZone.classList.remove(
+                        "drag-over"
+                    );
+
+                }
+            );
+
+
+            dropZone.addEventListener(
+                "drop",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    dropZone.classList.remove(
+                        "drag-over"
+                    );
+
+
+                    if (answered) {
+
+                        return;
+
+                    }
+
+
+                    const dragId =
+                        event.dataTransfer.getData(
+                            "text/plain"
+                        );
+
+
+                    const source =
+                        document.querySelector(
+                            `[data-drag-id="${dragId}"]`
+                        );
+
+
+                    if (!source) {
+
+                        return;
+
+                    }
+
+
+                    placeMatch(
+                        dropZone,
+                        source
+                    );
+
+
+                    /*
+                        After all four answers
+                        are filled, show Next.
+                    */
+
+                    if (
+                        matchingIsComplete()
+                    ) {
+
+                        nextButton.classList.remove(
+                            "hidden"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            dropCell.appendChild(
+                dropZone
+            );
+
+
+            row.appendChild(
+                labelCell
+            );
+
+
+            row.appendChild(
+                dropCell
+            );
+
+
+            table.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    answerArea.appendChild(
+        table
+    );
+
+
+    const bankTitle =
+        document.createElement(
+            "p"
+        );
+
+
+    bankTitle.innerHTML =
+        "<strong>Answer Bank:</strong>";
+
+
+    answerArea.appendChild(
+        bankTitle
+    );
+
+
+    const answerBank =
+        document.createElement(
+            "div"
+        );
+
+
+    answerBank.className =
+        "answer-bank";
+
+
+    const shuffledCodes =
+        [...q.codes].sort(
+            () => Math.random() - 0.5
+        );
+
+
+    shuffledCodes.forEach(
+        function(code, index) {
+
+            const answerItem =
+                document.createElement(
+                    "div"
+                );
+
+
+            answerItem.className =
+                "answer-item";
+
+
+            answerItem.textContent =
+                code;
+
+
+            answerItem.draggable =
+                true;
+
+
+            answerItem.dataset.dragId =
+                `${currentQuestion}-${index}-${code}`;
+
+
+            answerItem.addEventListener(
+                "dragstart",
+                function(event) {
+
+                    event.dataTransfer.setData(
+                        "text/plain",
+                        answerItem.dataset.dragId
+                    );
+
+                }
+            );
+
+
+            answerBank.appendChild(
+                answerItem
+            );
+
+        }
+    );
+
+
+    answerArea.appendChild(
+        answerBank
+    );
+
+}
+
+
+/* =====================================================
+   PLACE MATCHING ANSWER
+   ===================================================== */
+
+
+function placeMatch(
+    dropZone,
+    source
+) {
+
+    if (answered) {
+
+        return;
+
+    }
+
+
+    /*
+        If this drop zone already has
+        an answer, return that answer
+        to the answer bank.
+    */
+
+    const existing =
+        dropZone.querySelector(
+            ".answer-item"
+        );
+
+
+    if (existing) {
+
+        const answerBank =
+            answerArea.querySelector(
+                ".answer-bank"
+            );
+
+
+        if (answerBank) {
+
+            existing.draggable =
+                true;
+
+
+            answerBank.appendChild(
+                existing
+            );
+
+        }
+
+    }
+
+
+    /*
+        Remove the selected answer
+        from its current location.
+    */
+
+    if (source.parentElement) {
+
+        source.parentElement.removeChild(
+            source
+        );
+
+    }
+
+
+    /*
+        Place it into the new drop zone.
+    */
+
+    dropZone.appendChild(
+        source
+    );
+
+
+    source.draggable =
+        true;
+
+}
+
+
+/* =====================================================
+   CHECK MATCHING COMPLETE
+   ===================================================== */
+
+
+function matchingIsComplete() {
+
+    const dropZones =
+        answerArea.querySelectorAll(
+            ".drop-zone"
+        );
+
+
+    for (
+        let i = 0;
+        i < dropZones.length;
+        i++
+    ) {
+
+        const item =
+            dropZones[i].querySelector(
+                ".answer-item"
+            );
+
+
+        if (!item) {
+
+            return false;
+
+        }
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   SAVE MATCHING ANSWER
+   ===================================================== */
+
+
+function saveMatchingAnswer() {
+
+    if (answered) {
+
+        return true;
+
+    }
+
+
+    if (!matchingIsComplete()) {
+
+        return false;
+
+    }
+
+
+    const q =
+        questions[currentQuestion];
+
+
+    const dropZones =
+        answerArea.querySelectorAll(
+            ".drop-zone"
+        );
+
+
+    const matchingAnswers = [];
+
+
+    dropZones.forEach(
+        function(dropZone) {
+
+            const item =
+                dropZone.querySelector(
+                    ".answer-item"
+                );
+
+
+            const index =
+                Number(
+                    dropZone.dataset.index
+                );
+
+
+            const userAnswer =
+                item.textContent;
+
+
+            const correctAnswer =
+                dropZone.dataset.answer;
+
+
+            matchingAnswers.push({
+
+                label:
+                    q.matches[index].label,
+
+                userAnswer:
+                    userAnswer,
+
+                correctAnswer:
+                    correctAnswer,
+
+                isCorrect:
+                    userAnswer ===
+                    correctAnswer
+
+            });
+
+        }
+    );
+
+
+    const matchingQuestionCorrect =
+        matchingAnswers.every(
+            function(item) {
+
+                return item.isCorrect;
+
+            }
+        );
+
+
+    answered = true;
+
+
+    /*
+        IMPORTANT:
+        Score is NOT changed here.
+    */
+
+
+    userAnswers.push({
+
+        questionNumber:
+            currentQuestion + 1,
+
+        question:
+            q.question,
+
+        userAnswer:
+            matchingAnswers,
+
+        correctAnswer:
+            q.matches,
+
+        isCorrect:
+            matchingQuestionCorrect
+
+    });
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   NEXT QUESTION
+   ===================================================== */
+
+
+function nextQuestion() {
+
+    if (answered) {
+
+        currentQuestion++;
+
+        if (
+            currentQuestion <
+            questions.length
+        ) {
+
+            loadQuestion();
+
+        }
+
+        else {
+
+            showResults();
+
+        }
+
+        return;
+
+    }
+
+
+    const q =
+        questions[currentQuestion];
+
+
+    /*
+        MCQ
+    */
+
+    if (q.type === "mcq") {
+
+        const selectedAnswer =
+            getSelectedMCQAnswer();
+
+
+        if (!selectedAnswer) {
+
+            return;
+
+        }
+
+
+        userAnswers.push({
+
+            questionNumber:
+                currentQuestion + 1,
+
+            question:
+                q.question,
+
+            userAnswer:
+                selectedAnswer,
+
+            correctAnswer:
+                q.answer,
+
+            isCorrect:
+                selectedAnswer ===
+                q.answer
+
+        });
+
+
+        answered = true;
+
+    }
+
+
+    /*
+        Fill in the blank
+    */
+
+    else if (q.type === "fill") {
+
+        if (!saveFillAnswer()) {
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+        Matching
+    */
+
+    else if (q.type === "matching") {
+
+        if (!saveMatchingAnswer()) {
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+        Now move to the next question.
+    */
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion <
+        questions.length
+    ) {
+
+        loadQuestion();
+
+    }
+
+    else {
+
+        showResults();
+
+    }
+
+}
+
+
+/* =====================================================
+   NEXT BUTTON
+   ===================================================== */
 
 
 nextButton.addEventListener(
     "click",
-    nextQuestion
+    function() {
+
+        nextQuestion();
+
+    }
 );
+
+
+/* =====================================================
+   FINAL SCORE
+   ===================================================== */
+
+
+function calculateFinalScore() {
+
+    let finalScore = 0;
+
+
+    userAnswers.forEach(
+        function(item) {
+
+            if (item.isCorrect) {
+
+                finalScore++;
+
+            }
+
+        }
+    );
+
+
+    return finalScore;
+
+}
+
+
+/* =====================================================
+   STARS
+   ===================================================== */
+
+
+function calculateStars(finalScore) {
+
+    if (finalScore >= 18) {
+
+        return 5;
+
+    }
+
+    else if (finalScore >= 14) {
+
+        return 4;
+
+    }
+
+    else if (finalScore >= 10) {
+
+        return 3;
+
+    }
+
+    else if (finalScore >= 5) {
+
+        return 2;
+
+    }
+
+    else {
+
+        return 1;
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOW RESULTS
+   ===================================================== */
+
+
+function showResults() {
+
+    const finalScore =
+        calculateFinalScore();
+
+
+    const percentage =
+        Math.round(
+            (
+                finalScore /
+                questions.length
+            ) * 100
+        );
+
+
+    const stars =
+        calculateStars(
+            finalScore
+        );
+
+
+    /*
+        Score changes ONLY NOW.
+    */
+
+    score =
+        finalScore;
+
+
+    scoreElement.textContent =
+        score;
+
+
+    progressBar.style.width =
+        "100%";
+
+
+    gameArea.classList.add(
+        "hidden"
+    );
+
+
+    resultArea.classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        `${finalScore} / ${questions.length}`;
+
+
+    document.getElementById(
+        "finalPercentage"
+    ).textContent =
+        `${percentage}%`;
+
+
+    document.getElementById(
+        "finalStars"
+    ).textContent =
+        "⭐".repeat(stars);
+
+
+    document.getElementById(
+        "resultScore"
+    ).value =
+        finalScore;
+
+
+    document.getElementById(
+        "resultTotal"
+    ).value =
+        questions.length;
+
+
+    document.getElementById(
+        "resultPercentage"
+    ).value =
+        percentage;
+
+
+    document.getElementById(
+        "resultStars"
+    ).value =
+        stars;
+
+
+    showReview();
+
+}
+
+
+/* =====================================================
+   ANSWER REVIEW
+   ===================================================== */
+
+
+function showReview() {
+
+    const review =
+        document.getElementById(
+            "review"
+        );
+
+
+    review.innerHTML =
+        "<h3>📋 Answer Review</h3>";
+
+
+    userAnswers.forEach(
+        function(item) {
+
+            const reviewItem =
+                document.createElement(
+                    "div"
+                );
+
+
+            reviewItem.className =
+                item.isCorrect
+                    ? "review-item correct"
+                    : "review-item wrong";
+
+
+            const title =
+                document.createElement(
+                    "div"
+                );
+
+
+            title.className =
+                "review-title";
+
+
+            title.textContent =
+                `Question ${item.questionNumber}: ${
+                    item.isCorrect
+                        ? "✅ Correct"
+                        : "❌ Incorrect"
+                }`;
+
+
+            reviewItem.appendChild(
+                title
+            );
+
+
+            const questionText =
+                document.createElement(
+                    "div"
+                );
+
+
+            questionText.textContent =
+                item.question;
+
+
+            reviewItem.appendChild(
+                questionText
+            );
+
+
+            /*
+                MATCHING REVIEW
+            */
+
+            if (
+                item.questionNumber >= 15 &&
+                Array.isArray(
+                    item.userAnswer
+                )
+            ) {
+
+                item.userAnswer.forEach(
+                    function(match) {
+
+                        const line =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        line.className =
+                            "review-line";
+
+
+                        line.textContent =
+                            `${match.label}: Your answer = ${match.userAnswer}, Correct answer = ${match.correctAnswer}`;
+
+
+                        reviewItem.appendChild(
+                            line
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /*
+                MCQ / FILL REVIEW
+            */
+
+            else {
+
+                const userAnswer =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                userAnswer.className =
+                    "review-line";
+
+
+                userAnswer.textContent =
+                    `Your answer: ${item.userAnswer}`;
+
+
+                reviewItem.appendChild(
+                    userAnswer
+                );
+
+
+                if (!item.isCorrect) {
+
+                    const correctAnswer =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    correctAnswer.className =
+                        "review-line";
+
+
+                    correctAnswer.textContent =
+                        `Correct answer: ${item.correctAnswer}`;
+
+
+                    reviewItem.appendChild(
+                        correctAnswer
+                    );
+
+                }
+
+            }
+
+
+            review.appendChild(
+                reviewItem
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PLAY AGAIN
+   ===================================================== */
 
 
 document.getElementById(
-    "restart-top"
+    "playAgainButton"
 ).addEventListener(
     "click",
-    restartGame
+    function() {
+
+        currentQuestion = 0;
+
+        score = 0;
+
+        answered = false;
+
+        userAnswers = [];
+
+
+        scoreElement.textContent =
+            "0";
+
+
+        resultArea.classList.add(
+            "hidden"
+        );
+
+
+        gameArea.classList.remove(
+            "hidden"
+        );
+
+
+        loadQuestion();
+
+    }
 );
 
 
-document.getElementById(
-    "play-again"
-).addEventListener(
-    "click",
-    restartGame
-);
-
-
-/* =========================
+/* =====================================================
    START GAME
-   ========================= */
+   ===================================================== */
 
-renderQuestion();
+
+loadQuestion();
+
 
 </script>
 
+
 </body>
+
 </html>
-```
