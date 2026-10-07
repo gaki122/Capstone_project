@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>How to Play | Data Quest</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+            background: white;
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+
+        .logo {
+            color: #4f46e5;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        .nav-links a:hover {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+
+        .active {
+            background: #eef2ff;
+            color: #4f46e5 !important;
+        }
+
+
+        .student-login {
+            background: #4f46e5;
+            color: white !important;
+        }
+
+
+        .student-login:hover {
+            background: #4338ca !important;
+            color: white !important;
+        }
+
+
+        .teacher-login {
+            background: #eef2ff;
+            color: #4f46e5 !important;
+            border: 1px solid #c7d2fe;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #4f46e5,
+                #6366f1
+            );
+
+            color: white;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+            color: #e0e7ff;
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+
+        .section-title h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+
+        .section-title p {
+            color: #64748b;
+        }
+
+
+        /* =========================
+           STEPS
+        ========================= */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+
+        .step-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #eef2ff;
+            color: #4f46e5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+
+        .step-card h3 {
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+
+        .step-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           GAME FLOW
+        ========================= */
+
+        .game-flow {
+            margin-top: 55px;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+
+        .game-flow h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        .flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+
+        .flow-item {
+            background: #eef2ff;
+            color: #3730a3;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+
+        .arrow {
+            font-size: 22px;
+            color: #94a3b8;
+        }
+
+
+        /* =========================
+           PLAYER TYPES
+        ========================= */
+
+        .player-section {
+            margin-top: 55px;
+        }
+
+
+        .player-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+
+        .player-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+        }
+
+
+        .player-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+
+        .player-card h3 {
+            margin-bottom: 12px;
+        }
+
+
+        .player-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           POINTS
+        ========================= */
+
+        .rewards {
+            margin-top: 55px;
+            background: #0f172a;
+            color: white;
+            padding: 40px;
+            border-radius: 18px;
+        }
+
+
+        .rewards h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+
+        .reward-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+
+        .reward {
+            text-align: center;
+            padding: 20px;
+            background: #1e293b;
+            border-radius: 12px;
+        }
+
+
+        .reward-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+
+        .reward h3 {
+            margin-bottom: 8px;
+        }
+
+
+        .reward p {
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            margin-top: 55px;
+            text-align: center;
+            background: #eef2ff;
+            padding: 40px;
+            border-radius: 18px;
+        }
+
+
+        .cta h2 {
+            margin-bottom: 12px;
+        }
+
+
+        .cta p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+
+        .cta a {
+            display: inline-block;
+            background: #4f46e5;
+            color: white;
+            text-decoration: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+
+        .cta a:hover {
+            background: #4338ca;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            margin-top: 60px;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .navbar {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .steps,
+            .player-grid,
+            .reward-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .flow {
+                flex-direction: column;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav class="navbar">
+
+
+    <a
+        href="{% url 'home' %}"
+        class="logo"
+    >
+        🎯 Data Quest
+    </a>
+
+
+    <div class="nav-links">
+
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+
+        <a href="{% url 'learn' %}">
+            Learn
+        </a>
+
+
+        <a
+            href="{% url 'how_to_play' %}"
+            class="active"
+        >
+            How to Play
+        </a>
+
+
+        <a
+            href="{% url 'student_login' %}"
+            class="student-login"
+        >
+            🎓 Student Login
+        </a>
+
+
+        <a
+            href="{% url 'teacher_login' %}"
+            class="teacher-login"
+        >
+            👨‍🏫 Teacher Login
+        </a>
+
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>
+        🎮 How to Play Data Quest
+    </h1>
+
+
+    <p>
+
+        Learn data representation, answer questions,
+        earn points and stars, and improve your knowledge
+        through different levels.
+
+    </p>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <div class="section-title">
+
+        <h2>
+            How Does Data Quest Work?
+        </h2>
+
+        <p>
+            Follow these simple steps to begin your learning journey.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         STEPS
+    ========================= -->
+
+    <div class="steps">
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                1
+            </div>
+
+            <h3>
+                📖 Learn
+            </h3>
+
+            <p>
+
+                Start with the Learn section to understand
+                important concepts about data representation.
+                You can study ASCII, text, images, and audio
+                before playing the games.
+
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                🎮 Play
+            </h3>
+
+            <p>
+
+                Start a Data Quest level and answer
+                interactive questions. Read each question
+                carefully and choose the best answer.
+
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                ⭐ Earn
+            </h3>
+
+            <p>
+
+                Correct answers give you points and stars.
+                Try to improve your score and complete
+                each level successfully.
+
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                4
+            </div>
+
+            <h3>
+                📊 Track
+            </h3>
+
+            <p>
+
+                Students who join a teacher's class can
+                track their points, stars, completed levels,
+                attempts, and progress from their dashboard.
+
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                5
+            </div>
+
+            <h3>
+                🚀 Improve
+            </h3>
+
+            <p>
+
+                You can replay levels and try to improve
+                your previous scores. Practice helps you
+                understand the concepts better.
+
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                6
+            </div>
+
+            <h3>
+                🏆 Master
+            </h3>
+
+            <p>
+
+                Complete all available levels and build
+                strong knowledge of digital data representation.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         GAME FLOW
+    ========================= -->
+
+    <section class="game-flow">
+
+        <h2>
+            Your Data Quest Journey
+        </h2>
+
+
+        <div class="flow">
+
+            <div class="flow-item">
+                📖 Learn
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="flow-item">
+                🎮 Play
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="flow-item">
+                📝 Answer
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="flow-item">
+                ⭐ Earn
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="flow-item">
+                🏆 Improve
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PLAYER TYPES
+    ========================= -->
+
+    <section class="player-section">
+
+        <div class="section-title">
+
+            <h2>
+                Choose How You Play
+            </h2>
+
+            <p>
+                Data Quest supports different types of players.
+            </p>
+
+        </div>
+
+
+        <div class="player-grid">
+
+
+            <div class="player-card">
+
+                <div class="icon">
+                    👤
+                </div>
+
+                <h3>
+                    Guest Player
+                </h3>
+
+                <p>
+
+                    You can start Level 1 without creating
+                    an account. Your result is private to
+                    your current game session and is not
+                    visible to teachers.
+
+                </p>
+
+            </div>
+
+
+            <div class="player-card">
+
+                <div class="icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Student
+                </h3>
+
+                <p>
+
+                    Create a student account and enter the
+                    join code provided by your teacher.
+                    Your scores and progress can then be
+                    tracked by your teacher.
+
+                </p>
+
+            </div>
+
+
+            <div class="player-card">
+
+                <div class="icon">
+                    👨‍🏫
+                </div>
+
+                <h3>
+                    Teacher
+                </h3>
+
+                <p>
+
+                    Teachers can create multiple sections,
+                    give students a class join code, and
+                    monitor the learning progress of
+                    students in their own sections.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REWARDS
+    ========================= -->
+
+    <section class="rewards">
+
+        <h2>
+            ⭐ Understand Your Rewards
+        </h2>
+
+
+        <div class="reward-grid">
+
+
+            <div class="reward">
+
+                <div class="reward-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Points
+                </h3>
+
+                <p>
+                    Earn points by answering questions correctly.
+                </p>
+
+            </div>
+
+
+            <div class="reward">
+
+                <div class="reward-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Stars
+                </h3>
+
+                <p>
+                    Earn stars based on your level performance.
+                </p>
+
+            </div>
+
+
+            <div class="reward">
+
+                <div class="reward-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Best Streak
+                </h3>
+
+                <p>
+                    Try to maintain a strong streak of correct answers.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         START GAME
+    ========================= -->
+
+    <section class="cta">
+
+        <h2>
+            Ready to Start?
+        </h2>
+
+
+        <p>
+            You can start Level 1 as a guest or log in as a student.
+        </p>
+
+
+        <a href="{% url 'level1_game' %}">
+            🚀 Start Level 1
+        </a>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <p>
+        © 2026 Data Quest —
+        Data Representation Learning Game
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
+

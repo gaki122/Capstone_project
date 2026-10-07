@@ -16,218 +16,219 @@
     <style>
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #f5f7fb;
-            color: #1f2937;
+            color: #111827;
+            line-height: 1.5;
         }
 
+        a {
+            transition: 0.2s ease;
+        }
 
         /* =========================
            NAVIGATION
         ========================= */
 
         .navbar {
-            background: #ffffff;
-
-            padding: 18px 7%;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            box-shadow:
-                0 2px 10px rgba(0,0,0,0.08);
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
 
             position: sticky;
-
             top: 0;
-
             z-index: 1000;
         }
 
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
 
-        .logo {
-            font-size: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            font-weight: bold;
-
-            color: #4f46e5;
+            gap: 20px;
         }
 
+        .logo {
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
 
         .nav-links {
             display: flex;
-
-            gap: 18px;
-
             align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-
 
         .nav-links a {
-            text-decoration: none;
-
             color: #374151;
-
+            text-decoration: none;
+            font-size: 15px;
             font-weight: 500;
 
-            padding: 8px 10px;
-
-            transition: 0.2s;
+            padding: 9px 13px;
+            border-radius: 8px;
         }
-
 
         .nav-links a:hover {
-            color: #4f46e5;
+            background: #eff6ff;
+            color: #2563eb;
         }
 
+        .nav-links a.active {
+            background: #2563eb;
+            color: white;
+        }
 
         .student-nav-btn {
-            background: #4f46e5;
-
+            background: #2563eb;
             color: white !important;
-
-            padding: 10px 18px !important;
-
-            border-radius: 10px;
         }
 
+        .student-nav-btn:hover {
+            background: #1d4ed8 !important;
+            color: white !important;
+        }
 
         .teacher-nav-btn {
-            background: #eef2ff;
-
-            color: #4f46e5 !important;
-
-            padding: 10px 18px !important;
-
-            border-radius: 10px;
-
-            border: 1px solid #c7d2fe;
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            color: #2563eb !important;
         }
 
+        .teacher-nav-btn:hover {
+            background: #dbeafe !important;
+            color: #1d4ed8 !important;
+        }
 
         /* =========================
            HERO
         ========================= */
 
         .hero {
-            min-height: 520px;
+            max-width: 1200px;
+            margin: 0 auto;
 
-            padding: 80px 7%;
+            min-height: 560px;
+
+            padding: 70px 20px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
-            gap: 50px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef2ff,
-                    #ffffff
-                );
+            gap: 60px;
         }
-
 
         .hero-content {
-            max-width: 620px;
+            flex: 1;
+            max-width: 650px;
         }
 
+        .hero-badge {
+            display: inline-block;
+
+            background: #eff6ff;
+            color: #1d4ed8;
+
+            border: 1px solid #bfdbfe;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
 
         .hero-content h1 {
-            font-size: 52px;
+            color: #111827;
 
+            font-size: 52px;
             line-height: 1.1;
 
             margin-bottom: 20px;
         }
 
-
         .hero-content h1 span {
-            color: #4f46e5;
+            color: #2563eb;
         }
 
-
         .hero-content p {
-            font-size: 19px;
+            color: #6b7280;
 
+            font-size: 18px;
             line-height: 1.7;
 
-            color: #6b7280;
+            max-width: 620px;
 
             margin-bottom: 30px;
         }
 
-
-        /* =========================
-           START GAME BUTTON
-        ========================= */
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
 
         .start-btn {
             display: inline-block;
 
-            background: #4f46e5;
-
+            background: #2563eb;
             color: white;
 
             text-decoration: none;
 
-            padding: 15px 30px;
+            padding: 14px 25px;
 
-            border-radius: 12px;
+            border-radius: 10px;
 
-            font-size: 17px;
-
-            font-weight: bold;
-
-            transition: 0.2s;
+            font-size: 16px;
+            font-weight: 700;
         }
-
 
         .start-btn:hover {
-            background: #4338ca;
-
+            background: #1d4ed8;
             transform: translateY(-2px);
         }
-
 
         .learn-btn {
             display: inline-block;
 
-            margin-left: 12px;
+            background: white;
+            color: #2563eb;
 
-            border: 2px solid #4f46e5;
-
-            color: #4f46e5;
+            border: 1px solid #2563eb;
 
             text-decoration: none;
 
-            padding: 13px 28px;
+            padding: 13px 24px;
 
-            border-radius: 12px;
+            border-radius: 10px;
 
-            font-weight: bold;
-
-            transition: 0.2s;
+            font-size: 16px;
+            font-weight: 700;
         }
-
 
         .learn-btn:hover {
-            background: #eef2ff;
+            background: #eff6ff;
         }
-
 
         /* =========================
            GAME PREVIEW
@@ -238,487 +239,529 @@
 
             background: white;
 
-            border-radius: 25px;
+            border: 1px solid #e5e7eb;
 
-            padding: 30px;
+            border-radius: 20px;
+
+            padding: 25px;
 
             box-shadow:
-                0 15px 40px rgba(0,0,0,0.12);
+                0 15px 40px rgba(0, 0, 0, 0.09);
         }
 
+        .game-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-        .game-card h3 {
             margin-bottom: 20px;
         }
 
+        .game-card h3 {
+            color: #111827;
+            font-size: 19px;
+        }
+
+        .preview-badge {
+            background: #f3f4f6;
+            color: #6b7280;
+
+            padding: 5px 9px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+            font-weight: 600;
+        }
 
         .level {
             display: flex;
-
             align-items: center;
 
-            gap: 15px;
+            gap: 13px;
 
-            padding: 15px;
+            padding: 14px;
 
-            margin-bottom: 12px;
+            margin-bottom: 11px;
 
-            border-radius: 15px;
+            border: 1px solid #e5e7eb;
+
+            border-radius: 13px;
 
             background: #f9fafb;
         }
 
-
-        .level-icon {
-            font-size: 28px;
+        .level:last-child {
+            margin-bottom: 0;
         }
 
+        .level-icon {
+            font-size: 27px;
+        }
 
         .level-info {
             flex: 1;
         }
 
-
         .level-info strong {
             display: block;
 
-            margin-bottom: 5px;
-        }
+            color: #111827;
 
+            font-size: 14px;
+
+            margin-bottom: 7px;
+        }
 
         .progress {
             height: 7px;
 
             background: #e5e7eb;
 
-            border-radius: 10px;
+            border-radius: 20px;
 
             overflow: hidden;
         }
 
-
         .progress-bar {
             height: 100%;
 
-            background: #4f46e5;
+            background: #2563eb;
 
-            border-radius: 10px;
+            border-radius: 20px;
         }
 
+        .level-status {
+            font-size: 16px;
+        }
 
         /* =========================
-           ROLE SECTION
+           SECTION COMMON
+        ========================= */
+
+        .section {
+            padding: 75px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 34px;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .section-text {
+            text-align: center;
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* =========================
+           ROLES
         ========================= */
 
         .roles {
-            padding: 80px 7%;
-
             background: white;
-
-            text-align: center;
         }
-
-
-        .roles h2 {
-            font-size: 36px;
-
-            margin-bottom: 12px;
-        }
-
-
-        .roles-subtitle {
-            color: #6b7280;
-
-            font-size: 17px;
-
-            margin-bottom: 45px;
-        }
-
 
         .role-grid {
             max-width: 1000px;
-
-            margin: auto;
+            margin: 0 auto;
 
             display: grid;
 
             grid-template-columns:
                 repeat(2, 1fr);
 
-            gap: 30px;
+            gap: 25px;
         }
 
-
         .role-card {
-            background: #f8fafc;
+            background: #f9fafb;
 
             border: 1px solid #e5e7eb;
 
-            border-radius: 24px;
+            border-radius: 18px;
 
-            padding: 40px 30px;
+            padding: 35px 30px;
 
             text-align: center;
 
-            transition: 0.25s;
+            transition: 0.2s;
         }
-
 
         .role-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
 
             box-shadow:
-                0 12px 30px rgba(0,0,0,0.08);
+                0 12px 30px rgba(0, 0, 0, 0.07);
         }
 
+        .teacher-card {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
 
         .role-icon {
-            font-size: 55px;
+            width: 65px;
+            height: 65px;
 
-            margin-bottom: 18px;
+            margin: 0 auto 18px;
+
+            background: white;
+
+            border-radius: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 32px;
+
+            border: 1px solid #e5e7eb;
         }
 
-
         .role-card h3 {
-            font-size: 25px;
+            color: #111827;
+
+            font-size: 23px;
 
             margin-bottom: 12px;
         }
 
-
         .role-card p {
             color: #6b7280;
 
-            line-height: 1.6;
+            line-height: 1.7;
 
-            margin-bottom: 25px;
+            font-size: 14px;
+
+            margin-bottom: 22px;
         }
-
 
         .role-buttons {
             display: flex;
 
             justify-content: center;
 
-            gap: 12px;
+            gap: 10px;
 
             flex-wrap: wrap;
         }
 
-
         .role-primary-btn {
             display: inline-block;
 
-            background: #4f46e5;
-
+            background: #2563eb;
             color: white;
 
             text-decoration: none;
 
-            padding: 12px 22px;
+            padding: 11px 19px;
 
-            border-radius: 10px;
+            border-radius: 9px;
 
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 600;
         }
-
 
         .role-primary-btn:hover {
-            background: #4338ca;
+            background: #1d4ed8;
         }
-
 
         .role-secondary-btn {
             display: inline-block;
 
             background: white;
+            color: #2563eb;
 
-            color: #4f46e5;
+            border: 1px solid #2563eb;
 
             text-decoration: none;
 
-            padding: 11px 22px;
+            padding: 10px 19px;
 
-            border-radius: 10px;
+            border-radius: 9px;
 
-            font-weight: bold;
-
-            border: 2px solid #4f46e5;
+            font-size: 14px;
+            font-weight: 600;
         }
-
 
         .role-secondary-btn:hover {
-            background: #eef2ff;
+            background: #eff6ff;
         }
-
-
-        .teacher-card {
-            background:
-                linear-gradient(
-                    135deg,
-                    #f8fafc,
-                    #eef2ff
-                );
-        }
-
 
         /* =========================
            FEATURES
         ========================= */
 
         .features {
-            padding: 80px 7%;
-
-            text-align: center;
+            background: #f5f7fb;
         }
-
-
-        .features h2 {
-            font-size: 34px;
-
-            margin-bottom: 12px;
-        }
-
-
-        .section-text {
-            color: #6b7280;
-
-            margin-bottom: 40px;
-        }
-
 
         .feature-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+
             display: grid;
 
             grid-template-columns:
                 repeat(4, 1fr);
 
-            gap: 25px;
+            gap: 18px;
         }
-
 
         .feature-card {
             background: white;
 
-            padding: 30px 20px;
+            border: 1px solid #e5e7eb;
 
-            border-radius: 20px;
+            border-radius: 16px;
+
+            padding: 27px 20px;
+
+            text-align: center;
 
             box-shadow:
-                0 5px 20px rgba(0,0,0,0.07);
+                0 8px 25px rgba(0, 0, 0, 0.04);
         }
-
 
         .feature-icon {
-            font-size: 40px;
+            font-size: 35px;
 
-            margin-bottom: 15px;
+            margin-bottom: 13px;
         }
-
 
         .feature-card h3 {
-            margin-bottom: 10px;
-        }
+            color: #111827;
 
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
 
         .feature-card p {
             color: #6b7280;
 
+            font-size: 14px;
+
             line-height: 1.6;
         }
-
 
         /* =========================
            TOPICS
         ========================= */
 
         .topics {
-            padding: 80px 7%;
-
-            background: #ffffff;
-
-            text-align: center;
+            background: white;
         }
-
 
         .topic-grid {
             max-width: 1000px;
-
-            margin: 40px auto 0;
+            margin: 0 auto;
 
             display: grid;
 
             grid-template-columns:
                 repeat(4, 1fr);
 
-            gap: 20px;
+            gap: 18px;
         }
-
 
         .topic-card {
-            padding: 30px 20px;
-
-            border-radius: 18px;
-
-            background: #f8fafc;
+            background: #f9fafb;
 
             border: 1px solid #e5e7eb;
-        }
 
+            border-radius: 16px;
+
+            padding: 27px 18px;
+
+            text-align: center;
+        }
 
         .topic-card .number {
-            font-size: 30px;
+            color: #2563eb;
 
-            font-weight: bold;
+            font-size: 26px;
 
-            color: #4f46e5;
+            font-weight: 700;
 
-            margin-bottom: 12px;
-        }
-
-
-        .topic-card h3 {
             margin-bottom: 10px;
         }
 
+        .topic-card h3 {
+            color: #111827;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
 
         .topic-card p {
             color: #6b7280;
 
-            line-height: 1.5;
-        }
+            font-size: 13px;
 
+            line-height: 1.6;
+        }
 
         /* =========================
            ABOUT
         ========================= */
 
         .about {
-            padding: 80px 7%;
-
-            text-align: center;
+            background: #f5f7fb;
         }
-
 
         .about-box {
             max-width: 900px;
 
-            margin: auto;
+            margin: 0 auto;
 
             background: white;
 
-            padding: 40px;
+            border: 1px solid #e5e7eb;
 
-            border-radius: 24px;
+            border-radius: 18px;
+
+            padding: 38px;
+
+            text-align: center;
 
             box-shadow:
-                0 5px 20px rgba(0,0,0,0.07);
+                0 10px 30px rgba(0, 0, 0, 0.05);
         }
-
 
         .about-box h2 {
-            font-size: 34px;
+            color: #111827;
 
-            margin-bottom: 18px;
+            font-size: 32px;
+
+            margin-bottom: 15px;
         }
-
 
         .about-box p {
             color: #6b7280;
 
+            font-size: 16px;
+
             line-height: 1.8;
-
-            font-size: 17px;
         }
-
 
         /* =========================
            CTA
         ========================= */
 
+        .cta-wrapper {
+            padding: 0 20px 70px;
+
+            background: #f5f7fb;
+        }
+
         .cta {
-            margin: 70px 7%;
+            max-width: 1160px;
 
-            padding: 60px 30px;
+            margin: 0 auto;
 
-            border-radius: 25px;
+            padding: 55px 25px;
 
-            background: #4f46e5;
+            border-radius: 20px;
+
+            background: #2563eb;
 
             color: white;
 
             text-align: center;
         }
 
-
         .cta h2 {
-            font-size: 36px;
+            font-size: 34px;
 
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
-
 
         .cta p {
+            font-size: 16px;
+
             margin-bottom: 25px;
 
-            font-size: 17px;
+            opacity: 0.95;
         }
-
 
         .cta-btn {
             display: inline-block;
 
             background: white;
 
-            color: #4f46e5;
+            color: #2563eb;
 
-            padding: 14px 30px;
+            padding: 13px 25px;
 
-            border-radius: 12px;
+            border-radius: 10px;
 
             text-decoration: none;
 
-            font-weight: bold;
-        }
+            font-size: 15px;
 
+            font-weight: 700;
+        }
 
         .cta-btn:hover {
-            background: #eef2ff;
+            background: #eff6ff;
         }
-
 
         /* =========================
            FOOTER
         ========================= */
 
-        footer {
+        .footer {
             background: #111827;
 
-            color: white;
+            color: #9ca3af;
 
             text-align: center;
 
-            padding: 30px;
-        }
+            padding: 20px;
 
+            font-size: 13px;
+        }
 
         /* =========================
            RESPONSIVE
         ========================= */
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
 
             .hero {
                 flex-direction: column;
 
                 text-align: center;
+
+                padding-top: 55px;
             }
 
-
-            .role-grid {
-                grid-template-columns: 1fr;
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
             }
 
+            .hero-buttons {
+                justify-content: center;
+            }
 
             .feature-grid,
             .topic-grid {
@@ -726,47 +769,69 @@
                     repeat(2, 1fr);
             }
 
-
-            .nav-links {
-                display: none;
-            }
-
         }
 
+        @media (max-width: 650px) {
 
-        @media (max-width: 600px) {
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-links {
+                gap: 4px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+
+                padding: 8px 9px;
+            }
+
+            .hero {
+                padding: 45px 15px;
+            }
 
             .hero-content h1 {
                 font-size: 38px;
             }
 
+            .hero-content p {
+                font-size: 16px;
+            }
 
             .game-card {
                 width: 100%;
+                max-width: 390px;
             }
 
-
+            .role-grid,
             .feature-grid,
             .topic-grid {
                 grid-template-columns: 1fr;
             }
 
-
-            .learn-btn {
-                margin-left: 0;
-
-                margin-top: 10px;
+            .section {
+                padding: 55px 15px;
             }
 
-
-            .role-buttons {
-                flex-direction: column;
+            .section-title {
+                font-size: 28px;
             }
 
+            .about-box {
+                padding: 28px 20px;
+            }
 
-            .role-primary-btn,
-            .role-secondary-btn {
-                width: 100%;
+            .about-box h2 {
+                font-size: 27px;
+            }
+
+            .cta-wrapper {
+                padding: 0 15px 50px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
             }
 
         }
@@ -785,61 +850,52 @@
 
 <nav class="navbar">
 
-
-    <div class="logo">
-
-        🎯 Data Quest
-
-    </div>
-
-
-    <div class="nav-links">
-
-
-        <a href="{% url 'home' %}">
-            Home
-        </a>
-
-
-        <a href="{% url 'level1' %}">
-            Learn
-        </a>
-
-
-        <a href="{% url 'level1' %}">
-            How to Play
-        </a>
-
-
-        <a href="#about">
-            About
-        </a>
-
+    <div class="nav-container">
 
         <a
-            href="{% url 'student_login' %}"
-            class="student-nav-btn"
+            href="{% url 'home' %}"
+            class="logo"
         >
-
-            🎓 Student Login
-
+            🎯 Data Quest
         </a>
 
 
-        <a
-            href="{% url 'teacher_login' %}"
-            class="teacher-nav-btn"
-        >
+        <div class="nav-links">
 
-            👨‍🏫 Teacher Login
+            <a
+                href="{% url 'home' %}"
+                class="active"
+            >
+                Home
+            </a>
 
-        </a>
+            <a href="{% url 'learn' %}">
+                Learn
+            </a>
 
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a
+                href="{% url 'student_login' %}"
+                class="student-nav-btn"
+            >
+                🎓 Student Login
+            </a>
+
+            <a
+                href="{% url 'teacher_login' %}"
+                class="teacher-nav-btn"
+            >
+                👨‍🏫 Teacher Login
+            </a>
+
+        </div>
 
     </div>
 
 </nav>
-
 
 
 <!-- =====================================================
@@ -848,9 +904,11 @@
 
 <section class="hero">
 
-
     <div class="hero-content">
 
+        <div class="hero-badge">
+            🎮 Interactive Data Representation Learning
+        </div>
 
         <h1>
 
@@ -865,47 +923,52 @@
 
         <p>
 
-            Explore ASCII, Text, Image, and Audio
+            Explore ASCII, text, image, and audio
             representation through interactive lessons,
             quizzes, challenges, rewards, and achievements.
 
         </p>
 
 
-        <a
-            href="{% url 'level1_game' %}"
-            class="start-btn"
-        >
+        <div class="hero-buttons">
 
-            🚀 Start Data Quest
+            <a
+                href="{% url 'level1_game' %}"
+                class="start-btn"
+            >
+                🚀 Start Data Quest
+            </a>
 
-        </a>
 
+            <a
+                href="{% url 'learn' %}"
+                class="learn-btn"
+            >
+                📚 Learn First
+            </a>
 
-        <a
-            href="{% url 'student_login' %}"
-            class="learn-btn"
-        >
-
-            🎓 Student Login
-
-        </a>
-
+        </div>
 
     </div>
 
 
-
-    <!-- GAME PREVIEW -->
+    <!-- =========================
+         GAME PREVIEW
+    ========================= -->
 
     <div class="game-card">
 
+        <div class="game-card-header">
 
-        <h3>
+            <h3>
+                🏆 Data Quest
+            </h3>
 
-            🏆 Your Data Quest
+            <span class="preview-badge">
+                PREVIEW
+            </span>
 
-        </h3>
+        </div>
 
 
         <div class="level">
@@ -914,33 +977,28 @@
                 🔤
             </div>
 
-
             <div class="level-info">
 
                 <strong>
                     Level 1 — ASCII
                 </strong>
 
-
                 <div class="progress">
 
                     <div
                         class="progress-bar"
                         style="width: 80%;"
-                    >
-                    </div>
+                    ></div>
 
                 </div>
 
             </div>
 
-
-            <span>
+            <span class="level-status">
                 ⭐
             </span>
 
         </div>
-
 
 
         <div class="level">
@@ -949,33 +1007,28 @@
                 📝
             </div>
 
-
             <div class="level-info">
 
                 <strong>
                     Level 2 — Text
                 </strong>
 
-
                 <div class="progress">
 
                     <div
                         class="progress-bar"
                         style="width: 50%;"
-                    >
-                    </div>
+                    ></div>
 
                 </div>
 
             </div>
 
-
-            <span>
+            <span class="level-status">
                 🔓
             </span>
 
         </div>
-
 
 
         <div class="level">
@@ -984,33 +1037,28 @@
                 🖼️
             </div>
 
-
             <div class="level-info">
 
                 <strong>
                     Level 3 — Image
                 </strong>
 
-
                 <div class="progress">
 
                     <div
                         class="progress-bar"
                         style="width: 20%;"
-                    >
-                    </div>
+                    ></div>
 
                 </div>
 
             </div>
 
-
-            <span>
+            <span class="level-status">
                 🔒
             </span>
 
         </div>
-
 
 
         <div class="level">
@@ -1019,76 +1067,63 @@
                 🎵
             </div>
 
-
             <div class="level-info">
 
                 <strong>
                     Level 4 — Audio
                 </strong>
 
-
                 <div class="progress">
 
                     <div
                         class="progress-bar"
                         style="width: 0%;"
-                    >
-                    </div>
+                    ></div>
 
                 </div>
 
             </div>
 
-
-            <span>
+            <span class="level-status">
                 🔒
             </span>
 
         </div>
-
 
     </div>
 
 </section>
 
 
-
 <!-- =====================================================
      CHOOSE YOUR ROLE
 ===================================================== -->
 
-<section class="roles">
+<section class="section roles">
 
-
-    <h2>
+    <h2 class="section-title">
         Choose Your Role
     </h2>
 
-
-    <p class="roles-subtitle">
-
+    <p class="section-text">
         Choose how you want to use Data Quest.
-
     </p>
 
 
     <div class="role-grid">
 
 
-        <!-- ================= STUDENT ================= -->
+        <!-- STUDENT -->
 
         <div class="role-card">
-
 
             <div class="role-icon">
                 🎓
             </div>
 
-
             <h3>
                 I'm a Student
             </h3>
-
 
             <p>
 
@@ -1102,47 +1137,36 @@
 
             <div class="role-buttons">
 
-
                 <a
                     href="{% url 'student_login' %}"
                     class="role-primary-btn"
                 >
-
                     Student Login
-
                 </a>
-
 
                 <a
                     href="{% url 'register' %}"
                     class="role-secondary-btn"
                 >
-
                     Create Account
-
                 </a>
-
 
             </div>
 
         </div>
 
 
-
-        <!-- ================= TEACHER ================= -->
+        <!-- TEACHER -->
 
         <div class="role-card teacher-card">
-
 
             <div class="role-icon">
                 👨‍🏫
             </div>
 
-
             <h3>
                 I'm a Teacher
             </h3>
-
 
             <p>
 
@@ -1156,55 +1180,42 @@
 
             <div class="role-buttons">
 
-
                 <a
                     href="{% url 'teacher_login' %}"
                     class="role-primary-btn"
                 >
-
                     Teacher Login
-
                 </a>
-
 
                 <a
                     href="{% url 'teacher_register' %}"
                     class="role-secondary-btn"
                 >
-
                     Create Teacher Account
-
                 </a>
-
 
             </div>
 
         </div>
-
 
     </div>
 
 </section>
 
 
-
 <!-- =====================================================
      FEATURES
 ===================================================== -->
 
-<section class="features">
+<section class="section features">
 
-
-    <h2>
+    <h2 class="section-title">
         Why Play Data Quest?
     </h2>
 
-
     <p class="section-text">
-
         Learn important concepts while playing,
         improving, and earning rewards.
-
     </p>
 
 
@@ -1217,21 +1228,16 @@
                 📚
             </div>
 
-
             <h3>
                 Learn
             </h3>
 
-
             <p>
-
                 Understand data representation through
                 simple tutorials and learning resources.
-
             </p>
 
         </div>
-
 
 
         <div class="feature-card">
@@ -1240,21 +1246,16 @@
                 🎮
             </div>
 
-
             <h3>
                 Play
             </h3>
 
-
             <p>
-
                 Answer interactive questions and
                 complete exciting challenges.
-
             </p>
 
         </div>
-
 
 
         <div class="feature-card">
@@ -1263,21 +1264,16 @@
                 ⭐
             </div>
 
-
             <h3>
                 Earn
             </h3>
 
-
             <p>
-
                 Earn points, stars, streaks, and
                 achievements as you learn.
-
             </p>
 
         </div>
-
 
 
         <div class="feature-card">
@@ -1286,44 +1282,34 @@
                 🏆
             </div>
 
-
             <h3>
                 Master
             </h3>
 
-
             <p>
-
                 Complete every level and become
                 a Data Representation Master.
-
             </p>
 
         </div>
-
 
     </div>
 
 </section>
 
 
-
 <!-- =====================================================
      TOPICS
 ===================================================== -->
 
-<section class="topics">
+<section class="section topics">
 
-
-    <h2>
+    <h2 class="section-title">
         Four Data Representation Levels
     </h2>
 
-
     <p class="section-text">
-
         Complete each level to unlock the next challenge.
-
     </p>
 
 
@@ -1336,11 +1322,9 @@
                 01
             </div>
 
-
             <h3>
                 🔤 ASCII
             </h3>
-
 
             <p>
                 Learn how characters are represented digitally.
@@ -1349,18 +1333,15 @@
         </div>
 
 
-
         <div class="topic-card">
 
             <div class="number">
                 02
             </div>
 
-
             <h3>
                 📝 Text
             </h3>
-
 
             <p>
                 Discover how text is stored and represented.
@@ -1369,18 +1350,15 @@
         </div>
 
 
-
         <div class="topic-card">
 
             <div class="number">
                 03
             </div>
 
-
             <h3>
                 🖼️ Image
             </h3>
-
 
             <p>
                 Learn how images are represented using pixels.
@@ -1389,18 +1367,15 @@
         </div>
 
 
-
         <div class="topic-card">
 
             <div class="number">
                 04
             </div>
 
-
             <h3>
                 🎵 Audio
             </h3>
-
 
             <p>
                 Explore how sound is represented digitally.
@@ -1408,30 +1383,22 @@
 
         </div>
 
-
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
      ABOUT
 ===================================================== -->
 
-<section
-    class="about"
-    id="about"
->
-
+<section class="section about">
 
     <div class="about-box">
-
 
         <h2>
             About Data Quest
         </h2>
-
 
         <p>
 
@@ -1449,61 +1416,46 @@
 
         </p>
 
-
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
      CALL TO ACTION
 ===================================================== -->
 
-<section class="cta">
+<div class="cta-wrapper">
 
+    <section class="cta">
 
-    <h2>
-        Ready to Begin Your Quest? 🚀
-    </h2>
+        <h2>
+            Ready to Begin Your Quest? 🚀
+        </h2>
 
+        <p>
+            No account required. Start playing Level 1 now!
+        </p>
 
-    <p>
+        <a
+            href="{% url 'level1_game' %}"
+            class="cta-btn"
+        >
+            🚀 Start Data Quest
+        </a>
 
-        No account required.
-        Start playing Level 1 now!
+    </section>
 
-    </p>
-
-
-    <a
-        href="{% url 'level1_game' %}"
-        class="cta-btn"
-    >
-
-        🚀 Start Data Quest
-
-    </a>
-
-
-</section>
-
+</div>
 
 
 <!-- =====================================================
      FOOTER
 ===================================================== -->
 
-<footer>
+<footer class="footer">
 
-
-    <p>
-
-        © 2026 Data Quest —
-        Data Representation Learning Game
-
-    </p>
-
+    © 2026 Data Quest. Learn. Play. Master Data Representation.
 
 </footer>
 

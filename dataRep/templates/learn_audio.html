@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Audio & Sound | Data Quest</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+
+            padding: 18px 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-links .active {
+            color: #2563eb;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+
+            padding: 80px 20px 60px;
+
+            background: linear-gradient(
+                135deg,
+                #eff6ff,
+                #ffffff
+            );
+        }
+
+        .hero-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #111827;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 750px;
+            margin: auto;
+
+            font-size: 18px;
+            line-height: 1.7;
+
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .content {
+            max-width: 1100px;
+
+            margin: 50px auto 80px;
+
+            padding: 0 20px;
+        }
+
+
+        .section {
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            margin-bottom: 30px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            font-size: 28px;
+
+            color: #111827;
+
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            color: #6b7280;
+
+            line-height: 1.8;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           SOUND WAVE
+        ========================= */
+
+        .sound-wave {
+            height: 150px;
+
+            margin: 30px 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+        }
+
+        .wave-bar {
+            width: 7px;
+
+            background: #2563eb;
+
+            border-radius: 10px;
+        }
+
+        .wave-bar:nth-child(1) {
+            height: 30px;
+        }
+
+        .wave-bar:nth-child(2) {
+            height: 55px;
+        }
+
+        .wave-bar:nth-child(3) {
+            height: 85px;
+        }
+
+        .wave-bar:nth-child(4) {
+            height: 115px;
+        }
+
+        .wave-bar:nth-child(5) {
+            height: 75px;
+        }
+
+        .wave-bar:nth-child(6) {
+            height: 45px;
+        }
+
+        .wave-bar:nth-child(7) {
+            height: 100px;
+        }
+
+        .wave-bar:nth-child(8) {
+            height: 125px;
+        }
+
+        .wave-bar:nth-child(9) {
+            height: 65px;
+        }
+
+        .wave-bar:nth-child(10) {
+            height: 35px;
+        }
+
+        .wave-bar:nth-child(11) {
+            height: 80px;
+        }
+
+        .wave-bar:nth-child(12) {
+            height: 110px;
+        }
+
+        .wave-bar:nth-child(13) {
+            height: 60px;
+        }
+
+        .wave-bar:nth-child(14) {
+            height: 40px;
+        }
+
+
+        /* =========================
+           CONCEPT GRID
+        ========================= */
+
+        .concept-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+            margin-top: 25px;
+        }
+
+        .concept {
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 25px;
+        }
+
+        .concept-icon {
+            font-size: 32px;
+
+            margin-bottom: 15px;
+        }
+
+        .concept h3 {
+            font-size: 20px;
+
+            color: #111827;
+
+            margin-bottom: 10px;
+        }
+
+        .concept p {
+            font-size: 14px;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =========================
+           EXAMPLE
+        ========================= */
+
+        .example {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            margin-top: 25px;
+        }
+
+        .example h3 {
+            margin-bottom: 10px;
+
+            color: #1e40af;
+        }
+
+
+        /* =========================
+           PROCESS
+        ========================= */
+
+        .process {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 25px;
+        }
+
+        .process-step {
+            text-align: center;
+
+            background: #f8fafc;
+
+            border-radius: 14px;
+
+            padding: 25px 15px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        .process-step h3 {
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
+            font-size: 13px;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =========================
+           RESOURCE BOX
+        ========================= */
+
+        .resource-box {
+            text-align: center;
+
+            background: #111827;
+
+            color: white;
+
+            border-radius: 18px;
+
+            padding: 45px 30px;
+
+            margin-top: 30px;
+        }
+
+        .resource-box h2 {
+            color: white;
+
+            margin-bottom: 12px;
+        }
+
+        .resource-box p {
+            color: #d1d5db;
+
+            max-width: 700px;
+
+            margin: 0 auto 25px;
+        }
+
+        .resource-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .resource-btn {
+            display: inline-block;
+
+            padding: 11px 18px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .resource-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .resource-btn.secondary {
+            background: #374151;
+        }
+
+        .resource-btn.secondary:hover {
+            background: #4b5563;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 25px 20px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            nav {
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .process {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-buttons {
+                flex-direction: column;
+            }
+
+            .resource-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav>
+
+        <a href="{% url 'home' %}"
+           class="logo">
+
+            Data Quest
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'learn' %}"
+               class="active">
+
+                Learn
+
+            </a>
+
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a href="{% url 'student_login' %}">
+                Student Login
+            </a>
+
+            <a href="{% url 'teacher_login' %}">
+                Teacher Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-icon">
+            🎵
+        </div>
+
+
+        <h1>
+
+            Audio &
+            <span>
+                Sound
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Discover how computers convert real-world sound
+            into digital information that can be stored,
+            processed and played back.
+
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="content">
+
+
+        <!-- =========================
+             WHAT IS DIGITAL AUDIO
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                What Is Digital Audio?
+            </h2>
+
+
+            <p>
+
+                Sound is produced by vibrations that travel
+                through a medium such as air. Computers,
+                however, need digital data to store and
+                process information.
+
+            </p>
+
+
+            <p>
+
+                Digital audio is created by measuring a sound
+                wave at regular intervals and converting
+                those measurements into numerical values.
+
+            </p>
+
+
+            <div class="sound-wave">
+
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MAIN CONCEPTS
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                Important Audio Concepts
+            </h2>
+
+
+            <div class="concept-grid">
+
+
+                <div class="concept">
+
+                    <div class="concept-icon">
+                        🌊
+                    </div>
+
+                    <h3>
+                        Sound Waves
+                    </h3>
+
+                    <p>
+
+                        Sound travels as waves. These waves
+                        contain information about the sound
+                        we hear.
+
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <div class="concept-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Sampling
+                    </h3>
+
+                    <p>
+
+                        Sampling measures the sound wave at
+                        regular intervals to create digital
+                        data.
+
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <div class="concept-icon">
+                        🎚️
+                    </div>
+
+                    <h3>
+                        Bit Depth
+                    </h3>
+
+                    <p>
+
+                        Bit depth determines how precisely
+                        each audio sample can be represented.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SAMPLE RATE
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                What Is Sample Rate?
+            </h2>
+
+
+            <p>
+
+                Sample rate describes how many times per second
+                a sound wave is measured.
+
+            </p>
+
+
+            <div class="example">
+
+                <h3>
+                    Example
+                </h3>
+
+                <p>
+
+                    A sample rate of 44,100 Hz means that the
+                    sound is measured 44,100 times every second.
+
+                    This is commonly associated with CD-quality
+                    digital audio.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             BIT DEPTH
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                What Is Bit Depth?
+            </h2>
+
+
+            <p>
+
+                Bit depth determines how many possible numerical
+                values can be used to represent each audio sample.
+
+            </p>
+
+
+            <div class="example">
+
+                <h3>
+                    Example
+                </h3>
+
+                <p>
+
+                    With 8 bits, there are 256 possible values.
+
+                    With 16 bits, there are 65,536 possible values.
+
+                    Higher bit depth allows more precise
+                    representation of each sample.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ANALOG TO DIGITAL
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                How Sound Becomes Digital Data
+            </h2>
+
+
+            <p>
+
+                The basic process can be understood in four
+                simple stages:
+
+            </p>
+
+
+            <div class="process">
+
+
+                <div class="process-step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Sound
+                    </h3>
+
+                    <p>
+                        A real-world sound is produced.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Sampling
+                    </h3>
+
+                    <p>
+                        The sound wave is measured.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3>
+                        Quantization
+                    </h3>
+
+                    <p>
+                        Measurements are converted
+                        into numerical values.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <h3>
+                        Binary
+                    </h3>
+
+                    <p>
+                        Numerical values are stored
+                        as digital data.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RESOURCE
+        ========================= -->
+
+        <section class="resource-box">
+
+            <h2>
+                🌐 Explore More
+            </h2>
+
+
+            <p>
+
+                Want to explore digital audio in more detail?
+                Use these external learning resources to learn
+                about sampling, sound waves and digital data.
+
+            </p>
+
+
+            <div class="resource-buttons">
+
+
+                <a
+                    href="https://www.khanacademy.org/computing/computers-and-internet/xcae6f4a7ff015e7d%3Adigital-information/xcae6f4a7ff015e7d%3Adigital-information/xcae6f4a7ff015e7d%3Arepresenting-analog-data-in-binary/a/converting-analog-data-to-binary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn"
+                >
+
+                    📚 Learn Digital Audio
+
+                </a>
+
+
+                <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/Media"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn"
+                >
+
+                    🌐 Explore Web Media
+
+                </a>
+
+
+                <a
+                    href="{% url 'learn' %}"
+                    class="resource-btn secondary"
+                >
+
+                    ← Back to Learn
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 Data Quest.
+        Learn. Play. Master Data Representation.
+
+    </footer>
+
+
+</body>
+
+</html>

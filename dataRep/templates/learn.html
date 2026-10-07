@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Learn | Data Quest</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        a {
+            transition: 0.2s ease;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+
+            padding: 16px 40px;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .logo {
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #374151;
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            padding: 9px 13px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .nav-links a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .student-nav-btn {
+            background: #2563eb;
+            color: white !important;
+        }
+
+        .student-nav-btn:hover {
+            background: #1d4ed8 !important;
+            color: white !important;
+        }
+
+        .teacher-nav-btn {
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            color: #2563eb !important;
+        }
+
+        .teacher-nav-btn:hover {
+            background: #dbeafe !important;
+            color: #1d4ed8 !important;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #ffffff
+                );
+
+            text-align: center;
+
+            padding: 75px 20px 65px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+
+            background: white;
+            color: #1d4ed8;
+
+            border: 1px solid #bfdbfe;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+
+            color: #111827;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 760px;
+
+            margin: 0 auto;
+
+            color: #6b7280;
+
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           INTRODUCTION
+        ========================= */
+
+        .intro {
+            max-width: 950px;
+
+            margin: 0 auto;
+
+            padding: 70px 20px 35px;
+
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: #111827;
+
+            font-size: 32px;
+
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            color: #6b7280;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           TOPIC SECTION
+        ========================= */
+
+        .topics-wrapper {
+            padding: 20px 20px 75px;
+        }
+
+        .topics {
+            max-width: 1150px;
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 24px;
+        }
+
+
+        /* =========================
+           TOPIC CARD
+        ========================= */
+
+        .topic-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.06);
+
+            transition: 0.2s ease;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 16px 38px rgba(0, 0, 0, 0.09);
+        }
+
+        .topic-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+
+            flex-shrink: 0;
+
+            background: #eff6ff;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+        }
+
+        .topic-card h3 {
+            color: #111827;
+
+            font-size: 23px;
+        }
+
+        .topic-card > p {
+            color: #6b7280;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            margin-bottom: 18px;
+        }
+
+        .topic-card ul {
+            padding-left: 20px;
+
+            margin-bottom: 22px;
+        }
+
+        .topic-card li {
+            color: #374151;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           EXPLORE BUTTON
+        ========================= */
+
+        .learn-more {
+            display: inline-block;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .learn-more:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           QUICK FACTS
+        ========================= */
+
+        .facts {
+            background: #111827;
+
+            color: white;
+
+            padding: 70px 20px;
+        }
+
+        .facts-container {
+            max-width: 1100px;
+
+            margin: auto;
+
+            text-align: center;
+        }
+
+        .facts h2 {
+            font-size: 32px;
+
+            margin-bottom: 35px;
+        }
+
+        .fact-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+        }
+
+        .fact {
+            background: #1f2937;
+
+            border: 1px solid #374151;
+
+            border-radius: 15px;
+
+            padding: 25px 18px;
+        }
+
+        .fact-number {
+            color: #60a5fa;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+        .fact p {
+            color: #d1d5db;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta-wrapper {
+            background: #f5f7fb;
+
+            padding: 70px 20px;
+        }
+
+        .cta {
+            max-width: 1000px;
+
+            margin: auto;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 20px;
+
+            padding: 50px 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .cta h2 {
+            color: #111827;
+
+            font-size: 32px;
+
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #6b7280;
+
+            font-size: 16px;
+
+            margin-bottom: 25px;
+        }
+
+        .game-button {
+            display: inline-block;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 13px 25px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .game-button:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 20px;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 950px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .topics {
+                grid-template-columns: 1fr;
+            }
+
+            .fact-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-links {
+                gap: 4px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+
+                padding: 8px 9px;
+            }
+
+            .hero {
+                padding: 55px 15px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .intro {
+                padding-top: 55px;
+            }
+
+            .intro h2 {
+                font-size: 28px;
+            }
+
+            .topics-wrapper {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .topic-card {
+                padding: 25px;
+            }
+
+            .topic-card h3 {
+                font-size: 21px;
+            }
+
+            .fact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facts h2 {
+                font-size: 28px;
+            }
+
+            .cta-wrapper {
+                padding: 50px 15px;
+            }
+
+            .cta {
+                padding: 35px 20px;
+            }
+
+            .cta h2 {
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="{% url 'home' %}"
+            class="logo"
+        >
+            🎯 Data Quest
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a
+                href="{% url 'learn' %}"
+                class="active"
+            >
+                Learn
+            </a>
+
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a
+                href="{% url 'student_login' %}"
+                class="student-nav-btn"
+            >
+                🎓 Student Login
+            </a>
+
+            <a
+                href="{% url 'teacher_login' %}"
+                class="teacher-nav-btn"
+            >
+                👨‍🏫 Teacher Login
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-badge">
+        📚 Data Quest Learning Center
+    </div>
+
+    <h1>
+
+        Learn
+        <span>
+            Data Representation
+        </span>
+
+    </h1>
+
+    <p>
+
+        Explore how computers represent text, images,
+        audio, video, and other types of information
+        using digital data.
+
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     INTRODUCTION
+===================================================== -->
+
+<section class="intro">
+
+    <h2>
+        What Will You Learn?
+    </h2>
+
+    <p>
+
+        Computers represent information using digital data,
+        mainly in the form of binary numbers — 0s and 1s.
+
+        Explore the topics below to understand how different
+        types of information are stored, processed, and
+        represented by computers.
+
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     TOPICS
+===================================================== -->
+
+<section class="topics-wrapper">
+
+    <div class="topics">
+
+
+        <!-- TEXT & ASCII -->
+
+        <div class="topic-card">
+
+            <div class="topic-header">
+
+                <div class="icon">
+                    🔤
+                </div>
+
+                <h3>
+                    Text & ASCII
+                </h3>
+
+            </div>
+
+            <p>
+
+                Learn how computers represent letters,
+                numbers, and symbols using digital codes.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    What is text representation?
+                </li>
+
+                <li>
+                    What is ASCII?
+                </li>
+
+                <li>
+                    ASCII characters and codes
+                </li>
+
+                <li>
+                    Binary representation of characters
+                </li>
+
+                <li>
+                    ASCII Art
+                </li>
+
+            </ul>
+
+            <a
+                href="{% url 'learn_text' %}"
+                class="learn-more"
+            >
+                Explore Topic →
+            </a>
+
+        </div>
+
+
+        <!-- IMAGES & PIXELS -->
+
+        <div class="topic-card">
+
+            <div class="topic-header">
+
+                <div class="icon">
+                    🖼️
+                </div>
+
+                <h3>
+                    Images & Pixels
+                </h3>
+
+            </div>
+
+            <p>
+
+                Discover how digital images are created
+                using pixels and how computers store
+                visual information.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    What is a digital image?
+                </li>
+
+                <li>
+                    Understanding pixels
+                </li>
+
+                <li>
+                    Image resolution
+                </li>
+
+                <li>
+                    Colour representation
+                </li>
+
+                <li>
+                    RGB and colour channels
+                </li>
+
+            </ul>
+
+            <a
+                href="{% url 'learn_images' %}"
+                class="learn-more"
+            >
+                Explore Topic →
+            </a>
+
+        </div>
+
+
+        <!-- AUDIO & SOUND -->
+
+        <div class="topic-card">
+
+            <div class="topic-header">
+
+                <div class="icon">
+                    🎵
+                </div>
+
+                <h3>
+                    Audio & Sound
+                </h3>
+
+            </div>
+
+            <p>
+
+                Learn how real-world sound is converted
+                into digital information that computers
+                can store and process.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    What is digital audio?
+                </li>
+
+                <li>
+                    Sound waves
+                </li>
+
+                <li>
+                    Sampling
+                </li>
+
+                <li>
+                    Sample rate
+                </li>
+
+                <li>
+                    Bit depth
+                </li>
+
+            </ul>
+
+            <a
+                href="{% url 'learn_audio' %}"
+                class="learn-more"
+            >
+                Explore Topic →
+            </a>
+
+        </div>
+
+
+        <!-- VIDEO & DIGITAL MEDIA -->
+
+        <div class="topic-card">
+
+            <div class="topic-header">
+
+                <div class="icon">
+                    🎬
+                </div>
+
+                <h3>
+                    Video & Digital Media
+                </h3>
+
+            </div>
+
+            <p>
+
+                Understand how moving images are represented
+                digitally and how videos are stored using
+                frames and data.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    What is digital video?
+                </li>
+
+                <li>
+                    Frames and frame rate
+                </li>
+
+                <li>
+                    Resolution
+                </li>
+
+                <li>
+                    Colour representation
+                </li>
+
+                <li>
+                    Video file size
+                </li>
+
+            </ul>
+
+            <a
+                href="{% url 'learn_video' %}"
+                class="learn-more"
+            >
+                Explore Topic →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     QUICK FACTS
+===================================================== -->
+
+<section class="facts">
+
+    <div class="facts-container">
+
+        <h2>
+            Quick Digital Facts
+        </h2>
+
+
+        <div class="fact-grid">
+
+
+            <div class="fact">
+
+                <div class="fact-number">
+                    0 & 1
+                </div>
+
+                <p>
+                    Computers use binary digits
+                    to represent digital information.
+                </p>
+
+            </div>
+
+
+            <div class="fact">
+
+                <div class="fact-number">
+                    8
+                </div>
+
+                <p>
+                    Eight bits make one byte.
+                </p>
+
+            </div>
+
+
+            <div class="fact">
+
+                <div class="fact-number">
+                    ASCII
+                </div>
+
+                <p>
+                    ASCII provides codes for
+                    representing common characters.
+                </p>
+
+            </div>
+
+
+            <div class="fact">
+
+                <div class="fact-number">
+                    RGB
+                </div>
+
+                <p>
+                    Digital colours can be represented
+                    using red, green, and blue components.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CALL TO ACTION
+===================================================== -->
+
+<section class="cta-wrapper">
+
+    <div class="cta">
+
+        <h2>
+            Ready to Test Your Knowledge? 🚀
+        </h2>
+
+        <p>
+
+            After learning the basics, challenge yourself
+            with Data Quest Level 1.
+
+        </p>
+
+        <a
+            href="{% url 'level1_game' %}"
+            class="game-button"
+        >
+            🎮 Start Level 1
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    © 2026 Data Quest. Learn. Play. Master Data Representation.
+
+</footer>
+
+
+</body>
+
+</html>

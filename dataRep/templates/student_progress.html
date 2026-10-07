@@ -5,12 +5,13 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>
-        Student Progress | Data Quest
-    </title>
+    <title>Student Progress | Data Quest</title>
+
 
     <style>
 
@@ -21,98 +22,176 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
         }
 
         /* =========================
-           Navbar
+           NAVIGATION
         ========================= */
 
         .navbar {
-            background: #2563eb;
-            color: white;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
             padding: 16px 40px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
 
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
         }
 
         .logo {
-            font-size: 22px;
-            font-weight: bold;
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: 700;
+            text-decoration: none;
         }
 
-        .nav-button {
-            color: white;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
             text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
 
-            background: rgba(255,255,255,0.15);
-
-            padding: 9px 16px;
+            padding: 9px 13px;
 
             border-radius: 8px;
+
+            transition: 0.2s;
         }
 
-        .nav-button:hover {
-            background: rgba(255,255,255,0.25);
+        .nav-links a:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .nav-links a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .logout {
+            color: #dc2626 !important;
+        }
+
+        .logout:hover {
+            background: #fef2f2 !important;
+            color: #b91c1c !important;
         }
 
         /* =========================
-           Main
+           MAIN
         ========================= */
 
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+
+            padding: 45px 20px 60px;
         }
 
         /* =========================
-           Header
+           PAGE HEADER
         ========================= */
 
         .page-header {
-            background: white;
-            border-radius: 16px;
-
-            padding: 30px;
-
             margin-bottom: 25px;
-
-            box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
         }
 
         .page-header h1 {
-            font-size: 30px;
-            margin-bottom: 10px;
+            color: #111827;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 span {
+            color: #2563eb;
         }
 
         .page-header p {
             color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            color: #2563eb;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
         }
 
         /* =========================
-           Student Information
+           STUDENT INFORMATION
         ========================= */
 
         .student-info {
             background: white;
-            border-radius: 16px;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
 
             padding: 25px;
 
             margin-bottom: 25px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 12px 35px rgba(0, 0, 0, 0.08);
         }
 
-        .student-info h2 {
+        .student-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
             margin-bottom: 20px;
+        }
+
+        .student-icon {
+            width: 48px;
+            height: 48px;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+        }
+
+        .student-heading h2 {
+            color: #111827;
+            font-size: 22px;
         }
 
         .info-grid {
@@ -127,32 +206,40 @@
         .info-box {
             background: #f8fafc;
 
-            border-radius: 10px;
+            border: 1px solid #e5e7eb;
 
-            padding: 18px;
+            border-radius: 12px;
+
+            padding: 17px;
         }
 
         .info-label {
             color: #6b7280;
+
             font-size: 13px;
 
             margin-bottom: 6px;
         }
 
         .info-value {
-            font-size: 18px;
-            font-weight: bold;
+            color: #111827;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            word-break: break-word;
         }
 
         /* =========================
-           Statistics
+           STATISTICS
         ========================= */
 
         .stats {
             display: grid;
 
             grid-template-columns:
-                repeat(auto-fit, minmax(180px, 1fr));
+                repeat(auto-fit, minmax(190px, 1fr));
 
             gap: 15px;
 
@@ -162,47 +249,62 @@
         .stat-card {
             background: white;
 
-            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
 
             padding: 22px;
 
             text-align: center;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 12px 35px rgba(0, 0, 0, 0.06);
         }
 
         .stat-icon {
-            font-size: 30px;
+            font-size: 28px;
+
             margin-bottom: 8px;
         }
 
         .stat-number {
+            color: #111827;
+
             font-size: 28px;
-            font-weight: bold;
+
+            font-weight: 700;
         }
 
         .stat-label {
             color: #6b7280;
+
+            font-size: 14px;
+
             margin-top: 5px;
         }
 
         /* =========================
-           Results
+           RESULTS
         ========================= */
 
         .results-card {
             background: white;
 
-            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
 
             padding: 25px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 12px 35px rgba(0, 0, 0, 0.08);
         }
 
         .results-card h2 {
+            color: #111827;
+
+            font-size: 21px;
+
             margin-bottom: 20px;
         }
 
@@ -212,79 +314,145 @@
 
         table {
             width: 100%;
+
             border-collapse: collapse;
+
+            min-width: 750px;
         }
 
-        th,
-        td {
+        th {
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
             padding: 14px;
 
             text-align: left;
 
-            border-bottom:
-                1px solid #e5e7eb;
-        }
+            font-size: 13px;
 
-        th {
-            background: #f8fafc;
+            font-weight: 700;
 
-            font-size: 14px;
+            border-bottom: 1px solid #dbeafe;
         }
 
         td {
-            font-size: 15px;
+            padding: 15px 14px;
+
+            color: #374151;
+
+            font-size: 14px;
+
+            border-bottom: 1px solid #e5e7eb;
         }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
 
         .completed {
             color: #16a34a;
-            font-weight: bold;
+
+            font-weight: 700;
+
+            white-space: nowrap;
         }
 
         .not-completed {
             color: #dc2626;
-            font-weight: bold;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        .percentage {
+            color: #2563eb;
+
+            font-weight: 700;
+        }
+
+        .stars {
+            white-space: nowrap;
         }
 
         /* =========================
-           Empty Results
+           EMPTY STATE
         ========================= */
 
         .empty {
             text-align: center;
 
-            padding: 40px 20px;
-
-            color: #6b7280;
+            padding: 55px 20px;
         }
 
         .empty-icon {
-            font-size: 45px;
+            width: 70px;
+            height: 70px;
 
-            margin-bottom: 15px;
+            background: #eff6ff;
+
+            border-radius: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 18px;
+
+            font-size: 32px;
+        }
+
+        .empty h3 {
+            color: #111827;
+
+            font-size: 21px;
+
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
         }
 
         /* =========================
-           Back Button
+           BOTTOM NAVIGATION
         ========================= */
 
-        .back-section {
+        .bottom-navigation {
             margin-top: 25px;
         }
 
         .back-button {
             display: inline-block;
 
-            text-decoration: none;
-
             background: #2563eb;
 
             color: white;
 
-            padding: 12px 20px;
+            text-decoration: none;
+
+            padding: 11px 17px;
 
             border-radius: 9px;
 
-            font-weight: bold;
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
         }
 
         .back-button:hover {
@@ -292,26 +460,70 @@
         }
 
         /* =========================
-           Responsive
+           FOOTER
         ========================= */
 
-        @media (max-width: 600px) {
+        .footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 18px 20px;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
 
             .navbar {
                 padding: 15px 20px;
             }
 
-            .container {
-                margin: 25px auto;
+            .nav-container {
+                flex-direction: column;
+
+                align-items: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .page {
+                padding: 35px 15px 50px;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .nav-links {
+                gap: 4px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+
+                padding: 8px 9px;
             }
 
             .page-header h1 {
-                font-size: 24px;
+                font-size: 27px;
             }
 
-            th,
-            td {
-                white-space: nowrap;
+            .student-info,
+            .results-card {
+                padding: 20px;
+            }
+
+            .student-heading h2 {
+                font-size: 19px;
             }
 
         }
@@ -320,43 +532,80 @@
 
 </head>
 
+
 <body>
 
 
 <!-- =========================
-     Navbar
+     NAVIGATION
 ========================= -->
 
 <nav class="navbar">
 
-    <div class="logo">
-        🎮 Data Quest — Teacher
+    <div class="nav-container">
+
+        <a
+            href="{% url 'home' %}"
+            class="logo"
+        >
+            Data Quest
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'learn' %}">
+                Learn
+            </a>
+
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a href="{% url 'student_login' %}">
+                Student Login
+            </a>
+
+            <a
+                href="{% url 'teacher_dashboard' %}"
+                class="active"
+            >
+                Teacher Dashboard
+            </a>
+
+            <a
+                href="{% url 'teacher_logout' %}"
+                class="logout"
+            >
+                Logout
+            </a>
+
+        </div>
+
     </div>
-
-    <a
-        href="{% url 'teacher_dashboard' %}"
-        class="nav-button">
-
-        🏠 Dashboard
-
-    </a>
 
 </nav>
 
 
 <!-- =========================
-     Main
+     MAIN
 ========================= -->
 
-<div class="container">
+<main class="page">
 
 
-    <!-- Page Header -->
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
 
     <div class="page-header">
 
         <h1>
-            📊 Student Progress
+            Student <span>Progress</span>
         </h1>
 
         <p>
@@ -364,20 +613,38 @@
             performance of this student.
         </p>
 
+
+        <a
+            href="{% url 'view_students' class_id=student.class_section.id %}"
+            class="back-link"
+        >
+            ← Back to Students
+        </a>
+
     </div>
 
 
     <!-- =========================
-         Student Information
+         STUDENT INFORMATION
     ========================= -->
 
     <div class="student-info">
 
-        <h2>
-            👤 {{ student.full_name }}
-        </h2>
+        <div class="student-heading">
+
+            <div class="student-icon">
+                👤
+            </div>
+
+            <h2>
+                {{ student.full_name }}
+            </h2>
+
+        </div>
+
 
         <div class="info-grid">
+
 
             <div class="info-box">
 
@@ -437,13 +704,14 @@
 
             </div>
 
+
         </div>
 
     </div>
 
 
     <!-- =========================
-         Statistics
+         STATISTICS
     ========================= -->
 
     <div class="stats">
@@ -521,7 +789,7 @@
 
 
     <!-- =========================
-         Level 1 Results
+         LEVEL 1 RESULTS
     ========================= -->
 
     <div class="results-card">
@@ -532,6 +800,7 @@
 
 
         {% if results %}
+
 
             <div class="table-container">
 
@@ -572,7 +841,9 @@
 
                     <tbody>
 
+
                         {% for result in results %}
+
 
                             <tr>
 
@@ -587,14 +858,23 @@
                                 </td>
 
                                 <td>
-                                    {{ result.percentage }}%
+
+                                    <span class="percentage">
+                                        {{ result.percentage }}%
+                                    </span>
+
                                 </td>
 
                                 <td>
-                                    ⭐ {{ result.stars }}
+
+                                    <span class="stars">
+                                        ⭐ {{ result.stars }}
+                                    </span>
+
                                 </td>
 
                                 <td>
+
 
                                     {% if result.completed %}
 
@@ -610,6 +890,7 @@
 
                                     {% endif %}
 
+
                                 </td>
 
                                 <td>
@@ -618,7 +899,9 @@
 
                             </tr>
 
+
                         {% endfor %}
+
 
                     </tbody>
 
@@ -628,6 +911,11 @@
 
 
         {% else %}
+
+
+            <!-- =========================
+                 EMPTY STATE
+            ========================= -->
 
             <div class="empty">
 
@@ -646,28 +934,41 @@
 
             </div>
 
+
         {% endif %}
 
 
     </div>
 
 
-    <!-- Back -->
+    <!-- =========================
+         BACK BUTTON
+    ========================= -->
 
-    <div class="back-section">
+    <div class="bottom-navigation">
 
         <a
             href="{% url 'view_students' class_id=student.class_section.id %}"
-            class="back-button">
-
+            class="back-button"
+        >
             ← Back to Students
-
         </a>
 
     </div>
 
 
-</div>
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    © 2026 Data Quest. Learn. Play. Master Data Representation.
+
+</footer>
 
 
 </body>

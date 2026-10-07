@@ -5,433 +5,379 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Students | Data Quest</title>
+    <title>Class Students | Data Quest</title>
 
 
     <style>
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-
 
         body {
-
-            margin: 0;
-
-            font-family: Arial, sans-serif;
-
-            background: #f4f7fb;
-
-            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            min-height: 100vh;
+            color: #111827;
         }
 
-
         /* =========================
-           Navbar
+           NAVIGATION
         ========================= */
 
         .navbar {
-
-            background: #2563eb;
-
-            color: white;
-
-            padding: 18px 40px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
         }
 
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
 
         .logo {
-
-            font-size: 22px;
-
-            font-weight: bold;
-        }
-
-
-        .back-button {
-
-            color: white;
-
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: 700;
             text-decoration: none;
+        }
 
-            background: rgba(255, 255, 255, 0.15);
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
-            padding: 9px 15px;
-
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 9px 13px;
             border-radius: 8px;
-
-            font-weight: bold;
+            transition: 0.2s;
         }
 
-
-        .back-button:hover {
-
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-
-        /* =========================
-           Container
-        ========================= */
-
-        .container {
-
-            max-width: 1250px;
-
-            margin: 40px auto;
-
-            padding: 20px;
-        }
-
-
-        /* =========================
-           Header Card
-        ========================= */
-
-        .header-card {
-
-            background: white;
-
-            padding: 30px;
-
-            border-radius: 18px;
-
-            box-shadow:
-                0 5px 20px rgba(0, 0, 0, 0.08);
-
-            margin-bottom: 25px;
-        }
-
-
-        .header-card h1 {
-
-            margin: 0 0 10px 0;
-
+        .nav-links a:hover {
+            background: #eff6ff;
             color: #2563eb;
         }
 
-
-        .header-card p {
-
-            margin: 0;
-
-            color: #666;
+        .nav-links a.active {
+            background: #2563eb;
+            color: white;
         }
 
+        .logout {
+            color: #dc2626 !important;
+        }
+
+        .logout:hover {
+            background: #fef2f2 !important;
+            color: #b91c1c !important;
+        }
 
         /* =========================
-           Student Registration Info
+           MAIN
+        ========================= */
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 45px 20px 60px;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            color: #111827;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 span {
+            color: #2563eb;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           INFORMATION CARD
         ========================= */
 
         .info-card {
-
             background: #eff6ff;
-
-            border-left: 5px solid #2563eb;
-
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            border-radius: 12px;
             padding: 18px 20px;
-
-            border-radius: 10px;
-
             margin-bottom: 25px;
         }
 
-
         .info-card h3 {
-
-            margin: 0 0 8px 0;
-
-            color: #1d4ed8;
+            color: #1e40af;
+            font-size: 16px;
+            margin-bottom: 7px;
         }
 
-
         .info-card p {
-
-            margin: 0;
-
             color: #4b5563;
-
+            font-size: 14px;
             line-height: 1.6;
         }
 
-
         /* =========================
-           Student Card
+           STUDENT CARD
         ========================= */
 
         .student-card {
-
             background: white;
-
-            padding: 25px;
-
+            border: 1px solid #e5e7eb;
             border-radius: 18px;
-
-            box-shadow:
-                0 5px 20px rgba(0, 0, 0, 0.08);
-
+            padding: 25px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
             overflow-x: auto;
         }
 
-
         /* =========================
-           Student Table
+           TABLE
         ========================= */
 
         table {
-
             width: 100%;
-
             border-collapse: collapse;
-
             min-width: 950px;
         }
 
-
         th {
-
-            background: #eef4ff;
-
-            color: #2563eb;
-
-            padding: 15px;
-
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 14px;
             text-align: left;
-
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            border-bottom: 1px solid #dbeafe;
         }
-
 
         td {
-
-            padding: 15px;
-
+            padding: 15px 14px;
             border-bottom: 1px solid #e5e7eb;
-
             color: #374151;
+            font-size: 14px;
+            vertical-align: middle;
         }
 
-
-        tr:hover {
-
+        tbody tr:hover {
             background: #f9fafb;
         }
 
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
 
         /* =========================
-           Student Name
+           STUDENT
         ========================= */
 
         .student-name {
-
-            font-weight: bold;
-
             color: #111827;
-
+            font-weight: 600;
             margin-bottom: 4px;
         }
 
-
         .username {
-
             color: #6b7280;
-
-            font-size: 14px;
+            font-size: 13px;
         }
 
-
         /* =========================
-           Points
+           POINTS
         ========================= */
 
         .points {
-
-            font-weight: bold;
-
             color: #2563eb;
+            font-weight: 700;
         }
 
-
         /* =========================
-           Stars
+           STARS
         ========================= */
 
         .stars {
-
-            font-size: 18px;
-        }
-
-
-        /* =========================
-           Progress
-        ========================= */
-
-        .progress-container {
-
-            width: 150px;
-
-            background: #e5e7eb;
-
-            border-radius: 20px;
-
-            height: 10px;
-
-            overflow: hidden;
-
-            margin-bottom: 5px;
-        }
-
-
-        .progress-bar {
-
-            height: 100%;
-
-            background: #2563eb;
-
-            border-radius: 20px;
-        }
-
-
-        .progress-text {
-
-            font-size: 12px;
-
-            color: #666;
-        }
-
-
-        /* =========================
-           View Progress Button
-        ========================= */
-
-        .progress-button {
-
-            display: inline-block;
-
-            background: #2563eb;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 9px 14px;
-
-            border-radius: 8px;
-
-            font-size: 13px;
-
-            font-weight: bold;
-
             white-space: nowrap;
         }
 
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress-container {
+            width: 150px;
+            height: 9px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 20px;
+        }
+
+        .progress-text {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .progress-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
 
         .progress-button:hover {
-
             background: #1d4ed8;
         }
 
-
         /* =========================
-           Empty State
+           EMPTY STATE
         ========================= */
 
         .empty-card {
-
             text-align: center;
-
             padding: 60px 20px;
-
-            color: #666;
         }
-
 
         .empty-icon {
-
-            font-size: 65px;
-
-            margin-bottom: 15px;
+            width: 70px;
+            height: 70px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 32px;
         }
-
 
         .empty-card h2 {
-
-            color: #2563eb;
-
+            color: #111827;
+            font-size: 23px;
             margin-bottom: 10px;
         }
-
 
         .empty-card p {
-
-            margin-bottom: 10px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =========================
-           Footer
-        ========================= */
-
-        footer {
-
-            text-align: center;
-
-            padding: 30px;
-
-            color: #777;
-
+            color: #6b7280;
             font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 7px;
         }
 
-
         /* =========================
-           Mobile
+           FOOTER
         ========================= */
 
-        @media (max-width: 600px) {
+        .footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 18px 20px;
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
 
             .navbar {
-
                 padding: 15px 20px;
             }
 
-
-            .logo {
-
-                font-size: 18px;
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
             }
 
-
-            .container {
-
-                margin: 20px auto;
-
-                padding: 15px;
+            .nav-links {
+                justify-content: center;
             }
 
+            .page {
+                padding: 35px 15px 50px;
+            }
 
-            .header-card,
+        }
+
+        @media (max-width: 500px) {
+
+            .nav-links {
+                gap: 4px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+                padding: 8px 9px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
             .student-card {
-
-                padding: 20px;
-            }
-
-
-            .header-card h1 {
-
-                font-size: 24px;
+                padding: 18px;
             }
 
         }
@@ -445,86 +391,111 @@
 
 
 <!-- =========================
-     Navbar
+     NAVIGATION
 ========================= -->
 
 <nav class="navbar">
 
-    <div class="logo">
+    <div class="nav-container">
 
-        🎯 Data Quest — Teacher
+        <a
+            href="{% url 'home' %}"
+            class="logo"
+        >
+            Data Quest
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'learn' %}">
+                Learn
+            </a>
+
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a href="{% url 'student_login' %}">
+                Student Login
+            </a>
+
+            <a
+                href="{% url 'teacher_dashboard' %}"
+                class="active"
+            >
+                Teacher Dashboard
+            </a>
+
+            <a
+                href="{% url 'teacher_logout' %}"
+                class="logout"
+            >
+                Logout
+            </a>
+
+        </div>
 
     </div>
-
-
-    <a
-        href="{% url 'teacher_dashboard' %}"
-        class="back-button">
-
-        ← Dashboard
-
-    </a>
 
 </nav>
 
 
 <!-- =========================
-     Main Container
+     MAIN
 ========================= -->
 
-<div class="container">
+<main class="page">
 
 
-    <!-- =========================
-         Class Header
-    ========================= -->
+    <!-- Page Header -->
 
-    <div class="header-card">
+    <div class="page-header">
 
         <h1>
-
-            👥 {{ class_section.name }} — Students
-
+            <span>{{ class_section.name }}</span> — Students
         </h1>
 
-
         <p>
-
-            View students and monitor their
-            learning progress.
-
+            View students and monitor their Data Quest learning progress.
         </p>
+
+
+        <a
+            href="{% url 'teacher_dashboard' %}"
+            class="back-link"
+        >
+            ← Back to Teacher Dashboard
+        </a>
 
     </div>
 
 
     <!-- =========================
-         Information
+         INFORMATION
     ========================= -->
 
     <div class="info-card">
 
         <h3>
-
             👨‍🎓 Student Registration
-
         </h3>
 
-
         <p>
-
-            Students register their own accounts
-            and join one available section after
-            logging in. You can view each student's
-            progress from this page.
-
+            Students register their own accounts and join this class
+            using the class join code. You can view each student's
+            progress and performance from this page.
         </p>
 
     </div>
 
 
     <!-- =========================
-         Student List
+         STUDENT LIST
     ========================= -->
 
     <div class="student-card">
@@ -543,36 +514,29 @@
                             #
                         </th>
 
-
                         <th>
                             Student
                         </th>
-
 
                         <th>
                             Username
                         </th>
 
-
                         <th>
                             Points
                         </th>
-
 
                         <th>
                             Stars
                         </th>
 
-
                         <th>
                             Levels Completed
                         </th>
 
-
                         <th>
                             Progress
                         </th>
-
 
                         <th>
                             Action
@@ -591,24 +555,19 @@
 
                         <tr>
 
-
                             <!-- Number -->
 
                             <td>
-
                                 {{ forloop.counter }}
-
                             </td>
 
 
-                            <!-- Student Name -->
+                            <!-- Student -->
 
                             <td>
 
                                 <div class="student-name">
-
                                     {{ student.full_name }}
-
                                 </div>
 
                             </td>
@@ -619,9 +578,7 @@
                             <td>
 
                                 <div class="username">
-
                                     {{ student.user.username }}
-
                                 </div>
 
                             </td>
@@ -632,9 +589,7 @@
                             <td>
 
                                 <span class="points">
-
                                     {{ student.total_points }}
-
                                 </span>
 
                             </td>
@@ -645,9 +600,7 @@
                             <td>
 
                                 <span class="stars">
-
                                     ⭐ {{ student.total_stars }}
-
                                 </span>
 
                             </td>
@@ -657,9 +610,7 @@
 
                             <td>
 
-                                {{ student.completed_levels }}
-
-                                / 4
+                                {{ student.completed_levels }} / 4
 
                             </td>
 
@@ -668,27 +619,20 @@
 
                             <td>
 
-
                                 {% widthratio student.completed_levels 4 100 as progress %}
-
 
                                 <div class="progress-container">
 
                                     <div
                                         class="progress-bar"
-                                        style="width: {{ progress }}%;">
-
-                                    </div>
+                                        style="width: {{ progress }}%;"
+                                    ></div>
 
                                 </div>
-
 
                                 <div class="progress-text">
-
                                     {{ progress }}% Complete
-
                                 </div>
-
 
                             </td>
 
@@ -699,14 +643,12 @@
 
                                 <a
                                     href="{% url 'student_progress' student_id=student.id %}"
-                                    class="progress-button">
-
+                                    class="progress-button"
+                                >
                                     📊 View Progress
-
                                 </a>
 
                             </td>
-
 
                         </tr>
 
@@ -723,42 +665,29 @@
 
 
             <!-- =========================
-                 Empty State
+                 EMPTY STATE
             ========================= -->
 
             <div class="empty-card">
 
-
                 <div class="empty-icon">
-
                     👨‍🎓
-
                 </div>
 
-
                 <h2>
-
                     No Students Yet
-
                 </h2>
 
-
                 <p>
-
-                    There are currently no students
-                    registered in
-                    <strong>{{ class_section.name }}</strong>.
-
+                    There are currently no students registered
+                    in <strong>{{ class_section.name }}</strong>.
                 </p>
 
-
                 <p>
-
-                    Students can register through
-                    the Student Registration page.
-
+                    Students can register through the
+                    Student Registration page and join this
+                    class using the join code.
                 </p>
-
 
             </div>
 
@@ -769,20 +698,19 @@
     </div>
 
 
-</div>
+</main>
 
 
 <!-- =========================
-     Footer
+     FOOTER
 ========================= -->
 
-<footer>
+<footer class="footer">
 
-    🎯 Data Quest — Student Management
+    © 2026 Data Quest. Learn. Play. Master Data Representation.
 
 </footer>
 
 
 </body>
-
 </html>

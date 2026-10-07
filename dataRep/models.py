@@ -31,6 +31,19 @@ class ClassSection(models.Model):
         max_length=100
     )
 
+    # Unique code that students use to join this section.
+    # The same code can be used by all students
+    # belonging to this section.
+    #
+    # null=True and blank=True are temporarily allowed
+    # because existing sections do not have a join code yet.
+    join_code = models.CharField(
+        max_length=20,
+        unique=True,
+        null=True,
+        blank=True
+    )
+
     teacher = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

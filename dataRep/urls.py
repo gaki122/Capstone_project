@@ -16,6 +16,47 @@ urlpatterns = [
 
 
     # =========================
+    # Learning Pages
+    # =========================
+
+    path(
+        'learn/',
+        views.learn,
+        name='learn'
+    ),
+
+    path(
+        'learn/text/',
+        views.learn_text,
+        name='learn_text'
+    ),
+
+    path(
+        'learn/images/',
+        views.learn_images,
+        name='learn_images'
+    ),
+
+    path(
+        'learn/audio/',
+        views.learn_audio,
+        name='learn_audio'
+    ),
+
+    path(
+        'learn/video/',
+        views.learn_video,
+        name='learn_video'
+    ),
+
+    path(
+        'how-to-play/',
+        views.how_to_play,
+        name='how_to_play'
+    ),
+
+
+    # =========================
     # Student Pages
     # =========================
 
@@ -78,25 +119,16 @@ urlpatterns = [
         name='add_class'
     ),
 
-    # View all students in a class
     path(
         'teacher/class/<int:class_id>/students/',
         views.view_students,
         name='view_students'
     ),
 
-    # View individual student progress
     path(
         'teacher/student/<int:student_id>/progress/',
         views.student_progress,
         name='student_progress'
-    ),
-
-    # Add student to class
-    path(
-        'teacher/class/<int:class_id>/add-student/',
-        views.add_student,
-        name='add_student'
     ),
 
     path(
@@ -138,4 +170,5 @@ urlpatterns = [
         views.guest_result,
         name='guest_result'
     ),
+
 ]

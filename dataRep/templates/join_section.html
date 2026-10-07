@@ -1,35 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Join Section | Data Quest</title>
+    <title>Join Class | Data Quest</title>
 
     <style>
-
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
             min-height: 100vh;
+            color: #111827;
+        }
 
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 9px 13px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .nav-links a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            min-height: calc(100vh - 73px);
             display: flex;
             align-items: center;
             justify-content: center;
-
-            padding: 20px;
+            padding: 50px 20px;
         }
 
         .container {
@@ -37,300 +91,410 @@
             max-width: 500px;
         }
 
+        /* =========================
+           CARD
+        ========================= */
+
         .card {
             background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
             padding: 40px;
-            border-radius: 20px;
-
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.10);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
         }
 
-        .logo {
+        .header {
             text-align: center;
-            font-size: 30px;
-            font-weight: bold;
+            margin-bottom: 28px;
+        }
+
+        .header-icon {
+            width: 64px;
+            height: 64px;
+            background: #eff6ff;
             color: #2563eb;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #6b7280;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #111827;
-            font-size: 26px;
-            margin-bottom: 12px;
-        }
-
-        .description {
-            text-align: center;
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .error {
-            background: #fee2e2;
-            color: #b91c1c;
-
-            padding: 12px 15px;
-            border-radius: 10px;
-
-            margin-bottom: 20px;
-
-            font-size: 14px;
-        }
-
-        .section-list {
-            margin-bottom: 25px;
-        }
-
-        .section-option {
+            border-radius: 16px;
             display: flex;
             align-items: center;
-
-            border: 2px solid #e5e7eb;
-
-            padding: 16px;
-
-            border-radius: 12px;
-
-            margin-bottom: 12px;
-
-            cursor: pointer;
-
-            transition: 0.2s;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 30px;
         }
 
-        .section-option:hover {
-            border-color: #2563eb;
-            background: #f8fbff;
-        }
-
-        .section-option input {
-            width: 18px;
-            height: 18px;
-
-            margin-right: 14px;
-
-            cursor: pointer;
-        }
-
-        .section-name {
-            font-size: 16px;
-            font-weight: bold;
+        .header h1 {
             color: #111827;
-        }
-
-        .teacher-name {
-            font-size: 13px;
-            color: #6b7280;
-            margin-top: 4px;
-        }
-
-        .join-button {
-            width: 100%;
-
-            border: none;
-
-            background: #2563eb;
-            color: white;
-
-            padding: 14px;
-
-            border-radius: 10px;
-
-            font-size: 16px;
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .join-button:hover {
-            background: #1d4ed8;
-        }
-
-        .empty {
-            text-align: center;
-
-            padding: 25px 10px;
-
-            color: #6b7280;
-        }
-
-        .empty-icon {
-            font-size: 50px;
+            font-size: 32px;
             margin-bottom: 10px;
         }
 
-        .back-link {
-            display: block;
-
-            text-align: center;
-
-            margin-top: 20px;
-
-            color: #6b7280;
-
-            text-decoration: none;
-
-            font-size: 14px;
-        }
-
-        .back-link:hover {
+        .header h1 span {
             color: #2563eb;
         }
 
-        @media (max-width: 600px) {
+        .header p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           WELCOME
+        ========================= */
+
+        .welcome {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            color: #1e40af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .welcome strong {
+            color: #1e3a8a;
+        }
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            letter-spacing: 2px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        input[type="text"]::placeholder {
+            color: #9ca3af;
+            letter-spacing: 1px;
+        }
+
+        .button {
+            width: 100%;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           HELP
+        ========================= */
+
+        .help {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .help strong {
+            color: #374151;
+        }
+
+        /* =========================
+           BACK LINK
+        ========================= */
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 18px 20px;
+            font-size: 13px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .page {
+                padding: 35px 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
 
             .card {
                 padding: 30px 22px;
             }
 
-            .logo {
-                font-size: 26px;
+            .header h1 {
+                font-size: 27px;
             }
 
-            h1 {
-                font-size: 23px;
+            .nav-links {
+                gap: 4px;
             }
 
+            .nav-links a {
+                font-size: 14px;
+                padding: 8px 9px;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-<div class="container">
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
 
-    <div class="card">
+    <nav class="navbar">
 
-        <div class="logo">
-            🎯 Data Quest
-        </div>
+        <div class="nav-container">
 
-        <div class="subtitle">
-            Learn • Play • Master
-        </div>
+            <a href="{% url 'home' %}" class="logo">
+                Data Quest
+            </a>
 
+            <div class="nav-links">
 
-        <h1>
-            🏫 Join Your Section
-        </h1>
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
 
+                <a href="{% url 'learn' %}">
+                    Learn
+                </a>
 
-        <p class="description">
+                <a href="{% url 'how_to_play' %}">
+                    How to Play
+                </a>
 
-            Select the class or section you belong to.
+                <a href="{% url 'student_login' %}" class="active">
+                    Student Login
+                </a>
 
-            <br>
+                <a href="{% url 'teacher_login' %}">
+                    Teacher Login
+                </a>
 
-            You can join only one section.
-
-        </p>
-
-
-        {% if error %}
-
-            <div class="error">
-                {{ error }}
             </div>
 
-        {% endif %}
+        </div>
+
+    </nav>
 
 
-        {% if sections %}
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
 
-            <form method="POST">
+    <main class="page">
 
-                {% csrf_token %}
+        <div class="container">
+
+            <div class="card">
+
+                <!-- Header -->
+
+                <div class="header">
+
+                    <div class="header-icon">
+                        🎓
+                    </div>
+
+                    <h1>
+                        Join a <span>Class</span>
+                    </h1>
+
+                    <p>
+                        Enter your teacher's class code to join your class.
+                    </p>
+
+                </div>
 
 
-                <div class="section-list">
+                <!-- Welcome -->
 
-                    {% for section in sections %}
+                <div class="welcome">
 
-                        <label class="section-option">
+                    Welcome,
+                    <strong>{{ student.full_name }}</strong>!
 
-                            <input
-                                type="radio"
-                                name="section_id"
-                                value="{{ section.id }}"
-                                required
-                            >
+                    <br>
 
-                            <div>
+                    Enter the class code provided by your teacher
+                    to join your class.
 
-                                <div class="section-name">
-                                    {{ section.name }}
-                                </div>
+                </div>
 
-                                <div class="teacher-name">
 
-                                    Teacher:
-                                    {{ section.teacher.teacherprofile.full_name }}
+                <!-- Error -->
 
-                                </div>
+                {% if error %}
 
-                            </div>
+                    <div class="error">
+                        {{ error }}
+                    </div>
 
+                {% endif %}
+
+
+                <!-- Join Form -->
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+
+                        <label for="join_code">
+                            Class Code
                         </label>
 
-                    {% endfor %}
+                        <input
+                            type="text"
+                            id="join_code"
+                            name="join_code"
+                            placeholder="Enter class code"
+                            maxlength="20"
+                            autocomplete="off"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="button"
+                    >
+                        Join Class 🚀
+                    </button>
+
+                </form>
+
+
+                <!-- Help -->
+
+                <div class="help">
+
+                    <strong>Don't have a class code?</strong>
+
+                    <br>
+
+                    Please ask your teacher for the
+                    class code before joining.
 
                 </div>
 
 
-                <button
-                    type="submit"
-                    class="join-button"
+                <!-- Back -->
+
+                <a
+                    href="{% url 'student_dashboard' %}"
+                    class="back"
                 >
-                    🚀 Join Selected Section
-                </button>
-
-            </form>
-
-        {% else %}
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🏫
-                </div>
-
-                <h3>
-                    No Sections Available
-                </h3>
-
-                <p>
-                    No teacher has created a section yet.
-                    Please try again later.
-                </p>
+                    ← Back to Dashboard
+                </a>
 
             </div>
 
-        {% endif %}
+        </div>
+
+    </main>
 
 
-        <a
-            href="{% url 'student_dashboard' %}"
-            class="back-link"
-        >
-            ← Back to Dashboard
-        </a>
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
-    </div>
+    <footer class="footer">
 
-</div>
+        © 2026 Data Quest. Learn. Play. Master Data Representation.
+
+    </footer>
 
 </body>
-
 </html>

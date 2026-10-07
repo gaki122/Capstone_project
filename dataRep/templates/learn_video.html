@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Video & Digital Media | Data Quest</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 65px;
+
+            background: linear-gradient(
+                135deg,
+                #eff6ff,
+                #ffffff
+            );
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #111827;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: auto;
+
+            font-size: 18px;
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .container {
+            max-width: 1050px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+
+            padding: 35px;
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            font-size: 30px;
+            color: #111827;
+            margin-bottom: 18px;
+        }
+
+        .section h3 {
+            font-size: 21px;
+            color: #2563eb;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           VIDEO VISUAL
+        ========================= */
+
+        .video-demo {
+            background: #111827;
+            border-radius: 15px;
+
+            padding: 35px 20px;
+
+            margin: 25px 0;
+
+            text-align: center;
+        }
+
+        .screen {
+            max-width: 650px;
+            height: 260px;
+
+            margin: auto;
+
+            background: #1f2937;
+
+            border: 4px solid #374151;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 60px;
+        }
+
+        .play-button {
+            width: 70px;
+            height: 70px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+        }
+
+
+        /* =========================
+           FRAME GRID
+        ========================= */
+
+        .frames {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+
+            margin: 25px 0;
+        }
+
+        .frame {
+            height: 90px;
+
+            background: #eff6ff;
+
+            border: 2px solid #bfdbfe;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 28px;
+        }
+
+
+        /* =========================
+           CONCEPT CARDS
+        ========================= */
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+
+            margin-top: 25px;
+        }
+
+        .concept {
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+
+            padding: 25px;
+        }
+
+        .concept h3 {
+            margin-top: 0;
+            color: #111827;
+        }
+
+        .concept p {
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           EXAMPLE BOX
+        ========================= */
+
+        .example {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            border-radius: 10px;
+
+            padding: 22px;
+
+            margin-top: 20px;
+        }
+
+        .example strong {
+            color: #1d4ed8;
+        }
+
+
+        /* =========================
+           FLOW
+        ========================= */
+
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+        }
+
+        .flow-item {
+            background: #2563eb;
+            color: white;
+
+            padding: 15px 20px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+        }
+
+        .arrow {
+            font-size: 25px;
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           RESOURCE BOX
+        ========================= */
+
+        .resource-box {
+            background: #111827;
+            color: white;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .resource-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .resource-box p {
+            color: #d1d5db;
+            margin-bottom: 25px;
+        }
+
+        .resource-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .resource-btn {
+            display: inline-block;
+
+            padding: 12px 20px;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .resource-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .resource-btn.secondary {
+            background: #374151;
+        }
+
+        .resource-btn.secondary:hover {
+            background: #4b5563;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 25px 20px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .frames {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .screen {
+                height: 200px;
+                font-size: 45px;
+            }
+
+            .frames {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav>
+
+        <a href="{% url 'home' %}"
+           class="logo">
+
+            Data Quest
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'learn' %}">
+                Learn
+            </a>
+
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a href="{% url 'student_login' %}">
+                Student Login
+            </a>
+
+            <a href="{% url 'teacher_login' %}">
+                Teacher Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <h1>
+
+            Video &
+            <span>
+                Digital Media
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Learn how computers represent moving images,
+            frames, colours and other digital media using
+            binary data.
+
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- =========================
+             WHAT IS DIGITAL VIDEO?
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                🎬 What Is Digital Video?
+            </h2>
+
+            <p>
+
+                Digital video is a sequence of digital images
+                called <strong>frames</strong> that are displayed
+                quickly one after another.
+
+            </p>
+
+            <p>
+
+                When the frames are shown fast enough, our eyes
+                perceive them as continuous movement.
+
+            </p>
+
+
+            <div class="video-demo">
+
+                <div class="screen">
+
+                    <div class="play-button">
+                        ▶
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FRAMES
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                🎞️ Frames
+            </h2>
+
+            <p>
+
+                A video is made up of many individual images.
+                Each individual image is called a frame.
+
+            </p>
+
+            <p>
+
+                The frames are displayed one after another
+                to create the appearance of motion.
+
+            </p>
+
+
+            <div class="frames">
+
+                <div class="frame">😀</div>
+                <div class="frame">😃</div>
+                <div class="frame">😄</div>
+                <div class="frame">😁</div>
+                <div class="frame">😆</div>
+
+            </div>
+
+
+            <div class="example">
+
+                <strong>Example:</strong>
+
+                If a video contains 30 frames every second,
+                it has a frame rate of 30 frames per second.
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FRAME RATE
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                ⏱️ Frame Rate
+            </h2>
+
+            <p>
+
+                <strong>Frame rate</strong> is the number of
+                frames displayed every second.
+
+            </p>
+
+
+            <div class="concept-grid">
+
+                <div class="concept">
+
+                    <h3>
+                        24 FPS
+                    </h3>
+
+                    <p>
+
+                        Commonly associated with
+                        cinematic video.
+
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <h3>
+                        30 FPS
+                    </h3>
+
+                    <p>
+
+                        Common frame rate for
+                        television and online video.
+
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <h3>
+                        60 FPS
+                    </h3>
+
+                    <p>
+
+                        Provides smoother motion and
+                        is common in games and sports.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RESOLUTION
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                🖼️ Video Resolution
+            </h2>
+
+            <p>
+
+                Video resolution describes the number of pixels
+                used to create each frame of a video.
+
+            </p>
+
+            <p>
+
+                A higher resolution generally means more pixels
+                are used to represent the image.
+
+            </p>
+
+
+            <div class="concept-grid">
+
+                <div class="concept">
+
+                    <h3>
+                        720p
+                    </h3>
+
+                    <p>
+                        HD video resolution.
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <h3>
+                        1080p
+                    </h3>
+
+                    <p>
+                        Full HD video resolution.
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <h3>
+                        4K
+                    </h3>
+
+                    <p>
+                        Much higher resolution
+                        than Full HD.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COLOUR REPRESENTATION
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                🎨 Colour Representation
+            </h2>
+
+            <p>
+
+                Each frame in a digital video is made from
+                pixels. The colour of each pixel can be
+                represented using digital values.
+
+            </p>
+
+            <p>
+
+                A common method is the <strong>RGB colour
+                model</strong>, which uses red, green and
+                blue components.
+
+            </p>
+
+
+            <div class="example">
+
+                <strong>Example:</strong>
+
+                A pixel can contain different numerical
+                values for red, green and blue to represent
+                different colours.
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             VIDEO AS DIGITAL DATA
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                💾 How Is Video Stored?
+            </h2>
+
+            <p>
+
+                A digital video contains a large amount of
+                information. The computer stores this
+                information as digital data.
+
+            </p>
+
+
+            <div class="flow">
+
+                <div class="flow-item">
+                    Frames
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+                <div class="flow-item">
+                    Pixels
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+                <div class="flow-item">
+                    Colour Values
+                </div>
+
+                <div class="arrow">
+                    →
+                </div>
+
+                <div class="flow-item">
+                    Digital Data
+                </div>
+
+            </div>
+
+
+            <div class="example">
+
+                <strong>Important:</strong>
+
+                Video files can become very large because
+                they contain many frames and each frame
+                contains many pixels.
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             VIDEO FILE SIZE
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                📦 Video File Size
+            </h2>
+
+            <p>
+
+                Video file size depends on several factors,
+                including resolution, frame rate, duration,
+                colour information and compression.
+
+            </p>
+
+
+            <div class="concept-grid">
+
+                <div class="concept">
+
+                    <h3>
+                        Resolution
+                    </h3>
+
+                    <p>
+
+                        More pixels generally require
+                        more data.
+
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <h3>
+                        Frame Rate
+                    </h3>
+
+                    <p>
+
+                        More frames per second can
+                        require more data.
+
+                    </p>
+
+                </div>
+
+
+                <div class="concept">
+
+                    <h3>
+                        Compression
+                    </h3>
+
+                    <p>
+
+                        Compression can reduce the
+                        amount of storage required.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DIGITAL VIDEO SUMMARY
+        ========================= -->
+
+        <section class="section">
+
+            <h2>
+                🧠 Quick Summary
+            </h2>
+
+            <p>
+                • Video is made from frames.
+            </p>
+
+            <p>
+                • Frame rate tells us how many frames
+                are displayed each second.
+            </p>
+
+            <p>
+                • Each frame contains pixels.
+            </p>
+
+            <p>
+                • Pixels contain digital colour information.
+            </p>
+
+            <p>
+                • Resolution describes the number of pixels
+                in each frame.
+            </p>
+
+            <p>
+                • Video files store large amounts of
+                digital information.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             EXTERNAL RESOURCES
+        ========================= -->
+
+        <section class="resource-box">
+
+            <h2>
+                🌐 Explore More
+            </h2>
+
+            <p>
+
+                Want to learn more about video and digital
+                media? Explore these useful resources.
+
+            </p>
+
+
+            <div class="resource-buttons">
+
+                <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn"
+                >
+                    🎬 Learn HTML Video
+                </a>
+
+
+                <a
+                    href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Client-side_APIs/Video_and_audio_APIs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn"
+                >
+                    🌐 Video & Audio APIs
+                </a>
+
+
+                <a
+                    href="{% url 'learn' %}"
+                    class="resource-btn secondary"
+                >
+                    ← Back to Learn
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 Data Quest.
+        Learn. Play. Master Data Representation.
+
+    </footer>
+
+
+</body>
+
+</html>

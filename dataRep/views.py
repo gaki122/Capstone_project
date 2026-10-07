@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 
+import secrets
+
 from .models import (
     StudentProfile,
     Level1Result,
@@ -20,6 +22,78 @@ def home(request):
     return render(
         request,
         'home.html'
+    )
+
+
+# =========================
+# Learn
+# =========================
+
+def learn(request):
+
+    return render(
+        request,
+        'learn.html'
+    )
+
+
+# =========================
+# Learn - Text & ASCII
+# =========================
+
+def learn_text(request):
+
+    return render(
+        request,
+        'learn_text.html'
+    )
+
+
+# =========================
+# Learn - Images & Pixels
+# =========================
+
+def learn_images(request):
+
+    return render(
+        request,
+        'learn_images.html'
+    )
+
+
+# =========================
+# Learn - Audio & Sound
+# =========================
+
+def learn_audio(request):
+
+    return render(
+        request,
+        'learn_audio.html'
+    )
+
+
+# =========================
+# Learn - Video & Digital Media
+# =========================
+
+def learn_video(request):
+
+    return render(
+        request,
+        'learn_video.html'
+    )
+
+
+# =========================
+# How to Play
+# =========================
+
+def how_to_play(request):
+
+    return render(
+        request,
+        'how_to_play.html'
     )
 
 
@@ -215,9 +289,9 @@ def student_dashboard(request):
     )
 
 
-# =========================
-# Join Section
-# =========================
+# ==========================================================
+# STUDENT JOIN CLASS USING JOIN CODE
+# ==========================================================
 
 def join_section(request):
 
@@ -239,54 +313,65 @@ def join_section(request):
             'student_login'
         )
 
-    # =========================
-    # Student can join only ONE section
-    # =========================
+    # ======================================================
+    # Student can join only ONE class
+    # ======================================================
 
     if student_profile.class_section is not None:
 
-        return redirect(
-            'student_dashboard'
+        return render(
+            request,
+            'join_section.html',
+            {
+                'student': student_profile,
+                'error':
+                    'You have already joined a class.'
+            }
         )
 
-    # =========================
-    # Get all teacher sections
-    # =========================
-
-    sections = ClassSection.objects.select_related(
-        'teacher'
-    ).order_by(
-        'name'
-    )
-
-    # =========================
-    # Join Selected Section
-    # =========================
+    # ======================================================
+    # Process Join Code
+    # ======================================================
 
     if request.method == 'POST':
 
-        section_id = request.POST.get(
-            'section_id'
+        join_code = request.POST.get(
+            'join_code'
         )
 
-        if not section_id:
+        # Remove unnecessary spaces
+        # and convert code to uppercase
+
+        if join_code:
+
+            join_code = join_code.strip().upper()
+
+        # ==================================================
+        # Check whether code was entered
+        # ==================================================
+
+        if not join_code:
 
             return render(
                 request,
                 'join_section.html',
                 {
-                    'sections': sections,
+                    'student': student_profile,
                     'error':
-                        'Please select a section.'
+                        'Please enter the class code.'
                 }
             )
+
+        # ==================================================
+        # Find class using join code
+        # ==================================================
 
         try:
 
             section = ClassSection.objects.select_related(
                 'teacher'
             ).get(
-                id=section_id
+                join_code=join_code
             )
 
         except ClassSection.DoesNotExist:
@@ -295,25 +380,31 @@ def join_section(request):
                 request,
                 'join_section.html',
                 {
-                    'sections': sections,
+                    'student': student_profile,
                     'error':
-                        'Please select a valid section.'
+                        'Invalid class code. Please check the code and try again.'
                 }
             )
 
-        # =========================
+        # ==================================================
         # Final security check
-        # =========================
+        # ==================================================
 
         if student_profile.class_section is not None:
 
-            return redirect(
-                'student_dashboard'
+            return render(
+                request,
+                'join_section.html',
+                {
+                    'student': student_profile,
+                    'error':
+                        'You have already joined a class.'
+                }
             )
 
-        # =========================
-        # Join Section
-        # =========================
+        # ==================================================
+        # Join Class
+        # ==================================================
 
         student_profile.class_section = section
 
@@ -323,11 +414,15 @@ def join_section(request):
             'student_dashboard'
         )
 
+    # ======================================================
+    # Show Join Class Page
+    # ======================================================
+
     return render(
         request,
         'join_section.html',
         {
-            'sections': sections
+            'student': student_profile
         }
     )
 
@@ -379,7 +474,7 @@ def level1(request):
         )
 
     # =========================
-    # Student must join a section
+    # Student must join a class
     # =========================
 
     if student_profile.class_section is None:
@@ -428,7 +523,7 @@ def level1_game(request):
         )
 
     # =========================
-    # Student must join section
+    # Student must join class
     # =========================
 
     if student_profile.class_section is None:
@@ -884,14 +979,52 @@ def add_class(request):
 
         if class_name:
 
-            ClassSection.objects.create(
-                name=class_name,
-                teacher=request.user
+            class_name = class_name.strip()
+
+        # ==================================================
+        # Check class name
+        # ==================================================
+
+        if not class_name:
+
+            return render(
+                request,
+                'add_class.html',
+                {
+                    'error':
+                        'Please enter a class or section name.'
+                }
             )
 
-            return redirect(
-                'teacher_dashboard'
-            )
+        # ==================================================
+        # Generate UNIQUE join code
+        # ==================================================
+
+        while True:
+
+            join_code = secrets.token_hex(
+                4
+            ).upper()
+
+            if not ClassSection.objects.filter(
+                join_code=join_code
+            ).exists():
+
+                break
+
+        # ==================================================
+        # Create class
+        # ==================================================
+
+        ClassSection.objects.create(
+            name=class_name,
+            join_code=join_code,
+            teacher=request.user
+        )
+
+        return redirect(
+            'teacher_dashboard'
+        )
 
     return render(
         request,

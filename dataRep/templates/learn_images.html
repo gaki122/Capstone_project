@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Images & Pixels | Data Quest</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           NAVBAR
+           ========================= */
+
+        nav {
+            background: #111827;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* =========================
+           HERO
+           ========================= */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #4c1d95
+            );
+
+            color: white;
+            padding: 80px 8%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            max-width: 750px;
+            margin: auto;
+            color: #ede9fe;
+        }
+
+        /* =========================
+           CONTAINER
+           ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        /* =========================
+           CONTENT CARD
+           ========================= */
+
+        .content-card {
+            background: white;
+            padding: 35px;
+            margin-bottom: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .content-card h2 {
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .content-card p {
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           PIXEL GRID
+           ========================= */
+
+        .pixel-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .pixel-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 30px);
+            grid-template-rows: repeat(8, 30px);
+            gap: 2px;
+            background: #111827;
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .pixel {
+            background: #e5e7eb;
+        }
+
+        .pixel:nth-child(2),
+        .pixel:nth-child(3),
+        .pixel:nth-child(4),
+        .pixel:nth-child(5),
+        .pixel:nth-child(6),
+        .pixel:nth-child(7),
+        .pixel:nth-child(10),
+        .pixel:nth-child(17),
+        .pixel:nth-child(24),
+        .pixel:nth-child(25),
+        .pixel:nth-child(32),
+        .pixel:nth-child(33),
+        .pixel:nth-child(40),
+        .pixel:nth-child(41),
+        .pixel:nth-child(48),
+        .pixel:nth-child(49),
+        .pixel:nth-child(56),
+        .pixel:nth-child(57),
+        .pixel:nth-child(58),
+        .pixel:nth-child(59),
+        .pixel:nth-child(60),
+        .pixel:nth-child(61),
+        .pixel:nth-child(62),
+        .pixel:nth-child(63) {
+            background: #7c3aed;
+        }
+
+        /* =========================
+           EXAMPLE BOX
+           ========================= */
+
+        .example-box {
+            background: #f5f3ff;
+            border-left: 5px solid #7c3aed;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .example-box h3 {
+            color: #5b21b6;
+            margin-bottom: 12px;
+        }
+
+        /* =========================
+           STEPS
+           ========================= */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .step {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 14px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            background: #7c3aed;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 14px;
+        }
+
+        /* =========================
+           QUICK FACTS
+           ========================= */
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .fact {
+            background: #faf5ff;
+            padding: 25px;
+            text-align: center;
+            border-radius: 14px;
+            border: 1px solid #e9d5ff;
+        }
+
+        .fact strong {
+            display: block;
+            font-size: 30px;
+            color: #7c3aed;
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           RESOURCE BOX
+           ========================= */
+
+        .resource-box {
+            background: linear-gradient(
+                135deg,
+                #f5f3ff,
+                #f8fafc
+            );
+
+            border: 1px solid #ddd6fe;
+            border-radius: 18px;
+            padding: 35px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .resource-box h2 {
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .resource-box p {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .resource-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .resource-btn {
+            display: inline-block;
+            padding: 13px 22px;
+            background: #7c3aed;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .resource-btn:hover {
+            background: #6d28d9;
+            transform: translateY(-2px);
+        }
+
+        .resource-btn.secondary {
+            background: #475569;
+        }
+
+        .resource-btn.secondary:hover {
+            background: #334155;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .facts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .content-card {
+                padding: 25px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-buttons {
+                flex-direction: column;
+            }
+
+            .resource-btn {
+                width: 100%;
+            }
+
+            .pixel-grid {
+                transform: scale(0.8);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+         ========================= -->
+
+    <nav>
+
+        <a href="{% url 'home' %}"
+           class="logo">
+            🎮 Data Quest
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'learn' %}">
+                    Learn
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'how_to_play' %}">
+                    How to Play
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'student_login' %}">
+                    Student Login
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'teacher_login' %}">
+                    Teacher Login
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+         ========================= -->
+
+    <section class="hero">
+
+        <h1>
+            Images & Pixels
+        </h1>
+
+        <p>
+            Learn how computers represent pictures using
+            pixels, colors and digital information.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
+
+    <main class="container">
+
+
+        <!-- =========================
+             WHAT IS A DIGITAL IMAGE?
+             ========================= -->
+
+        <section class="content-card">
+
+            <h2>
+                🖼️ What is a Digital Image?
+            </h2>
+
+            <p>
+                A digital image is a picture that is stored
+                inside a computer or digital device.
+            </p>
+
+            <p>
+                Computers represent images using many small
+                individual elements called
+                <strong>pixels</strong>.
+            </p>
+
+            <div class="example-box">
+
+                <h3>
+                    Think of a Pixel as a Tiny Square
+                </h3>
+
+                <p>
+                    When many tiny pixels are placed together,
+                    they form the complete picture that we see
+                    on a screen.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PIXELS
+             ========================= -->
+
+        <section class="content-card">
+
+            <h2>
+                🔲 What is a Pixel?
+            </h2>
+
+            <p>
+                A pixel is the smallest individual element
+                of a digital image.
+            </p>
+
+            <p>
+                Each pixel contains information about its
+                color and brightness.
+            </p>
+
+            <div class="pixel-box">
+
+                <div class="pixel-grid">
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+                    <div class="pixel"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RESOLUTION
+             ========================= -->
+
+        <section class="content-card">
+
+            <h2>
+                📐 Image Resolution
+            </h2>
+
+            <p>
+                Image resolution describes how many pixels
+                are used to create an image.
+            </p>
+
+            <p>
+                An image with more pixels can usually show
+                more detail than an image with fewer pixels.
+            </p>
+
+            <div class="facts">
+
+                <div class="fact">
+
+                    <strong>640 × 480</strong>
+
+                    Low resolution example
+
+                </div>
+
+                <div class="fact">
+
+                    <strong>1920 × 1080</strong>
+
+                    Full HD example
+
+                </div>
+
+                <div class="fact">
+
+                    <strong>3840 × 2160</strong>
+
+                    4K example
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COLOR
+             ========================= -->
+
+        <section class="content-card">
+
+            <h2>
+                🎨 How Do Pixels Store Color?
+            </h2>
+
+            <p>
+                Digital images commonly use the
+                <strong>RGB color model</strong>.
+            </p>
+
+            <p>
+                RGB stands for:
+            </p>
+
+            <div class="example-box">
+
+                <p>
+                    🔴 <strong>Red</strong>
+                </p>
+
+                <p>
+                    🟢 <strong>Green</strong>
+                </p>
+
+                <p>
+                    🔵 <strong>Blue</strong>
+                </p>
+
+                <p>
+                    Different combinations of red, green and
+                    blue values can produce many different
+                    colors.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             HOW IMAGE IS STORED
+             ========================= -->
+
+        <section class="content-card">
+
+            <h2>
+                ⚙️ How Does a Computer Store an Image?
+            </h2>
+
+            <p>
+                A digital image is processed through several
+                stages before it appears on your screen.
+            </p>
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Pixels
+                    </h3>
+
+                    <p>
+                        The image is divided into many
+                        small pixels.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Color
+                    </h3>
+
+                    <p>
+                        Each pixel receives color
+                        information.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3>
+                        Numbers
+                    </h3>
+
+                    <p>
+                        Color information is represented
+                        using numerical values.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <h3>
+                        Binary
+                    </h3>
+
+                    <p>
+                        The numerical information is stored
+                        digitally using bits.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             EXTERNAL RESOURCES
+             ========================= -->
+
+        <section class="resource-box">
+
+            <h2>
+                🌐 Explore More
+            </h2>
+
+            <p>
+                Want to learn more about pixels and digital
+                images? Explore these external resources.
+            </p>
+
+            <div class="resource-buttons">
+
+                <a
+                    href="https://processing.org/tutorials/pixels/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn"
+                >
+                    🖼️ Explore Pixels
+                </a>
+
+                <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/Media"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-btn"
+                >
+                    🌐 Learn Digital Media
+                </a>
+
+                <a
+                    href="{% url 'learn' %}"
+                    class="resource-btn secondary"
+                >
+                    ← Back to Learn
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Data Quest.
+            Learn • Play • Improve
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
