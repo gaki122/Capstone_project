@@ -72,3 +72,5 @@ def student_logout(request):
 def level1(request):
     return render(request, 'level1.html')
 
+def level1_game(request):
+    return render(request, 'level1_game.html')
