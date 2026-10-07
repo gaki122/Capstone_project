@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Student | Data Quest</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        /* =========================
+           Navbar
+        ========================= */
+
+        .navbar {
+            background: #2563eb;
+            color: white;
+
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            color: white;
+            text-decoration: none;
+
+            background: rgba(255,255,255,0.15);
+
+            padding: 9px 15px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* =========================
+           Main Container
+        ========================= */
+
+        .container {
+            max-width: 600px;
+
+            margin: 50px auto;
+
+            padding: 20px;
+        }
+
+        /* =========================
+           Card
+        ========================= */
+
+        .card {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h1 {
+            margin-top: 0;
+
+            color: #2563eb;
+
+            text-align: center;
+        }
+
+        .class-name {
+            text-align: center;
+
+            background: #eef4ff;
+
+            color: #2563eb;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+        .description {
+            text-align: center;
+
+            color: #666;
+
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           Form
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        /* =========================
+           Password Note
+        ========================= */
+
+        .password-note {
+            font-size: 13px;
+
+            color: #777;
+
+            margin-top: 6px;
+        }
+
+        /* =========================
+           Buttons
+        ========================= */
+
+        .button-group {
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+        .button {
+            flex: 1;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            text-align: center;
+        }
+
+        .cancel-button {
+            background: #e5e7eb;
+
+            color: #374151;
+        }
+
+        .cancel-button:hover {
+            background: #d1d5db;
+        }
+
+        .create-button {
+            background: #2563eb;
+
+            color: white;
+        }
+
+        .create-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           Mobile
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                margin: 25px auto;
+
+                padding: 15px;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     Navbar
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🎯 Data Quest — Teacher
+    </div>
+
+    <a
+        href="{% url 'view_students' class_id=class_section.id %}"
+        class="back-button">
+
+        ← Students
+
+    </a>
+
+</nav>
+
+
+<!-- =========================
+     Main Content
+========================= -->
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>
+            ➕ Add Student
+        </h1>
+
+
+        <div class="class-name">
+
+            🏫 Class:
+            {{ class_section.name }}
+
+        </div>
+
+
+        <p class="description">
+
+            Create a student account and
+            automatically assign the student
+            to this class.
+
+        </p>
+
+
+        <!-- =========================
+             Student Form
+        ========================= -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Full Name -->
+
+            <div class="form-group">
+
+                <label for="full_name">
+                    Student Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    placeholder="Example: Karma Wangchuk"
+                    required>
+
+            </div>
+
+
+            <!-- Username -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Example: karma09"
+                    required>
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter temporary password"
+                    required>
+
+                <div class="password-note">
+
+                    Give the username and password
+                    securely to the student.
+
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="button-group">
+
+                <a
+                    href="{% url 'view_students' class_id=class_section.id %}"
+                    class="button cancel-button">
+
+                    Cancel
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="button create-button">
+
+                    Create Student
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

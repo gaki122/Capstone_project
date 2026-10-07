@@ -1,12 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Registration - Data Quest</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | Data Quest</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -16,149 +22,325 @@
             font-family: Arial, sans-serif;
             background: #f4f7fb;
             color: #333;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: 60px auto;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
-        .card {
+        .register-card {
+            width: 100%;
+            max-width: 480px;
             background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.10);
         }
 
-        h1 {
+        .logo {
             text-align: center;
+            font-size: 32px;
+            font-weight: bold;
             color: #2563eb;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .subtitle {
             text-align: center;
-            color: #666;
+            color: #6b7280;
             margin-bottom: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #111827;
+            font-size: 26px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 7px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #374151;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 13px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
             font-size: 15px;
+            outline: none;
         }
 
         input:focus {
-            outline: none;
             border-color: #2563eb;
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
         }
 
-        button {
+        .error {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .register-button {
             width: 100%;
-            padding: 13px;
             border: none;
-            border-radius: 8px;
             background: #2563eb;
             color: white;
+            padding: 14px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
         }
 
-        button:hover {
+        .register-button:hover {
             background: #1d4ed8;
         }
 
-        .login-link {
+        .login-text {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
+            color: #6b7280;
         }
 
-        .login-link a {
+        .login-text a {
             color: #2563eb;
             text-decoration: none;
             font-weight: bold;
         }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .home-link:hover {
+            color: #2563eb;
+        }
+
+        @media (max-width: 600px) {
+
+            .register-card {
+                padding: 30px 22px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <div class="card">
+<div class="register-card">
 
-        <h1>🎯 Data Quest</h1>
 
-        <p class="subtitle">
-            Create your student account
-        </p>
+    <div class="logo">
 
-        <form method="POST">
+        🎯 Data Quest
 
-            {% csrf_token %}
+    </div>
 
-            <label for="full_name">Full Name</label>
+
+    <div class="subtitle">
+
+        Learn • Play • Master
+
+    </div>
+
+
+    <h1>
+
+        👨‍🎓 Student Registration
+
+    </h1>
+
+
+    {% if error %}
+
+        <div class="error">
+
+            {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- Full Name -->
+
+        <div class="form-group">
+
+            <label for="full_name">
+
+                Full Name
+
+            </label>
+
             <input
                 type="text"
                 id="full_name"
                 name="full_name"
                 placeholder="Enter your full name"
-                required
-            >
+                required>
 
-            <label for="username">Username</label>
+        </div>
+
+
+        <!-- Username -->
+
+        <div class="form-group">
+
+            <label for="username">
+
+                Username
+
+            </label>
+
             <input
                 type="text"
                 id="username"
                 name="username"
                 placeholder="Choose a username"
-                required
-            >
+                required>
 
-            <label for="email">Email Address</label>
+        </div>
+
+
+        <!-- Email -->
+
+        <div class="form-group">
+
+            <label for="email">
+
+                Email
+                <span style="font-weight: normal; color: #9ca3af;">
+                    (Optional)
+                </span>
+
+            </label>
+
             <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Enter your email"
-                required
-            >
+                placeholder="Enter your email">
 
-            <label for="password">Password</label>
+        </div>
+
+
+        <!-- Password -->
+
+        <div class="form-group">
+
+            <label for="password">
+
+                Password
+
+            </label>
+
             <input
                 type="password"
                 id="password"
                 name="password"
                 placeholder="Create a password"
-                required
-            >
+                required>
 
-            <button type="submit">
-                Create Student Account 🚀
-            </button>
-
-        </form>
-
-        <div class="login-link">
-            Already have an account?
-            <a href="#">Login</a>
         </div>
+
+
+        <!-- Confirm Password -->
+
+        <div class="form-group">
+
+            <label for="confirm_password">
+
+                Confirm Password
+
+            </label>
+
+            <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                placeholder="Re-enter your password"
+                required>
+
+        </div>
+
+
+        <!-- Submit -->
+
+        <button
+            type="submit"
+            class="register-button">
+
+            🚀 Create Student Account
+
+        </button>
+
+
+    </form>
+
+
+    <div class="login-text">
+
+        Already have an account?
+
+        <a href="{% url 'student_login' %}">
+
+            Student Login
+
+        </a>
 
     </div>
 
+
+    <a
+        href="{% url 'home' %}"
+        class="home-link">
+
+        ← Back to Data Quest
+
+    </a>
+
+
 </div>
 
+
 </body>
+
 </html>

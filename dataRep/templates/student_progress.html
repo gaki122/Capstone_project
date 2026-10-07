@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Student Progress | Data Quest
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* =========================
+           Navbar
+        ========================= */
+
+        .navbar {
+            background: #2563eb;
+            color: white;
+            padding: 16px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            color: white;
+            text-decoration: none;
+
+            background: rgba(255,255,255,0.15);
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+        }
+
+        .nav-button:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* =========================
+           Main
+        ========================= */
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* =========================
+           Header
+        ========================= */
+
+        .page-header {
+            background: white;
+            border-radius: 16px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+        }
+
+        /* =========================
+           Student Information
+        ========================= */
+
+        .student-info {
+            background: white;
+            border-radius: 16px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .student-info h2 {
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 15px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+
+            border-radius: 10px;
+
+            padding: 18px;
+        }
+
+        .info-label {
+            color: #6b7280;
+            font-size: 13px;
+
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           Statistics
+        ========================= */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+            text-align: center;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           Results
+        ========================= */
+
+        .results-card {
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .results-card h2 {
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+
+            text-align: left;
+
+            border-bottom:
+                1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f8fafc;
+
+            font-size: 14px;
+        }
+
+        td {
+            font-size: 15px;
+        }
+
+        .completed {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-completed {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        /* =========================
+           Empty Results
+        ========================= */
+
+        .empty {
+            text-align: center;
+
+            padding: 40px 20px;
+
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           Back Button
+        ========================= */
+
+        .back-section {
+            margin-top: 25px;
+        }
+
+        .back-button {
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                margin: 25px auto;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            th,
+            td {
+                white-space: nowrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     Navbar
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🎮 Data Quest — Teacher
+    </div>
+
+    <a
+        href="{% url 'teacher_dashboard' %}"
+        class="nav-button">
+
+        🏠 Dashboard
+
+    </a>
+
+</nav>
+
+
+<!-- =========================
+     Main
+========================= -->
+
+<div class="container">
+
+
+    <!-- Page Header -->
+
+    <div class="page-header">
+
+        <h1>
+            📊 Student Progress
+        </h1>
+
+        <p>
+            View the learning progress and Level 1
+            performance of this student.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         Student Information
+    ========================= -->
+
+    <div class="student-info">
+
+        <h2>
+            👤 {{ student.full_name }}
+        </h2>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Username
+                </div>
+
+                <div class="info-value">
+                    {{ student.user.username }}
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Section
+                </div>
+
+                <div class="info-value">
+
+                    {% if student.class_section %}
+
+                        {{ student.class_section.name }}
+
+                    {% else %}
+
+                        No Section
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Teacher
+                </div>
+
+                <div class="info-value">
+
+                    {% if student.class_section %}
+
+                        {{ student.class_section.teacher.teacherprofile.full_name }}
+
+                    {% else %}
+
+                        -
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         Statistics
+    ========================= -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div class="stat-number">
+                {{ student.total_stars }}
+            </div>
+
+            <div class="stat-label">
+                Total Stars
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div class="stat-number">
+                {{ student.total_points }}
+            </div>
+
+            <div class="stat-label">
+                Total Points
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div class="stat-number">
+                {{ student.completed_levels }}
+            </div>
+
+            <div class="stat-label">
+                Levels Completed
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <div class="stat-number">
+                {{ results.count }}
+            </div>
+
+            <div class="stat-label">
+                Level 1 Attempts
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         Level 1 Results
+    ========================= -->
+
+    <div class="results-card">
+
+        <h2>
+            🎮 Level 1 Results
+        </h2>
+
+
+        {% if results %}
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Attempt
+                            </th>
+
+                            <th>
+                                Score
+                            </th>
+
+                            <th>
+                                Percentage
+                            </th>
+
+                            <th>
+                                Stars
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for result in results %}
+
+                            <tr>
+
+                                <td>
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td>
+                                    {{ result.score }}
+                                    /
+                                    {{ result.total_questions }}
+                                </td>
+
+                                <td>
+                                    {{ result.percentage }}%
+                                </td>
+
+                                <td>
+                                    ⭐ {{ result.stars }}
+                                </td>
+
+                                <td>
+
+                                    {% if result.completed %}
+
+                                        <span class="completed">
+                                            ✓ Completed
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="not-completed">
+                                            Not Completed
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    {{ result.completed_at|date:"d M Y, h:i A" }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                <h3>
+                    No Results Yet
+                </h3>
+
+                <p>
+                    This student has not completed
+                    Level 1 yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- Back -->
+
+    <div class="back-section">
+
+        <a
+            href="{% url 'view_students' class_id=student.class_section.id %}"
+            class="back-button">
+
+            ← Back to Students
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

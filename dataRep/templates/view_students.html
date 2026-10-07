@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Students | Data Quest</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f7fb;
+
+            color: #333;
+        }
+
+
+        /* =========================
+           Navbar
+        ========================= */
+
+        .navbar {
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 18px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+
+        .back-button {
+
+            color: white;
+
+            text-decoration: none;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            padding: 9px 15px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .back-button:hover {
+
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+
+        /* =========================
+           Container
+        ========================= */
+
+        .container {
+
+            max-width: 1250px;
+
+            margin: 40px auto;
+
+            padding: 20px;
+        }
+
+
+        /* =========================
+           Header Card
+        ========================= */
+
+        .header-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 25px;
+        }
+
+
+        .header-card h1 {
+
+            margin: 0 0 10px 0;
+
+            color: #2563eb;
+        }
+
+
+        .header-card p {
+
+            margin: 0;
+
+            color: #666;
+        }
+
+
+        /* =========================
+           Student Registration Info
+        ========================= */
+
+        .info-card {
+
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 18px 20px;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .info-card h3 {
+
+            margin: 0 0 8px 0;
+
+            color: #1d4ed8;
+        }
+
+
+        .info-card p {
+
+            margin: 0;
+
+            color: #4b5563;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           Student Card
+        ========================= */
+
+        .student-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            overflow-x: auto;
+        }
+
+
+        /* =========================
+           Student Table
+        ========================= */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 950px;
+        }
+
+
+        th {
+
+            background: #eef4ff;
+
+            color: #2563eb;
+
+            padding: 15px;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+
+        td {
+
+            padding: 15px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            color: #374151;
+        }
+
+
+        tr:hover {
+
+            background: #f9fafb;
+        }
+
+
+        /* =========================
+           Student Name
+        ========================= */
+
+        .student-name {
+
+            font-weight: bold;
+
+            color: #111827;
+
+            margin-bottom: 4px;
+        }
+
+
+        .username {
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           Points
+        ========================= */
+
+        .points {
+
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+
+        /* =========================
+           Stars
+        ========================= */
+
+        .stars {
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           Progress
+        ========================= */
+
+        .progress-container {
+
+            width: 150px;
+
+            background: #e5e7eb;
+
+            border-radius: 20px;
+
+            height: 10px;
+
+            overflow: hidden;
+
+            margin-bottom: 5px;
+        }
+
+
+        .progress-bar {
+
+            height: 100%;
+
+            background: #2563eb;
+
+            border-radius: 20px;
+        }
+
+
+        .progress-text {
+
+            font-size: 12px;
+
+            color: #666;
+        }
+
+
+        /* =========================
+           View Progress Button
+        ========================= */
+
+        .progress-button {
+
+            display: inline-block;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        .progress-button:hover {
+
+            background: #1d4ed8;
+        }
+
+
+        /* =========================
+           Empty State
+        ========================= */
+
+        .empty-card {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: #666;
+        }
+
+
+        .empty-icon {
+
+            font-size: 65px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .empty-card h2 {
+
+            color: #2563eb;
+
+            margin-bottom: 10px;
+        }
+
+
+        .empty-card p {
+
+            margin-bottom: 10px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           Footer
+        ========================= */
+
+        footer {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           Mobile
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 15px 20px;
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .container {
+
+                margin: 20px auto;
+
+                padding: 15px;
+            }
+
+
+            .header-card,
+            .student-card {
+
+                padding: 20px;
+            }
+
+
+            .header-card h1 {
+
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     Navbar
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🎯 Data Quest — Teacher
+
+    </div>
+
+
+    <a
+        href="{% url 'teacher_dashboard' %}"
+        class="back-button">
+
+        ← Dashboard
+
+    </a>
+
+</nav>
+
+
+<!-- =========================
+     Main Container
+========================= -->
+
+<div class="container">
+
+
+    <!-- =========================
+         Class Header
+    ========================= -->
+
+    <div class="header-card">
+
+        <h1>
+
+            👥 {{ class_section.name }} — Students
+
+        </h1>
+
+
+        <p>
+
+            View students and monitor their
+            learning progress.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         Information
+    ========================= -->
+
+    <div class="info-card">
+
+        <h3>
+
+            👨‍🎓 Student Registration
+
+        </h3>
+
+
+        <p>
+
+            Students register their own accounts
+            and join one available section after
+            logging in. You can view each student's
+            progress from this page.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         Student List
+    ========================= -->
+
+    <div class="student-card">
+
+
+        {% if students %}
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+
+                        <th>
+                            Student
+                        </th>
+
+
+                        <th>
+                            Username
+                        </th>
+
+
+                        <th>
+                            Points
+                        </th>
+
+
+                        <th>
+                            Stars
+                        </th>
+
+
+                        <th>
+                            Levels Completed
+                        </th>
+
+
+                        <th>
+                            Progress
+                        </th>
+
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for student in students %}
+
+
+                        <tr>
+
+
+                            <!-- Number -->
+
+                            <td>
+
+                                {{ forloop.counter }}
+
+                            </td>
+
+
+                            <!-- Student Name -->
+
+                            <td>
+
+                                <div class="student-name">
+
+                                    {{ student.full_name }}
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Username -->
+
+                            <td>
+
+                                <div class="username">
+
+                                    {{ student.user.username }}
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Points -->
+
+                            <td>
+
+                                <span class="points">
+
+                                    {{ student.total_points }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- Stars -->
+
+                            <td>
+
+                                <span class="stars">
+
+                                    ⭐ {{ student.total_stars }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- Completed Levels -->
+
+                            <td>
+
+                                {{ student.completed_levels }}
+
+                                / 4
+
+                            </td>
+
+
+                            <!-- Progress -->
+
+                            <td>
+
+
+                                {% widthratio student.completed_levels 4 100 as progress %}
+
+
+                                <div class="progress-container">
+
+                                    <div
+                                        class="progress-bar"
+                                        style="width: {{ progress }}%;">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="progress-text">
+
+                                    {{ progress }}% Complete
+
+                                </div>
+
+
+                            </td>
+
+
+                            <!-- View Progress -->
+
+                            <td>
+
+                                <a
+                                    href="{% url 'student_progress' student_id=student.id %}"
+                                    class="progress-button">
+
+                                    📊 View Progress
+
+                                </a>
+
+                            </td>
+
+
+                        </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+
+        {% else %}
+
+
+            <!-- =========================
+                 Empty State
+            ========================= -->
+
+            <div class="empty-card">
+
+
+                <div class="empty-icon">
+
+                    👨‍🎓
+
+                </div>
+
+
+                <h2>
+
+                    No Students Yet
+
+                </h2>
+
+
+                <p>
+
+                    There are currently no students
+                    registered in
+                    <strong>{{ class_section.name }}</strong>.
+
+                </p>
+
+
+                <p>
+
+                    Students can register through
+                    the Student Registration page.
+
+                </p>
+
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     Footer
+========================= -->
+
+<footer>
+
+    🎯 Data Quest — Student Management
+
+</footer>
+
+
+</body>
+
+</html>

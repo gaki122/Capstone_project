@@ -1,0 +1,379 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Dashboard | Data Quest</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* =========================
+           Navbar
+        ========================= */
+
+        .navbar {
+            background: #2563eb;
+            color: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.15);
+            padding: 9px 16px;
+            border-radius: 8px;
+        }
+
+        .logout:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* =========================
+           Main
+        ========================= */
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* =========================
+           Welcome
+        ========================= */
+
+        .welcome {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* =========================
+           Classes Header
+        ========================= */
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+        }
+
+        .add-class {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .add-class:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           Class Cards
+        ========================= */
+
+        .classes {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 20px;
+        }
+
+        .class-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .class-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .class-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .student-count {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .class-button {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .class-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           Empty State
+        ========================= */
+
+        .empty {
+            background: white;
+            border-radius: 16px;
+            padding: 50px 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .empty-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .empty h3 {
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                margin: 25px auto;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .add-class {
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     Navbar
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🎮 Data Quest — Teacher
+    </div>
+
+    <div class="nav-right">
+
+        <a
+            href="{% url 'teacher_logout' %}"
+            class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     Main Content
+========================= -->
+
+<div class="container">
+
+
+    <!-- Welcome -->
+
+    <div class="welcome">
+
+        <h1>
+            Welcome, {{ teacher.full_name }} 👋
+        </h1>
+
+        <p>
+            Manage your classes and monitor your students'
+            learning progress.
+        </p>
+
+    </div>
+
+
+    <!-- Classes Header -->
+
+    <div class="section-header">
+
+        <h2>
+            My Classes
+        </h2>
+
+        <a
+            href="{% url 'add_class' %}"
+            class="add-class">
+            ➕ Add New Class
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         Classes
+    ========================= -->
+
+    {% if classes %}
+
+        <div class="classes">
+
+            {% for class in classes %}
+
+                <div class="class-card">
+
+                    <div class="class-icon">
+                        🏫
+                    </div>
+
+                    <h3>
+                        {{ class.name }}
+                    </h3>
+
+                    <p class="student-count">
+
+                        👥
+                        {{ class.students.count }}
+                        student{{ class.students.count|pluralize }}
+
+                    </p>
+
+                    <a
+                        href="{% url 'view_students' class_id=class.id %}"
+                        class="class-button">
+
+                        👥 View Students
+
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                🏫
+            </div>
+
+            <h3>
+                No Classes Yet
+            </h3>
+
+            <p>
+                Create your first class section to start
+                managing your students.
+            </p>
+
+            <a
+                href="{% url 'add_class' %}"
+                class="add-class">
+
+                ➕ Create Your First Class
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

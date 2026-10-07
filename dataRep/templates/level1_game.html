@@ -47,6 +47,27 @@
             flex-wrap: wrap;
         }
 
+        /* ==============================
+           DASHBOARD / HOME BUTTON
+           ============================== */
+
+        .dashboard-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #eef4ff;
+            color: #2563eb;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            border: 2px solid #dbe7ff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .dashboard-button:hover {
+            background: #dbe7ff;
+        }
+
         .title {
             font-size: 28px;
             font-weight: bold;
@@ -110,13 +131,6 @@
             border-color: #4a90e2;
             background: #f1f7ff;
         }
-
-        /*
-            Selected answer.
-
-            This does NOT mean correct.
-            It only means the student selected it.
-        */
 
         .option.selected {
             border-color: #4a90e2;
@@ -371,9 +385,50 @@
 
         <div class="top-bar">
 
-            <div class="title">
-                🎮 Data Quest - Level 1
+
+            <div>
+
+                <!--
+                    Logged-in student:
+                    Dashboard button
+
+                    Guest:
+                    Home button
+                -->
+
+                {% if user.is_authenticated %}
+
+                <a
+                    href="{% url 'student_dashboard' %}"
+                    class="dashboard-button"
+                >
+
+                    🏠 Dashboard
+
+                </a>
+
+                {% else %}
+
+                <a
+                    href="{% url 'home' %}"
+                    class="dashboard-button"
+                >
+
+                    🏠 Home
+
+                </a>
+
+                {% endif %}
+
             </div>
+
+
+            <div class="title">
+
+                🎮 Data Quest - Level 1
+
+            </div>
+
 
             <div class="score-box">
 
@@ -381,6 +436,7 @@
                 <span id="score">0</span>
 
             </div>
+
 
         </div>
 
@@ -391,8 +447,10 @@
 
         <div class="progress-container">
 
-            <div id="progressBar"
-                 class="progress-bar">
+            <div
+                id="progressBar"
+                class="progress-bar"
+            >
             </div>
 
         </div>
@@ -405,13 +463,17 @@
         <div id="gameArea">
 
 
-            <div class="question-number"
-                 id="questionNumber">
+            <div
+                class="question-number"
+                id="questionNumber"
+            >
             </div>
 
 
-            <div class="question"
-                 id="question">
+            <div
+                class="question"
+                id="question"
+            >
             </div>
 
 
@@ -420,15 +482,18 @@
             <button
                 id="hintButton"
                 class="btn hint-button"
-                type="button">
+                type="button"
+            >
 
                 💡 Hint
 
             </button>
 
 
-            <div id="hintBox"
-                 class="hint-box">
+            <div
+                id="hintBox"
+                class="hint-box"
+            >
             </div>
 
 
@@ -445,7 +510,8 @@
                 <button
                     id="nextButton"
                     class="btn hidden"
-                    type="button">
+                    type="button"
+                >
 
                     Next Question →
 
@@ -461,34 +527,46 @@
              RESULT AREA
              ============================== -->
 
-        <div id="resultArea"
-             class="result-card hidden">
+        <div
+            id="resultArea"
+            class="result-card hidden"
+        >
 
 
             <h2>
+
                 🎉 Level 1 Completed!
+
             </h2>
 
 
-            <div class="final-score"
-                 id="finalScore">
+            <div
+                class="final-score"
+                id="finalScore"
+            >
             </div>
 
 
-            <div class="percentage"
-                 id="finalPercentage">
+            <div
+                class="percentage"
+                id="finalPercentage"
+            >
             </div>
 
 
-            <div class="stars"
-                 id="finalStars">
+            <div
+                class="stars"
+                id="finalStars"
+            >
             </div>
 
 
             <!-- ANSWER REVIEW -->
 
-            <div id="review"
-                 class="review">
+            <div
+                id="review"
+                class="review"
+            >
             </div>
 
 
@@ -496,7 +574,8 @@
 
             <form
                 method="POST"
-                action="{% url 'save_level1_result' %}">
+                action="{% url 'save_level1_result' %}"
+            >
 
                 {% csrf_token %}
 
@@ -504,30 +583,35 @@
                 <input
                     type="hidden"
                     name="score"
-                    id="resultScore">
+                    id="resultScore"
+                >
 
 
                 <input
                     type="hidden"
                     name="total_questions"
-                    id="resultTotal">
+                    id="resultTotal"
+                >
 
 
                 <input
                     type="hidden"
                     name="percentage"
-                    id="resultPercentage">
+                    id="resultPercentage"
+                >
 
 
                 <input
                     type="hidden"
                     name="stars"
-                    id="resultStars">
+                    id="resultStars"
+                >
 
 
                 <button
                     type="submit"
-                    class="btn">
+                    class="btn"
+                >
 
                     💾 Save Result
 
@@ -540,7 +624,8 @@
             <button
                 id="playAgainButton"
                 class="btn btn-secondary"
-                type="button">
+                type="button"
+            >
 
                 🔄 Play Again
 
@@ -566,6 +651,7 @@
 
 
 const questions = [
+
 
     {
         type: "mcq",
@@ -1080,26 +1166,9 @@ const questions = [
 
 let currentQuestion = 0;
 
-
-/*
-    Score remains 0 while playing.
-    It is calculated only after Q20.
-*/
-
 let score = 0;
 
-
-/*
-    This tells us whether the current
-    question has been answered.
-*/
-
 let answered = false;
-
-
-/*
-    Store all student answers here.
-*/
 
 let userAnswers = [];
 
@@ -1209,12 +1278,6 @@ function loadQuestion() {
         q.question;
 
 
-    /*
-        Update progress only.
-
-        This does NOT update score.
-    */
-
     const progress =
         (
             currentQuestion /
@@ -1226,13 +1289,8 @@ function loadQuestion() {
         `${progress}%`;
 
 
-    /*
-        Always keep score at 0
-        until the final result.
-    */
-
     scoreElement.textContent =
-        "0";
+        score;
 
 
     if (q.type === "mcq") {
@@ -1343,11 +1401,6 @@ function selectAnswer(button) {
         );
 
 
-    /*
-        If this answer is already selected,
-        clicking it again will unselect it.
-    */
-
     if (
         button.classList.contains(
             "selected"
@@ -1369,10 +1422,6 @@ function selectAnswer(button) {
     }
 
 
-    /*
-        Remove selection from every option.
-    */
-
     options.forEach(
         function(option) {
 
@@ -1384,18 +1433,10 @@ function selectAnswer(button) {
     );
 
 
-    /*
-        Select the new option.
-    */
-
     button.classList.add(
         "selected"
     );
 
-
-    /*
-        Show Next Question.
-    */
 
     nextButton.classList.remove(
         "hidden"
@@ -1463,12 +1504,6 @@ function loadFill(q) {
     );
 
 
-    /*
-        Next Question will save the answer.
-
-        Enter key also moves to the next question.
-    */
-
     input.addEventListener(
         "keydown",
         function(event) {
@@ -1484,11 +1519,6 @@ function loadFill(q) {
         }
     );
 
-
-    /*
-        Show Next button when the
-        student starts typing.
-    */
 
     input.addEventListener(
         "input",
@@ -1739,11 +1769,6 @@ function loadMatching(q) {
                     );
 
 
-                    /*
-                        After all four answers
-                        are filled, show Next.
-                    */
-
                     if (
                         matchingIsComplete()
                     ) {
@@ -1887,12 +1912,6 @@ function placeMatch(
     }
 
 
-    /*
-        If this drop zone already has
-        an answer, return that answer
-        to the answer bank.
-    */
-
     const existing =
         dropZone.querySelector(
             ".answer-item"
@@ -1922,11 +1941,6 @@ function placeMatch(
     }
 
 
-    /*
-        Remove the selected answer
-        from its current location.
-    */
-
     if (source.parentElement) {
 
         source.parentElement.removeChild(
@@ -1935,10 +1949,6 @@ function placeMatch(
 
     }
 
-
-    /*
-        Place it into the new drop zone.
-    */
 
     dropZone.appendChild(
         source
@@ -2081,12 +2091,6 @@ function saveMatchingAnswer() {
     answered = true;
 
 
-    /*
-        IMPORTANT:
-        Score is NOT changed here.
-    */
-
-
     userAnswers.push({
 
         questionNumber:
@@ -2123,6 +2127,7 @@ function nextQuestion() {
 
         currentQuestion++;
 
+
         if (
             currentQuestion <
             questions.length
@@ -2147,9 +2152,7 @@ function nextQuestion() {
         questions[currentQuestion];
 
 
-    /*
-        MCQ
-    */
+    /* MCQ */
 
     if (q.type === "mcq") {
 
@@ -2190,9 +2193,7 @@ function nextQuestion() {
     }
 
 
-    /*
-        Fill in the blank
-    */
+    /* Fill */
 
     else if (q.type === "fill") {
 
@@ -2205,9 +2206,7 @@ function nextQuestion() {
     }
 
 
-    /*
-        Matching
-    */
+    /* Matching */
 
     else if (q.type === "matching") {
 
@@ -2219,10 +2218,6 @@ function nextQuestion() {
 
     }
 
-
-    /*
-        Now move to the next question.
-    */
 
     currentQuestion++;
 
@@ -2353,10 +2348,6 @@ function showResults() {
             finalScore
         );
 
-
-    /*
-        Score changes ONLY NOW.
-    */
 
     score =
         finalScore;
@@ -2497,9 +2488,7 @@ function showReview() {
             );
 
 
-            /*
-                MATCHING REVIEW
-            */
+            /* MATCHING REVIEW */
 
             if (
                 item.questionNumber >= 15 &&
@@ -2535,9 +2524,7 @@ function showReview() {
             }
 
 
-            /*
-                MCQ / FILL REVIEW
-            */
+            /* MCQ / FILL REVIEW */
 
             else {
 

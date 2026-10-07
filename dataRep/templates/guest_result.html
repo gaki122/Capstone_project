@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Quest - Guest Result</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .result-card {
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+        }
+
+        .logo {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .guest-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .score-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .score {
+            font-size: 52px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        .percentage {
+            font-size: 22px;
+            color: #475569;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 14px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .message {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 13px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        @media (max-width: 600px) {
+
+            .result-card {
+                padding: 25px;
+            }
+
+            .score {
+                font-size: 42px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="result-card">
+
+        <div class="logo">
+            🚀
+        </div>
+
+        <h1>Data Quest</h1>
+
+        <p class="subtitle">
+            Level 1 Result
+        </p>
+
+        <div class="guest-badge">
+            👤 Guest Player
+        </div>
+
+        <div class="score-box">
+
+            <div class="score">
+                {{ result.score }}/{{ result.total_questions }}
+            </div>
+
+            <div class="percentage">
+                {{ result.percentage }}%
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    ⭐ {{ result.stars }}
+                </div>
+
+                <div class="stat-label">
+                    Stars Earned
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    ✓
+                </div>
+
+                <div class="stat-label">
+                    Level Completed
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="message">
+            Great job! Your Level 1 result has been saved for this
+            guest session.
+            Create a student account if you want to keep your progress
+            connected to your student profile.
+        </p>
+
+        <div class="buttons">
+
+            <a
+                href="{% url 'level1_game' %}"
+                class="btn btn-primary"
+            >
+                🔄 Play Again
+            </a>
+
+            <a
+                href="{% url 'home' %}"
+                class="btn btn-secondary"
+            >
+                🏠 Home
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
