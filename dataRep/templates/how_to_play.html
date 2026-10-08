@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,11 +21,15 @@
             padding: 0;
         }
 
-
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        a {
+            transition: all 0.2s ease;
         }
 
 
@@ -35,74 +38,88 @@
         ========================= */
 
         .navbar {
-            background: white;
-            padding: 16px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid #e2e8f0;
+
+            padding: 15px 30px;
+
             position: sticky;
             top: 0;
             z-index: 1000;
+
+            backdrop-filter: blur(10px);
         }
 
+        .nav-container {
+            max-width: 1180px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
 
         .logo {
-            color: #4f46e5;
+            color: #111827;
+            font-size: 26px;
+            font-weight: 900;
             text-decoration: none;
-            font-size: 24px;
-            font-weight: bold;
             white-space: nowrap;
+
+            padding: 8px 12px;
+            border-radius: 8px;
         }
 
+        .logo:hover {
+            color: #2563eb;
+            background: #eff6ff;
+        }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: flex-end;
+
+            gap: 4px;
+
             flex-wrap: wrap;
         }
 
-
         .nav-links a {
-            text-decoration: none;
-            color: #374151;
-            padding: 9px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
 
+            color: #111827;
+            background: transparent;
+
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            padding: 9px 13px;
+
+            border-radius: 8px;
+
+            border: 1px solid transparent;
+
+            white-space: nowrap;
+        }
 
         .nav-links a:hover {
-            background: #eef2ff;
-            color: #4f46e5;
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #dbeafe;
         }
 
-
-        .active {
-            background: #eef2ff;
-            color: #4f46e5 !important;
-        }
-
-
-        .student-login {
-            background: #4f46e5;
-            color: white !important;
-        }
-
-
-        .student-login:hover {
-            background: #4338ca !important;
-            color: white !important;
-        }
-
-
-        .teacher-login {
-            background: #eef2ff;
-            color: #4f46e5 !important;
-            border: 1px solid #c7d2fe;
+        .nav-links a.active {
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #dbeafe;
         }
 
 
@@ -111,58 +128,96 @@
         ========================= */
 
         .hero {
-            background: linear-gradient(
-                135deg,
-                #4f46e5,
-                #6366f1
-            );
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #ffffff
+                );
 
-            color: white;
             text-align: center;
-            padding: 70px 20px;
+
+            padding: 75px 20px 65px;
         }
 
+        .hero-badge {
+            display: inline-block;
+
+            background: white;
+            color: #1d4ed8;
+
+            border: 1px solid #bfdbfe;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
 
         .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+            color: #111827;
+
+            font-size: 48px;
+            line-height: 1.1;
+
+            margin-bottom: 20px;
         }
 
+        .hero h1 span {
+            color: #2563eb;
+        }
 
         .hero p {
-            max-width: 700px;
-            margin: auto;
+            max-width: 760px;
+
+            margin: 0 auto;
+
+            color: #6b7280;
+
+            font-size: 18px;
             line-height: 1.7;
-            color: #e0e7ff;
-            font-size: 17px;
         }
 
 
         /* =========================
-           MAIN CONTENT
+           MAIN CONTAINER
         ========================= */
 
         .container {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 0 20px;
+            max-width: 1150px;
+
+            margin: 0 auto;
+
+            padding: 70px 20px;
         }
 
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
 
         .section-title {
             text-align: center;
-            margin-bottom: 35px;
+
+            margin-bottom: 38px;
         }
 
-
         .section-title h2 {
-            font-size: 30px;
+            color: #111827;
+
+            font-size: 32px;
+
             margin-bottom: 10px;
         }
 
-
         .section-title p {
-            color: #64748b;
+            color: #6b7280;
+
+            font-size: 16px;
         }
 
 
@@ -172,43 +227,69 @@
 
         .steps {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
 
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
 
         .step-card {
             background: white;
-            padding: 30px;
+
+            border: 1px solid #e5e7eb;
+
             border-radius: 18px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+
+            padding: 28px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+
+            transition: 0.2s ease;
         }
 
+        .step-card:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.08);
+        }
 
         .step-number {
             width: 48px;
             height: 48px;
-            background: #eef2ff;
-            color: #4f46e5;
-            border-radius: 50%;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 50%;
+
+            font-size: 19px;
+            font-weight: 700;
+
             margin-bottom: 18px;
         }
 
-
         .step-card h3 {
-            margin-bottom: 12px;
+            color: #111827;
+
             font-size: 20px;
+
+            margin-bottom: 10px;
         }
 
-
         .step-card p {
-            color: #64748b;
+            color: #6b7280;
+
+            font-size: 14px;
+
             line-height: 1.7;
         }
 
@@ -218,41 +299,61 @@
         ========================= */
 
         .game-flow {
-            margin-top: 55px;
+            margin-top: 60px;
+
             background: white;
-            padding: 35px;
+
+            border: 1px solid #e5e7eb;
+
             border-radius: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+
+            padding: 35px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-
         .game-flow h2 {
+            color: #111827;
+
             text-align: center;
+
+            font-size: 28px;
+
             margin-bottom: 30px;
         }
 
-
         .flow {
             display: flex;
-            justify-content: center;
+
             align-items: center;
+            justify-content: center;
+
             gap: 12px;
+
             flex-wrap: wrap;
         }
 
-
         .flow-item {
-            background: #eef2ff;
-            color: #3730a3;
-            padding: 15px 20px;
+            background: #eff6ff;
+
+            border: 1px solid #dbeafe;
+
+            color: #1d4ed8;
+
+            padding: 13px 18px;
+
             border-radius: 10px;
-            font-weight: bold;
+
+            font-size: 14px;
+
+            font-weight: 700;
         }
 
-
         .arrow {
+            color: #9ca3af;
+
             font-size: 22px;
-            color: #94a3b8;
         }
 
 
@@ -261,90 +362,139 @@
         ========================= */
 
         .player-section {
-            margin-top: 55px;
+            margin-top: 60px;
         }
-
 
         .player-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
 
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
 
         .player-card {
             background: white;
-            padding: 30px;
+
+            border: 1px solid #e5e7eb;
+
             border-radius: 18px;
-            border: 1px solid #e2e8f0;
+
+            padding: 28px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+
+            transition: 0.2s ease;
         }
 
+        .player-card:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.08);
+        }
 
         .player-card .icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
+            width: 58px;
+            height: 58px;
 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 15px;
+
+            font-size: 29px;
+
+            margin-bottom: 17px;
+        }
 
         .player-card h3 {
-            margin-bottom: 12px;
+            color: #111827;
+
+            font-size: 20px;
+
+            margin-bottom: 10px;
         }
 
-
         .player-card p {
-            color: #64748b;
+            color: #6b7280;
+
+            font-size: 14px;
+
             line-height: 1.7;
         }
 
 
         /* =========================
-           POINTS
+           REWARDS
         ========================= */
 
         .rewards {
-            margin-top: 55px;
-            background: #0f172a;
-            color: white;
-            padding: 40px;
-            border-radius: 18px;
-        }
+            margin-top: 60px;
 
+            background: #111827;
+
+            color: white;
+
+            border-radius: 20px;
+
+            padding: 40px;
+        }
 
         .rewards h2 {
             text-align: center;
-            margin-bottom: 25px;
-        }
 
+            font-size: 28px;
+
+            margin-bottom: 28px;
+        }
 
         .reward-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
 
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
 
         .reward {
+            background: #1f2937;
+
+            border: 1px solid #374151;
+
+            border-radius: 14px;
+
+            padding: 25px 18px;
+
             text-align: center;
-            padding: 20px;
-            background: #1e293b;
-            border-radius: 12px;
         }
 
-
         .reward-icon {
-            font-size: 35px;
+            font-size: 34px;
+
             margin-bottom: 10px;
         }
 
-
         .reward h3 {
+            font-size: 18px;
+
             margin-bottom: 8px;
         }
 
-
         .reward p {
-            color: #cbd5e1;
-            line-height: 1.5;
+            color: #d1d5db;
+
+            font-size: 14px;
+
+            line-height: 1.6;
         }
 
 
@@ -352,39 +502,69 @@
            CTA
         ========================= */
 
-        .cta {
-            margin-top: 55px;
-            text-align: center;
-            background: #eef2ff;
-            padding: 40px;
-            border-radius: 18px;
+        .cta-wrapper {
+            background: #f5f7fb;
+
+            padding: 0 20px 70px;
         }
 
+        .cta {
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 20px;
+
+            padding: 50px 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+        }
 
         .cta h2 {
+            color: #111827;
+
+            font-size: 32px;
+
             margin-bottom: 12px;
         }
 
-
         .cta p {
-            color: #64748b;
+            color: #6b7280;
+
+            font-size: 16px;
+
             margin-bottom: 25px;
         }
 
-
         .cta a {
             display: inline-block;
-            background: #4f46e5;
+
+            background: #2563eb;
+
             color: white;
+
             text-decoration: none;
-            padding: 14px 25px;
+
+            padding: 13px 25px;
+
             border-radius: 10px;
-            font-weight: bold;
+
+            font-size: 15px;
+
+            font-weight: 700;
         }
 
-
         .cta a:hover {
-            background: #4338ca;
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
         }
 
 
@@ -392,22 +572,30 @@
            FOOTER
         ========================= */
 
-        footer {
-            margin-top: 60px;
+        .footer {
             background: #111827;
-            color: white;
+
+            color: #9ca3af;
+
             text-align: center;
-            padding: 30px;
+
+            padding: 20px;
+
+            font-size: 13px;
         }
 
 
         /* =========================
-           MOBILE
+           RESPONSIVE
         ========================= */
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
 
             .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-container {
                 flex-direction: column;
             }
 
@@ -418,16 +606,61 @@
             .steps,
             .player-grid,
             .reward-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
         }
 
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 13px 12px;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .nav-links {
+                gap: 1px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+
+                padding: 6px 7px;
+            }
+
+            .hero {
+                padding: 55px 15px;
+            }
 
             .hero h1 {
-                font-size: 32px;
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 55px 15px;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .steps,
+            .player-grid,
+            .reward-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-flow {
+                padding: 28px 20px;
             }
 
             .flow {
@@ -436,6 +669,22 @@
 
             .arrow {
                 transform: rotate(90deg);
+            }
+
+            .rewards {
+                padding: 30px 20px;
+            }
+
+            .cta-wrapper {
+                padding: 0 15px 50px;
+            }
+
+            .cta {
+                padding: 35px 20px;
+            }
+
+            .cta h2 {
+                font-size: 27px;
             }
 
         }
@@ -448,73 +697,88 @@
 <body>
 
 
-<!-- =========================
+<!-- =====================================================
      NAVIGATION
-========================= -->
+===================================================== -->
 
 <nav class="navbar">
 
-
-    <a
-        href="{% url 'home' %}"
-        class="logo"
-    >
-        🎯 Data Quest
-    </a>
-
-
-    <div class="nav-links">
-
-
-        <a href="{% url 'home' %}">
-            Home
-        </a>
-
-
-        <a href="{% url 'learn' %}">
-            Learn
-        </a>
-
+    <div class="nav-container">
 
         <a
-            href="{% url 'how_to_play' %}"
-            class="active"
+            href="{% url 'home' %}"
+            class="logo"
         >
-            How to Play
+            🎯 Data Quest
         </a>
 
 
-        <a
-            href="{% url 'student_login' %}"
-            class="student-login"
-        >
-            🎓 Student Login
-        </a>
+        <div class="nav-links">
+
+            <a
+                href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+            >
+                Home
+            </a>
 
 
-        <a
-            href="{% url 'teacher_login' %}"
-            class="teacher-login"
-        >
-            👨‍🏫 Teacher Login
-        </a>
+            <a
+                href="{% url 'learn' %}"
+                class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
+            >
+                Learn
+            </a>
 
+
+            <a
+                href="{% url 'how_to_play' %}"
+                class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
+            >
+                How to Play
+            </a>
+
+
+            <a
+                href="{% url 'student_login' %}"
+                class="{% if request.resolver_match.url_name == 'student_login' %}active{% endif %}"
+            >
+                🎓 Student Login
+            </a>
+
+
+            <a
+                href="{% url 'teacher_login' %}"
+                class="{% if request.resolver_match.url_name == 'teacher_login' %}active{% endif %}"
+            >
+                👨‍🏫 Teacher Login
+            </a>
+
+        </div>
 
     </div>
 
 </nav>
 
 
-<!-- =========================
+<!-- =====================================================
      HERO
-========================= -->
+===================================================== -->
 
 <section class="hero">
 
-    <h1>
-        🎮 How to Play Data Quest
-    </h1>
+    <div class="hero-badge">
+        🎮 Your Data Quest Guide
+    </div>
 
+    <h1>
+
+        How to Play
+        <span>
+            Data Quest
+        </span>
+
+    </h1>
 
     <p>
 
@@ -527,12 +791,16 @@
 </section>
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
 
 <main class="container">
 
+
+    <!-- =========================
+         STEPS
+    ========================= -->
 
     <div class="section-title">
 
@@ -546,10 +814,6 @@
 
     </div>
 
-
-    <!-- =========================
-         STEPS
-    ========================= -->
 
     <div class="steps">
 
@@ -568,8 +832,8 @@
 
                 Start with the Learn section to understand
                 important concepts about data representation.
-                You can study ASCII, text, images, and audio
-                before playing the games.
+                Study topics such as ASCII, text, images,
+                audio, and video.
 
             </p>
 
@@ -651,8 +915,8 @@
 
             <p>
 
-                You can replay levels and try to improve
-                your previous scores. Practice helps you
+                Replay levels and try to improve your
+                previous scores. Practice helps you
                 understand the concepts better.
 
             </p>
@@ -770,10 +1034,9 @@
 
                 <p>
 
-                    You can start Level 1 without creating
-                    an account. Your result is private to
-                    your current game session and is not
-                    visible to teachers.
+                    Start Level 1 without creating an account.
+                    Your result remains private to your game
+                    session and is not visible to teachers.
 
                 </p>
 
@@ -815,9 +1078,9 @@
                 <p>
 
                     Teachers can create multiple sections,
-                    give students a class join code, and
-                    monitor the learning progress of
-                    students in their own sections.
+                    provide students with class join codes,
+                    and monitor the progress of students
+                    in their own sections.
 
                 </p>
 
@@ -897,43 +1160,41 @@
 
     </section>
 
-
-    <!-- =========================
-         START GAME
-    ========================= -->
-
-    <section class="cta">
-
-        <h2>
-            Ready to Start?
-        </h2>
-
-
-        <p>
-            You can start Level 1 as a guest or log in as a student.
-        </p>
-
-
-        <a href="{% url 'level1_game' %}">
-            🚀 Start Level 1
-        </a>
-
-    </section>
-
-
 </main>
 
 
-<!-- =========================
+<!-- =====================================================
+     CALL TO ACTION
+===================================================== -->
+
+<section class="cta-wrapper">
+
+    <div class="cta">
+
+        <h2>
+            Ready to Start Your Quest? 🚀
+        </h2>
+
+        <p>
+            Start Level 1 as a guest or log in as a student.
+        </p>
+
+        <a href="{% url 'level1_game' %}">
+            🎮 Start Level 1
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
-<footer>
+<footer class="footer">
 
-    <p>
-        © 2026 Data Quest —
-        Data Representation Learning Game
-    </p>
+    © 2026 Data Quest. Learn. Play. Master Data Representation.
 
 </footer>
 
@@ -941,4 +1202,3 @@
 </body>
 
 </html>
-

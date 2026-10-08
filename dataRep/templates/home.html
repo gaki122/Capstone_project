@@ -2,34 +2,46 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Data Quest | Learn Data Representation</title>
-
+    <title>Data Quest | Learn Digital Number Systems</title>
 
     <style>
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        :root {
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --navy: #172554;
+            --dark: #111827;
+            --text: #334155;
+            --muted: #64748b;
+            --light-blue: #eff6ff;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --background: #f5f7fb;
+            --gold: #f59e0b;
+            --gold-light: #fff7df;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
-            line-height: 1.5;
+            color: var(--dark);
+            background: var(--background);
+            line-height: 1.6;
         }
 
         a {
-            transition: 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         /* =========================
@@ -38,458 +50,638 @@
 
         .navbar {
             width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 40px;
-
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 30px;
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1180px;
             margin: auto;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            gap: 20px;
+            gap: 25px;
         }
 
         .logo {
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 700;
+            color: var(--dark);
+            font-size: 26px;
+            font-weight: 900;
             text-decoration: none;
             white-space: nowrap;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .logo:hover {
+            color: var(--blue);
+            background: var(--light-blue);
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: flex-end;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
+        /*
+           ALL NAVIGATION LINKS USE
+           THE SAME STYLE
+        */
+
         .nav-links a {
-            color: #374151;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            background: transparent;
             text-decoration: none;
             font-size: 15px;
-            font-weight: 500;
-
+            font-weight: 800;
             padding: 9px 13px;
             border-radius: 8px;
+            border: 1px solid transparent;
+            white-space: nowrap;
         }
+
+        /*
+           HOVER STYLE
+        */
 
         .nav-links a:hover {
-            background: #eff6ff;
-            color: #2563eb;
+            color: var(--blue);
+            background: var(--light-blue);
+            border-color: #dbeafe;
         }
+
+        /*
+           ACTIVE PAGE
+           Same blue style for EVERY page
+        */
 
         .nav-links a.active {
-            background: #2563eb;
-            color: white;
-        }
-
-        .student-nav-btn {
-            background: #2563eb;
-            color: white !important;
-        }
-
-        .student-nav-btn:hover {
-            background: #1d4ed8 !important;
-            color: white !important;
-        }
-
-        .teacher-nav-btn {
-            border: 1px solid #bfdbfe;
-            background: #eff6ff;
-            color: #2563eb !important;
-        }
-
-        .teacher-nav-btn:hover {
-            background: #dbeafe !important;
-            color: #1d4ed8 !important;
+            color: var(--blue);
+            background: var(--light-blue);
+            border-color: #dbeafe;
         }
 
         /* =========================
            HERO
         ========================= */
 
+        .hero-wrapper {
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef5ff 0%,
+                    #f8fbff 52%,
+                    #edfafd 100%
+                );
+            border-bottom: 1px solid #e5edf8;
+        }
+
+        .hero-wrapper::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.06);
+            top: -150px;
+            right: 7%;
+        }
+
+        .hero-wrapper::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(6, 182, 212, 0.06);
+            bottom: -130px;
+            left: 4%;
+        }
+
         .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-
-            min-height: 560px;
-
-            padding: 70px 20px;
-
+            position: relative;
+            z-index: 1;
+            max-width: 1180px;
+            min-height: 535px;
+            margin: auto;
+            padding: 62px 25px 55px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            gap: 60px;
+            gap: 50px;
         }
 
         .hero-content {
             flex: 1;
-            max-width: 650px;
+            max-width: 630px;
         }
 
         .hero-badge {
             display: inline-block;
-
-            background: #eff6ff;
-            color: #1d4ed8;
-
+            background: white;
+            color: var(--blue-dark);
             border: 1px solid #bfdbfe;
-
-            padding: 7px 12px;
-
+            padding: 7px 13px;
             border-radius: 20px;
-
             font-size: 13px;
-            font-weight: 600;
-
-            margin-bottom: 18px;
+            font-weight: 800;
+            margin-bottom: 17px;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.06);
         }
 
-        .hero-content h1 {
-            color: #111827;
-
+        .hero h1 {
             font-size: 52px;
-            line-height: 1.1;
-
-            margin-bottom: 20px;
+            line-height: 1.08;
+            letter-spacing: -1px;
+            color: var(--dark);
+            margin-bottom: 17px;
         }
 
-        .hero-content h1 span {
-            color: #2563eb;
+        .hero h1 span {
+            color: var(--blue);
         }
 
-        .hero-content p {
-            color: #6b7280;
-
-            font-size: 18px;
-            line-height: 1.7;
-
-            max-width: 620px;
-
-            margin-bottom: 30px;
+        .hero-description {
+            color: var(--text);
+            font-size: 17px;
+            line-height: 1.75;
+            max-width: 610px;
+            margin-bottom: 25px;
         }
 
         .hero-buttons {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            gap: 11px;
             flex-wrap: wrap;
         }
 
-        .start-btn {
+        .primary-btn {
             display: inline-block;
-
-            background: #2563eb;
+            background: var(--blue);
             color: white;
-
             text-decoration: none;
-
-            padding: 14px 25px;
-
-            border-radius: 10px;
-
-            font-size: 16px;
-            font-weight: 700;
+            padding: 12px 21px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 7px 18px rgba(37, 99, 235, 0.18);
         }
 
-        .start-btn:hover {
-            background: #1d4ed8;
+        .primary-btn:hover {
+            background: var(--blue-dark);
             transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
         }
 
-        .learn-btn {
+        .secondary-btn {
             display: inline-block;
-
             background: white;
-            color: #2563eb;
-
-            border: 1px solid #2563eb;
-
+            color: var(--blue-dark);
+            border: 1px solid #bfdbfe;
             text-decoration: none;
-
-            padding: 13px 24px;
-
-            border-radius: 10px;
-
-            font-size: 16px;
-            font-weight: 700;
+            padding: 11px 21px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 800;
         }
 
-        .learn-btn:hover {
-            background: #eff6ff;
+        .secondary-btn:hover {
+            background: var(--light-blue);
+            border-color: #93c5fd;
+            transform: translateY(-1px);
         }
 
-        /* =========================
-           GAME PREVIEW
-        ========================= */
-
-        .game-card {
-            width: 390px;
-
-            background: white;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 20px;
-
-            padding: 25px;
-
-            box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.09);
-        }
-
-        .game-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            margin-bottom: 20px;
-        }
-
-        .game-card h3 {
-            color: #111827;
-            font-size: 19px;
-        }
-
-        .preview-badge {
-            background: #f3f4f6;
-            color: #6b7280;
-
-            padding: 5px 9px;
-
-            border-radius: 8px;
-
-            font-size: 11px;
+        .hero-note {
+            margin-top: 13px;
+            color: var(--muted);
+            font-size: 12px;
             font-weight: 600;
         }
 
-        .level {
-            display: flex;
-            align-items: center;
+        /* =========================
+           JOURNEY PREVIEW
+        ========================= */
 
-            gap: 13px;
-
-            padding: 14px;
-
-            margin-bottom: 11px;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 13px;
-
-            background: #f9fafb;
+        .journey-card {
+            width: 370px;
+            min-width: 370px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 21px;
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.07);
         }
 
-        .level:last-child {
+        .journey-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .journey-header h3 {
+            font-size: 17px;
+            color: var(--dark);
+        }
+
+        .journey-badge {
+            background: #f1f5f9;
+            color: var(--muted);
+            padding: 4px 7px;
+            border-radius: 6px;
+            font-size: 8px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .journey-step {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: #fafcff;
+            transition: all 0.2s ease;
+        }
+
+        .journey-step:hover {
+            transform: translateX(3px);
+            border-color: #bfdbfe;
+            background: #f8fbff;
+        }
+
+        .journey-step:last-child {
             margin-bottom: 0;
         }
 
-        .level-icon {
-            font-size: 27px;
+        .step-number {
+            width: 35px;
+            height: 35px;
+            min-width: 35px;
+            border-radius: 9px;
+            background: var(--light-blue);
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 11px;
         }
 
-        .level-info {
+        .step-info {
             flex: 1;
         }
 
-        .level-info strong {
+        .step-info strong {
             display: block;
+            color: var(--dark);
+            font-size: 13px;
+            margin-bottom: 1px;
+        }
 
-            color: #111827;
+        .step-info span {
+            color: var(--muted);
+            font-size: 11px;
+        }
 
+        .step-lock {
             font-size: 14px;
-
-            margin-bottom: 7px;
         }
 
-        .progress {
-            height: 7px;
-
-            background: #e5e7eb;
-
-            border-radius: 20px;
-
-            overflow: hidden;
+        .final-step {
+            background: var(--gold-light);
+            border-color: #fcd34d;
         }
 
-        .progress-bar {
-            height: 100%;
-
-            background: #2563eb;
-
-            border-radius: 20px;
-        }
-
-        .level-status {
-            font-size: 16px;
+        .final-step .step-number {
+            background: #fef3c7;
+            color: #b45309;
         }
 
         /* =========================
-           SECTION COMMON
+           COMMON SECTION
         ========================= */
 
         .section {
-            padding: 75px 20px;
+            padding: 54px 20px;
         }
 
         .section-title {
             text-align: center;
-            font-size: 34px;
-            color: #111827;
-            margin-bottom: 10px;
+            font-size: 31px;
+            line-height: 1.2;
+            color: var(--dark);
+            margin-bottom: 8px;
         }
 
         .section-text {
+            max-width: 680px;
+            margin: 0 auto 30px;
             text-align: center;
-            color: #6b7280;
-            font-size: 16px;
-            margin-bottom: 40px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
         }
 
         /* =========================
-           ROLES
+           LOGIN SECTION
         ========================= */
 
-        .roles {
+        .login-section {
             background: white;
+            border-bottom: 1px solid #edf1f6;
         }
 
-        .role-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-
+        .login-grid {
+            max-width: 980px;
+            margin: auto;
             display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
         }
 
-        .role-card {
-            background: #f9fafb;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 18px;
-
-            padding: 35px 30px;
-
+        .login-card {
+            position: relative;
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #f8fafc
+                );
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 27px;
             text-align: center;
-
-            transition: 0.2s;
+            overflow: hidden;
+            transition: all 0.2s ease;
         }
 
-        .role-card:hover {
-            transform: translateY(-4px);
+        .login-card::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            right: -55px;
+            bottom: -55px;
+            background: rgba(37, 99, 235, 0.05);
+        }
 
-            box-shadow:
-                0 12px 30px rgba(0, 0, 0, 0.07);
+        .login-card:hover {
+            transform: translateY(-4px);
+            border-color: #bfdbfe;
+            box-shadow: 0 13px 30px rgba(15, 23, 42, 0.07);
+        }
+
+        .student-card {
+            border-top: 4px solid var(--blue);
         }
 
         .teacher-card {
-            background: #eff6ff;
-            border-color: #bfdbfe;
+            border-top: 4px solid #0891b2;
         }
 
-        .role-icon {
-            width: 65px;
-            height: 65px;
-
-            margin: 0 auto 18px;
-
+        .login-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 13px;
             background: white;
-
-            border-radius: 16px;
-
+            border: 1px solid var(--border);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            font-size: 32px;
-
-            border: 1px solid #e5e7eb;
+            font-size: 29px;
+            box-shadow: 0 5px 14px rgba(15, 23, 42, 0.05);
         }
 
-        .role-card h3 {
-            color: #111827;
-
-            font-size: 23px;
-
-            margin-bottom: 12px;
+        .login-card h3 {
+            color: var(--dark);
+            font-size: 22px;
+            margin-bottom: 6px;
         }
 
-        .role-card p {
-            color: #6b7280;
-
-            line-height: 1.7;
-
-            font-size: 14px;
-
-            margin-bottom: 22px;
+        .login-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.65;
+            max-width: 420px;
+            margin: 0 auto 17px;
         }
 
-        .role-buttons {
+        .login-buttons {
             display: flex;
-
             justify-content: center;
-
-            gap: 10px;
-
+            gap: 9px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
-        .role-primary-btn {
+        .login-primary {
             display: inline-block;
-
-            background: #2563eb;
+            background: var(--blue);
             color: white;
-
             text-decoration: none;
-
-            padding: 11px 19px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-            font-weight: 600;
+            padding: 9px 17px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
         }
 
-        .role-primary-btn:hover {
-            background: #1d4ed8;
+        .login-primary:hover {
+            background: var(--blue-dark);
+            transform: translateY(-1px);
         }
 
-        .role-secondary-btn {
+        .login-secondary {
             display: inline-block;
-
             background: white;
-            color: #2563eb;
-
-            border: 1px solid #2563eb;
-
+            color: var(--dark);
+            border: 1px solid #cbd5e1;
             text-decoration: none;
-
-            padding: 10px 19px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-            font-weight: 600;
+            padding: 8px 17px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
         }
 
-        .role-secondary-btn:hover {
-            background: #eff6ff;
+        .login-secondary:hover {
+            color: var(--blue);
+            border-color: #93c5fd;
+            background: var(--light-blue);
+        }
+
+        /* =========================
+           HOW DATA QUEST WORKS
+        ========================= */
+
+        .journey-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    #f5f8fc,
+                    #eef5ff
+                );
+        }
+
+        .journey-grid {
+            max-width: 1080px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .journey-box {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 20px 13px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(15, 23, 42, 0.035);
+            transition: all 0.2s ease;
+        }
+
+        .journey-box:hover {
+            transform: translateY(-4px);
+            border-color: #bfdbfe;
+            box-shadow: 0 11px 25px rgba(15, 23, 42, 0.07);
+        }
+
+        .journey-box.final-box {
+            background:
+                linear-gradient(
+                    145deg,
+                    #fffdf5,
+                    #fff8e8
+                );
+            border-color: #fcd34d;
+        }
+
+        .journey-icon {
+            width: 46px;
+            height: 46px;
+            margin: 0 auto 10px;
+            border-radius: 12px;
+            background: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .final-box .journey-icon {
+            background: #fef3c7;
+        }
+
+        .journey-box h3 {
+            font-size: 15px;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .journey-box p {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* =========================
+           FINAL CHALLENGE
+        ========================= */
+
+        .final-section {
+            background: white;
+        }
+
+        .final-card {
+            position: relative;
+            max-width: 980px;
+            margin: auto;
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffdf6,
+                    #ffffff
+                );
+            border: 1px solid #fde68a;
+            border-radius: 17px;
+            padding: 30px 32px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.045);
+            overflow: hidden;
+        }
+
+        .final-card::after {
+            content: "★";
+            position: absolute;
+            right: 25px;
+            top: -28px;
+            font-size: 120px;
+            color: rgba(245, 158, 11, 0.055);
+        }
+
+        .final-icon {
+            width: 78px;
+            height: 78px;
+            min-width: 78px;
+            background: #fef3c7;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-content {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-content h2 {
+            color: var(--dark);
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .final-content p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 7px;
+        }
+
+        .final-note {
+            display: inline-block;
+            background: #fff7ed;
+            color: #9a3412;
+            border: 1px solid #fed7aa;
+            padding: 6px 9px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 800;
         }
 
         /* =========================
@@ -497,114 +689,71 @@
         ========================= */
 
         .features {
-            background: #f5f7fb;
+            background:
+                linear-gradient(
+                    180deg,
+                    #f1f5f9,
+                    #f7faff
+                );
         }
 
         .feature-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-
+            max-width: 1080px;
+            margin: auto;
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 18px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
 
         .feature-card {
             background: white;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 16px;
-
-            padding: 27px 20px;
-
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 17px;
             text-align: center;
+            transition: all 0.2s ease;
+        }
 
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.04);
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #bfdbfe;
+            box-shadow: 0 11px 25px rgba(15, 23, 42, 0.06);
         }
 
         .feature-icon {
-            font-size: 35px;
+            width: 51px;
+            height: 51px;
+            margin: 0 auto 11px;
+            border-radius: 13px;
+            background: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
 
-            margin-bottom: 13px;
+        .feature-card:nth-child(2) .feature-icon {
+            background: #ecfeff;
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: #fef3c7;
+        }
+
+        .feature-card:nth-child(4) .feature-icon {
+            background: #f3e8ff;
         }
 
         .feature-card h3 {
-            color: #111827;
-
-            font-size: 18px;
-
-            margin-bottom: 8px;
+            color: var(--dark);
+            font-size: 16px;
+            margin-bottom: 5px;
         }
 
         .feature-card p {
-            color: #6b7280;
-
-            font-size: 14px;
-
-            line-height: 1.6;
-        }
-
-        /* =========================
-           TOPICS
-        ========================= */
-
-        .topics {
-            background: white;
-        }
-
-        .topic-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 18px;
-        }
-
-        .topic-card {
-            background: #f9fafb;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 16px;
-
-            padding: 27px 18px;
-
-            text-align: center;
-        }
-
-        .topic-card .number {
-            color: #2563eb;
-
-            font-size: 26px;
-
-            font-weight: 700;
-
-            margin-bottom: 10px;
-        }
-
-        .topic-card h3 {
-            color: #111827;
-
-            font-size: 18px;
-
-            margin-bottom: 8px;
-        }
-
-        .topic-card p {
-            color: #6b7280;
-
-            font-size: 13px;
-
-            line-height: 1.6;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.55;
         }
 
         /* =========================
@@ -612,42 +761,34 @@
         ========================= */
 
         .about {
-            background: #f5f7fb;
+            background: white;
         }
 
         .about-box {
-            max-width: 900px;
-
-            margin: 0 auto;
-
-            background: white;
-
-            border: 1px solid #e5e7eb;
-
-            border-radius: 18px;
-
-            padding: 38px;
-
+            max-width: 880px;
+            margin: auto;
             text-align: center;
-
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.05);
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fbff,
+                    #eef6ff
+                );
+            border: 1px solid #dbeafe;
+            border-radius: 17px;
+            padding: 32px 35px;
         }
 
         .about-box h2 {
-            color: #111827;
-
-            font-size: 32px;
-
-            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 28px;
+            margin-bottom: 9px;
         }
 
         .about-box p {
-            color: #6b7280;
-
-            font-size: 16px;
-
-            line-height: 1.8;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.75;
         }
 
         /* =========================
@@ -655,61 +796,80 @@
         ========================= */
 
         .cta-wrapper {
-            padding: 0 20px 70px;
-
-            background: #f5f7fb;
+            background: #f1f5f9;
+            padding: 0 20px 55px;
         }
 
         .cta {
-            max-width: 1160px;
-
-            margin: 0 auto;
-
-            padding: 55px 25px;
-
-            border-radius: 20px;
-
-            background: #2563eb;
-
+            position: relative;
+            overflow: hidden;
+            max-width: 1120px;
+            margin: auto;
+            background:
+                linear-gradient(
+                    135deg,
+                    #172554,
+                    #1d4ed8
+                );
             color: white;
-
             text-align: center;
+            border-radius: 18px;
+            padding: 43px 25px;
+        }
+
+        .cta::before {
+            content: "";
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background: rgba(6, 182, 212, 0.10);
+            top: -90px;
+            left: -55px;
+        }
+
+        .cta::after {
+            content: "";
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: rgba(245, 158, 11, 0.10);
+            right: -60px;
+            bottom: -70px;
         }
 
         .cta h2 {
-            font-size: 34px;
-
-            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            font-size: 30px;
+            margin-bottom: 7px;
         }
 
         .cta p {
-            font-size: 16px;
-
-            margin-bottom: 25px;
-
-            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            font-size: 14px;
+            color: #dbeafe;
+            margin-bottom: 20px;
         }
 
         .cta-btn {
+            position: relative;
+            z-index: 2;
             display: inline-block;
-
             background: white;
-
-            color: #2563eb;
-
-            padding: 13px 25px;
-
-            border-radius: 10px;
-
+            color: var(--blue-dark);
             text-decoration: none;
-
-            font-size: 15px;
-
-            font-weight: 700;
+            padding: 11px 22px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 800;
         }
 
         .cta-btn:hover {
-            background: #eff6ff;
+            background: #ecfeff;
+            transform: translateY(-2px);
         }
 
         /* =========================
@@ -718,28 +878,49 @@
 
         .footer {
             background: #111827;
-
-            color: #9ca3af;
-
+            color: #94a3b8;
             text-align: center;
-
-            padding: 20px;
-
-            font-size: 13px;
+            padding: 18px;
+            font-size: 12px;
         }
 
         /* =========================
-           RESPONSIVE
+           TABLET
         ========================= */
 
-        @media (max-width: 950px) {
+        @media (max-width: 1000px) {
 
-            .navbar {
-                padding: 15px 20px;
+            .hero {
+                gap: 30px;
             }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .journey-card {
+                width: 340px;
+                min-width: 340px;
+            }
+
+            .journey-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
 
             .nav-container {
                 flex-direction: column;
+                gap: 9px;
             }
 
             .nav-links {
@@ -748,13 +929,11 @@
 
             .hero {
                 flex-direction: column;
-
                 text-align: center;
-
-                padding-top: 55px;
+                padding: 52px 18px 45px;
             }
 
-            .hero-content p {
+            .hero-description {
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -763,701 +942,866 @@
                 justify-content: center;
             }
 
-            .feature-grid,
-            .topic-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 650px) {
-
-            .logo {
-                font-size: 22px;
-            }
-
-            .nav-links {
-                gap: 4px;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-
-                padding: 8px 9px;
-            }
-
-            .hero {
-                padding: 45px 15px;
-            }
-
-            .hero-content h1 {
-                font-size: 38px;
-            }
-
-            .hero-content p {
-                font-size: 16px;
-            }
-
-            .game-card {
+            .journey-card {
                 width: 100%;
-                max-width: 390px;
+                max-width: 370px;
+                min-width: 0;
             }
 
-            .role-grid,
-            .feature-grid,
-            .topic-grid {
+            .login-grid {
                 grid-template-columns: 1fr;
             }
 
+            .final-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 13px 12px;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .nav-links {
+                gap: 1px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+                padding: 6px 7px;
+            }
+
+            .hero h1 {
+                font-size: 37px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+                width: 100%;
+                text-align: center;
+            }
+
             .section {
-                padding: 55px 15px;
+                padding: 48px 15px;
             }
 
             .section-title {
-                font-size: 28px;
+                font-size: 27px;
+            }
+
+            .journey-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-card {
+                padding: 28px 20px;
             }
 
             .about-box {
                 padding: 28px 20px;
             }
 
-            .about-box h2 {
-                font-size: 27px;
+            .cta-wrapper {
+                padding: 0 15px 45px;
             }
 
-            .cta-wrapper {
-                padding: 0 15px 50px;
+            .cta {
+                padding: 40px 18px;
             }
 
             .cta h2 {
-                font-size: 28px;
+                font-size: 27px;
             }
-
         }
 
-    </style>
+        @media (max-width: 420px) {
 
+            .nav-links a {
+                font-size: 11px;
+                padding: 5px 5px;
+            }
+
+            .hero h1 {
+                font-size: 33px;
+            }
+
+            .journey-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 
 <body>
 
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+    <nav class="navbar">
 
-<nav class="navbar">
-
-    <div class="nav-container">
-
-        <a
-            href="{% url 'home' %}"
-            class="logo"
-        >
-            🎯 Data Quest
-        </a>
-
-
-        <div class="nav-links">
+        <div class="nav-container">
 
             <a
                 href="{% url 'home' %}"
-                class="active"
+                class="logo"
             >
-                Home
+                🎯 Data Quest
             </a>
 
-            <a href="{% url 'learn' %}">
-                Learn
-            </a>
 
-            <a href="{% url 'how_to_play' %}">
-                How to Play
-            </a>
+            <div class="nav-links">
 
-            <a
-                href="{% url 'student_login' %}"
-                class="student-nav-btn"
-            >
-                🎓 Student Login
-            </a>
+                <!-- HOME -->
 
-            <a
-                href="{% url 'teacher_login' %}"
-                class="teacher-nav-btn"
-            >
-                👨‍🏫 Teacher Login
-            </a>
+                <a
+                    href="{% url 'home' %}"
+                    class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                >
+                    Home
+                </a>
+
+
+                <!-- LEARN -->
+
+                <a
+                    href="{% url 'learn' %}"
+                    class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
+                >
+                    Learn
+                </a>
+
+
+                <!-- HOW TO PLAY -->
+
+                <a
+                    href="{% url 'how_to_play' %}"
+                    class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
+                >
+                    How to Play
+                </a>
+
+
+                <!-- STUDENT LOGIN -->
+
+                <a
+                    href="{% url 'student_login' %}"
+                    class="{% if request.resolver_match.url_name == 'student_login' %}active{% endif %}"
+                >
+                    Student Login
+                </a>
+
+
+                <!-- TEACHER LOGIN -->
+
+                <a
+                    href="{% url 'teacher_login' %}"
+                    class="{% if request.resolver_match.url_name == 'teacher_login' %}active{% endif %}"
+                >
+                    Teacher Login
+                </a>
+
+            </div>
 
         </div>
 
-    </div>
-
-</nav>
+    </nav>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+    <!-- =========================
+         HERO
+    ========================= -->
 
-<section class="hero">
+    <div class="hero-wrapper">
 
-    <div class="hero-content">
+        <section class="hero">
 
-        <div class="hero-badge">
-            🎮 Interactive Data Representation Learning
-        </div>
+            <div class="hero-content">
 
-        <h1>
-
-            Learn Data Representation
-
-            <span>
-                Through Play!
-            </span>
-
-        </h1>
+                <div class="hero-badge">
+                    🎮 Interactive Digital Number Systems Learning
+                </div>
 
 
-        <p>
-
-            Explore ASCII, text, image, and audio
-            representation through interactive lessons,
-            quizzes, challenges, rewards, and achievements.
-
-        </p>
+                <h1>
+                    Learn Number Systems
+                    <span>Through Play!</span>
+                </h1>
 
 
-        <div class="hero-buttons">
+                <p class="hero-description">
 
-            <a
-                href="{% url 'level1_game' %}"
-                class="start-btn"
-            >
-                🚀 Start Data Quest
-            </a>
+                    Welcome to Data Quest — an interactive learning
+                    platform where you can learn digital number systems,
+                    practice conversions, answer challenges, earn points,
+                    and improve your understanding step by step.
+
+                </p>
 
 
-            <a
-                href="{% url 'learn' %}"
-                class="learn-btn"
-            >
-                📚 Learn First
-            </a>
+                <div class="hero-buttons">
 
-        </div>
+                    <a
+                        href="{% url 'level1_game' %}"
+                        class="primary-btn"
+                    >
+                        🚀 Start Data Quest
+                    </a>
+
+
+                    <a
+                        href="{% url 'learn' %}"
+                        class="secondary-btn"
+                    >
+                        📚 Learn First
+                    </a>
+
+                </div>
+
+
+                <p class="hero-note">
+                    No account is required to start playing.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 JOURNEY CARD
+            ========================= -->
+
+            <div class="journey-card">
+
+                <div class="journey-header">
+
+                    <h3>
+                        🗺️ Your Data Quest Journey
+                    </h3>
+
+                    <span class="journey-badge">
+                        LEARNING PATH
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-info">
+
+                        <strong>
+                            Level 1
+                        </strong>
+
+                        <span>
+                            Start your journey
+                        </span>
+
+                    </div>
+
+                    <span class="step-lock">
+                        🚀
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-info">
+
+                        <strong>
+                            Level 2
+                        </strong>
+
+                        <span>
+                            Continue learning
+                        </span>
+
+                    </div>
+
+                    <span class="step-lock">
+                        🔒
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-info">
+
+                        <strong>
+                            Level 3
+                        </strong>
+
+                        <span>
+                            Build your skills
+                        </span>
+
+                    </div>
+
+                    <span class="step-lock">
+                        🔒
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+                    <div class="step-info">
+
+                        <strong>
+                            Level 4
+                        </strong>
+
+                        <span>
+                            Complete the journey
+                        </span>
+
+                    </div>
+
+                    <span class="step-lock">
+                        🔒
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step final-step">
+
+                    <div class="step-number">
+                        🏆
+                    </div>
+
+                    <div class="step-info">
+
+                        <strong>
+                            Final Challenge
+                        </strong>
+
+                        <span>
+                            Unlocked after Level 4
+                        </span>
+
+                    </div>
+
+                    <span class="step-lock">
+                        🔒
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </div>
 
 
     <!-- =========================
-         GAME PREVIEW
+         LOGIN SECTION
     ========================= -->
 
-    <div class="game-card">
+    <section class="section login-section">
 
-        <div class="game-card-header">
-
-            <h3>
-                🏆 Data Quest
-            </h3>
-
-            <span class="preview-badge">
-                PREVIEW
-            </span>
-
-        </div>
-
-
-        <div class="level">
-
-            <div class="level-icon">
-                🔤
-            </div>
-
-            <div class="level-info">
-
-                <strong>
-                    Level 1 — ASCII
-                </strong>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        style="width: 80%;"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <span class="level-status">
-                ⭐
-            </span>
-
-        </div>
-
-
-        <div class="level">
-
-            <div class="level-icon">
-                📝
-            </div>
-
-            <div class="level-info">
-
-                <strong>
-                    Level 2 — Text
-                </strong>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        style="width: 50%;"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <span class="level-status">
-                🔓
-            </span>
-
-        </div>
-
-
-        <div class="level">
-
-            <div class="level-icon">
-                🖼️
-            </div>
-
-            <div class="level-info">
-
-                <strong>
-                    Level 3 — Image
-                </strong>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        style="width: 20%;"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <span class="level-status">
-                🔒
-            </span>
-
-        </div>
-
-
-        <div class="level">
-
-            <div class="level-icon">
-                🎵
-            </div>
-
-            <div class="level-info">
-
-                <strong>
-                    Level 4 — Audio
-                </strong>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        style="width: 0%;"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <span class="level-status">
-                🔒
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CHOOSE YOUR ROLE
-===================================================== -->
-
-<section class="section roles">
-
-    <h2 class="section-title">
-        Choose Your Role
-    </h2>
-
-    <p class="section-text">
-        Choose how you want to use Data Quest.
-    </p>
-
-
-    <div class="role-grid">
-
-
-        <!-- STUDENT -->
-
-        <div class="role-card">
-
-            <div class="role-icon">
-                🎓
-            </div>
-
-            <h3>
-                I'm a Student
-            </h3>
-
-            <p>
-
-                Create your student account,
-                join a teacher's class, save your
-                results, earn points and stars,
-                and track your learning progress.
-
-            </p>
-
-
-            <div class="role-buttons">
-
-                <a
-                    href="{% url 'student_login' %}"
-                    class="role-primary-btn"
-                >
-                    Student Login
-                </a>
-
-                <a
-                    href="{% url 'register' %}"
-                    class="role-secondary-btn"
-                >
-                    Create Account
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <!-- TEACHER -->
-
-        <div class="role-card teacher-card">
-
-            <div class="role-icon">
-                👨‍🏫
-            </div>
-
-            <h3>
-                I'm a Teacher
-            </h3>
-
-            <p>
-
-                Create your own teacher account,
-                create multiple sections like a classroom,
-                manage students, and monitor their
-                scores, stars, attempts, and progress.
-
-            </p>
-
-
-            <div class="role-buttons">
-
-                <a
-                    href="{% url 'teacher_login' %}"
-                    class="role-primary-btn"
-                >
-                    Teacher Login
-                </a>
-
-                <a
-                    href="{% url 'teacher_register' %}"
-                    class="role-secondary-btn"
-                >
-                    Create Teacher Account
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FEATURES
-===================================================== -->
-
-<section class="section features">
-
-    <h2 class="section-title">
-        Why Play Data Quest?
-    </h2>
-
-    <p class="section-text">
-        Learn important concepts while playing,
-        improving, and earning rewards.
-    </p>
-
-
-    <div class="feature-grid">
-
-
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                📚
-            </div>
-
-            <h3>
-                Learn
-            </h3>
-
-            <p>
-                Understand data representation through
-                simple tutorials and learning resources.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                🎮
-            </div>
-
-            <h3>
-                Play
-            </h3>
-
-            <p>
-                Answer interactive questions and
-                complete exciting challenges.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                ⭐
-            </div>
-
-            <h3>
-                Earn
-            </h3>
-
-            <p>
-                Earn points, stars, streaks, and
-                achievements as you learn.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                🏆
-            </div>
-
-            <h3>
-                Master
-            </h3>
-
-            <p>
-                Complete every level and become
-                a Data Representation Master.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     TOPICS
-===================================================== -->
-
-<section class="section topics">
-
-    <h2 class="section-title">
-        Four Data Representation Levels
-    </h2>
-
-    <p class="section-text">
-        Complete each level to unlock the next challenge.
-    </p>
-
-
-    <div class="topic-grid">
-
-
-        <div class="topic-card">
-
-            <div class="number">
-                01
-            </div>
-
-            <h3>
-                🔤 ASCII
-            </h3>
-
-            <p>
-                Learn how characters are represented digitally.
-            </p>
-
-        </div>
-
-
-        <div class="topic-card">
-
-            <div class="number">
-                02
-            </div>
-
-            <h3>
-                📝 Text
-            </h3>
-
-            <p>
-                Discover how text is stored and represented.
-            </p>
-
-        </div>
-
-
-        <div class="topic-card">
-
-            <div class="number">
-                03
-            </div>
-
-            <h3>
-                🖼️ Image
-            </h3>
-
-            <p>
-                Learn how images are represented using pixels.
-            </p>
-
-        </div>
-
-
-        <div class="topic-card">
-
-            <div class="number">
-                04
-            </div>
-
-            <h3>
-                🎵 Audio
-            </h3>
-
-            <p>
-                Explore how sound is represented digitally.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ABOUT
-===================================================== -->
-
-<section class="section about">
-
-    <div class="about-box">
-
-        <h2>
-            About Data Quest
+        <h2 class="section-title">
+            Login to Data Quest
         </h2>
 
-        <p>
 
-            Data Quest is an interactive learning platform
-            designed to help students understand how different
-            types of information are represented digitally.
+        <p class="section-text">
 
-            Through learning activities, games, challenges,
-            points, stars, and achievements, students can
-            learn concepts in a more engaging and enjoyable way.
-
-            Teachers can create and manage multiple sections,
-            manage their students, and monitor student learning
-            progress through the teacher dashboard.
+            Choose your account type to access your dashboard,
+            save progress, and use the learning features.
 
         </p>
 
-    </div>
 
-</section>
+        <div class="login-grid">
 
 
-<!-- =====================================================
-     CALL TO ACTION
-===================================================== -->
+            <!-- STUDENT -->
 
-<div class="cta-wrapper">
+            <div class="login-card student-card">
 
-    <section class="cta">
+                <div class="login-icon">
+                    🎓
+                </div>
 
-        <h2>
-            Ready to Begin Your Quest? 🚀
-        </h2>
 
-        <p>
-            No account required. Start playing Level 1 now!
-        </p>
+                <h3>
+                    Student
+                </h3>
 
-        <a
-            href="{% url 'level1_game' %}"
-            class="cta-btn"
-        >
-            🚀 Start Data Quest
-        </a>
+
+                <p>
+
+                    Save your learning progress, earn points and
+                    stars, and optionally join your teacher's class.
+
+                </p>
+
+
+                <div class="login-buttons">
+
+                    <a
+                        href="{% url 'student_login' %}"
+                        class="login-primary"
+                    >
+                        Student Login
+                    </a>
+
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="login-secondary"
+                    >
+                        Create Account
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEACHER -->
+
+            <div class="login-card teacher-card">
+
+                <div class="login-icon">
+                    👨‍🏫
+                </div>
+
+
+                <h3>
+                    Teacher
+                </h3>
+
+
+                <p>
+
+                    Create classes, manage your sections, and
+                    monitor the progress of students who join
+                    your classes.
+
+                </p>
+
+
+                <div class="login-buttons">
+
+                    <a
+                        href="{% url 'teacher_login' %}"
+                        class="login-primary"
+                    >
+                        Teacher Login
+                    </a>
+
+
+                    <a
+                        href="{% url 'teacher_register' %}"
+                        class="login-secondary"
+                    >
+                        Create Teacher Account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </section>
 
-</div>
+
+    <!-- =========================
+         HOW YOUR QUEST WORKS
+    ========================= -->
+
+    <section class="section journey-section">
+
+        <h2 class="section-title">
+            How Your Quest Works
+        </h2>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+        <p class="section-text">
 
-<footer class="footer">
+            Learn step by step, complete each level,
+            and progress towards the Final Challenge.
 
-    © 2026 Data Quest. Learn. Play. Master Data Representation.
+        </p>
 
-</footer>
+
+        <div class="journey-grid">
+
+
+            <div class="journey-box">
+
+                <div class="journey-icon">
+                    📖
+                </div>
+
+                <h3>
+                    Learn
+                </h3>
+
+                <p>
+                    Understand the concepts before
+                    taking the challenges.
+                </p>
+
+            </div>
+
+
+            <div class="journey-box">
+
+                <div class="journey-icon">
+                    🎮
+                </div>
+
+                <h3>
+                    Play
+                </h3>
+
+                <p>
+                    Solve interactive questions
+                    and practical problems.
+                </p>
+
+            </div>
+
+
+            <div class="journey-box">
+
+                <div class="journey-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Earn
+                </h3>
+
+                <p>
+                    Earn points and stars as
+                    your skills improve.
+                </p>
+
+            </div>
+
+
+            <div class="journey-box">
+
+                <div class="journey-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Progress
+                </h3>
+
+                <p>
+                    Track your performance and
+                    learning progress.
+                </p>
+
+            </div>
+
+
+            <div class="journey-box final-box">
+
+                <div class="journey-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Final Challenge
+                </h3>
+
+                <p>
+                    Complete Levels 1–4 to unlock
+                    the final challenge.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL CHALLENGE
+    ========================= -->
+
+    <section class="section final-section">
+
+        <div class="final-card">
+
+            <div class="final-icon">
+                🏆
+            </div>
+
+
+            <div class="final-content">
+
+                <h2>
+                    Final Challenge
+                </h2>
+
+
+                <p>
+
+                    Complete Levels 1, 2, 3, and 4 to unlock
+                    the Final Challenge. It is the final step
+                    of your Data Quest learning journey.
+
+                </p>
+
+
+                <p>
+
+                    The Final Challenge can be attempted
+                    <strong>only once</strong>, so make sure
+                    you are ready before you begin.
+
+                </p>
+
+
+                <span class="final-note">
+
+                    🔒 Unlocks after completing Level 4
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FEATURES
+    ========================= -->
+
+    <section class="section features">
+
+        <h2 class="section-title">
+            Why Use Data Quest?
+        </h2>
+
+
+        <p class="section-text">
+
+            Data Quest makes learning digital number systems
+            simple, interactive, and engaging.
+
+        </p>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Learn
+                </h3>
+
+                <p>
+
+                    Learn important number-system concepts
+                    through simple explanations and examples.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🎮
+                </div>
+
+                <h3>
+                    Practice
+                </h3>
+
+                <p>
+
+                    Practice what you learn through
+                    interactive challenges.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Earn
+                </h3>
+
+                <p>
+
+                    Earn points and stars as you
+                    successfully complete activities.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Track Progress
+                </h3>
+
+                <p>
+
+                    Registered students can track
+                    their own learning progress.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================= -->
+
+    <section class="section about">
+
+        <div class="about-box">
+
+            <h2>
+                About Data Quest
+            </h2>
+
+
+            <p>
+
+                Data Quest is an interactive educational platform
+                designed to help students understand digital number
+                systems through learning, practice, and game-based
+                challenges.
+
+                Students can begin playing without an account or
+                create an account to keep their own progress.
+                Students can also join a teacher's class using
+                a class join code.
+
+                Teachers can create and manage their own classes
+                and monitor the progress of students who have
+                joined their classes.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <div class="cta-wrapper">
+
+        <section class="cta">
+
+            <h2>
+                Ready to Begin Your Quest? 🚀
+            </h2>
+
+
+            <p>
+
+                Start learning, solving challenges,
+                and building your number-system skills.
+
+            </p>
+
+
+            <a
+                href="{% url 'level1_game' %}"
+                class="cta-btn"
+            >
+                🚀 Start Data Quest
+            </a>
+
+        </section>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        © 2026 Data Quest.
+        Learn. Practice. Progress. Master.
+
+    </footer>
 
 
 </body>

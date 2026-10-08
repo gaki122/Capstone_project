@@ -194,3 +194,98 @@ class GuestResult(models.Model):
             f"{self.score}/"
             f"{self.total_questions}"
         )
+
+
+# =========================
+# Final Challenge Result
+# =========================
+
+class FinalChallengeResult(models.Model):
+
+    # One student can have only ONE
+    # Final Challenge result.
+    #
+    # This ensures that the Final Challenge
+    # can only be attempted once.
+    student = models.OneToOneField(
+        StudentProfile,
+        on_delete=models.CASCADE
+    )
+
+    score = models.IntegerField(
+        default=0
+    )
+
+    total_questions = models.IntegerField(
+        default=25
+    )
+
+    percentage = models.IntegerField(
+        default=0
+    )
+
+    stars = models.IntegerField(
+        default=1
+    )
+
+    completed = models.BooleanField(
+        default=False
+    )
+
+    completed_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return (
+            f"{self.student.full_name} "
+            f"- Final Challenge - "
+            f"{self.score}/"
+            f"{self.total_questions}"
+        )
+
+
+# =========================
+# Guest Final Challenge Result
+# =========================
+
+class GuestFinalChallengeResult(models.Model):
+
+    # Identifies the guest's browser session.
+    # This result is completely separate from
+    # student and teacher accounts.
+    session_key = models.CharField(
+        max_length=100,
+        unique=True
+    )
+
+    score = models.IntegerField(
+        default=0
+    )
+
+    total_questions = models.IntegerField(
+        default=25
+    )
+
+    percentage = models.IntegerField(
+        default=0
+    )
+
+    stars = models.IntegerField(
+        default=1
+    )
+
+    completed = models.BooleanField(
+        default=False
+    )
+
+    completed_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return (
+            f"Guest Final Challenge - "
+            f"{self.score}/"
+            f"{self.total_questions}"
+        )

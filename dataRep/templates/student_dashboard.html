@@ -1,426 +1,693 @@
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Student Dashboard | Data Quest</title>
+<title>Student Dashboard - Data Quest</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f7fb;
+        color: #111827;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.97);
+        border-bottom: 1px solid #e2e8f0;
+        padding: 15px 30px;
+        backdrop-filter: blur(8px);
+    }
+
+    .nav-container {
+        max-width: 1180px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+    }
+
+    .logo {
+        color: #111827;
+        font-size: 26px;
+        font-weight: 900;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: 0.2s;
+        white-space: nowrap;
+    }
+
+    .logo:hover {
+        color: #2563eb;
+        background: #eff6ff;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+
+    .nav-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #111827;
+        background: transparent;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 800;
+        padding: 9px 13px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: #2563eb;
+        background: #eff6ff;
+        border-color: #dbeafe;
+    }
+
+    .nav-links a.active {
+        color: #2563eb;
+        background: #eff6ff;
+        border-color: #dbeafe;
+    }
+
+    .logout {
+        color: #dc2626 !important;
+    }
+
+    .logout:hover {
+        background: #fef2f2 !important;
+        color: #b91c1c !important;
+        border-color: #fecaca !important;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .container {
+        max-width: 1150px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .welcome {
+        margin-bottom: 28px;
+    }
+
+    .welcome h1 {
+        margin: 0 0 8px;
+        font-size: 32px;
+    }
+
+    .welcome p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 16px;
+    }
+
+    /* =========================
+       STAT CARDS
+    ========================= */
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    }
+
+    .stat-icon {
+        font-size: 25px;
+        margin-bottom: 12px;
+    }
+
+    .stat-title {
+        color: #6b7280;
+        font-size: 13px;
+        margin-bottom: 7px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .primary-btn {
+        display: inline-block;
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 9px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .primary-btn:hover {
+        background: #1d4ed8;
+    }
+
+    .secondary-btn {
+        display: inline-block;
+        text-decoration: none;
+        background: white;
+        color: #2563eb;
+        border: 1px solid #2563eb;
+        padding: 11px 20px;
+        border-radius: 9px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .secondary-btn:hover {
+        background: #eff6ff;
+    }
+
+    /* =========================
+       CLASS INFORMATION
+    ========================= */
+
+    .class-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 30px;
+    }
+
+    .class-card h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 20px;
+    }
+
+    .class-info {
+        color: #6b7280;
+        margin: 5px 0;
+    }
+
+    .class-name {
+        color: #111827;
+        font-weight: 700;
+    }
+
+    .no-class {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1e40af;
+        border-radius: 12px;
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    /* =========================
+       FINAL CHALLENGE
+    ========================= */
+
+    .final-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    }
+
+    .final-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .final-header h2 {
+        margin: 0;
+        font-size: 21px;
+    }
+
+    .final-header p {
+        margin: 5px 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .final-status {
+        border-radius: 10px;
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .status-locked {
+        background: #f3f4f6;
+        color: #6b7280;
+    }
+
+    .status-ready {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .status-completed {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .final-content {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 20px;
+    }
+
+    .final-description {
+        margin: 0 0 18px;
+        color: #4b5563;
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    .final-result-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 18px;
+    }
+
+    .final-result-item {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .final-result-label {
+        color: #6b7280;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .final-result-value {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .final-score {
+        color: #2563eb;
+    }
+
+    .final-stars {
+        color: #f59e0b;
+    }
+
+    .locked-message {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 16px;
+        color: #6b7280;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .ready-message {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 12px;
+        padding: 16px;
+        color: #166534;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 18px;
+    }
+
+    .completed-message {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 12px;
+        padding: 16px;
+        color: #1e40af;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-top: 5px;
+    }
+
+    .attempt-note {
+        margin-top: 15px;
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    /* =========================
+       PROGRESS SECTION
+    ========================= */
+
+    .section-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+        margin: 0;
+        font-size: 21px;
+    }
+
+    .section-header p {
+        margin: 4px 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    /* =========================
+       LATEST ATTEMPT
+    ========================= */
+
+    .latest-attempt {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 15px;
+        padding: 22px;
+        margin-bottom: 25px;
+    }
+
+    .latest-label {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 6px 11px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .latest-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #111827;
+    }
+
+    .latest-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .latest-item {
+        background: white;
+        border-radius: 10px;
+        padding: 14px;
+        border: 1px solid #dbeafe;
+    }
+
+    .latest-item-label {
+        color: #6b7280;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .latest-item-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .latest-score {
+        color: #2563eb;
+    }
+
+    .latest-stars {
+        color: #f59e0b;
+    }
+
+    .latest-date {
+        margin-top: 16px;
+        color: #4b5563;
+        font-size: 13px;
+    }
+
+    /* =========================
+       ATTEMPT HISTORY
+    ========================= */
+
+    .history-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0 0 12px;
+    }
+
+    .history-description {
+        color: #6b7280;
+        font-size: 13px;
+        margin: 0 0 18px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 850px;
+    }
+
+    th {
+        text-align: left;
+        background: #f9fafb;
+        color: #6b7280;
+        font-size: 13px;
+        padding: 13px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    td {
+        padding: 15px 13px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 14px;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    .attempt-number {
+        font-weight: 700;
+        color: #374151;
+    }
+
+    .score {
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    .stars {
+        color: #f59e0b;
+        font-weight: 700;
+    }
+
+    .completed {
+        display: inline-block;
+        background: #dcfce7;
+        color: #166534;
+        padding: 5px 9px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .completed-date {
+        color: #374151;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .latest-row {
+        background: #f8fbff;
+    }
+
+    .latest-row td:first-child {
+        border-left: 3px solid #2563eb;
+    }
+
+    .latest-badge {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1d4ed8;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-left: 7px;
+    }
+
+    /* =========================
+       EMPTY
+    ========================= */
+
+    .empty {
+        text-align: center;
+        padding: 35px 20px;
+        color: #6b7280;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+        text-align: center;
+        padding: 30px 20px;
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+        .stats {
+            grid-template-columns: repeat(2, 1fr);
         }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            min-height: 100vh;
-            color: #111827;
+        .latest-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
+        .final-result-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
         .navbar {
-            width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 40px;
+            padding: 15px 20px;
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .logo {
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 700;
-            text-decoration: none;
         }
 
         .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #374151;
-            font-size: 15px;
-            font-weight: 500;
-            padding: 9px 13px;
-            border-radius: 8px;
-            transition: 0.2s;
+    }
+
+    @media (max-width: 550px) {
+
+        .stats {
+            grid-template-columns: 1fr;
         }
 
-        .nav-links a:hover {
-            background: #eff6ff;
-            color: #2563eb;
+        .latest-grid {
+            grid-template-columns: 1fr;
         }
 
-        .nav-links a.active {
-            background: #2563eb;
-            color: white;
+        .final-result-grid {
+            grid-template-columns: 1fr;
         }
 
-        .logout {
-            color: #dc2626 !important;
-        }
-
-        .logout:hover {
-            background: #fef2f2 !important;
-            color: #b91c1c !important;
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .page {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 45px 20px 60px;
-        }
-
-        /* =========================
-           WELCOME
-        ========================= */
-
-        .welcome {
-            margin-bottom: 30px;
+        .container {
+            padding: 25px 15px;
         }
 
         .welcome h1 {
-            color: #111827;
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .welcome h1 span {
-            color: #2563eb;
-        }
-
-        .welcome p {
-            color: #6b7280;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           CARDS
-        ========================= */
-
-        .card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-            margin-bottom: 25px;
-        }
-
-        .card h2 {
-            color: #111827;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           CLASS CARD
-        ========================= */
-
-        .class-card {
-            border-top: 4px solid #2563eb;
-        }
-
-        .class-info {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 22px;
-        }
-
-        .info-box {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        .info-label {
-            display: block;
-            color: #6b7280;
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-
-        .info-value {
-            display: block;
-            color: #111827;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        /* =========================
-           STATS
-        ========================= */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 22px;
-        }
-
-        .stat {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 18px 12px;
-            text-align: center;
-        }
-
-        .stat-number {
-            display: block;
-            color: #2563eb;
             font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 6px;
         }
 
-        .stat-label {
+        .section-header {
             display: block;
-            color: #6b7280;
-            font-size: 12px;
-            line-height: 1.4;
         }
 
-        /* =========================
-           PLAY BUTTON
-        ========================= */
+        .final-header {
+            display: block;
+        }
 
-        .play-button {
+        .final-status {
             display: inline-block;
-            margin-top: 24px;
-            background: #16a34a;
-            color: white;
-            text-decoration: none;
-            padding: 13px 24px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.2s;
+            margin-top: 12px;
         }
 
-        .play-button:hover {
-            background: #15803d;
+        .nav-links {
+            gap: 4px;
         }
 
-        /* =========================
-           JOIN CLASS
-        ========================= */
-
-        .join-card {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            text-align: center;
-            padding: 40px 30px;
-        }
-
-        .join-icon {
-            width: 64px;
-            height: 64px;
-            background: #2563eb;
-            color: white;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px;
-            font-size: 32px;
-            font-weight: 400;
-        }
-
-        .join-card h2 {
-            color: #1e3a8a;
-        }
-
-        .join-card p {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .join-button {
-            display: inline-block;
-            margin-top: 22px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            padding: 13px 25px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .join-button:hover {
-            background: #1d4ed8;
-        }
-
-        /* =========================
-           HOW TO JOIN
-        ========================= */
-
-        .steps {
-            margin-top: 20px;
-            display: grid;
-            gap: 12px;
-        }
-
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 14px;
-        }
-
-        .step-number {
-            min-width: 30px;
-            height: 30px;
-            background: #2563eb;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .step-text {
-            color: #4b5563;
+        .nav-links a {
             font-size: 14px;
-            line-height: 1.5;
-            padding-top: 4px;
+            padding: 8px 9px;
         }
 
-        .step-text strong {
-            color: #111827;
-        }
+    }
 
-        /* =========================
-           FOOTER
-        ========================= */
-
-        .footer {
-            background: #111827;
-            color: #9ca3af;
-            text-align: center;
-            padding: 18px 20px;
-            font-size: 13px;
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 800px) {
-
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .nav-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .nav-links {
-                justify-content: center;
-            }
-
-            .page {
-                padding: 35px 15px 50px;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 600px) {
-
-            .welcome h1 {
-                font-size: 27px;
-            }
-
-            .class-info {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 25px 20px;
-            }
-
-            .join-card {
-                padding: 30px 20px;
-            }
-
-        }
-
-        @media (max-width: 500px) {
-
-            .nav-links {
-                gap: 4px;
-            }
-
-            .nav-links a {
-                font-size: 14px;
-                padding: 8px 9px;
-            }
-
-            .stats {
-                gap: 10px;
-            }
-
-            .stat {
-                padding: 15px 8px;
-            }
-
-            .stat-number {
-                font-size: 23px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -428,7 +695,7 @@
 
 
 <!-- =========================
-     NAVIGATION
+     NAVBAR
 ========================= -->
 
 <nav class="navbar">
@@ -439,29 +706,30 @@
             href="{% url 'home' %}"
             class="logo"
         >
-            Data Quest
+            🎯 Data Quest
         </a>
-
 
         <div class="nav-links">
 
-            <a href="{% url 'home' %}">
+            <a
+                href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+            >
                 Home
             </a>
 
-            <a href="{% url 'learn' %}">
+            <a
+                href="{% url 'learn' %}"
+                class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
+            >
                 Learn
             </a>
 
-            <a href="{% url 'how_to_play' %}">
-                How to Play
-            </a>
-
             <a
-                href="{% url 'student_dashboard' %}"
-                class="active"
+                href="{% url 'how_to_play' %}"
+                class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
             >
-                Student Dashboard
+                How to Play
             </a>
 
             <a
@@ -479,262 +747,736 @@
 
 
 <!-- =========================
-     MAIN CONTENT
+     MAIN
 ========================= -->
 
-<main class="page">
+<main class="container">
 
 
-    <!-- Welcome -->
+<!-- =========================
+     WELCOME
+========================= -->
 
-    <section class="welcome">
+<div class="welcome">
 
-        <h1>
-            Welcome,
-            <span>{{ student.full_name }}</span>!
-        </h1>
+    <h1>
+        Welcome, {{ student.full_name }} 👋
+    </h1>
 
-        <p>
-            Track your progress, play Data Quest,
-            and improve your data representation skills.
-        </p>
+    <p>
+        Track your Data Quest learning progress
+        and game performance.
+    </p>
 
-    </section>
+</div>
+
+
+<!-- =========================
+     STATISTICS
+========================= -->
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🏆
+        </div>
+
+        <div class="stat-title">
+            Total Points
+        </div>
+
+        <div class="stat-value">
+            {{ student.total_points }}
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ⭐
+        </div>
+
+        <div class="stat-title">
+            Total Stars
+        </div>
+
+        <div class="stat-value">
+            {{ student.total_stars }}
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🔥
+        </div>
+
+        <div class="stat-title">
+            Best Streak
+        </div>
+
+        <div class="stat-value">
+            {{ student.best_streak }}
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🎯
+        </div>
+
+        <div class="stat-title">
+            Completed Levels
+        </div>
+
+        <div class="stat-value">
+            {{ student.completed_levels }}
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ACTION BUTTONS
+========================= -->
+
+<div class="actions">
+
+    <a
+        href="{% url 'level1' %}"
+        class="primary-btn"
+    >
+        🎮 Play Level 1
+    </a>
 
 
     {% if student.class_section %}
 
+        <span
+            class="secondary-btn"
+            style="cursor: default;"
+        >
+            🏫 {{ student.class_section.name }}
+        </span>
 
-        <!-- =========================
-             JOINED CLASS
-        ========================= -->
+    {% else %}
 
-        <section class="card class-card">
+        <a
+            href="{% url 'join_section' %}"
+            class="secondary-btn"
+        >
+            🔑 Join a Class
+        </a>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =========================
+     CLASS INFORMATION
+========================= -->
+
+<div class="class-card">
+
+    <h2>
+        🏫 Class Information
+    </h2>
+
+
+    {% if student.class_section %}
+
+        <p class="class-info">
+
+            <strong>
+                Class:
+            </strong>
+
+            <span class="class-name">
+                {{ student.class_section.name }}
+            </span>
+
+        </p>
+
+
+        <p class="class-info">
+
+            <strong>
+                Teacher:
+            </strong>
+
+            {{ student.class_section.teacher.first_name }}
+
+        </p>
+
+
+        <p class="class-info">
+
+            <strong>
+                Status:
+            </strong>
+
+            Joined
+
+        </p>
+
+    {% else %}
+
+        <div class="no-class">
+
+            You have not joined a class yet.
+
+            <br><br>
+
+            You can still play Data Quest and
+            track your own score and progress.
+
+            <br><br>
+
+            <a
+                href="{% url 'join_section' %}"
+                class="primary-btn"
+            >
+                Join a Class
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =========================
+     FINAL CHALLENGE
+========================= -->
+
+<div class="final-card">
+
+    <div class="final-header">
+
+        <div>
 
             <h2>
-                🎓 Your Class
+                🏆 Final Challenge
             </h2>
 
             <p>
-                You are currently enrolled in the following class.
+                Complete Levels 1–4 to unlock the Final Challenge.
             </p>
 
+        </div>
 
-            <div class="class-info">
 
-                <div class="info-box">
+        {% if final_result %}
 
-                    <span class="info-label">
-                        Class Name
-                    </span>
+            <span class="final-status status-completed">
+                Completed
+            </span>
 
-                    <span class="info-value">
-                        {{ student.class_section.name }}
-                    </span>
+        {% elif student.completed_levels >= 4 %}
+
+            <span class="final-status status-ready">
+                Ready
+            </span>
+
+        {% else %}
+
+            <span class="final-status status-locked">
+                Locked
+            </span>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="final-content">
+
+
+        {% if final_result %}
+
+
+            <!-- COMPLETED -->
+
+            <div class="final-result-grid">
+
+
+                <div class="final-result-item">
+
+                    <div class="final-result-label">
+                        Score
+                    </div>
+
+                    <div class="final-result-value final-score">
+
+                        {{ final_result.score }}
+                        /
+                        {{ final_result.total_questions }}
+
+                    </div>
 
                 </div>
 
 
-                <div class="info-box">
+                <div class="final-result-item">
 
-                    <span class="info-label">
-                        Teacher
-                    </span>
+                    <div class="final-result-label">
+                        Percentage
+                    </div>
 
-                    <span class="info-value">
-                        {{ student.class_section.teacher.first_name }}
-                    </span>
+                    <div class="final-result-value">
 
-                </div>
+                        {{ final_result.percentage }}%
 
-            </div>
-
-
-            <!-- Statistics -->
-
-            <div class="stats">
-
-                <div class="stat">
-
-                    <span class="stat-number">
-                        {{ student.total_points }}
-                    </span>
-
-                    <span class="stat-label">
-                        Points
-                    </span>
+                    </div>
 
                 </div>
 
 
-                <div class="stat">
+                <div class="final-result-item">
 
-                    <span class="stat-number">
-                        {{ student.total_stars }}
-                    </span>
-
-                    <span class="stat-label">
+                    <div class="final-result-label">
                         Stars
-                    </span>
+                    </div>
+
+                    <div class="final-result-value final-stars">
+
+                        ⭐ {{ final_result.stars }}
+
+                    </div>
 
                 </div>
 
-
-                <div class="stat">
-
-                    <span class="stat-number">
-                        {{ student.best_streak }}
-                    </span>
-
-                    <span class="stat-label">
-                        Best Streak
-                    </span>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <span class="stat-number">
-                        {{ student.completed_levels }}
-                    </span>
-
-                    <span class="stat-label">
-                        Levels Completed
-                    </span>
-
-                </div>
 
             </div>
 
 
-            <!-- Play -->
+            <div class="completed-message">
+
+                🎉 You have completed the Final Challenge.
+
+                Your result has been saved to your student account.
+
+                {% if student.class_section %}
+
+                    Your class teacher can view your progress.
+
+                {% else %}
+
+                    Because you have not joined a class,
+                    your result remains private.
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="attempt-note">
+
+                🔒 The Final Challenge can only be attempted once.
+
+            </div>
+
+
+            <br>
+
 
             <a
-                href="{% url 'level1' %}"
-                class="play-button"
+                href="{% url 'final_challenge_result' %}"
+                class="primary-btn"
             >
-                ▶ Play Data Quest
+                📊 View Final Result
             </a>
 
-        </section>
+
+        {% elif student.completed_levels >= 4 %}
+
+
+            <!-- READY -->
+
+            <div class="ready-message">
+
+                🎉 Congratulations!
+
+                You have completed all four learning levels.
+
+                The Final Challenge is now unlocked.
+
+            </div>
+
+
+            <a
+                href="{% url 'final_challenge' %}"
+                class="primary-btn"
+            >
+                🏆 Start Final Challenge
+            </a>
+
+
+            <div class="attempt-note">
+
+                🔒 The Final Challenge can only be attempted once.
+
+                Make sure you are ready before starting.
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- LOCKED -->
+
+            <div class="locked-message">
+
+                🔒 The Final Challenge is currently locked.
+
+                <br><br>
+
+                Complete Levels 1, 2, 3 and 4 to unlock it.
+
+                <br><br>
+
+                Your current progress:
+
+                <strong>
+                    {{ student.completed_levels }} / 4 levels completed
+                </strong>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MY PROGRESS
+========================= -->
+
+<div class="section-card">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                📊 My Progress
+            </h2>
+
+            <p>
+                Your personal Data Quest results.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if results %}
+
+
+        <!-- =========================
+             LATEST ATTEMPT
+        ========================= -->
+
+        {% with latest=results.0 %}
+
+            <div class="latest-attempt">
+
+                <span class="latest-label">
+                    ⭐ Latest Attempt
+                </span>
+
+                <div class="latest-title">
+                    Level 1 — Attempt #{{ latest.attempt_number }}
+                </div>
+
+
+                <div class="latest-grid">
+
+
+                    <div class="latest-item">
+
+                        <div class="latest-item-label">
+                            Score
+                        </div>
+
+                        <div class="latest-item-value latest-score">
+
+                            {{ latest.score }}
+                            /
+                            {{ latest.total_questions }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="latest-item">
+
+                        <div class="latest-item-label">
+                            Percentage
+                        </div>
+
+                        <div class="latest-item-value">
+
+                            {{ latest.percentage }}%
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="latest-item">
+
+                        <div class="latest-item-label">
+                            Stars
+                        </div>
+
+                        <div class="latest-item-value latest-stars">
+
+                            ⭐ {{ latest.stars }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="latest-item">
+
+                        <div class="latest-item-label">
+                            Status
+                        </div>
+
+                        <div class="latest-item-value">
+
+                            {% if latest.completed %}
+
+                                <span class="completed">
+                                    Completed
+                                </span>
+
+                            {% else %}
+
+                                In Progress
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="latest-date">
+
+                    🕒 Completed on:
+
+                    <strong>
+                        {{ latest.completed_at|date:"d M Y, h:i A" }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        {% endwith %}
+
+
+        <!-- =========================
+             ATTEMPT HISTORY
+        ========================= -->
+
+        <div class="history-title">
+            📋 Attempt History
+        </div>
+
+        <p class="history-description">
+            Your previous Level 1 attempts are listed below.
+            The newest attempt is shown first.
+        </p>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Attempt
+                        </th>
+
+                        <th>
+                            Level
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Percentage
+                        </th>
+
+                        <th>
+                            Stars
+                        </th>
+
+                        <th>
+                            Completed On
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for result in results %}
+
+                        <tr
+                            class="{% if forloop.first %}latest-row{% endif %}"
+                        >
+
+                            <td class="attempt-number">
+
+                                #{{ result.attempt_number }}
+
+                                {% if forloop.first %}
+
+                                    <span class="latest-badge">
+                                        Latest
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+                                Level 1
+                            </td>
+
+
+                            <td class="score">
+
+                                {{ result.score }}
+                                /
+                                {{ result.total_questions }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ result.percentage }}%
+
+                            </td>
+
+
+                            <td class="stars">
+
+                                ⭐ {{ result.stars }}
+
+                            </td>
+
+
+                            <td class="completed-date">
+
+                                {{ result.completed_at|date:"d M Y, h:i A" }}
+
+                            </td>
+
+
+                            <td>
+
+                                {% if result.completed %}
+
+                                    <span class="completed">
+                                        Completed
+                                    </span>
+
+                                {% else %}
+
+                                    In Progress
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
 
 
     {% else %}
 
 
         <!-- =========================
-             NO CLASS
+             NO RESULTS
         ========================= -->
 
-        <section class="card join-card">
+        <div class="empty">
 
-            <div class="join-icon">
-                +
+            <div style="font-size: 40px;">
+                🎮
             </div>
 
-            <h2>
-                Join Your Class
-            </h2>
+            <h3>
+                No game results yet
+            </h3>
 
             <p>
-                You haven't joined a class yet.
-                Ask your teacher for the class code
-                and enter it to join your class.
+                Start Level 1 to record your
+                first score and progress.
             </p>
-
 
             <a
-                href="{% url 'join_section' %}"
-                class="join-button"
+                href="{% url 'level1' %}"
+                class="primary-btn"
             >
-                Join Class 🚀
+                Start Level 1
             </a>
 
-        </section>
-
-
-        <!-- =========================
-             HOW TO JOIN
-        ========================= -->
-
-        <section class="card">
-
-            <h2>
-                📘 How to Join
-            </h2>
-
-            <p>
-                Follow these simple steps to join your teacher's class.
-            </p>
-
-
-            <div class="steps">
-
-                <div class="step">
-
-                    <div class="step-number">
-                        1
-                    </div>
-
-                    <div class="step-text">
-                        Ask your teacher for the
-                        <strong>class code</strong>.
-                    </div>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        2
-                    </div>
-
-                    <div class="step-text">
-                        Click the
-                        <strong>Join Class</strong>
-                        button above.
-                    </div>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        3
-                    </div>
-
-                    <div class="step-text">
-                        Enter the class code provided
-                        by your teacher.
-                    </div>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        4
-                    </div>
-
-                    <div class="step-text">
-                        Once you join, you can start playing
-                        <strong>Data Quest</strong> and your
-                        progress will be recorded for your teacher.
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
+        </div>
 
     {% endif %}
 
+
+</div>
 
 </main>
 
@@ -743,12 +1485,14 @@
      FOOTER
 ========================= -->
 
-<footer class="footer">
+<footer>
 
-    © 2026 Data Quest. Learn. Play. Master Data Representation.
+    © 2026 Data Quest.
+    Learn. Play. Master Data Representation.
 
 </footer>
 
 
 </body>
+
 </html>

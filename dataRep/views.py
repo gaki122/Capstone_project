@@ -9,13 +9,15 @@ from .models import (
     Level1Result,
     GuestResult,
     TeacherProfile,
-    ClassSection
+    ClassSection,
+    FinalChallengeResult,
+    GuestFinalChallengeResult
 )
 
 
-# =========================
-# Home
-# =========================
+# ==========================================================
+# HOME
+# ==========================================================
 
 def home(request):
 
@@ -25,9 +27,9 @@ def home(request):
     )
 
 
-# =========================
-# Learn
-# =========================
+# ==========================================================
+# LEARN
+# ==========================================================
 
 def learn(request):
 
@@ -37,9 +39,9 @@ def learn(request):
     )
 
 
-# =========================
-# Learn - Text & ASCII
-# =========================
+# ==========================================================
+# LEARN - TEXT
+# ==========================================================
 
 def learn_text(request):
 
@@ -49,9 +51,9 @@ def learn_text(request):
     )
 
 
-# =========================
-# Learn - Images & Pixels
-# =========================
+# ==========================================================
+# LEARN - IMAGES
+# ==========================================================
 
 def learn_images(request):
 
@@ -61,9 +63,9 @@ def learn_images(request):
     )
 
 
-# =========================
-# Learn - Audio & Sound
-# =========================
+# ==========================================================
+# LEARN - AUDIO
+# ==========================================================
 
 def learn_audio(request):
 
@@ -73,9 +75,9 @@ def learn_audio(request):
     )
 
 
-# =========================
-# Learn - Video & Digital Media
-# =========================
+# ==========================================================
+# LEARN - VIDEO
+# ==========================================================
 
 def learn_video(request):
 
@@ -85,9 +87,9 @@ def learn_video(request):
     )
 
 
-# =========================
-# How to Play
-# =========================
+# ==========================================================
+# HOW TO PLAY
+# ==========================================================
 
 def how_to_play(request):
 
@@ -97,9 +99,9 @@ def how_to_play(request):
     )
 
 
-# =========================
-# Student Registration
-# =========================
+# ==========================================================
+# STUDENT REGISTRATION
+# ==========================================================
 
 def register(request):
 
@@ -110,10 +112,6 @@ def register(request):
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         full_name = request.POST.get('full_name')
-
-        # =========================
-        # Check required fields
-        # =========================
 
         if not username or not password or not full_name:
 
@@ -126,10 +124,6 @@ def register(request):
                 }
             )
 
-        # =========================
-        # Check password
-        # =========================
-
         if password != confirm_password:
 
             return render(
@@ -140,10 +134,6 @@ def register(request):
                         'Passwords do not match.'
                 }
             )
-
-        # =========================
-        # Check username
-        # =========================
 
         if User.objects.filter(
             username=username
@@ -157,10 +147,6 @@ def register(request):
                         'Username already exists. Please choose another username.'
                 }
             )
-
-        # =========================
-        # Create Student Account
-        # =========================
 
         user = User.objects.create_user(
             username=username,
@@ -191,9 +177,9 @@ def register(request):
     )
 
 
-# =========================
-# Student Login
-# =========================
+# ==========================================================
+# STUDENT LOGIN
+# ==========================================================
 
 def student_login(request):
 
@@ -214,10 +200,6 @@ def student_login(request):
         )
 
         if user is not None:
-
-            # =========================
-            # Make sure this is a student
-            # =========================
 
             if StudentProfile.objects.filter(
                 user=user
@@ -256,9 +238,9 @@ def student_login(request):
     )
 
 
-# =========================
-# Student Dashboard
-# =========================
+# ==========================================================
+# STUDENT DASHBOARD
+# ==========================================================
 
 def student_dashboard(request):
 
@@ -280,17 +262,29 @@ def student_dashboard(request):
             'student_login'
         )
 
+    results = Level1Result.objects.filter(
+        student=student_profile
+    ).order_by(
+        '-completed_at'
+    )
+
+    final_result = FinalChallengeResult.objects.filter(
+        student=student_profile
+    ).first()
+
     return render(
         request,
         'student_dashboard.html',
         {
-            'student': student_profile
+            'student': student_profile,
+            'results': results,
+            'final_result': final_result,
         }
     )
 
 
 # ==========================================================
-# STUDENT JOIN CLASS USING JOIN CODE
+# JOIN CLASS
 # ==========================================================
 
 def join_section(request):
@@ -313,10 +307,6 @@ def join_section(request):
             'student_login'
         )
 
-    # ======================================================
-    # Student can join only ONE class
-    # ======================================================
-
     if student_profile.class_section is not None:
 
         return render(
@@ -329,26 +319,15 @@ def join_section(request):
             }
         )
 
-    # ======================================================
-    # Process Join Code
-    # ======================================================
-
     if request.method == 'POST':
 
         join_code = request.POST.get(
             'join_code'
         )
 
-        # Remove unnecessary spaces
-        # and convert code to uppercase
-
         if join_code:
 
             join_code = join_code.strip().upper()
-
-        # ==================================================
-        # Check whether code was entered
-        # ==================================================
 
         if not join_code:
 
@@ -362,15 +341,9 @@ def join_section(request):
                 }
             )
 
-        # ==================================================
-        # Find class using join code
-        # ==================================================
-
         try:
 
-            section = ClassSection.objects.select_related(
-                'teacher'
-            ).get(
+            section = ClassSection.objects.get(
                 join_code=join_code
             )
 
@@ -386,26 +359,6 @@ def join_section(request):
                 }
             )
 
-        # ==================================================
-        # Final security check
-        # ==================================================
-
-        if student_profile.class_section is not None:
-
-            return render(
-                request,
-                'join_section.html',
-                {
-                    'student': student_profile,
-                    'error':
-                        'You have already joined a class.'
-                }
-            )
-
-        # ==================================================
-        # Join Class
-        # ==================================================
-
         student_profile.class_section = section
 
         student_profile.save()
@@ -413,10 +366,6 @@ def join_section(request):
         return redirect(
             'student_dashboard'
         )
-
-    # ======================================================
-    # Show Join Class Page
-    # ======================================================
 
     return render(
         request,
@@ -427,9 +376,9 @@ def join_section(request):
     )
 
 
-# =========================
-# Student Logout
-# =========================
+# ==========================================================
+# STUDENT LOGOUT
+# ==========================================================
 
 def student_logout(request):
 
@@ -440,15 +389,11 @@ def student_logout(request):
     )
 
 
-# =========================
-# Level 1
-# =========================
+# ==========================================================
+# LEVEL 1
+# ==========================================================
 
 def level1(request):
-
-    # =========================
-    # Guest
-    # =========================
 
     if not request.user.is_authenticated:
 
@@ -457,13 +402,9 @@ def level1(request):
             'level1.html'
         )
 
-    # =========================
-    # Registered Student
-    # =========================
-
     try:
 
-        student_profile = StudentProfile.objects.get(
+        StudentProfile.objects.get(
             user=request.user
         )
 
@@ -471,16 +412,6 @@ def level1(request):
 
         return redirect(
             'student_login'
-        )
-
-    # =========================
-    # Student must join a class
-    # =========================
-
-    if student_profile.class_section is None:
-
-        return redirect(
-            'student_dashboard'
         )
 
     return render(
@@ -489,15 +420,11 @@ def level1(request):
     )
 
 
-# =========================
-# Level 1 Game
-# =========================
+# ==========================================================
+# LEVEL 1 GAME
+# ==========================================================
 
 def level1_game(request):
-
-    # =========================
-    # Guest
-    # =========================
 
     if not request.user.is_authenticated:
 
@@ -506,13 +433,9 @@ def level1_game(request):
             'level1_game.html'
         )
 
-    # =========================
-    # Registered Student
-    # =========================
-
     try:
 
-        student_profile = StudentProfile.objects.get(
+        StudentProfile.objects.get(
             user=request.user
         )
 
@@ -522,25 +445,15 @@ def level1_game(request):
             'student_login'
         )
 
-    # =========================
-    # Student must join class
-    # =========================
-
-    if student_profile.class_section is None:
-
-        return redirect(
-            'student_dashboard'
-        )
-
     return render(
         request,
         'level1_game.html'
     )
 
 
-# =========================
-# Save Level 1 Result
-# =========================
+# ==========================================================
+# SAVE LEVEL 1 RESULT
+# ==========================================================
 
 def save_level1_result(request):
 
@@ -550,41 +463,62 @@ def save_level1_result(request):
             'level1_game'
         )
 
-    # =========================
-    # Get Result Information
-    # =========================
+    try:
 
-    score = int(
-        request.POST.get(
-            'score',
-            0
+        score = int(
+            request.POST.get(
+                'score',
+                0
+            )
         )
-    )
 
-    total_questions = int(
-        request.POST.get(
-            'total_questions',
-            20
+    except (TypeError, ValueError):
+
+        score = 0
+
+    try:
+
+        total_questions = int(
+            request.POST.get(
+                'total_questions',
+                20
+            )
         )
-    )
 
-    percentage = int(
-        request.POST.get(
-            'percentage',
-            0
+    except (TypeError, ValueError):
+
+        total_questions = 20
+
+    try:
+
+        percentage = int(
+            request.POST.get(
+                'percentage',
+                0
+            )
         )
-    )
 
-    stars = int(
-        request.POST.get(
-            'stars',
-            1
+    except (TypeError, ValueError):
+
+        percentage = 0
+
+    try:
+
+        stars = int(
+            request.POST.get(
+                'stars',
+                1
+            )
         )
-    )
 
-    # =========================
-    # Registered Student
-    # =========================
+    except (TypeError, ValueError):
+
+        stars = 1
+
+
+    # ======================================================
+    # REGISTERED STUDENT RESULT
+    # ======================================================
 
     if request.user.is_authenticated:
 
@@ -600,29 +534,21 @@ def save_level1_result(request):
                 'student_login'
             )
 
-        # =========================
-        # Security Check
-        # =========================
+        last_attempt = Level1Result.objects.filter(
+            student=student_profile
+        ).order_by(
+            '-attempt_number'
+        ).first()
 
-        if student_profile.class_section is None:
+        if last_attempt:
 
-            return redirect(
-                'student_dashboard'
+            attempt_number = (
+                last_attempt.attempt_number + 1
             )
 
-        # =========================
-        # Count Previous Attempts
-        # =========================
+        else:
 
-        previous_attempts = Level1Result.objects.filter(
-            student=student_profile
-        ).count()
-
-        attempt_number = previous_attempts + 1
-
-        # =========================
-        # Save Result
-        # =========================
+            attempt_number = 1
 
         Level1Result.objects.create(
             student=student_profile,
@@ -633,10 +559,6 @@ def save_level1_result(request):
             completed=True,
             attempt_number=attempt_number
         )
-
-        # =========================
-        # Update Statistics
-        # =========================
 
         student_profile.total_points += score
 
@@ -658,19 +580,16 @@ def save_level1_result(request):
             'student_dashboard'
         )
 
-    # =========================
-    # Guest Player
-    # =========================
+
+    # ======================================================
+    # GUEST RESULT
+    # ======================================================
 
     if not request.session.session_key:
 
         request.session.create()
 
     session_key = request.session.session_key
-
-    # =========================
-    # Save Guest Result
-    # =========================
 
     GuestResult.objects.create(
         session_key=session_key,
@@ -681,14 +600,18 @@ def save_level1_result(request):
         completed=True
     )
 
+    # Remember that the guest completed Level 1.
+    request.session['completed_levels'] = 1
+    request.session.modified = True
+
     return redirect(
         'guest_result'
     )
 
 
-# =========================
-# Guest Result
-# =========================
+# ==========================================================
+# GUEST RESULT
+# ==========================================================
 
 def guest_result(request):
 
@@ -722,6 +645,408 @@ def guest_result(request):
 
 
 # ==========================================================
+# FINAL CHALLENGE
+# ==========================================================
+
+def final_challenge(request):
+
+    # ======================================================
+    # REGISTERED STUDENT
+    # ======================================================
+
+    if request.user.is_authenticated:
+
+        try:
+
+            student_profile = StudentProfile.objects.get(
+                user=request.user
+            )
+
+        except StudentProfile.DoesNotExist:
+
+            # Teachers cannot take the Final Challenge.
+            return redirect(
+                'home'
+            )
+
+        # --------------------------------------------------
+        # LEVEL 4 MUST BE COMPLETED
+        # --------------------------------------------------
+
+        if student_profile.completed_levels < 4:
+
+            return redirect(
+                'student_dashboard'
+            )
+
+        # --------------------------------------------------
+        # CHECK STUDENT FINAL RESULT
+        # --------------------------------------------------
+
+        final_result = FinalChallengeResult.objects.filter(
+            student=student_profile
+        ).first()
+
+        if final_result:
+
+            return render(
+                request,
+                'final_challenge_completed.html',
+                {
+                    'student': student_profile,
+                    'result': final_result,
+                }
+            )
+
+        # --------------------------------------------------
+        # START FINAL CHALLENGE
+        # --------------------------------------------------
+
+        return render(
+            request,
+            'final_challenge.html',
+            {
+                'student': student_profile,
+                'guest': False,
+            }
+        )
+
+
+    # ======================================================
+    # GUEST
+    # ======================================================
+
+    if not request.session.session_key:
+
+        request.session.create()
+
+    session_key = request.session.session_key
+
+    # ------------------------------------------------------
+    # LEVEL 4 MUST BE COMPLETED
+    # ------------------------------------------------------
+
+    completed_levels = request.session.get(
+        'completed_levels',
+        0
+    )
+
+    if completed_levels < 4:
+
+        return redirect(
+            'home'
+        )
+
+    # ------------------------------------------------------
+    # CHECK GUEST FINAL RESULT
+    # ------------------------------------------------------
+
+    final_result = GuestFinalChallengeResult.objects.filter(
+        session_key=session_key
+    ).first()
+
+    if final_result:
+
+        return render(
+            request,
+            'final_challenge_completed.html',
+            {
+                'result': final_result,
+                'guest': True,
+            }
+        )
+
+    # ------------------------------------------------------
+    # START FINAL CHALLENGE
+    # ------------------------------------------------------
+
+    return render(
+        request,
+        'final_challenge.html',
+        {
+            'guest': True,
+        }
+    )
+
+
+# ==========================================================
+# SAVE FINAL CHALLENGE RESULT
+# ==========================================================
+
+def save_final_challenge_result(request):
+
+    if request.method != 'POST':
+
+        return redirect(
+            'final_challenge'
+        )
+
+
+    # ======================================================
+    # GET RESULT DATA
+    # ======================================================
+
+    try:
+
+        score = int(
+            request.POST.get(
+                'score',
+                0
+            )
+        )
+
+    except (TypeError, ValueError):
+
+        score = 0
+
+
+    try:
+
+        total_questions = int(
+            request.POST.get(
+                'total_questions',
+                25
+            )
+        )
+
+    except (TypeError, ValueError):
+
+        total_questions = 25
+
+
+    try:
+
+        percentage = int(
+            request.POST.get(
+                'percentage',
+                0
+            )
+        )
+
+    except (TypeError, ValueError):
+
+        percentage = 0
+
+
+    try:
+
+        stars = int(
+            request.POST.get(
+                'stars',
+                1
+            )
+        )
+
+    except (TypeError, ValueError):
+
+        stars = 1
+
+
+    # ======================================================
+    # REGISTERED STUDENT
+    # ======================================================
+
+    if request.user.is_authenticated:
+
+        try:
+
+            student_profile = StudentProfile.objects.get(
+                user=request.user
+            )
+
+        except StudentProfile.DoesNotExist:
+
+            return redirect(
+                'home'
+            )
+
+        # --------------------------------------------------
+        # LEVEL 4 CHECK
+        # --------------------------------------------------
+
+        if student_profile.completed_levels < 4:
+
+            return redirect(
+                'student_dashboard'
+            )
+
+        # --------------------------------------------------
+        # ONE ATTEMPT ONLY
+        # --------------------------------------------------
+
+        existing_result = FinalChallengeResult.objects.filter(
+            student=student_profile
+        ).first()
+
+        if existing_result:
+
+            return redirect(
+                'final_challenge'
+            )
+
+        # --------------------------------------------------
+        # SAVE STUDENT RESULT
+        # --------------------------------------------------
+
+        FinalChallengeResult.objects.create(
+            student=student_profile,
+            score=score,
+            total_questions=total_questions,
+            percentage=percentage,
+            stars=stars,
+            completed=True
+        )
+
+        # --------------------------------------------------
+        # UPDATE STUDENT TOTALS
+        # --------------------------------------------------
+
+        student_profile.total_points += score
+
+        student_profile.total_stars += stars
+
+        student_profile.save()
+
+        return redirect(
+            'final_challenge_result'
+        )
+
+
+    # ======================================================
+    # GUEST
+    # ======================================================
+
+    if not request.session.session_key:
+
+        request.session.create()
+
+    session_key = request.session.session_key
+
+    # ------------------------------------------------------
+    # LEVEL 4 CHECK
+    # ------------------------------------------------------
+
+    completed_levels = request.session.get(
+        'completed_levels',
+        0
+    )
+
+    if completed_levels < 4:
+
+        return redirect(
+            'home'
+        )
+
+    # ------------------------------------------------------
+    # ONE ATTEMPT ONLY
+    # ------------------------------------------------------
+
+    existing_result = GuestFinalChallengeResult.objects.filter(
+        session_key=session_key
+    ).first()
+
+    if existing_result:
+
+        return redirect(
+            'final_challenge_result'
+        )
+
+    # ------------------------------------------------------
+    # SAVE GUEST RESULT
+    # ------------------------------------------------------
+
+    GuestFinalChallengeResult.objects.create(
+        session_key=session_key,
+        score=score,
+        total_questions=total_questions,
+        percentage=percentage,
+        stars=stars,
+        completed=True
+    )
+
+    return redirect(
+        'final_challenge_result'
+    )
+
+
+# ==========================================================
+# FINAL CHALLENGE RESULT
+# ==========================================================
+
+def final_challenge_result(request):
+
+    # ======================================================
+    # REGISTERED STUDENT RESULT
+    # ======================================================
+
+    if request.user.is_authenticated:
+
+        try:
+
+            student_profile = StudentProfile.objects.get(
+                user=request.user
+            )
+
+        except StudentProfile.DoesNotExist:
+
+            return redirect(
+                'home'
+            )
+
+        result = FinalChallengeResult.objects.filter(
+            student=student_profile
+        ).first()
+
+        if result is None:
+
+            return redirect(
+                'final_challenge'
+            )
+
+        return render(
+            request,
+            'final_challenge_completed.html',
+            {
+                'student': student_profile,
+                'result': result,
+                'guest': False,
+            }
+        )
+
+
+    # ======================================================
+    # GUEST RESULT
+    # ======================================================
+
+    if not request.session.session_key:
+
+        return redirect(
+            'home'
+        )
+
+    session_key = request.session.session_key
+
+    result = GuestFinalChallengeResult.objects.filter(
+        session_key=session_key
+    ).first()
+
+    if result is None:
+
+        return redirect(
+            'final_challenge'
+        )
+
+    return render(
+        request,
+        'final_challenge_completed.html',
+        {
+            'result': result,
+            'guest': True,
+        }
+    )
+
+
+# ==========================================================
 # TEACHER REGISTRATION
 # ==========================================================
 
@@ -749,10 +1074,6 @@ def teacher_register(request):
             'confirm_password'
         )
 
-        # =========================
-        # Required Fields
-        # =========================
-
         if not full_name or not username or not password:
 
             return render(
@@ -764,10 +1085,6 @@ def teacher_register(request):
                 }
             )
 
-        # =========================
-        # Password Check
-        # =========================
-
         if password != confirm_password:
 
             return render(
@@ -778,10 +1095,6 @@ def teacher_register(request):
                         'Passwords do not match.'
                 }
             )
-
-        # =========================
-        # Username Check
-        # =========================
 
         if User.objects.filter(
             username=username
@@ -796,10 +1109,6 @@ def teacher_register(request):
                 }
             )
 
-        # =========================
-        # Create Teacher User
-        # =========================
-
         user = User.objects.create_user(
             username=username,
             email=email,
@@ -807,21 +1116,12 @@ def teacher_register(request):
         )
 
         user.first_name = full_name
-
         user.save()
-
-        # =========================
-        # Create Teacher Profile
-        # =========================
 
         TeacherProfile.objects.create(
             user=user,
             full_name=full_name
         )
-
-        # =========================
-        # Automatically Login
-        # =========================
 
         login(
             request,
@@ -861,10 +1161,6 @@ def teacher_login(request):
         )
 
         if user is not None:
-
-            # =========================
-            # Check Teacher Account
-            # =========================
 
             if TeacherProfile.objects.filter(
                 user=user
@@ -927,10 +1223,6 @@ def teacher_dashboard(request):
             'teacher_login'
         )
 
-    # =========================
-    # Only this teacher's classes
-    # =========================
-
     classes = ClassSection.objects.filter(
         teacher=request.user
     ).order_by(
@@ -948,7 +1240,7 @@ def teacher_dashboard(request):
 
 
 # ==========================================================
-# ADD NEW CLASS / SECTION
+# ADD CLASS
 # ==========================================================
 
 def add_class(request):
@@ -981,10 +1273,6 @@ def add_class(request):
 
             class_name = class_name.strip()
 
-        # ==================================================
-        # Check class name
-        # ==================================================
-
         if not class_name:
 
             return render(
@@ -995,10 +1283,6 @@ def add_class(request):
                         'Please enter a class or section name.'
                 }
             )
-
-        # ==================================================
-        # Generate UNIQUE join code
-        # ==================================================
 
         while True:
 
@@ -1011,10 +1295,6 @@ def add_class(request):
             ).exists():
 
                 break
-
-        # ==================================================
-        # Create class
-        # ==================================================
 
         ClassSection.objects.create(
             name=class_name,
@@ -1033,7 +1313,7 @@ def add_class(request):
 
 
 # ==========================================================
-# VIEW STUDENTS IN CLASS
+# VIEW STUDENTS
 # ==========================================================
 
 def view_students(request, class_id):
@@ -1086,7 +1366,7 @@ def view_students(request, class_id):
 
 
 # ==========================================================
-# ADD STUDENT TO CLASS
+# ADD STUDENT
 # ==========================================================
 
 def add_student(request, class_id):
@@ -1138,10 +1418,6 @@ def add_student(request, class_id):
 
         if full_name and username and password:
 
-            # =========================
-            # Prevent duplicate username
-            # =========================
-
             if User.objects.filter(
                 username=username
             ).exists():
@@ -1163,7 +1439,6 @@ def add_student(request, class_id):
             )
 
             user.first_name = full_name
-
             user.save()
 
             StudentProfile.objects.create(
@@ -1200,7 +1475,7 @@ def teacher_logout(request):
 
 
 # ==========================================================
-# VIEW INDIVIDUAL STUDENT PROGRESS
+# STUDENT PROGRESS FOR TEACHER
 # ==========================================================
 
 def student_progress(request, student_id):
@@ -1223,13 +1498,6 @@ def student_progress(request, student_id):
             'teacher_login'
         )
 
-    # =========================
-    # Security:
-    # Teacher can only view
-    # students belonging to
-    # their own sections.
-    # =========================
-
     try:
 
         student = StudentProfile.objects.get(
@@ -1249,11 +1517,16 @@ def student_progress(request, student_id):
         '-completed_at'
     )
 
+    final_result = FinalChallengeResult.objects.filter(
+        student=student
+    ).first()
+
     return render(
         request,
         'student_progress.html',
         {
             'student': student,
             'results': results,
+            'final_result': final_result,
         }
     )

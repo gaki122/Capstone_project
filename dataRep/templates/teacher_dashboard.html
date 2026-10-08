@@ -32,52 +32,70 @@
 
         .navbar {
             width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 40px;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 30px;
+            backdrop-filter: blur(8px);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1180px;
             margin: auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
+            gap: 25px;
         }
 
         .logo {
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 700;
+            color: #111827;
+            font-size: 26px;
+            font-weight: 900;
             text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .logo:hover {
+            color: #2563eb;
+            background: #eff6ff;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
         .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #111827;
+            background: transparent;
             text-decoration: none;
-            color: #374151;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 800;
             padding: 9px 13px;
             border-radius: 8px;
+            border: 1px solid transparent;
+            white-space: nowrap;
             transition: 0.2s;
         }
 
         .nav-links a:hover {
-            background: #eff6ff;
             color: #2563eb;
+            background: #eff6ff;
+            border-color: #dbeafe;
         }
 
         .nav-links a.active {
-            background: #2563eb;
-            color: white;
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #dbeafe;
         }
 
         .logout {
@@ -87,6 +105,7 @@
         .logout:hover {
             background: #fef2f2 !important;
             color: #b91c1c !important;
+            border-color: #fecaca !important;
         }
 
         /* =========================
@@ -382,27 +401,25 @@
 
         <div class="nav-links">
 
-            <a href="{% url 'home' %}">
+            <a
+                href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+            >
                 Home
             </a>
 
-            <a href="{% url 'learn' %}">
+            <a
+                href="{% url 'learn' %}"
+                class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
+            >
                 Learn
             </a>
 
-            <a href="{% url 'how_to_play' %}">
-                How to Play
-            </a>
-
-            <a href="{% url 'student_login' %}">
-                Student Login
-            </a>
-
             <a
-                href="{% url 'teacher_dashboard' %}"
-                class="active"
+                href="{% url 'how_to_play' %}"
+                class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
             >
-                Teacher Dashboard
+                How to Play
             </a>
 
             <a

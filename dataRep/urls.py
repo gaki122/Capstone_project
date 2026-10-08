@@ -171,4 +171,27 @@ urlpatterns = [
         name='guest_result'
     ),
 
+
+    # =========================
+    # Final Challenge
+    # =========================
+
+    path(
+        'final-challenge/',
+        views.final_challenge,
+        name='final_challenge'
+    ),
+
+    path(
+        'final-challenge/save-result/',
+        views.save_final_challenge_result,
+        name='save_final_challenge_result'
+    ),
+
+    path(
+        'final-challenge/result/',
+        views.final_challenge_result,
+        name='final_challenge_result'
+    ),
+
 ]

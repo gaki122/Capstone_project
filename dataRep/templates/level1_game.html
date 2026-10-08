@@ -1,657 +1,695 @@
 {% load static %}
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Data Quest - Level 1</title>
+<title>Data Quest - Level 1</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+    * {
+        box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #222;
-        }
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f7fb;
+        color: #111827;
+    }
+
+    /* ==============================
+       MAIN CONTAINER
+       ============================== */
+
+    .container {
+        width: 92%;
+        max-width: 1050px;
+        margin: 35px auto;
+    }
+
+    .game-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    /* ==============================
+       TOP BAR
+       ============================== */
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-button {
+        display: inline-block;
+        padding: 10px 16px;
+        background: #eff6ff;
+        color: #2563eb;
+        text-decoration: none;
+        border-radius: 9px;
+        font-weight: 600;
+        border: 1px solid #bfdbfe;
+        transition: 0.2s;
+    }
+
+    .dashboard-button:hover {
+        background: #dbeafe;
+    }
+
+    .title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .score-box {
+        font-size: 16px;
+        font-weight: 700;
+        background: #eff6ff;
+        color: #1d4ed8;
+        padding: 10px 18px;
+        border-radius: 9px;
+        border: 1px solid #bfdbfe;
+    }
+
+    /* ==============================
+       PROGRESS
+       ============================== */
+
+    .progress-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    .progress-container {
+        width: 100%;
+        background: #e5e7eb;
+        border-radius: 20px;
+        height: 11px;
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #2563eb;
+        border-radius: 20px;
+        transition: width 0.3s ease;
+    }
+
+    /* ==============================
+       QUESTION
+       ============================== */
+
+    .question-number {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .question {
+        font-size: 24px;
+        line-height: 1.45;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #111827;
+    }
+
+    /* ==============================
+       MCQ OPTIONS
+       ============================== */
+
+    .option {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 16px 18px;
+        margin: 11px 0;
+        border: 2px solid #e5e7eb;
+        background: white;
+        color: #111827;
+        border-radius: 11px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    .option:hover {
+        border-color: #93c5fd;
+        background: #eff6ff;
+    }
+
+    .option.selected {
+        border-color: #2563eb;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-weight: 700;
+    }
+
+    /* ==============================
+       FILL IN THE BLANK
+       ============================== */
+
+    .fill-input {
+        width: 100%;
+        padding: 15px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 11px;
+        font-size: 17px;
+        margin-bottom: 15px;
+        color: #111827;
+    }
+
+    .fill-input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px #dbeafe;
+    }
+
+    .fill-input:disabled {
+        background: #f3f4f6;
+    }
+
+    /* ==============================
+       BUTTONS
+       ============================== */
+
+    .btn {
+        border: none;
+        padding: 12px 21px;
+        border-radius: 9px;
+        background: #2563eb;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: 0.2s;
+    }
+
+    .btn:hover {
+        background: #1d4ed8;
+    }
+
+    .btn-secondary {
+        background: #6b7280;
+    }
+
+    .btn-secondary:hover {
+        background: #4b5563;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* ==============================
+       HINT
+       ============================== */
+
+    .hint-button {
+        background: #f59e0b;
+        color: #111827;
+        margin-bottom: 15px;
+    }
+
+    .hint-button:hover {
+        background: #d97706;
+    }
+
+    .hint-box {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-left: 5px solid #f59e0b;
+        padding: 15px;
+        border-radius: 9px;
+        margin-bottom: 20px;
+        color: #78350f;
+        display: none;
+    }
+
+    .hint-box.show {
+        display: block;
+    }
+
+    /* ==============================
+       MATCHING
+       ============================== */
+
+    .matching-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .matching-table th,
+    .matching-table td {
+        border: 1px solid #e5e7eb;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .matching-table th {
+        background: #f9fafb;
+        color: #374151;
+        font-size: 14px;
+    }
+
+    .drop-cell {
+        min-height: 50px;
+    }
+
+    .drop-zone {
+        min-height: 45px;
+        border: 2px dashed #9ca3af;
+        border-radius: 8px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        background: #fafafa;
+    }
+
+    .drop-zone.drag-over {
+        border-color: #2563eb;
+        background: #eff6ff;
+    }
+
+    .answer-bank {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+        padding: 15px;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+    }
+
+    .answer-item {
+        padding: 10px 16px;
+        background: white;
+        border: 2px solid #d1d5db;
+        border-radius: 8px;
+        cursor: grab;
+        user-select: none;
+        font-weight: 600;
+    }
+
+    .answer-item:hover {
+        border-color: #2563eb;
+    }
+
+    .answer-item:active {
+        cursor: grabbing;
+    }
+
+    /* ==============================
+       NEXT BUTTON
+       ============================== */
+
+    .next-area {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    /* ==============================
+       RESULTS
+       ============================== */
+
+    .result-card {
+        text-align: center;
+    }
+
+    .result-card h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    .final-score {
+        font-size: 44px;
+        font-weight: 700;
+        color: #2563eb;
+        margin: 15px 0;
+    }
+
+    .percentage {
+        font-size: 23px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .stars {
+        font-size: 35px;
+        margin: 15px 0 25px;
+    }
+
+    .review {
+        text-align: left;
+        margin-top: 30px;
+    }
+
+    .review h3 {
+        margin-bottom: 20px;
+    }
+
+    .review-item {
+        padding: 15px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+        border-left: 5px solid;
+    }
+
+    .review-item.correct {
+        background: #f0fdf4;
+        border-color: #22c55e;
+    }
+
+    .review-item.wrong {
+        background: #fef2f2;
+        border-color: #ef4444;
+    }
+
+    .review-title {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .review-line {
+        margin-top: 6px;
+    }
+
+    /* ==============================
+       FOOTER
+       ============================== */
+
+    .footer {
+        text-align: center;
+        color: #6b7280;
+        font-size: 13px;
+        padding: 25px 10px 10px;
+    }
+
+    /* ==============================
+       RESPONSIVE
+       ============================== */
+
+    @media (max-width: 700px) {
 
         .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 30px auto;
+            width: 95%;
+            margin: 15px auto;
         }
 
         .game-card {
-            background: white;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px;
         }
 
         .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        /* ==============================
-           DASHBOARD / HOME BUTTON
-           ============================== */
-
-        .dashboard-button {
-            display: inline-block;
-            padding: 10px 15px;
-            background: #eef4ff;
-            color: #2563eb;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-            border: 2px solid #dbe7ff;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .dashboard-button:hover {
-            background: #dbe7ff;
+            align-items: stretch;
         }
 
         .title {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .score-box {
-            font-size: 18px;
-            font-weight: bold;
-            background: #eef4ff;
-            padding: 10px 18px;
-            border-radius: 10px;
-        }
-
-        .progress-container {
+            order: -1;
             width: 100%;
-            background: #ddd;
-            border-radius: 20px;
-            height: 12px;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #4a90e2;
-            transition: width 0.3s ease;
-        }
-
-        .question-number {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 10px;
+            font-size: 23px;
         }
 
         .question {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 25px;
+            font-size: 20px;
         }
-
-        /* ==============================
-           MCQ OPTIONS
-           ============================== */
-
-        .option {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 17px;
-            transition: 0.2s;
-        }
-
-        .option:hover {
-            border-color: #4a90e2;
-            background: #f1f7ff;
-        }
-
-        .option.selected {
-            border-color: #4a90e2;
-            background: #e8f2ff;
-            font-weight: bold;
-        }
-
-        /* ==============================
-           FILL IN THE BLANK
-           ============================== */
-
-        .fill-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .fill-input:focus {
-            outline: none;
-            border-color: #4a90e2;
-        }
-
-        .fill-input:disabled {
-            background: #f3f3f3;
-        }
-
-        /* ==============================
-           BUTTONS
-           ============================== */
-
-        .btn {
-            border: none;
-            padding: 13px 24px;
-            border-radius: 10px;
-            background: #4a90e2;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .btn-secondary {
-            background: #777;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* ==============================
-           HINT
-           ============================== */
-
-        .hint-button {
-            background: #f5b642;
-            color: #222;
-            margin-bottom: 15px;
-        }
-
-        .hint-box {
-            background: #fff7dc;
-            border-left: 5px solid #f5b642;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .hint-box.show {
-            display: block;
-        }
-
-        /* ==============================
-           MATCHING
-           ============================== */
-
-        .matching-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .matching-table th,
-        .matching-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        .matching-table th {
-            background: #f1f4f8;
-        }
-
-        .drop-cell {
-            min-height: 50px;
-        }
-
-        .drop-zone {
-            min-height: 45px;
-            border: 2px dashed #aaa;
-            border-radius: 8px;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-        }
-
-        .drop-zone.drag-over {
-            border-color: #4a90e2;
-            background: #eef6ff;
-        }
-
-        .answer-bank {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-            padding: 15px;
-            background: #f7f8fa;
-            border-radius: 10px;
-        }
-
-        .answer-item {
-            padding: 10px 16px;
-            background: white;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            cursor: grab;
-            user-select: none;
-        }
-
-        .answer-item:active {
-            cursor: grabbing;
-        }
-
-        /* ==============================
-           NEXT BUTTON
-           ============================== */
 
         .next-area {
-            text-align: right;
-            margin-top: 20px;
-        }
-
-        /* ==============================
-           RESULTS
-           ============================== */
-
-        .result-card {
-            text-align: center;
-        }
-
-        .final-score {
-            font-size: 42px;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-
-        .percentage {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .stars {
-            font-size: 35px;
-            margin: 15px 0 25px;
-        }
-
-        .review {
             text-align: left;
-            margin-top: 30px;
         }
 
-        .review h3 {
-            margin-bottom: 20px;
-        }
+    }
 
-        .review-item {
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 10px;
-            border-left: 5px solid;
-        }
-
-        .review-item.correct {
-            background: #edf9f0;
-            border-color: #38a169;
-        }
-
-        .review-item.wrong {
-            background: #fff0f0;
-            border-color: #e53e3e;
-        }
-
-        .review-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .review-line {
-            margin-top: 6px;
-        }
-
-        @media (max-width: 600px) {
-
-            .container {
-                width: 95%;
-                margin: 15px auto;
-            }
-
-            .game-card {
-                padding: 20px;
-            }
-
-            .question {
-                font-size: 20px;
-            }
-
-            .title {
-                font-size: 23px;
-            }
-
-            .matching-table {
-                font-size: 14px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
 
-    <div class="game-card">
+<div class="game-card">
 
+    <!-- ==============================
+         TOP BAR
+         ============================== -->
 
-        <!-- ==============================
-             TOP BAR
-             ============================== -->
+    <div class="top-bar">
 
-        <div class="top-bar">
+        <div>
 
-
-            <div>
-
-                <!--
-                    Logged-in student:
-                    Dashboard button
-
-                    Guest:
-                    Home button
-                -->
-
-                {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
 
                 <a
                     href="{% url 'student_dashboard' %}"
                     class="dashboard-button"
                 >
-
                     🏠 Dashboard
-
                 </a>
 
-                {% else %}
+            {% else %}
 
                 <a
                     href="{% url 'home' %}"
                     class="dashboard-button"
                 >
-
                     🏠 Home
-
                 </a>
 
-                {% endif %}
-
-            </div>
-
-
-            <div class="title">
-
-                🎮 Data Quest - Level 1
-
-            </div>
-
-
-            <div class="score-box">
-
-                Score:
-                <span id="score">0</span>
-
-            </div>
-
+            {% endif %}
 
         </div>
 
-
-        <!-- ==============================
-             PROGRESS
-             ============================== -->
-
-        <div class="progress-container">
-
-            <div
-                id="progressBar"
-                class="progress-bar"
-            >
-            </div>
-
+        <div class="title">
+            🎮 Data Quest — Level 1
         </div>
 
+        <div class="score-box">
 
-        <!-- ==============================
-             GAME AREA
-             ============================== -->
-
-        <div id="gameArea">
-
-
-            <div
-                class="question-number"
-                id="questionNumber"
-            >
-            </div>
-
-
-            <div
-                class="question"
-                id="question"
-            >
-            </div>
-
-
-            <!-- HINT -->
-
-            <button
-                id="hintButton"
-                class="btn hint-button"
-                type="button"
-            >
-
-                💡 Hint
-
-            </button>
-
-
-            <div
-                id="hintBox"
-                class="hint-box"
-            >
-            </div>
-
-
-            <!-- ANSWER AREA -->
-
-            <div id="answerArea">
-            </div>
-
-
-            <!-- NEXT -->
-
-            <div class="next-area">
-
-                <button
-                    id="nextButton"
-                    class="btn hidden"
-                    type="button"
-                >
-
-                    Next Question →
-
-                </button>
-
-            </div>
-
+            Score:
+            <span id="score">0</span>
 
         </div>
-
-
-        <!-- ==============================
-             RESULT AREA
-             ============================== -->
-
-        <div
-            id="resultArea"
-            class="result-card hidden"
-        >
-
-
-            <h2>
-
-                🎉 Level 1 Completed!
-
-            </h2>
-
-
-            <div
-                class="final-score"
-                id="finalScore"
-            >
-            </div>
-
-
-            <div
-                class="percentage"
-                id="finalPercentage"
-            >
-            </div>
-
-
-            <div
-                class="stars"
-                id="finalStars"
-            >
-            </div>
-
-
-            <!-- ANSWER REVIEW -->
-
-            <div
-                id="review"
-                class="review"
-            >
-            </div>
-
-
-            <!-- SAVE RESULT -->
-
-            <form
-                method="POST"
-                action="{% url 'save_level1_result' %}"
-            >
-
-                {% csrf_token %}
-
-
-                <input
-                    type="hidden"
-                    name="score"
-                    id="resultScore"
-                >
-
-
-                <input
-                    type="hidden"
-                    name="total_questions"
-                    id="resultTotal"
-                >
-
-
-                <input
-                    type="hidden"
-                    name="percentage"
-                    id="resultPercentage"
-                >
-
-
-                <input
-                    type="hidden"
-                    name="stars"
-                    id="resultStars"
-                >
-
-
-                <button
-                    type="submit"
-                    class="btn"
-                >
-
-                    💾 Save Result
-
-                </button>
-
-
-            </form>
-
-
-            <button
-                id="playAgainButton"
-                class="btn btn-secondary"
-                type="button"
-            >
-
-                🔄 Play Again
-
-            </button>
-
-
-        </div>
-
 
     </div>
 
 
+    <!-- ==============================
+         PROGRESS
+         ============================== -->
+
+    <div class="progress-info">
+
+        <span>Level Progress</span>
+
+        <span id="progressText">
+            0%
+        </span>
+
+    </div>
+
+    <div class="progress-container">
+
+        <div
+            id="progressBar"
+            class="progress-bar"
+        ></div>
+
+    </div>
+
+
+    <!-- ==============================
+         GAME AREA
+         ============================== -->
+
+    <div id="gameArea">
+
+        <div
+            class="question-number"
+            id="questionNumber"
+        ></div>
+
+        <div
+            class="question"
+            id="question"
+        ></div>
+
+
+        <!-- HINT -->
+
+        <button
+            id="hintButton"
+            class="btn hint-button"
+            type="button"
+        >
+            💡 Hint
+        </button>
+
+        <div
+            id="hintBox"
+            class="hint-box"
+        ></div>
+
+
+        <!-- ANSWER AREA -->
+
+        <div id="answerArea"></div>
+
+
+        <!-- NEXT -->
+
+        <div class="next-area">
+
+            <button
+                id="nextButton"
+                class="btn hidden"
+                type="button"
+            >
+                Next Question →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         RESULT AREA
+         ============================== -->
+
+    <div
+        id="resultArea"
+        class="result-card hidden"
+    >
+
+        <h2>
+            🎉 Level 1 Completed!
+        </h2>
+
+        <div
+            class="final-score"
+            id="finalScore"
+        ></div>
+
+        <div
+            class="percentage"
+            id="finalPercentage"
+        ></div>
+
+        <div
+            class="stars"
+            id="finalStars"
+        ></div>
+
+
+        <!-- ANSWER REVIEW -->
+
+        <div
+            id="review"
+            class="review"
+        ></div>
+
+
+        <!-- SAVE RESULT -->
+
+        <form
+            method="POST"
+            action="{% url 'save_level1_result' %}"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="score"
+                id="resultScore"
+            >
+
+            <input
+                type="hidden"
+                name="total_questions"
+                id="resultTotal"
+            >
+
+            <input
+                type="hidden"
+                name="percentage"
+                id="resultPercentage"
+            >
+
+            <input
+                type="hidden"
+                name="stars"
+                id="resultStars"
+            >
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                💾 Save Result
+            </button>
+
+        </form>
+
+
+        <button
+            id="playAgainButton"
+            class="btn btn-secondary"
+            type="button"
+        >
+            🔄 Play Again
+        </button>
+
+    </div>
+
 </div>
 
 
+<div class="footer">
+
+    © 2026 Data Quest.
+    Learn. Play. Master Data Representation.
+
+</div>
+
+</div>
 
 <script>
-
 
 /* =====================================================
    QUESTIONS
    ===================================================== */
 
-
 const questions = [
-
 
     {
         type: "mcq",
@@ -673,7 +711,6 @@ const questions = [
             "ASCII is a standard used to represent characters using numbers."
     },
 
-
     {
         type: "mcq",
 
@@ -693,7 +730,6 @@ const questions = [
         hint:
             "Uppercase A comes just after 64."
     },
-
 
     {
         type: "mcq",
@@ -715,7 +751,6 @@ const questions = [
             "Standard ASCII can represent 128 different values."
     },
 
-
     {
         type: "mcq",
 
@@ -735,7 +770,6 @@ const questions = [
         hint:
             "The ASCII values for digits 0 to 9 start at 48."
     },
-
 
     {
         type: "mcq",
@@ -757,7 +791,6 @@ const questions = [
             "The space character has a value between 31 and 33."
     },
 
-
     {
         type: "mcq",
 
@@ -777,7 +810,6 @@ const questions = [
         hint:
             "B comes immediately after A."
     },
-
 
     {
         type: "mcq",
@@ -799,7 +831,6 @@ const questions = [
             "Lowercase a starts at 97."
     },
 
-
     {
         type: "mcq",
 
@@ -820,7 +851,6 @@ const questions = [
             "ASCII gives characters numerical values."
     },
 
-
     {
         type: "fill",
 
@@ -833,7 +863,6 @@ const questions = [
         hint:
             "Think about the number of values standard ASCII can represent: 128."
     },
-
 
     {
         type: "fill",
@@ -848,7 +877,6 @@ const questions = [
             "Uppercase A is the first letter and its ASCII value is in the 60s."
     },
 
-
     {
         type: "fill",
 
@@ -861,7 +889,6 @@ const questions = [
         hint:
             "Lowercase letters start at a value higher than uppercase letters."
     },
-
 
     {
         type: "fill",
@@ -876,7 +903,6 @@ const questions = [
             "It is a common ASCII value and is less than 48."
     },
 
-
     {
         type: "fill",
 
@@ -890,7 +916,6 @@ const questions = [
             "Calculate 2 to the power of 7."
     },
 
-
     {
         type: "fill",
 
@@ -903,7 +928,6 @@ const questions = [
         hint:
             "Its decimal value is 65."
     },
-
 
     {
         type: "matching",
@@ -946,7 +970,6 @@ const questions = [
             "Remember: A = 65, B = 66, a = 97, and digit 0 = 48."
     },
 
-
     {
         type: "matching",
 
@@ -987,7 +1010,6 @@ const questions = [
         hint:
             "Uppercase letters range from 65 to 90. Lowercase letters range from 97 to 122."
     },
-
 
     {
         type: "matching",
@@ -1030,7 +1052,6 @@ const questions = [
             "The ASCII value of 0 is 48. Each following digit increases by 1."
     },
 
-
     {
         type: "matching",
 
@@ -1072,7 +1093,6 @@ const questions = [
             "Space is 32. The uppercase letters start at A = 65."
     },
 
-
     {
         type: "matching",
 
@@ -1113,7 +1133,6 @@ const questions = [
         hint:
             "X, Y, and Z are the last three uppercase letters."
     },
-
 
     {
         type: "matching",
@@ -1163,7 +1182,6 @@ const questions = [
    GAME VARIABLES
    ===================================================== */
 
-
 let currentQuestion = 0;
 
 let score = 0;
@@ -1177,60 +1195,55 @@ let userAnswers = [];
    HTML ELEMENTS
    ===================================================== */
 
-
 const questionNumber =
     document.getElementById(
         "questionNumber"
     );
-
 
 const questionElement =
     document.getElementById(
         "question"
     );
 
-
 const answerArea =
     document.getElementById(
         "answerArea"
     );
-
 
 const nextButton =
     document.getElementById(
         "nextButton"
     );
 
-
 const scoreElement =
     document.getElementById(
         "score"
     );
-
 
 const progressBar =
     document.getElementById(
         "progressBar"
     );
 
+const progressText =
+    document.getElementById(
+        "progressText"
+    );
 
 const hintButton =
     document.getElementById(
         "hintButton"
     );
 
-
 const hintBox =
     document.getElementById(
         "hintBox"
     );
 
-
 const gameArea =
     document.getElementById(
         "gameArea"
     );
-
 
 const resultArea =
     document.getElementById(
@@ -1242,41 +1255,32 @@ const resultArea =
    LOAD QUESTION
    ===================================================== */
 
-
 function loadQuestion() {
 
     const q =
         questions[currentQuestion];
 
-
     answered = false;
-
 
     answerArea.innerHTML =
         "";
-
 
     nextButton.classList.add(
         "hidden"
     );
 
-
     hintBox.classList.remove(
         "show"
     );
 
-
     hintBox.textContent =
         q.hint;
-
 
     questionNumber.textContent =
         `Question ${currentQuestion + 1} of ${questions.length}`;
 
-
     questionElement.textContent =
         q.question;
-
 
     const progress =
         (
@@ -1284,14 +1288,14 @@ function loadQuestion() {
             questions.length
         ) * 100;
 
-
     progressBar.style.width =
         `${progress}%`;
 
+    progressText.textContent =
+        `${Math.round(progress)}%`;
 
     scoreElement.textContent =
         score;
-
 
     if (q.type === "mcq") {
 
@@ -1318,7 +1322,6 @@ function loadQuestion() {
    HINT
    ===================================================== */
 
-
 hintButton.addEventListener(
     "click",
     function() {
@@ -1335,7 +1338,6 @@ hintButton.addEventListener(
    LOAD MCQ
    ===================================================== */
 
-
 function loadMCQ(q) {
 
     q.options.forEach(
@@ -1346,18 +1348,14 @@ function loadMCQ(q) {
                     "button"
                 );
 
-
             button.className =
                 "option";
-
 
             button.textContent =
                 option;
 
-
             button.type =
                 "button";
-
 
             button.addEventListener(
                 "click",
@@ -1369,7 +1367,6 @@ function loadMCQ(q) {
 
                 }
             );
-
 
             answerArea.appendChild(
                 button
@@ -1385,7 +1382,6 @@ function loadMCQ(q) {
    SELECT / UNSELECT MCQ
    ===================================================== */
 
-
 function selectAnswer(button) {
 
     if (answered) {
@@ -1394,12 +1390,10 @@ function selectAnswer(button) {
 
     }
 
-
     const options =
         answerArea.querySelectorAll(
             ".option"
         );
-
 
     if (
         button.classList.contains(
@@ -1411,16 +1405,13 @@ function selectAnswer(button) {
             "selected"
         );
 
-
         nextButton.classList.add(
             "hidden"
         );
 
-
         return;
 
     }
-
 
     options.forEach(
         function(option) {
@@ -1432,11 +1423,9 @@ function selectAnswer(button) {
         }
     );
 
-
     button.classList.add(
         "selected"
     );
-
 
     nextButton.classList.remove(
         "hidden"
@@ -1449,7 +1438,6 @@ function selectAnswer(button) {
    GET SELECTED MCQ ANSWER
    ===================================================== */
 
-
 function getSelectedMCQAnswer() {
 
     const selected =
@@ -1457,13 +1445,11 @@ function getSelectedMCQAnswer() {
             ".option.selected"
         );
 
-
     if (!selected) {
 
         return null;
 
     }
-
 
     return selected.textContent;
 
@@ -1474,7 +1460,6 @@ function getSelectedMCQAnswer() {
    LOAD FILL QUESTION
    ===================================================== */
 
-
 function loadFill(q) {
 
     const input =
@@ -1482,27 +1467,21 @@ function loadFill(q) {
             "input"
         );
 
-
     input.type =
         "text";
-
 
     input.className =
         "fill-input";
 
-
     input.id =
         "fillAnswer";
-
 
     input.placeholder =
         "Type your answer here...";
 
-
     answerArea.appendChild(
         input
     );
-
 
     input.addEventListener(
         "keydown",
@@ -1518,7 +1497,6 @@ function loadFill(q) {
 
         }
     );
-
 
     input.addEventListener(
         "input",
@@ -1552,7 +1530,6 @@ function loadFill(q) {
    SAVE FILL ANSWER
    ===================================================== */
 
-
 function saveFillAnswer() {
 
     if (answered) {
@@ -1561,16 +1538,13 @@ function saveFillAnswer() {
 
     }
 
-
     const q =
         questions[currentQuestion];
-
 
     const input =
         document.getElementById(
             "fillAnswer"
         );
-
 
     if (!input) {
 
@@ -1578,10 +1552,8 @@ function saveFillAnswer() {
 
     }
 
-
     const answer =
         input.value.trim();
-
 
     if (answer === "") {
 
@@ -1589,9 +1561,7 @@ function saveFillAnswer() {
 
     }
 
-
     answered = true;
-
 
     userAnswers.push({
 
@@ -1613,7 +1583,6 @@ function saveFillAnswer() {
 
     });
 
-
     return true;
 
 }
@@ -1623,7 +1592,6 @@ function saveFillAnswer() {
    LOAD MATCHING
    ===================================================== */
 
-
 function loadMatching(q) {
 
     const table =
@@ -1631,25 +1599,20 @@ function loadMatching(q) {
             "table"
         );
 
-
     table.className =
         "matching-table";
-
 
     const header =
         document.createElement(
             "tr"
         );
 
-
     header.innerHTML =
         "<th>Character / Code</th><th>Your Answer</th>";
-
 
     table.appendChild(
         header
     );
-
 
     q.matches.forEach(
         function(match, index) {
@@ -1659,47 +1622,38 @@ function loadMatching(q) {
                     "tr"
                 );
 
-
             const labelCell =
                 document.createElement(
                     "td"
                 );
 
-
             labelCell.textContent =
                 match.label;
-
 
             const dropCell =
                 document.createElement(
                     "td"
                 );
 
-
             const dropZone =
                 document.createElement(
                     "div"
                 );
 
-
             dropZone.className =
                 "drop-zone";
-
 
             dropZone.dataset.answer =
                 match.answer;
 
-
             dropZone.dataset.index =
                 index;
-
 
             dropZone.addEventListener(
                 "dragover",
                 function(event) {
 
                     event.preventDefault();
-
 
                     if (!answered) {
 
@@ -1712,7 +1666,6 @@ function loadMatching(q) {
                 }
             );
 
-
             dropZone.addEventListener(
                 "dragleave",
                 function() {
@@ -1724,18 +1677,15 @@ function loadMatching(q) {
                 }
             );
 
-
             dropZone.addEventListener(
                 "drop",
                 function(event) {
 
                     event.preventDefault();
 
-
                     dropZone.classList.remove(
                         "drag-over"
                     );
-
 
                     if (answered) {
 
@@ -1743,18 +1693,15 @@ function loadMatching(q) {
 
                     }
 
-
                     const dragId =
                         event.dataTransfer.getData(
                             "text/plain"
                         );
 
-
                     const source =
                         document.querySelector(
                             `[data-drag-id="${dragId}"]`
                         );
-
 
                     if (!source) {
 
@@ -1762,12 +1709,10 @@ function loadMatching(q) {
 
                     }
 
-
                     placeMatch(
                         dropZone,
                         source
                     );
-
 
                     if (
                         matchingIsComplete()
@@ -1782,21 +1727,17 @@ function loadMatching(q) {
                 }
             );
 
-
             dropCell.appendChild(
                 dropZone
             );
-
 
             row.appendChild(
                 labelCell
             );
 
-
             row.appendChild(
                 dropCell
             );
-
 
             table.appendChild(
                 row
@@ -1805,42 +1746,34 @@ function loadMatching(q) {
         }
     );
 
-
     answerArea.appendChild(
         table
     );
-
 
     const bankTitle =
         document.createElement(
             "p"
         );
 
-
     bankTitle.innerHTML =
         "<strong>Answer Bank:</strong>";
-
 
     answerArea.appendChild(
         bankTitle
     );
-
 
     const answerBank =
         document.createElement(
             "div"
         );
 
-
     answerBank.className =
         "answer-bank";
-
 
     const shuffledCodes =
         [...q.codes].sort(
             () => Math.random() - 0.5
         );
-
 
     shuffledCodes.forEach(
         function(code, index) {
@@ -1850,22 +1783,17 @@ function loadMatching(q) {
                     "div"
                 );
 
-
             answerItem.className =
                 "answer-item";
-
 
             answerItem.textContent =
                 code;
 
-
             answerItem.draggable =
                 true;
 
-
             answerItem.dataset.dragId =
                 `${currentQuestion}-${index}-${code}`;
-
 
             answerItem.addEventListener(
                 "dragstart",
@@ -1879,14 +1807,12 @@ function loadMatching(q) {
                 }
             );
 
-
             answerBank.appendChild(
                 answerItem
             );
 
         }
     );
-
 
     answerArea.appendChild(
         answerBank
@@ -1899,7 +1825,6 @@ function loadMatching(q) {
    PLACE MATCHING ANSWER
    ===================================================== */
 
-
 function placeMatch(
     dropZone,
     source
@@ -1911,12 +1836,10 @@ function placeMatch(
 
     }
 
-
     const existing =
         dropZone.querySelector(
             ".answer-item"
         );
-
 
     if (existing) {
 
@@ -1925,12 +1848,10 @@ function placeMatch(
                 ".answer-bank"
             );
 
-
         if (answerBank) {
 
             existing.draggable =
                 true;
-
 
             answerBank.appendChild(
                 existing
@@ -1940,7 +1861,6 @@ function placeMatch(
 
     }
 
-
     if (source.parentElement) {
 
         source.parentElement.removeChild(
@@ -1949,11 +1869,9 @@ function placeMatch(
 
     }
 
-
     dropZone.appendChild(
         source
     );
-
 
     source.draggable =
         true;
@@ -1965,14 +1883,12 @@ function placeMatch(
    CHECK MATCHING COMPLETE
    ===================================================== */
 
-
 function matchingIsComplete() {
 
     const dropZones =
         answerArea.querySelectorAll(
             ".drop-zone"
         );
-
 
     for (
         let i = 0;
@@ -1985,7 +1901,6 @@ function matchingIsComplete() {
                 ".answer-item"
             );
 
-
         if (!item) {
 
             return false;
@@ -1993,7 +1908,6 @@ function matchingIsComplete() {
         }
 
     }
-
 
     return true;
 
@@ -2004,7 +1918,6 @@ function matchingIsComplete() {
    SAVE MATCHING ANSWER
    ===================================================== */
 
-
 function saveMatchingAnswer() {
 
     if (answered) {
@@ -2013,26 +1926,21 @@ function saveMatchingAnswer() {
 
     }
 
-
     if (!matchingIsComplete()) {
 
         return false;
 
     }
 
-
     const q =
         questions[currentQuestion];
-
 
     const dropZones =
         answerArea.querySelectorAll(
             ".drop-zone"
         );
 
-
     const matchingAnswers = [];
-
 
     dropZones.forEach(
         function(dropZone) {
@@ -2042,20 +1950,16 @@ function saveMatchingAnswer() {
                     ".answer-item"
                 );
 
-
             const index =
                 Number(
                     dropZone.dataset.index
                 );
 
-
             const userAnswer =
                 item.textContent;
 
-
             const correctAnswer =
                 dropZone.dataset.answer;
-
 
             matchingAnswers.push({
 
@@ -2077,7 +1981,6 @@ function saveMatchingAnswer() {
         }
     );
 
-
     const matchingQuestionCorrect =
         matchingAnswers.every(
             function(item) {
@@ -2087,9 +1990,7 @@ function saveMatchingAnswer() {
             }
         );
 
-
     answered = true;
-
 
     userAnswers.push({
 
@@ -2110,7 +2011,6 @@ function saveMatchingAnswer() {
 
     });
 
-
     return true;
 
 }
@@ -2120,13 +2020,11 @@ function saveMatchingAnswer() {
    NEXT QUESTION
    ===================================================== */
 
-
 function nextQuestion() {
 
     if (answered) {
 
         currentQuestion++;
-
 
         if (
             currentQuestion <
@@ -2147,10 +2045,8 @@ function nextQuestion() {
 
     }
 
-
     const q =
         questions[currentQuestion];
-
 
     /* MCQ */
 
@@ -2159,13 +2055,11 @@ function nextQuestion() {
         const selectedAnswer =
             getSelectedMCQAnswer();
 
-
         if (!selectedAnswer) {
 
             return;
 
         }
-
 
         userAnswers.push({
 
@@ -2187,11 +2081,9 @@ function nextQuestion() {
 
         });
 
-
         answered = true;
 
     }
-
 
     /* Fill */
 
@@ -2205,7 +2097,6 @@ function nextQuestion() {
 
     }
 
-
     /* Matching */
 
     else if (q.type === "matching") {
@@ -2218,9 +2109,7 @@ function nextQuestion() {
 
     }
 
-
     currentQuestion++;
-
 
     if (
         currentQuestion <
@@ -2244,7 +2133,6 @@ function nextQuestion() {
    NEXT BUTTON
    ===================================================== */
 
-
 nextButton.addEventListener(
     "click",
     function() {
@@ -2259,11 +2147,9 @@ nextButton.addEventListener(
    FINAL SCORE
    ===================================================== */
 
-
 function calculateFinalScore() {
 
     let finalScore = 0;
-
 
     userAnswers.forEach(
         function(item) {
@@ -2277,7 +2163,6 @@ function calculateFinalScore() {
         }
     );
 
-
     return finalScore;
 
 }
@@ -2286,7 +2171,6 @@ function calculateFinalScore() {
 /* =====================================================
    STARS
    ===================================================== */
-
 
 function calculateStars(finalScore) {
 
@@ -2327,12 +2211,10 @@ function calculateStars(finalScore) {
    SHOW RESULTS
    ===================================================== */
 
-
 function showResults() {
 
     const finalScore =
         calculateFinalScore();
-
 
     const percentage =
         Math.round(
@@ -2342,76 +2224,65 @@ function showResults() {
             ) * 100
         );
 
-
     const stars =
         calculateStars(
             finalScore
         );
 
-
     score =
         finalScore;
-
 
     scoreElement.textContent =
         score;
 
-
     progressBar.style.width =
         "100%";
 
+    progressText.textContent =
+        "100%";
 
     gameArea.classList.add(
         "hidden"
     );
 
-
     resultArea.classList.remove(
         "hidden"
     );
-
 
     document.getElementById(
         "finalScore"
     ).textContent =
         `${finalScore} / ${questions.length}`;
 
-
     document.getElementById(
         "finalPercentage"
     ).textContent =
         `${percentage}%`;
-
 
     document.getElementById(
         "finalStars"
     ).textContent =
         "⭐".repeat(stars);
 
-
     document.getElementById(
         "resultScore"
     ).value =
         finalScore;
-
 
     document.getElementById(
         "resultTotal"
     ).value =
         questions.length;
 
-
     document.getElementById(
         "resultPercentage"
     ).value =
         percentage;
 
-
     document.getElementById(
         "resultStars"
     ).value =
         stars;
-
 
     showReview();
 
@@ -2422,7 +2293,6 @@ function showResults() {
    ANSWER REVIEW
    ===================================================== */
 
-
 function showReview() {
 
     const review =
@@ -2430,10 +2300,8 @@ function showReview() {
             "review"
         );
 
-
     review.innerHTML =
         "<h3>📋 Answer Review</h3>";
-
 
     userAnswers.forEach(
         function(item) {
@@ -2443,22 +2311,18 @@ function showReview() {
                     "div"
                 );
 
-
             reviewItem.className =
                 item.isCorrect
                     ? "review-item correct"
                     : "review-item wrong";
-
 
             const title =
                 document.createElement(
                     "div"
                 );
 
-
             title.className =
                 "review-title";
-
 
             title.textContent =
                 `Question ${item.questionNumber}: ${
@@ -2467,26 +2331,21 @@ function showReview() {
                         : "❌ Incorrect"
                 }`;
 
-
             reviewItem.appendChild(
                 title
             );
-
 
             const questionText =
                 document.createElement(
                     "div"
                 );
 
-
             questionText.textContent =
                 item.question;
-
 
             reviewItem.appendChild(
                 questionText
             );
-
 
             /* MATCHING REVIEW */
 
@@ -2505,14 +2364,11 @@ function showReview() {
                                 "div"
                             );
 
-
                         line.className =
                             "review-line";
 
-
                         line.textContent =
                             `${match.label}: Your answer = ${match.userAnswer}, Correct answer = ${match.correctAnswer}`;
-
 
                         reviewItem.appendChild(
                             line
@@ -2523,7 +2379,6 @@ function showReview() {
 
             }
 
-
             /* MCQ / FILL REVIEW */
 
             else {
@@ -2533,19 +2388,15 @@ function showReview() {
                         "div"
                     );
 
-
                 userAnswer.className =
                     "review-line";
-
 
                 userAnswer.textContent =
                     `Your answer: ${item.userAnswer}`;
 
-
                 reviewItem.appendChild(
                     userAnswer
                 );
-
 
                 if (!item.isCorrect) {
 
@@ -2554,14 +2405,11 @@ function showReview() {
                             "div"
                         );
 
-
                     correctAnswer.className =
                         "review-line";
 
-
                     correctAnswer.textContent =
                         `Correct answer: ${item.correctAnswer}`;
-
 
                     reviewItem.appendChild(
                         correctAnswer
@@ -2570,7 +2418,6 @@ function showReview() {
                 }
 
             }
-
 
             review.appendChild(
                 reviewItem
@@ -2586,7 +2433,6 @@ function showReview() {
    PLAY AGAIN
    ===================================================== */
 
-
 document.getElementById(
     "playAgainButton"
 ).addEventListener(
@@ -2601,20 +2447,19 @@ document.getElementById(
 
         userAnswers = [];
 
-
         scoreElement.textContent =
             "0";
 
+        progressText.textContent =
+            "0%";
 
         resultArea.classList.add(
             "hidden"
         );
 
-
         gameArea.classList.remove(
             "hidden"
         );
-
 
         loadQuestion();
 
@@ -2626,12 +2471,9 @@ document.getElementById(
    START GAME
    ===================================================== */
 
-
 loadQuestion();
 
-
 </script>
-
 
 </body>
 

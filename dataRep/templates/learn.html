@@ -29,7 +29,7 @@
         }
 
         a {
-            transition: 0.2s ease;
+            transition: all 0.2s ease;
         }
 
 
@@ -39,82 +39,110 @@
 
         .navbar {
             width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid #e2e8f0;
 
-            padding: 16px 40px;
+            padding: 15px 30px;
 
             position: sticky;
             top: 0;
             z-index: 1000;
+
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1180px;
             margin: auto;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            gap: 20px;
+            gap: 25px;
         }
 
+        /*
+           LOGO
+           Same as Home page
+        */
+
         .logo {
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 700;
+            color: #111827;
+            font-size: 26px;
+            font-weight: 900;
             text-decoration: none;
             white-space: nowrap;
+
+            padding: 8px 12px;
+            border-radius: 8px;
         }
+
+        .logo:hover {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        /*
+           NAVIGATION CONTAINER
+        */
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: flex-end;
+
+            gap: 4px;
+
             flex-wrap: wrap;
         }
 
+        /*
+           ALL NAVIGATION ITEMS
+           HAVE EXACTLY THE SAME STYLE
+        */
+
         .nav-links a {
-            color: #374151;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #111827;
+            background: transparent;
+
             text-decoration: none;
 
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 800;
 
             padding: 9px 13px;
+
             border-radius: 8px;
+
+            border: 1px solid transparent;
+
+            white-space: nowrap;
         }
+
+        /*
+           HOVER
+        */
 
         .nav-links a:hover {
-            background: #eff6ff;
             color: #2563eb;
+            background: #eff6ff;
+            border-color: #dbeafe;
         }
+
+        /*
+           ACTIVE PAGE
+           Same style for every page
+        */
 
         .nav-links a.active {
-            background: #2563eb;
-            color: white;
-        }
-
-        .student-nav-btn {
-            background: #2563eb;
-            color: white !important;
-        }
-
-        .student-nav-btn:hover {
-            background: #1d4ed8 !important;
-            color: white !important;
-        }
-
-        .teacher-nav-btn {
-            border: 1px solid #bfdbfe;
+            color: #2563eb;
             background: #eff6ff;
-            color: #2563eb !important;
-        }
-
-        .teacher-nav-btn:hover {
-            background: #dbeafe !important;
-            color: #1d4ed8 !important;
+            border-color: #dbeafe;
         }
 
 
@@ -132,7 +160,7 @@
 
             text-align: center;
 
-            padding: 75px 20px 65px;
+            padding: 65px 20px 55px;
         }
 
         .hero-badge {
@@ -187,7 +215,7 @@
 
             margin: 0 auto;
 
-            padding: 70px 20px 35px;
+            padding: 60px 20px 30px;
 
             text-align: center;
         }
@@ -214,7 +242,7 @@
         ========================= */
 
         .topics-wrapper {
-            padding: 20px 20px 75px;
+            padding: 20px 20px 65px;
         }
 
         .topics {
@@ -247,7 +275,7 @@
             box-shadow:
                 0 12px 35px rgba(0, 0, 0, 0.06);
 
-            transition: 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .topic-card:hover {
@@ -255,6 +283,8 @@
 
             box-shadow:
                 0 16px 38px rgba(0, 0, 0, 0.09);
+
+            border-color: #bfdbfe;
         }
 
         .topic-header {
@@ -355,7 +385,7 @@
 
             color: white;
 
-            padding: 70px 20px;
+            padding: 60px 20px;
         }
 
         .facts-container {
@@ -417,7 +447,7 @@
         .cta-wrapper {
             background: #f5f7fb;
 
-            padding: 70px 20px;
+            padding: 60px 20px;
         }
 
         .cta {
@@ -431,7 +461,7 @@
 
             border-radius: 20px;
 
-            padding: 50px 25px;
+            padding: 45px 25px;
 
             text-align: center;
 
@@ -527,22 +557,26 @@
 
         @media (max-width: 650px) {
 
+            .navbar {
+                padding: 13px 12px;
+            }
+
             .logo {
-                font-size: 22px;
+                font-size: 23px;
             }
 
             .nav-links {
-                gap: 4px;
+                gap: 1px;
             }
 
             .nav-links a {
-                font-size: 13px;
+                font-size: 12px;
 
-                padding: 8px 9px;
+                padding: 6px 7px;
             }
 
             .hero {
-                padding: 55px 15px;
+                padding: 50px 15px;
             }
 
             .hero h1 {
@@ -554,7 +588,7 @@
             }
 
             .intro {
-                padding-top: 55px;
+                padding-top: 50px;
             }
 
             .intro h2 {
@@ -622,31 +656,51 @@
 
         <div class="nav-links">
 
-            <a href="{% url 'home' %}">
+            <!-- HOME -->
+
+            <a
+                href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+            >
                 Home
             </a>
 
+
+            <!-- LEARN -->
+
             <a
                 href="{% url 'learn' %}"
-                class="active"
+                class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
             >
                 Learn
             </a>
 
-            <a href="{% url 'how_to_play' %}">
+
+            <!-- HOW TO PLAY -->
+
+            <a
+                href="{% url 'how_to_play' %}"
+                class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
+            >
                 How to Play
             </a>
 
+
+            <!-- STUDENT LOGIN -->
+
             <a
                 href="{% url 'student_login' %}"
-                class="student-nav-btn"
+                class="{% if request.resolver_match.url_name == 'student_login' %}active{% endif %}"
             >
                 🎓 Student Login
             </a>
 
+
+            <!-- TEACHER LOGIN -->
+
             <a
                 href="{% url 'teacher_login' %}"
-                class="teacher-nav-btn"
+                class="{% if request.resolver_match.url_name == 'teacher_login' %}active{% endif %}"
             >
                 👨‍🏫 Teacher Login
             </a>

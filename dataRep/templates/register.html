@@ -43,10 +43,10 @@
         ========================= */
 
         nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid #e2e8f0;
 
-            padding: 18px 7%;
+            padding: 15px 30px;
 
             display: flex;
             align-items: center;
@@ -57,36 +57,80 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+
+            backdrop-filter: blur(10px);
+        }
+
+
+        .nav-container {
+            width: 100%;
+            max-width: 1180px;
+
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
         }
 
 
         .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #2563eb;
+            font-size: 26px;
+            font-weight: 900;
+
+            color: #111827;
+
             text-decoration: none;
 
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
             white-space: nowrap;
+
+            transition: 0.25s;
+        }
+
+
+        .logo:hover {
+            color: #2563eb;
+            background: #eff6ff;
         }
 
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+
+            gap: 4px;
+
             flex-wrap: wrap;
         }
 
 
         .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #111827;
+
+            background: transparent;
+
             text-decoration: none;
-            color: #374151;
 
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 800;
 
             padding: 9px 13px;
+
             border-radius: 8px;
+
+            border: 1px solid transparent;
+
+            white-space: nowrap;
 
             transition: 0.25s;
         }
@@ -94,23 +138,19 @@
 
         .nav-links a:hover {
             color: #2563eb;
+
             background: #eff6ff;
+
+            border-color: #dbeafe;
         }
 
 
-        /* =========================
-           ACTIVE STUDENT LOGIN
-        ========================= */
+        .nav-links a.active {
+            color: #2563eb;
 
-        .nav-links .active {
-            color: #ffffff;
-            background: #2563eb;
-        }
+            background: #eff6ff;
 
-
-        .nav-links .active:hover {
-            color: #ffffff;
-            background: #1d4ed8;
+            border-color: #dbeafe;
         }
 
 
@@ -405,9 +445,14 @@
         @media (max-width: 850px) {
 
             nav {
+                padding: 15px 20px;
+            }
+
+
+            .nav-container {
                 flex-direction: column;
 
-                padding: 16px 5%;
+                gap: 12px;
             }
 
 
@@ -431,13 +476,18 @@
 
         @media (max-width: 600px) {
 
+            nav {
+                padding: 12px 15px;
+            }
+
+
             .logo {
                 font-size: 23px;
             }
 
 
             .nav-links {
-                gap: 5px;
+                gap: 4px;
             }
 
 
@@ -485,45 +535,61 @@
 
     <nav>
 
-
-        <a
-            href="{% url 'home' %}"
-            class="logo"
-        >
-            Data Quest
-        </a>
-
-
-        <div class="nav-links">
-
-
-            <a href="{% url 'home' %}">
-                Home
-            </a>
-
-
-            <a href="{% url 'learn' %}">
-                Learn
-            </a>
-
-
-            <a href="{% url 'how_to_play' %}">
-                How to Play
-            </a>
+        <div class="nav-container">
 
 
             <a
-                href="{% url 'student_login' %}"
-                class="active"
+                href="{% url 'home' %}"
+                class="logo"
             >
-                Student Login
+                Data Quest
             </a>
 
 
-            <a href="{% url 'teacher_login' %}">
-                Teacher Login
-            </a>
+            <div class="nav-links">
 
+
+                <a
+                    href="{% url 'home' %}"
+                    class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                >
+                    Home
+                </a>
+
+
+                <a
+                    href="{% url 'learn' %}"
+                    class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
+                >
+                    Learn
+                </a>
+
+
+                <a
+                    href="{% url 'how_to_play' %}"
+                    class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
+                >
+                    How to Play
+                </a>
+
+
+                <a
+                    href="{% url 'student_login' %}"
+                    class="{% if request.resolver_match.url_name == 'student_login' or request.resolver_match.url_name == 'register' %}active{% endif %}"
+                >
+                    Student Login
+                </a>
+
+
+                <a
+                    href="{% url 'teacher_login' %}"
+                    class="{% if request.resolver_match.url_name == 'teacher_login' %}active{% endif %}"
+                >
+                    Teacher Login
+                </a>
+
+
+            </div>
 
         </div>
 

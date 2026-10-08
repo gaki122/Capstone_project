@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Final Challenge Result | Data Quest
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            padding: 0;
+
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+
+            width: 100%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.97
+                );
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            padding:
+                15px 30px;
+
+            backdrop-filter:
+                blur(10px);
+
+        }
+
+
+        .nav-container {
+
+            max-width: 1180px;
+
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+        }
+
+
+        .logo {
+
+            text-decoration: none;
+
+            color: #111827;
+
+            font-size: 26px;
+
+            font-weight: 900;
+
+            padding:
+                8px 12px;
+
+            border-radius: 10px;
+
+            transition: 0.2s;
+
+            white-space: nowrap;
+
+        }
+
+
+        .logo:hover {
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: #111827;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            padding:
+                9px 14px;
+
+            border-radius: 8px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #2563eb;
+
+            background: #eff6ff;
+
+        }
+
+
+        .nav-links a.active {
+
+            color: #2563eb;
+
+            background: #eff6ff;
+
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .page-content {
+
+            min-height:
+                calc(100vh - 76px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
+
+        }
+
+
+        .result-card {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 45px 35px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 50px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.12
+                );
+
+        }
+
+
+        .trophy {
+
+            font-size: 70px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            font-size: 34px;
+
+            color: #1e293b;
+
+        }
+
+
+        .subtitle {
+
+            color: #64748b;
+
+            margin-top: 10px;
+
+            font-size: 17px;
+
+        }
+
+
+        .score-box {
+
+            margin: 30px 0;
+
+            padding: 25px;
+
+            background: #f8fafc;
+
+            border-radius: 18px;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .score {
+
+            font-size: 48px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+
+        }
+
+
+        .score-label {
+
+            color: #64748b;
+
+            margin-top: 5px;
+
+            font-size: 16px;
+
+        }
+
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .detail-box {
+
+            background: #f8fafc;
+
+            border-radius: 14px;
+
+            padding: 18px;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .detail-value {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            color: #1e293b;
+
+        }
+
+
+        .detail-label {
+
+            margin-top: 5px;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+        }
+
+
+        .message {
+
+            margin-top: 30px;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            background: #eff6ff;
+
+            color: #1e40af;
+
+            font-size: 15px;
+
+        }
+
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 30px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .button {
+
+            text-decoration: none;
+
+            padding: 13px 24px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .dashboard-button {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        .dashboard-button:hover {
+
+            background: #1d4ed8;
+
+        }
+
+
+        .home-button {
+
+            background: #e2e8f0;
+
+            color: #1e293b;
+
+        }
+
+
+        .home-button:hover {
+
+            background: #cbd5e1;
+
+        }
+
+
+        .guest-note {
+
+            margin-top: 22px;
+
+            font-size: 14px;
+
+            color: #64748b;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding:
+                    12px 15px;
+
+            }
+
+
+            .nav-container {
+
+                flex-direction: column;
+
+                gap: 10px;
+
+            }
+
+
+            .nav-links {
+
+                justify-content: center;
+
+            }
+
+
+            .nav-links a {
+
+                font-size: 14px;
+
+                padding:
+                    8px 10px;
+
+            }
+
+
+            .page-content {
+
+                padding:
+                    20px 15px;
+
+            }
+
+
+            .result-card {
+
+                padding:
+                    35px 20px;
+
+            }
+
+
+            h1 {
+
+                font-size: 28px;
+
+            }
+
+
+            .score {
+
+                font-size: 40px;
+
+            }
+
+
+            .details {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="{% url 'home' %}"
+            class="logo"
+        >
+
+            🎯 Data Quest
+
+        </a>
+
+
+        <!-- NAVIGATION LINKS -->
+
+        <div class="nav-links">
+
+
+            <a
+                href="{% url 'home' %}"
+            >
+
+                Home
+
+            </a>
+
+
+            <a
+                href="{% url 'learn' %}"
+            >
+
+                Learn
+
+            </a>
+
+
+            <a
+                href="{% url 'how_to_play' %}"
+            >
+
+                How to Play
+
+            </a>
+
+
+            {% if request.user.is_authenticated %}
+
+                <a
+                    href="{% url 'student_logout' %}"
+                >
+
+                    Logout
+
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     PAGE CONTENT
+========================= -->
+
+<div class="page-content">
+
+
+    <div class="result-card">
+
+
+        <div class="trophy">
+            🏆
+        </div>
+
+
+        <h1>
+            Final Challenge Complete!
+        </h1>
+
+
+        {% if guest %}
+
+            <p class="subtitle">
+
+                Great job! You have completed
+                the Data Quest Final Challenge.
+
+            </p>
+
+        {% else %}
+
+            <p class="subtitle">
+
+                Congratulations,
+                {{ student.full_name }}!
+
+            </p>
+
+        {% endif %}
+
+
+
+        <!-- SCORE -->
+
+        <div class="score-box">
+
+            <div class="score">
+
+                {{ result.score }}/{{ result.total_questions }}
+
+            </div>
+
+
+            <div class="score-label">
+
+                Final Challenge Score
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DETAILS -->
+
+        <div class="details">
+
+
+            <div class="detail-box">
+
+                <div class="detail-value">
+
+                    {{ result.percentage }}%
+
+                </div>
+
+                <div class="detail-label">
+
+                    Percentage
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <div class="detail-value">
+
+                    ⭐ {{ result.stars }}
+
+                </div>
+
+                <div class="detail-label">
+
+                    Stars
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <div class="detail-value">
+
+                    {{ result.total_questions }}
+
+                </div>
+
+                <div class="detail-label">
+
+                    Questions
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ONE ATTEMPT MESSAGE -->
+
+        <div class="message">
+
+            🔒 The Final Challenge can only be
+            attempted once.
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+
+            {% if guest %}
+
+                <a
+                    href="{% url 'home' %}"
+                    class="button home-button"
+                >
+
+                    🏠 Home
+
+                </a>
+
+            {% else %}
+
+                <a
+                    href="{% url 'student_dashboard' %}"
+                    class="button dashboard-button"
+                >
+
+                    📊 Student Dashboard
+
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <!-- PRIVACY MESSAGE -->
+
+        {% if guest %}
+
+            <div class="guest-note">
+
+                Your guest result is private to this
+                browser session and cannot be viewed
+                by teachers or other students.
+
+            </div>
+
+        {% else %}
+
+            {% if student.class_section %}
+
+                <div class="guest-note">
+
+                    Your Final Challenge result has been
+                    saved to your student account.
+
+                    Your class teacher can view your
+                    progress because you joined their class.
+
+                </div>
+
+            {% else %}
+
+                <div class="guest-note">
+
+                    Your Final Challenge result has been
+                    saved to your student account.
+
+                    Because you have not joined a class,
+                    your progress remains private.
+
+                </div>
+
+            {% endif %}
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

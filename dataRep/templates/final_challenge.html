@@ -1,0 +1,2465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Final Challenge | Data Quest</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            color: #1e293b;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 30px 20px 60px;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .trophy {
+            font-size: 60px;
+        }
+
+        h1 {
+            margin: 10px 0 5px;
+
+            font-size: 34px;
+
+            color: #1e3a8a;
+        }
+
+        .subtitle {
+            color: #64748b;
+
+            font-size: 16px;
+        }
+
+        .warning {
+            margin-top: 20px;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            background: #fff7ed;
+
+            color: #9a3412;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress-container {
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 18px 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .progress-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+
+            height: 10px;
+
+            background: #e2e8f0;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+
+            height: 100%;
+
+            background: #2563eb;
+
+            transition: width 0.3s;
+        }
+
+        /* =========================
+           QUESTION CARD
+        ========================= */
+
+        .question-card {
+            display: none;
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .question-number {
+            color: #2563eb;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+        .question {
+            font-size: 22px;
+
+            font-weight: bold;
+
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           OPTIONS
+        ========================= */
+
+        .options {
+            display: grid;
+
+            gap: 12px;
+        }
+
+        .option {
+            border: 2px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #93c5fd;
+
+            background: #eff6ff;
+        }
+
+        .option.selected {
+            border-color: #2563eb;
+
+            background: #eff6ff;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .answer-input {
+            width: 100%;
+
+            padding: 15px;
+
+            border: 2px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+
+            outline: none;
+        }
+
+        .answer-input:focus {
+            border-color: #2563eb;
+        }
+
+        /* =========================
+           MATCHING
+        ========================= */
+
+        .matching-row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+        .matching-label {
+            padding: 13px;
+
+            background: #f8fafc;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+        }
+
+        .matching-select {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 2px solid #e2e8f0;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+        button {
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 13px 24px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .previous {
+            background: #e2e8f0;
+
+            color: #1e293b;
+        }
+
+        .next {
+            background: #2563eb;
+
+            color: white;
+        }
+
+        .submit {
+            background: #16a34a;
+
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+
+            cursor: not-allowed;
+        }
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .result-message {
+            display: none;
+
+            text-align: center;
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-message h2 {
+            color: #166534;
+
+            font-size: 30px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .question-card {
+                padding: 22px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .matching-row {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <div class="header">
+
+        <div class="trophy">
+            🏆
+        </div>
+
+        <h1>
+            Final Challenge
+        </h1>
+
+        {% if guest %}
+
+            <p class="subtitle">
+                Test everything you have learned in Data Quest.
+            </p>
+
+        {% else %}
+
+            <p class="subtitle">
+                Good luck, {{ student.full_name }}!
+            </p>
+
+        {% endif %}
+
+        <div class="warning">
+            🔒 Final Challenge can only be attempted once.
+            Make sure you are ready before starting.
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PROGRESS
+    ========================= -->
+
+    <div class="progress-container">
+
+        <div class="progress-top">
+
+            <span id="questionProgress">
+                Question 1 of 25
+            </span>
+
+            <span id="scorePreview">
+                Score: 0
+            </span>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 1
+    ========================= -->
+
+    <div
+        class="question-card active"
+        data-question="1"
+    >
+
+        <div class="question-number">
+            Question 1
+        </div>
+
+        <div class="question">
+            What is 101101₂ in decimal?
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="43"
+                >
+                43
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="45"
+                >
+                45
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="47"
+                >
+                47
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="49"
+                >
+                49
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 2
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="2"
+    >
+
+        <div class="question-number">
+            Question 2
+        </div>
+
+        <div class="question">
+            Convert 58₁₀ to binary.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q2"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 3
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="3"
+    >
+
+        <div class="question-number">
+            Question 3
+        </div>
+
+        <div class="question">
+            What decimal value does A₁₆ represent?
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="8"
+                >
+                8
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="9"
+                >
+                9
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="10"
+                >
+                10
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="11"
+                >
+                11
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 4
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="4"
+    >
+
+        <div class="question-number">
+            Question 4
+        </div>
+
+        <div class="question">
+            Which number system uses digits from 0 to 7?
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="binary"
+                >
+                Binary
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="octal"
+                >
+                Octal
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="decimal"
+                >
+                Decimal
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="hexadecimal"
+                >
+                Hexadecimal
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 5
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="5"
+    >
+
+        <div class="question-number">
+            Question 5
+        </div>
+
+        <div class="question">
+            Convert 347₈ to decimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q5"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 6
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="6"
+    >
+
+        <div class="question-number">
+            Question 6
+        </div>
+
+        <div class="question">
+            Match each number with its decimal value.
+        </div>
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                1010₂
+            </div>
+
+            <select class="matching-select" id="q6a">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="13">
+                    13
+                </option>
+
+                <option value="15">
+                    15
+                </option>
+
+                <option value="20">
+                    20
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                15₈
+            </div>
+
+            <select class="matching-select" id="q6b">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="13">
+                    13
+                </option>
+
+                <option value="15">
+                    15
+                </option>
+
+                <option value="20">
+                    20
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                F₁₆
+            </div>
+
+            <select class="matching-select" id="q6c">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="13">
+                    13
+                </option>
+
+                <option value="15">
+                    15
+                </option>
+
+                <option value="20">
+                    20
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                20₁₀
+            </div>
+
+            <select class="matching-select" id="q6d">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="13">
+                    13
+                </option>
+
+                <option value="15">
+                    15
+                </option>
+
+                <option value="20">
+                    20
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 7
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="7"
+    >
+
+        <div class="question-number">
+            Question 7
+        </div>
+
+        <div class="question">
+            Convert 2A₁₆ to decimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q7"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 8
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="8"
+    >
+
+        <div class="question-number">
+            Question 8
+        </div>
+
+        <div class="question">
+            10000₂ is equal to 16₁₀.
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="true"
+                >
+                True
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="false"
+                >
+                False
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 9
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="9"
+    >
+
+        <div class="question-number">
+            Question 9
+        </div>
+
+        <div class="question">
+            Convert 25₁₀ to binary.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q9"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 10
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="10"
+    >
+
+        <div class="question-number">
+            Question 10
+        </div>
+
+        <div class="question">
+            What is 110101₂ in decimal?
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q10"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 11
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="11"
+    >
+
+        <div class="question-number">
+            Question 11
+        </div>
+
+        <div class="question">
+            Convert 31₁₀ to hexadecimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q11"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 12
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="12"
+    >
+
+        <div class="question-number">
+            Question 12
+        </div>
+
+        <div class="question">
+            Convert 52₈ to binary.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q12"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 13
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="13"
+    >
+
+        <div class="question-number">
+            Question 13
+        </div>
+
+        <div class="question">
+            20₁₆ is equal to 32₁₀.
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q13"
+                    value="true"
+                >
+                True
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q13"
+                    value="false"
+                >
+                False
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 14
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="14"
+    >
+
+        <div class="question-number">
+            Question 14
+        </div>
+
+        <div class="question">
+            Match each number system with its base.
+        </div>
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                Binary
+            </div>
+
+            <select class="matching-select" id="q14a">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="2">
+                    2
+                </option>
+
+                <option value="8">
+                    8
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="16">
+                    16
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                Octal
+            </div>
+
+            <select class="matching-select" id="q14b">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="2">
+                    2
+                </option>
+
+                <option value="8">
+                    8
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="16">
+                    16
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                Decimal
+            </div>
+
+            <select class="matching-select" id="q14c">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="2">
+                    2
+                </option>
+
+                <option value="8">
+                    8
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="16">
+                    16
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                Hexadecimal
+            </div>
+
+            <select class="matching-select" id="q14d">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="2">
+                    2
+                </option>
+
+                <option value="8">
+                    8
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="16">
+                    16
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 15
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="15"
+    >
+
+        <div class="question-number">
+            Question 15
+        </div>
+
+        <div class="question">
+            Convert 100₁₀ to hexadecimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q15"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 16
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="16"
+    >
+
+        <div class="question-number">
+            Question 16
+        </div>
+
+        <div class="question">
+            What is 1011₂ + 0101₂?
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q16"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 17
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="17"
+    >
+
+        <div class="question-number">
+            Question 17
+        </div>
+
+        <div class="question">
+            Convert 111111₂ to decimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q17"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 18
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="18"
+    >
+
+        <div class="question-number">
+            Question 18
+        </div>
+
+        <div class="question">
+            77₈ is equal to 63₁₀.
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q18"
+                    value="true"
+                >
+                True
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q18"
+                    value="false"
+                >
+                False
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 19
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="19"
+    >
+
+        <div class="question-number">
+            Question 19
+        </div>
+
+        <div class="question">
+            Match each binary number with its decimal value.
+        </div>
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                1001₂
+            </div>
+
+            <select class="matching-select" id="q19a">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="9">
+                    9
+                </option>
+
+                <option value="12">
+                    12
+                </option>
+
+                <option value="21">
+                    21
+                </option>
+
+                <option value="30">
+                    30
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                1100₂
+            </div>
+
+            <select class="matching-select" id="q19b">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="9">
+                    9
+                </option>
+
+                <option value="12">
+                    12
+                </option>
+
+                <option value="21">
+                    21
+                </option>
+
+                <option value="30">
+                    30
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                10101₂
+            </div>
+
+            <select class="matching-select" id="q19c">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="9">
+                    9
+                </option>
+
+                <option value="12">
+                    12
+                </option>
+
+                <option value="21">
+                    21
+                </option>
+
+                <option value="30">
+                    30
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                11110₂
+            </div>
+
+            <select class="matching-select" id="q19d">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="9">
+                    9
+                </option>
+
+                <option value="12">
+                    12
+                </option>
+
+                <option value="21">
+                    21
+                </option>
+
+                <option value="30">
+                    30
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 20
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="20"
+    >
+
+        <div class="question-number">
+            Question 20
+        </div>
+
+        <div class="question">
+            Convert 3C₁₆ to decimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q20"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 21
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="21"
+    >
+
+        <div class="question-number">
+            Question 21
+        </div>
+
+        <div class="question">
+            Convert 11001101₂ to hexadecimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q21"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 22
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="22"
+    >
+
+        <div class="question-number">
+            Question 22
+        </div>
+
+        <div class="question">
+            11111111₂ is equal to 255₁₀.
+        </div>
+
+        <div class="options">
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q22"
+                    value="true"
+                >
+                True
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q22"
+                    value="false"
+                >
+                False
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 23
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="23"
+    >
+
+        <div class="question-number">
+            Question 23
+        </div>
+
+        <div class="question">
+            What is 11010₂ − 00111₂?
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q23"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 24
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="24"
+    >
+
+        <div class="question-number">
+            Question 24
+        </div>
+
+        <div class="question">
+            Convert 2D₁₆ to decimal.
+        </div>
+
+        <input
+            type="text"
+            class="answer-input"
+            id="q24"
+            placeholder="Enter your answer"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION 25
+    ========================= -->
+
+    <div
+        class="question-card"
+        data-question="25"
+    >
+
+        <div class="question-number">
+            Question 25
+        </div>
+
+        <div class="question">
+            Match each conversion correctly.
+        </div>
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                15₁₀ → ?
+            </div>
+
+            <select class="matching-select" id="q25a">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="1111₂">
+                    1111₂
+                </option>
+
+                <option value="1F₁₆">
+                    1F₁₆
+                </option>
+
+                <option value="100₈">
+                    100₈
+                </option>
+
+                <option value="A₁₆">
+                    A₁₆
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                31₁₀ → ?
+            </div>
+
+            <select class="matching-select" id="q25b">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="1111₂">
+                    1111₂
+                </option>
+
+                <option value="1F₁₆">
+                    1F₁₆
+                </option>
+
+                <option value="100₈">
+                    100₈
+                </option>
+
+                <option value="A₁₆">
+                    A₁₆
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                64₁₀ → ?
+            </div>
+
+            <select class="matching-select" id="q25c">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="1111₂">
+                    1111₂
+                </option>
+
+                <option value="1F₁₆">
+                    1F₁₆
+                </option>
+
+                <option value="100₈">
+                    100₈
+                </option>
+
+                <option value="A₁₆">
+                    A₁₆
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="matching-row">
+
+            <div class="matching-label">
+                1010₂ → ?
+            </div>
+
+            <select class="matching-select" id="q25d">
+
+                <option value="">
+                    Select
+                </option>
+
+                <option value="1111₂">
+                    1111₂
+                </option>
+
+                <option value="1F₁₆">
+                    1F₁₆
+                </option>
+
+                <option value="100₈">
+                    100₈
+                </option>
+
+                <option value="A₁₆">
+                    A₁₆
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <div class="buttons">
+
+        <button
+            type="button"
+            class="previous"
+            id="previousButton"
+            onclick="previousQuestion()"
+        >
+            ← Previous
+        </button>
+
+        <button
+            type="button"
+            class="next"
+            id="nextButton"
+            onclick="nextQuestion()"
+        >
+            Next →
+        </button>
+
+        <button
+            type="button"
+            class="submit"
+            id="submitButton"
+            onclick="submitChallenge()"
+            style="display: none;"
+        >
+            🏆 Submit Final Challenge
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         HIDDEN RESULT FORM
+    ========================= -->
+
+    <form
+        method="POST"
+        action="{% url 'save_final_challenge_result' %}"
+        id="resultForm"
+    >
+
+        {% csrf_token %}
+
+        <input
+            type="hidden"
+            name="score"
+            id="finalScore"
+        >
+
+        <input
+            type="hidden"
+            name="total_questions"
+            value="25"
+        >
+
+        <input
+            type="hidden"
+            name="percentage"
+            id="finalPercentage"
+        >
+
+        <input
+            type="hidden"
+            name="stars"
+            id="finalStars"
+        >
+
+    </form>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       CURRENT QUESTION
+    ===================================================== */
+
+    let currentQuestion = 1;
+
+    const totalQuestions = 25;
+
+
+    /* =====================================================
+       ANSWERS
+    ===================================================== */
+
+    const correctAnswers = {
+
+        1: "45",
+
+        2: "111010",
+
+        3: "10",
+
+        4: "octal",
+
+        5: "231",
+
+        6: {
+            a: "10",
+            b: "13",
+            c: "15",
+            d: "20"
+        },
+
+        7: "42",
+
+        8: "true",
+
+        9: "11001",
+
+        10: "53",
+
+        11: "1F",
+
+        12: "101010",
+
+        13: "true",
+
+        14: {
+            a: "2",
+            b: "8",
+            c: "10",
+            d: "16"
+        },
+
+        15: "64",
+
+        16: "10000",
+
+        17: "63",
+
+        18: "true",
+
+        19: {
+            a: "9",
+            b: "12",
+            c: "21",
+            d: "30"
+        },
+
+        20: "60",
+
+        21: "CD",
+
+        22: "true",
+
+        23: "10011",
+
+        24: "45",
+
+        25: {
+            a: "1111₂",
+            b: "1F₁₆",
+            c: "100₈",
+            d: "A₁₆"
+        }
+
+    };
+
+
+    /* =====================================================
+       NORMALIZE ANSWER
+    ===================================================== */
+
+    function normalizeAnswer(value) {
+
+        return value
+            .trim()
+            .toUpperCase()
+            .replace(/₀|₁|₂|₃|₄|₅|₆|₇|₈|₉/g, "");
+    }
+
+
+    /* =====================================================
+       GET ANSWER
+    ===================================================== */
+
+    function getAnswer(questionNumber) {
+
+        if (
+            questionNumber === 6 ||
+            questionNumber === 14 ||
+            questionNumber === 19 ||
+            questionNumber === 25
+        ) {
+
+            return {
+                a: document.getElementById(
+                    "q" + questionNumber + "a"
+                ).value,
+
+                b: document.getElementById(
+                    "q" + questionNumber + "b"
+                ).value,
+
+                c: document.getElementById(
+                    "q" + questionNumber + "c"
+                ).value,
+
+                d: document.getElementById(
+                    "q" + questionNumber + "d"
+                ).value
+            };
+        }
+
+
+        const radio = document.querySelector(
+            'input[name="q' +
+            questionNumber +
+            '"]:checked'
+        );
+
+
+        if (radio) {
+
+            return radio.value;
+
+        }
+
+
+        const input = document.getElementById(
+            "q" + questionNumber
+        );
+
+
+        if (input) {
+
+            return input.value;
+
+        }
+
+
+        return "";
+
+    }
+
+
+    /* =====================================================
+       CHECK ONE QUESTION
+    ===================================================== */
+
+    function checkQuestion(questionNumber) {
+
+        const userAnswer =
+            getAnswer(questionNumber);
+
+        const correctAnswer =
+            correctAnswers[questionNumber];
+
+
+        if (
+            typeof correctAnswer === "object"
+        ) {
+
+            return (
+                normalizeAnswer(userAnswer.a) ===
+                normalizeAnswer(correctAnswer.a)
+
+                &&
+
+                normalizeAnswer(userAnswer.b) ===
+                normalizeAnswer(correctAnswer.b)
+
+                &&
+
+                normalizeAnswer(userAnswer.c) ===
+                normalizeAnswer(correctAnswer.c)
+
+                &&
+
+                normalizeAnswer(userAnswer.d) ===
+                normalizeAnswer(correctAnswer.d)
+            );
+
+        }
+
+
+        return (
+            normalizeAnswer(userAnswer) ===
+            normalizeAnswer(correctAnswer)
+        );
+
+    }
+
+
+    /* =====================================================
+       CALCULATE SCORE
+    ===================================================== */
+
+    function calculateScore() {
+
+        let score = 0;
+
+
+        for (
+            let i = 1;
+            i <= totalQuestions;
+            i++
+        ) {
+
+            if (
+                checkQuestion(i)
+            ) {
+
+                score++;
+
+            }
+
+        }
+
+
+        return score;
+
+    }
+
+
+    /* =====================================================
+       UPDATE PROGRESS
+    ===================================================== */
+
+    function updateProgress() {
+
+        document.getElementById(
+            "questionProgress"
+        ).textContent =
+            "Question " +
+            currentQuestion +
+            " of " +
+            totalQuestions;
+
+
+        const percentage =
+            (
+                currentQuestion /
+                totalQuestions
+            ) * 100;
+
+
+        document.getElementById(
+            "progressFill"
+        ).style.width =
+            percentage + "%";
+
+
+        document.getElementById(
+            "scorePreview"
+        ).textContent =
+            "Score: " +
+            calculateScore();
+
+    }
+
+
+    /* =====================================================
+       SHOW QUESTION
+    ===================================================== */
+
+    function showQuestion(number) {
+
+        const questions =
+            document.querySelectorAll(
+                ".question-card"
+            );
+
+
+        questions.forEach(
+            function(question) {
+
+                question.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        const selected =
+            document.querySelector(
+                '[data-question="' +
+                number +
+                '"]'
+            );
+
+
+        if (selected) {
+
+            selected.classList.add(
+                "active"
+            );
+
+        }
+
+
+        document.getElementById(
+            "previousButton"
+        ).disabled =
+            number === 1;
+
+
+        if (
+            number === totalQuestions
+        ) {
+
+            document.getElementById(
+                "nextButton"
+            ).style.display =
+                "none";
+
+            document.getElementById(
+                "submitButton"
+            ).style.display =
+                "block";
+
+        } else {
+
+            document.getElementById(
+                "nextButton"
+            ).style.display =
+                "block";
+
+            document.getElementById(
+                "submitButton"
+            ).style.display =
+                "none";
+
+        }
+
+
+        updateProgress();
+
+    }
+
+
+    /* =====================================================
+       NEXT QUESTION
+    ===================================================== */
+
+    function nextQuestion() {
+
+        if (
+            currentQuestion <
+            totalQuestions
+        ) {
+
+            currentQuestion++;
+
+            showQuestion(
+                currentQuestion
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PREVIOUS QUESTION
+    ===================================================== */
+
+    function previousQuestion() {
+
+        if (
+            currentQuestion >
+            1
+        ) {
+
+            currentQuestion--;
+
+            showQuestion(
+                currentQuestion
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SUBMIT CHALLENGE
+    ===================================================== */
+
+    function submitChallenge() {
+
+        const score =
+            calculateScore();
+
+
+        const percentage =
+            Math.round(
+                (
+                    score /
+                    totalQuestions
+                ) * 100
+            );
+
+
+        let stars = 1;
+
+
+        if (
+            percentage >= 90
+        ) {
+
+            stars = 5;
+
+        } else if (
+            percentage >= 75
+        ) {
+
+            stars = 4;
+
+        } else if (
+            percentage >= 60
+        ) {
+
+            stars = 3;
+
+        } else if (
+            percentage >= 40
+        ) {
+
+            stars = 2;
+
+        }
+
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to submit your Final Challenge? You can only attempt it once."
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "finalScore"
+        ).value =
+            score;
+
+
+        document.getElementById(
+            "finalPercentage"
+        ).value =
+            percentage;
+
+
+        document.getElementById(
+            "finalStars"
+        ).value =
+            stars;
+
+
+        document.getElementById(
+            "resultForm"
+        ).submit();
+
+    }
+
+
+    /* =====================================================
+       OPTION CLICK EFFECT
+    ===================================================== */
+
+    document.querySelectorAll(
+        ".option"
+    ).forEach(
+        function(option) {
+
+            option.addEventListener(
+                "click",
+                function() {
+
+                    const radio =
+                        option.querySelector(
+                            "input"
+                        );
+
+                    if (radio) {
+
+                        radio.checked = true;
+
+                    }
+
+                    document
+                        .querySelectorAll(
+                            'input[name="' +
+                            radio.name +
+                            '"]'
+                        )
+                        .forEach(
+                            function(input) {
+
+                                input
+                                    .closest(
+                                        ".option"
+                                    )
+                                    .classList
+                                    .remove(
+                                        "selected"
+                                    );
+
+                            }
+                        );
+
+                    option.classList.add(
+                        "selected"
+                    );
+
+                    updateProgress();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       INPUT / SELECT UPDATE
+    ===================================================== */
+
+    document.querySelectorAll(
+        ".answer-input, .matching-select"
+    ).forEach(
+        function(element) {
+
+            element.addEventListener(
+                "input",
+                updateProgress
+            );
+
+            element.addEventListener(
+                "change",
+                updateProgress
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    showQuestion(
+        currentQuestion
+    );
+
+</script>
+
+</body>
+</html>
