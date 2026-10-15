@@ -1,0 +1,1106 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .l2-page {
+        max-width: 1000px;
+        margin: 25px auto;
+        padding: 20px;
+        color: #1e293b;
+    }
+
+    .l2-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 24px;
+    }
+
+    .l2-header h1 {
+        font-size: 28px;
+        margin: 0;
+        color: #1d4ed8;
+    }
+
+    .l2-subtitle {
+        color: #64748b;
+        margin: 6px 0 0;
+    }
+
+    .l2-score-box {
+        background: #eff6ff;
+        color: #1d4ed8;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+    }
+
+    .l2-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    .l2-progress-info {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .l2-progress-track {
+        height: 9px;
+        background: #e2e8f0;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 25px;
+    }
+
+    .l2-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #2563eb;
+        transition: width 0.3s ease;
+    }
+
+    .l2-category {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1d4ed8;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    #questionTitle {
+        font-size: 23px;
+        margin: 0 0 12px;
+    }
+
+    #questionText {
+        color: #475569;
+        line-height: 1.7;
+        margin-bottom: 22px;
+    }
+
+    .l2-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .l2-option {
+        text-align: left;
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        color: #1e293b;
+        border-radius: 12px;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.15s;
+    }
+
+    .l2-option:hover {
+        border-color: #93c5fd;
+        background: #eff6ff;
+    }
+
+    .l2-option.selected {
+        border-color: #2563eb;
+        background: #dbeafe;
+    }
+
+    .l2-input {
+        width: 100%;
+        max-width: 500px;
+        padding: 13px;
+        border: 2px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 16px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+
+    .l2-hint {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        color: #92400e;
+        padding: 13px;
+        border-radius: 10px;
+        margin: 18px 0;
+        display: none;
+    }
+
+    .l2-button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .l2-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 12px 19px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .l2-btn-primary {
+        background: #2563eb;
+        color: white;
+    }
+
+    .l2-btn-primary:hover {
+        background: #1d4ed8;
+    }
+
+    .l2-btn-secondary {
+        background: #e2e8f0;
+        color: #334155;
+    }
+
+    .l2-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .l2-pixel-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 42px);
+        gap: 5px;
+        margin: 18px 0;
+    }
+
+    .l2-pixel {
+        width: 42px;
+        height: 42px;
+        background: white;
+        border: 2px solid #cbd5e1;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .l2-pixel.active {
+        background: #1e293b;
+        border-color: #1e293b;
+    }
+
+    .l2-pixel-legend {
+        font-size: 13px;
+        color: #64748b;
+    }
+
+    .l2-match-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .l2-match-row label {
+        font-weight: 600;
+    }
+
+    .l2-match-row select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: white;
+    }
+
+    .l2-result {
+        display: none;
+        text-align: center;
+    }
+
+    .l2-result h2 {
+        color: #1d4ed8;
+        font-size: 30px;
+    }
+
+    .l2-stars {
+        font-size: 34px;
+        letter-spacing: 5px;
+        margin: 15px 0;
+    }
+
+    .l2-result-number {
+        font-size: 40px;
+        font-weight: 800;
+        color: #1d4ed8;
+    }
+
+    .l2-review {
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .l2-review-item {
+        padding: 15px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+
+    .l2-review-item p {
+        margin: 6px 0;
+    }
+
+    .l2-correct-answer {
+        color: #15803d;
+        font-weight: 600;
+    }
+
+    .l2-status {
+        color: #64748b;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+        .l2-page {
+            padding: 10px;
+        }
+
+        .l2-card {
+            padding: 18px;
+        }
+
+        .l2-options {
+            grid-template-columns: 1fr;
+        }
+
+        .l2-pixel-grid {
+            grid-template-columns: repeat(5, 36px);
+        }
+
+        .l2-pixel {
+            width: 36px;
+            height: 36px;
+        }
+
+        .l2-match-row {
+            grid-template-columns: 1fr;
+            gap: 6px;
+        }
+    }
+</style>
+
+<div class="l2-page">
+
+    <div class="l2-header">
+        <div>
+            <h1>🖼️ Level 2: Image Representation</h1>
+            <p class="l2-subtitle">Explore pixels, binary images, and digital representation.</p>
+        </div>
+
+        <div class="l2-score-box">
+            Score: <span id="score">0</span>
+        </div>
+    </div>
+
+    <div class="l2-card" id="gameCard">
+
+        <div id="gameArea">
+            <div class="l2-progress-info">
+                <span id="questionCounter">Question 1 of 20</span>
+                <span id="progressPercent">0% completed</span>
+            </div>
+
+            <div class="l2-progress-track">
+                <div class="l2-progress-fill" id="progressBar"></div>
+            </div>
+
+            <span class="l2-category" id="questionCategory">Pixel Detective</span>
+
+            <h2 id="questionTitle">Question</h2>
+
+            <div id="questionText"></div>
+
+            <div id="activityArea"></div>
+
+            <div id="answerArea"></div>
+
+            <button type="button"
+                    class="l2-btn l2-btn-secondary"
+                    id="hintButton">
+                💡 Show Hint
+            </button>
+
+            <div class="l2-hint" id="hintBox"></div>
+
+            <div class="l2-button-row">
+                <button type="button"
+                        class="l2-btn l2-btn-primary"
+                        id="nextButton">
+                    Next Question →
+                </button>
+            </div>
+
+            <p class="l2-status">
+                Your score is revealed after you complete all questions.
+            </p>
+        </div>
+
+        <div class="l2-result" id="resultArea">
+            <h2>🎉 Level 2 Completed!</h2>
+            <p>Well done! Here is your final performance.</p>
+
+            <div class="l2-stars" id="stars"></div>
+
+            <div class="l2-result-number" id="finalScore">0 / 20</div>
+
+            <h3 id="percentage">0%</h3>
+
+            <p id="encouragement"></p>
+
+            <div class="l2-review">
+                <h3>📝 Answer Review</h3>
+                <p>Review your answers and learn from each question.</p>
+                <div id="reviewList"></div>
+            </div>
+
+            <div class="l2-button-row">
+                <button type="button"
+                        class="l2-btn l2-btn-primary"
+                        id="playAgainButton">
+                    🔄 Play Again
+                </button>
+
+                <a href="{% url 'student_dashboard' %}"
+                   class="l2-btn l2-btn-secondary"
+                   style="text-decoration:none;display:inline-block;">
+                    Return to Dashboard
+                </a>
+            </div>
+
+            <form id="saveResultForm"
+                  method="post"
+                  action="{% url 'save_level2_result' %}"
+                  style="display:none;">
+                {% csrf_token %}
+                <input type="hidden" name="score" id="saveScore">
+                <input type="hidden" name="total_questions" id="saveTotal">
+                <input type="hidden" name="percentage" id="savePercentage">
+                <input type="hidden" name="stars" id="saveStars">
+            </form>
+
+            <p id="saveMessage" class="l2-status"></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function () {
+    "use strict";
+
+    const $ = (id) => document.getElementById(id);
+
+    /*
+     * Pixel questions use a 5 x 5 grid.
+     * 1 = black pixel, 0 = white pixel.
+     */
+    const questions = [
+        {
+            type: "mcq",
+            category: "Digital Images",
+            title: "What is a pixel?",
+            text: "What does the word pixel mean in a digital image?",
+            options: [
+                "A tiny picture element",
+                "A type of keyboard",
+                "A computer cable",
+                "A sound file"
+            ],
+            answer: 0,
+            hint: "A digital image is made up of many tiny picture elements."
+        },
+        {
+            type: "mcq",
+            category: "Image Resolution",
+            title: "Understanding Resolution",
+            text: "What usually happens when an image has more pixels, assuming the same image size?",
+            options: [
+                "It must become black and white",
+                "It can show more detail",
+                "It cannot be displayed",
+                "It becomes a sound file"
+            ],
+            answer: 1,
+            hint: "Think about the amount of visual detail an image can contain."
+        },
+        {
+            type: "pixel",
+            category: "Pixel Detective",
+            title: "Build a Heart",
+            text: "Click the squares to make the displayed pixel pattern match the heart.",
+            target: "0101011111111111111101110",
+            label: "Heart",
+            hint: "Black squares represent 1 and white squares represent 0."
+        },
+        {
+            type: "mcq",
+            category: "Binary Images",
+            title: "Black and White",
+            text: "In this activity, what does a black pixel represent?",
+            options: [
+                "0",
+                "1",
+                "2",
+                "10"
+            ],
+            answer: 1,
+            hint: "For these activities, black is 1 and white is 0."
+        },
+        {
+            type: "fill",
+            category: "Image Representation",
+            title: "Complete the Sentence",
+            text: "A digital image can be represented using a grid of tiny picture elements called ______.",
+            answer: ["pixels", "pixel"],
+            hint: "The word starts with the letter P."
+        },
+        {
+            type: "match",
+            category: "Matching Challenge",
+            title: "Match the Terms",
+            text: "Match each image term with its correct meaning.",
+            pairs: [
+                ["Pixel", "A tiny picture element"],
+                ["Resolution", "The amount of image detail"],
+                ["Binary", "A system using 0 and 1"],
+                ["RGB", "Red, green and blue"]
+            ],
+            hint: "Think about image building blocks, image detail, binary numbers, and colours."
+        },
+        {
+            type: "mcq",
+            category: "Colour Images",
+            title: "RGB Colours",
+            text: "Which three colours are represented by RGB?",
+            options: [
+                "Red, green and blue",
+                "Red, grey and black",
+                "Yellow, green and black",
+                "White, blue and brown"
+            ],
+            answer: 0,
+            hint: "The letters R, G and B are the initials of three colour names."
+        },
+        {
+            type: "pixel",
+            category: "Pixel Detective",
+            title: "Create a Simple Arrow",
+            text: "Make the arrow pattern by clicking the squares.",
+            target: "0010000111001111100100100",
+            label: "Arrow",
+            hint: "Use black squares for 1 and white squares for 0."
+        },
+        {
+            type: "fill",
+            category: "Binary Images",
+            title: "Binary Values",
+            text: "The binary number system uses the digits ______ and ______.",
+            answer: ["0 and 1", "1 and 0", "01", "10"],
+            hint: "There are only two digits in the binary number system."
+        },
+        {
+            type: "mcq",
+            category: "Image Files",
+            title: "Image File Formats",
+            text: "Which of these is a common image file format?",
+            options: [
+                "PNG",
+                "MP3",
+                "EXE",
+                "BAT"
+            ],
+            answer: 0,
+            hint: "This format is commonly used for pictures and supports transparency."
+        },
+        {
+            type: "match",
+            category: "Matching Challenge",
+            title: "Match the Image Concepts",
+            text: "Match each concept with its description.",
+            pairs: [
+                ["Black pixel", "1 in this activity"],
+                ["White pixel", "0 in this activity"],
+                ["Pixel grid", "Rows and columns of pixels"],
+                ["Image file", "Stores digital picture data"]
+            ],
+            hint: "Remember how we represent black and white pixels in this game."
+        },
+        {
+            type: "mcq",
+            category: "Image Quality",
+            title: "Zooming In",
+            text: "What may happen when you enlarge a small raster image too much?",
+            options: [
+                "Pixels may become visible",
+                "The image becomes a keyboard",
+                "The image automatically becomes 3D",
+                "All pixels disappear"
+            ],
+            answer: 0,
+            hint: "Think about what happens when you enlarge a picture made of tiny squares."
+        },
+        {
+            type: "pixel",
+            category: "Pixel Detective",
+            title: "Create a House",
+            text: "Reproduce this simple house pattern by selecting the pixels.",
+            target: "0010001110010100111001110",
+            label: "House",
+            hint: "A house pattern often has a roof, walls and a base."
+        },
+        {
+            type: "fill",
+            category: "Image Quality",
+            title: "Image Detail",
+            text: "The number of pixels in an image can affect its ______.",
+            answer: ["resolution", "image resolution"],
+            hint: "This word describes the amount of detail in an image."
+        },
+        {
+            type: "mcq",
+            category: "Colour Depth",
+            title: "Colour Information",
+            text: "What does colour depth describe?",
+            options: [
+                "The number of bits used to represent a pixel's colour",
+                "The physical weight of a monitor",
+                "The length of a keyboard cable",
+                "The number of computer fans"
+            ],
+            answer: 0,
+            hint: "It concerns how much digital information is used for colour."
+        },
+        {
+            type: "match",
+            category: "Matching Challenge",
+            title: "Match the File Types",
+            text: "Match each file extension with the appropriate description.",
+            pairs: [
+                [".PNG", "Image format supporting transparency"],
+                [".JPG", "Common compressed photo format"],
+                [".GIF", "Can support simple animations"],
+                [".BMP", "Bitmap image format"]
+            ],
+            hint: "Each extension is associated with a different image format."
+        },
+        {
+            type: "mcq",
+            category: "Digital Storage",
+            title: "Storing Images",
+            text: "How is a digital image stored in a computer?",
+            options: [
+                "As digital data represented by bits",
+                "Only as printed paper",
+                "Only as sound waves",
+                "Without any data"
+            ],
+            answer: 0,
+            hint: "Computers process information using binary digits."
+        },
+        {
+            type: "pixel",
+            category: "Pixel Detective",
+            title: "Create a Tree",
+            text: "Select the squares to reproduce the pixel tree.",
+            target: "0010000100011100010001110",
+            label: "Tree",
+            hint: "Try to make a trunk and a leafy top with black pixels."
+        },
+        {
+            type: "fill",
+            category: "Digital Images",
+            title: "Complete the Statement",
+            text: "A collection of pixels arranged in rows and columns can form a digital ______.",
+            answer: ["image", "picture"],
+            hint: "It is what you see on the screen when viewing a photo."
+        },
+        {
+            type: "mcq",
+            category: "Final Challenge",
+            title: "Put It All Together",
+            text: "Which statement about digital images is correct?",
+            options: [
+                "Images can be represented using pixels and digital data",
+                "Every digital image must contain only one pixel",
+                "Pixels are used only for typing documents",
+                "Digital images cannot contain colour"
+            ],
+            answer: 0,
+            hint: "Think about pixels, binary representation and colour information."
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+    let userAnswers = [];
+    let pixelState = [];
+    let selectedOption = null;
+    let matchSelections = {};
+
+    function shuffle(items) {
+        const result = items.slice();
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+    }
+
+    function normalise(value) {
+        return String(value || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, " ");
+    }
+
+    function loadQuestion() {
+        answered = false;
+        selectedOption = null;
+        matchSelections = {};
+        pixelState = Array(25).fill("0");
+
+        const q = questions[currentQuestion];
+
+        $("questionCounter").textContent =
+            `Question ${currentQuestion + 1} of ${questions.length}`;
+
+        const progress = Math.round(
+            (currentQuestion / questions.length) * 100
+        );
+
+        $("progressBar").style.width = progress + "%";
+        $("progressPercent").textContent = progress + "% completed";
+
+        $("questionCategory").textContent = q.category;
+        $("questionTitle").textContent = q.title;
+        $("questionText").textContent = q.text;
+
+        $("activityArea").innerHTML = "";
+        $("answerArea").innerHTML = "";
+        $("hintBox").textContent = q.hint || "Review the question carefully.";
+        $("hintBox").style.display = "none";
+        $("hintButton").textContent = "💡 Show Hint";
+
+        $("nextButton").disabled = false;
+        $("nextButton").textContent =
+            currentQuestion === questions.length - 1
+                ? "Finish Level 2 🏁"
+                : "Next Question →";
+
+        if (q.type === "mcq") {
+            renderMCQ(q);
+        } else if (q.type === "fill") {
+            renderFill(q);
+        } else if (q.type === "pixel") {
+            renderPixel(q);
+        } else if (q.type === "match") {
+            renderMatch(q);
+        }
+    }
+
+    function renderMCQ(q) {
+        const options = $("answerArea");
+        options.className = "l2-options";
+
+        q.options.forEach((option, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "l2-option";
+            button.textContent = option;
+
+            button.addEventListener("click", () => {
+                if (answered) return;
+
+                selectedOption = index;
+
+                options.querySelectorAll(".l2-option").forEach((item) => {
+                    item.classList.remove("selected");
+                });
+
+                button.classList.add("selected");
+            });
+
+            options.appendChild(button);
+        });
+    }
+
+    function renderFill() {
+        $("answerArea").innerHTML = `
+            <label for="fillAnswer"><strong>Your answer:</strong></label><br>
+            <input
+                id="fillAnswer"
+                class="l2-input"
+                type="text"
+                placeholder="Type your answer here"
+                autocomplete="off"
+            >
+        `;
+    }
+
+    function renderPixel(q) {
+        const wrapper = document.createElement("div");
+
+        const instruction = document.createElement("p");
+        instruction.innerHTML =
+            "<strong>Click a square to switch it between black and white.</strong>";
+
+        wrapper.appendChild(instruction);
+
+        const grid = document.createElement("div");
+        grid.className = "l2-pixel-grid";
+
+        for (let i = 0; i < 25; i++) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "l2-pixel";
+            button.setAttribute("aria-label", `Pixel ${i + 1}`);
+
+            button.addEventListener("click", () => {
+                if (answered) return;
+
+                pixelState[i] = pixelState[i] === "1" ? "0" : "1";
+                button.classList.toggle("active", pixelState[i] === "1");
+            });
+
+            grid.appendChild(button);
+        }
+
+        wrapper.appendChild(grid);
+
+        const legend = document.createElement("p");
+        legend.className = "l2-pixel-legend";
+        legend.textContent = "Black = 1 | White = 0";
+
+        wrapper.appendChild(legend);
+        $("activityArea").appendChild(wrapper);
+    }
+
+    function renderMatch(q) {
+        const options = shuffle(q.pairs.map(pair => pair[1]));
+        const container = $("answerArea");
+
+        q.pairs.forEach((pair, index) => {
+            const row = document.createElement("div");
+            row.className = "l2-match-row";
+
+            const label = document.createElement("label");
+            label.textContent = pair[0];
+            label.setAttribute("for", `match-${index}`);
+
+            const select = document.createElement("select");
+            select.id = `match-${index}`;
+
+            const placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = "Choose a match";
+            select.appendChild(placeholder);
+
+            options.forEach(option => {
+                const item = document.createElement("option");
+                item.value = option;
+                item.textContent = option;
+                select.appendChild(item);
+            });
+
+            select.addEventListener("change", () => {
+                matchSelections[index] = select.value;
+            });
+
+            row.appendChild(label);
+            row.appendChild(select);
+            container.appendChild(row);
+        });
+    }
+
+    function getUserAnswer(q) {
+        if (q.type === "mcq") {
+            return selectedOption === null
+                ? ""
+                : q.options[selectedOption];
+        }
+
+        if (q.type === "fill") {
+            const input = $("fillAnswer");
+            return input ? input.value.trim() : "";
+        }
+
+        if (q.type === "pixel") {
+            return pixelState.join("");
+        }
+
+        if (q.type === "match") {
+            return q.pairs.map((pair, index) => ({
+                term: pair[0],
+                answer: matchSelections[index] || ""
+            }));
+        }
+
+        return "";
+    }
+
+    function getCorrectAnswer(q) {
+        if (q.type === "mcq") {
+            return q.options[q.answer];
+        }
+
+        if (q.type === "fill") {
+            return q.answer[0];
+        }
+
+        if (q.type === "pixel") {
+            return q.target;
+        }
+
+        if (q.type === "match") {
+            return q.pairs.map(pair => `${pair[0]} → ${pair[1]}`).join("; ");
+        }
+
+        return "";
+    }
+
+    function isCorrect(q, userAnswer) {
+        if (q.type === "mcq") {
+            return selectedOption === q.answer;
+        }
+
+        if (q.type === "fill") {
+            return q.answer.some(
+                answer => normalise(answer) === normalise(userAnswer)
+            );
+        }
+
+        if (q.type === "pixel") {
+            return userAnswer === q.target;
+        }
+
+        if (q.type === "match") {
+            return q.pairs.every((pair, index) =>
+                matchSelections[index] === pair[1]
+            );
+        }
+
+        return false;
+    }
+
+    function displayAnswer(answer, q) {
+        if (q.type === "pixel") {
+            return answer ? answer.split("").join(" ") : "No answer";
+        }
+
+        if (q.type === "match") {
+            if (!answer || !answer.length) return "No answer";
+
+            return answer.map(item =>
+                `${item.term} → ${item.answer || "Not answered"}`
+            ).join("; ");
+        }
+
+        return answer === "" || answer === null || answer === undefined
+            ? "No answer"
+            : String(answer);
+    }
+
+    function nextQuestion() {
+        if (answered) return;
+
+        const q = questions[currentQuestion];
+        const userAnswer = getUserAnswer(q);
+        const correct = isCorrect(q, userAnswer);
+
+        /*
+         * Keep the score internal while the game is in progress.
+         * Do not update the visible score here.
+         */
+        if (correct) score++;
+
+        userAnswers.push({
+            question: q.text,
+            title: q.title,
+            type: q.type,
+            userAnswer: userAnswer,
+            correctAnswer: getCorrectAnswer(q),
+            correct: correct
+        });
+
+        answered = true;
+
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        $("gameArea").style.display = "none";
+        $("resultArea").style.display = "block";
+
+        /*
+         * The score is revealed only after the final question.
+         */
+        $("score").textContent = score;
+        $("finalScore").textContent = `${score} / ${questions.length}`;
+
+        const percentage = Math.round((score / questions.length) * 100);
+        $("percentage").textContent = `${percentage}%`;
+
+        let starCount = 0;
+
+        if (percentage >= 90) {
+            starCount = 3;
+            $("encouragement").textContent =
+                "Excellent work! You are a Pixel Master!";
+        } else if (percentage >= 70) {
+            starCount = 2;
+            $("encouragement").textContent =
+                "Great job! Keep practising to become a Pixel Master.";
+        } else if (percentage >= 50) {
+            starCount = 1;
+            $("encouragement").textContent =
+                "Good effort! Review the answers and try again.";
+        } else {
+            starCount = 0;
+            $("encouragement").textContent =
+                "Keep learning. Every attempt helps you improve!";
+        }
+
+        $("stars").textContent =
+            "★".repeat(starCount) + "☆".repeat(3 - starCount);
+
+        $("progressBar").style.width = "100%";
+        $("progressPercent").textContent = "100% completed";
+
+        const reviewList = $("reviewList");
+        reviewList.innerHTML = "";
+
+        userAnswers.forEach((answer, index) => {
+            const item = document.createElement("div");
+            item.className = "l2-review-item";
+
+            const heading = document.createElement("h4");
+            heading.textContent = `${index + 1}. ${answer.title}`;
+
+            const question = document.createElement("p");
+            question.textContent = answer.question;
+
+            const userResponse = document.createElement("p");
+            userResponse.textContent =
+                "Your answer: " +
+                displayAnswer(answer.userAnswer, questions[index]);
+
+            const correctResponse = document.createElement("p");
+            correctResponse.className = "l2-correct-answer";
+            correctResponse.textContent =
+                "Correct answer: " + answer.correctAnswer;
+
+            const status = document.createElement("p");
+            status.textContent = answer.correct
+                ? "✓ Correct"
+                : "✗ Incorrect";
+            status.style.fontWeight = "700";
+            status.style.color = answer.correct ? "#15803d" : "#b91c1c";
+
+            item.appendChild(heading);
+            item.appendChild(question);
+            item.appendChild(userResponse);
+            item.appendChild(correctResponse);
+            item.appendChild(status);
+
+            reviewList.appendChild(item);
+        });
+
+        $("saveScore").value = score;
+        $("saveTotal").value = questions.length;
+        $("savePercentage").value = percentage;
+        $("saveStars").value = starCount;
+
+        /*
+         * Save the result through the Django view.
+         * If the route is not configured yet, the game still displays
+         * the result, but saving requires that view and URL to exist.
+         */
+        const saveForm = $("saveResultForm");
+
+        if (saveForm) {
+            fetch(saveForm.action, {
+                method: "POST",
+                body: new FormData(saveForm),
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                credentials: "same-origin"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Could not save the result.");
+                }
+                $("saveMessage").textContent = "Your result has been submitted.";
+            })
+            .catch(() => {
+                $("saveMessage").textContent =
+                    "Your result is displayed above. Result saving may need to be configured in Django.";
+            });
+        }
+    }
+
+    function restartGame() {
+        currentQuestion = 0;
+        score = 0;
+        answered = false;
+        userAnswers = [];
+        selectedOption = null;
+        matchSelections = {};
+        pixelState = [];
+
+        $("score").textContent = "0";
+        $("gameArea").style.display = "block";
+        $("resultArea").style.display = "none";
+        $("saveMessage").textContent = "";
+
+        loadQuestion();
+    }
+
+    $("nextButton").addEventListener("click", nextQuestion);
+
+    $("hintButton").addEventListener("click", () => {
+        const hintBox = $("hintBox");
+        const showing = hintBox.style.display === "block";
+
+        hintBox.style.display = showing ? "none" : "block";
+        $("hintButton").textContent = showing
+            ? "💡 Show Hint"
+            : "🙈 Hide Hint";
+    });
+
+    $("playAgainButton").addEventListener("click", restartGame);
+
+    loadQuestion();
+})();
+</script>
+{% endblock %}

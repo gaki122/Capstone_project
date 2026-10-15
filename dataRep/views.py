@@ -7,6 +7,7 @@ import secrets
 from .models import (
     StudentProfile,
     Level1Result,
+    Level2Result,
     GuestResult,
     TeacherProfile,
     ClassSection,
@@ -448,6 +449,40 @@ def level1_game(request):
     return render(
         request,
         'level1_game.html'
+    )
+
+
+
+# ==========================================================
+# LEVEL 2 GAME
+# ==========================================================
+
+def level2_game(request):
+
+    # Allow guests to play without registering.
+    if not request.user.is_authenticated:
+
+        return render(
+            request,
+            'level2_game.html'
+        )
+
+    # Allow registered students to play.
+    try:
+
+        StudentProfile.objects.get(
+            user=request.user
+        )
+
+    except StudentProfile.DoesNotExist:
+
+        # Teachers and other accounts cannot access
+        # the student game through this view.
+        return redirect('home')
+
+    return render(
+        request,
+        'level2_game.html'
     )
 
 
