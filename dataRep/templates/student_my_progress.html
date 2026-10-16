@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Progress | Data Quest</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #243047;
+        }
+
+        nav {
+            background: #183b70;
+            color: white;
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        nav .brand {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-header h1 {
+            margin: 0 0 10px;
+            color: #183b70;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #65728a;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: #2458a6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card p {
+            margin: 0 0 8px;
+            color: #65728a;
+            font-size: 14px;
+        }
+
+        .stat-card h2 {
+            margin: 0;
+            color: #183b70;
+            font-size: 27px;
+        }
+
+        .section {
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            color: #183b70;
+            margin-top: 0;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 13px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e6ebf2;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eef3fb;
+            color: #183b70;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .completed {
+            background: #dff5e8;
+            color: #167342;
+        }
+
+        .pending {
+            background: #fff0d4;
+            color: #8a5a00;
+        }
+
+        .empty {
+            padding: 20px;
+            background: #f6f8fc;
+            border-radius: 8px;
+            color: #65728a;
+            line-height: 1.6;
+        }
+
+        .challenge-card {
+            background: #f6f8fc;
+            padding: 18px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 22px;
+            color: #65728a;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                align-items: flex-start;
+            }
+
+            nav a {
+                margin-left: 0;
+                margin-right: 12px;
+                display: inline-block;
+                margin-top: 8px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 18px;
+            }
+
+            .section, .page-header {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="brand">Data Quest</div>
+
+    <div>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'student_dashboard' %}">Dashboard</a>
+        <a href="{% url 'learn' %}">Learn</a>
+        <a href="{% url 'student_logout' %}">Logout</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>My Progress</h1>
+        <p>
+            Hello, {{ student.full_name }}! Review your completed levels,
+            scores, stars, and previous attempts here.
+        </p>
+
+        <a class="back-link"
+           href="{% url 'student_dashboard' %}">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <p>Total Points</p>
+            <h2>{{ student.total_points|default:0 }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <p>Total Stars</p>
+            <h2>⭐ {{ student.total_stars|default:0 }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <p>Levels Completed</p>
+            <h2>{{ student.completed_levels|default:0 }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <p>Total Level Attempts</p>
+            <h2>{{ level1_results|length|add:level2_results|length }}</h2>
+        </div>
+    </div>
+
+    <!-- LEVEL 1 HISTORY -->
+
+    <section class="section">
+        <h2>Level 1 — Previous Attempts</h2>
+
+        {% if level1_results %}
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attempt</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Stars</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for result in level1_results %}
+                            <tr>
+                                <td>{{ result.attempt_number }}</td>
+
+                                <td>
+                                    {{ result.score }} /
+                                    {{ result.total_questions }}
+                                </td>
+
+                                <td>{{ result.percentage }}%</td>
+
+                                <td>⭐ {{ result.stars }}</td>
+
+                                <td>
+                                    {% if result.completed %}
+                                        <span class="status completed">
+                                            Completed
+                                        </span>
+                                    {% else %}
+                                        <span class="status pending">
+                                            Incomplete
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {{ result.completed_at|date:"d M Y, H:i" }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty">
+                You have not completed Level 1 yet. Play Level 1 to see
+                your results here.
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- LEVEL 2 HISTORY -->
+
+    <section class="section">
+        <h2>Level 2 — Previous Attempts</h2>
+
+        {% if level2_results %}
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attempt</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Stars</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for result in level2_results %}
+                            <tr>
+                                <td>{{ result.attempt_number }}</td>
+
+                                <td>
+                                    {{ result.score }} /
+                                    {{ result.total_questions }}
+                                </td>
+
+                                <td>{{ result.percentage }}%</td>
+
+                                <td>⭐ {{ result.stars }}</td>
+
+                                <td>
+                                    {% if result.completed %}
+                                        <span class="status completed">
+                                            Completed
+                                        </span>
+                                    {% else %}
+                                        <span class="status pending">
+                                            Incomplete
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {{ result.completed_at|date:"d M Y, H:i" }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty">
+                You have not completed Level 2 yet. After completing Level 2,
+                your saved attempts will appear here.
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- FINAL CHALLENGE -->
+
+    <section class="section">
+        <h2>Final Challenge</h2>
+
+        {% if final_result %}
+            <div class="challenge-card">
+                <strong>Status:</strong>
+                {% if final_result.completed %}
+                    <span class="status completed">Completed</span>
+                {% else %}
+                    <span class="status pending">Incomplete</span>
+                {% endif %}
+
+                <br>
+
+                <strong>Score:</strong>
+                {{ final_result.score }} /
+                {{ final_result.total_questions }}
+
+                <br>
+
+                <strong>Percentage:</strong>
+                {{ final_result.percentage }}%
+
+                <br>
+
+                <strong>Stars:</strong>
+                ⭐ {{ final_result.stars }}
+
+                {% if final_result.completed_at %}
+                    <br>
+                    <strong>Date:</strong>
+                    {{ final_result.completed_at|date:"d M Y, H:i" }}
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="empty">
+                You have not saved a Final Challenge result yet.
+            </div>
+        {% endif %}
+    </section>
+
+</main>
+
+<footer>
+    Data Quest — Learn, Play, and Improve
+</footer>
+
+</body>
+</html>

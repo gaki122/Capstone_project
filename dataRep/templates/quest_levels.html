@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Level | Data Quest</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #eef2ff, #f0fdf4);
+            color: #1e293b;
+            padding: 30px 20px 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex: 1;
+        }
+
+        /* Top navigation */
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 45px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #4338ca;
+        }
+
+        /* Home button */
+        .back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 20px;
+            background: #ffffff;
+            color: #4338ca;
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(67, 56, 202, 0.08);
+            transition: background 0.25s ease,
+                        color 0.25s ease,
+                        border-color 0.25s ease,
+                        transform 0.25s ease,
+                        box-shadow 0.25s ease;
+        }
+
+        .back:hover {
+            background: #4338ca;
+            color: #ffffff;
+            border-color: #4338ca;
+            box-shadow: 0 6px 16px rgba(67, 56, 202, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .back:active {
+            background: #312e81;
+            color: #ffffff;
+            border-color: #312e81;
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(67, 56, 202, 0.2);
+        }
+
+        .back:focus-visible {
+            outline: 3px solid #a5b4fc;
+            outline-offset: 3px;
+        }
+
+        /* Page heading */
+        .heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .heading h1 {
+            font-size: clamp(30px, 5vw, 44px);
+            margin-bottom: 12px;
+        }
+
+        .heading p {
+            color: #64748b;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* Level cards */
+        .levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .level-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.25s ease,
+                        box-shadow 0.25s ease;
+        }
+
+        .level-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        .level-number {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .level-card h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .level-card p {
+            color: #64748b;
+            line-height: 1.7;
+            min-height: 80px;
+            margin-bottom: 22px;
+        }
+
+        /* Start buttons */
+        .level-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #4f46e5;
+            color: #ffffff;
+            padding: 13px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background 0.2s ease,
+                        transform 0.2s ease;
+        }
+
+        .level-btn:hover {
+            background: #3730a3;
+            transform: translateY(-1px);
+        }
+
+        .level-btn:active {
+            background: #312e81;
+            transform: scale(0.98);
+        }
+
+        .level-btn:focus-visible {
+            outline: 3px solid #a5b4fc;
+            outline-offset: 3px;
+        }
+
+        /* Level 2 green theme */
+        .level-two .level-number {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .level-two .level-btn {
+            background: #15803d;
+        }
+
+        .level-two .level-btn:hover {
+            background: #166534;
+        }
+
+        .level-two .level-btn:active {
+            background: #14532d;
+        }
+
+        /* Note below the cards */
+        .note {
+            text-align: center;
+            color: #64748b;
+            margin-top: 35px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .site-footer {
+            margin-top: 50px;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding: 25px 20px;
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        .footer-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .site-footer p {
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .site-footer .copyright {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+
+        /* Mobile layout */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 20px;
+            }
+
+            .top {
+                margin-bottom: 30px;
+            }
+
+            .level-card p {
+                min-height: auto;
+            }
+
+            .heading p {
+                font-size: 15px;
+            }
+
+            .site-footer {
+                margin-top: 35px;
+                padding: 22px 15px;
+            }
+        }
+
+        /* Respect reduced-motion settings */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <!-- Top navigation -->
+        <div class="top">
+            <div class="logo">🎯 Data Quest</div>
+
+            <a href="{% url 'home' %}" class="back">
+                <span aria-hidden="true">←</span>
+                <span>Home</span>
+            </a>
+        </div>
+
+        <!-- Page heading -->
+        <section class="heading">
+            <h1>Choose Your Challenge</h1>
+            <p>
+                Select a level to begin your data representation adventure.
+                Learn, practise, and test your knowledge!
+            </p>
+        </section>
+
+        <!-- Game levels -->
+        <section class="levels">
+
+            <!-- Level 1 -->
+            <div class="level-card">
+                <span class="level-number">LEVEL 1</span>
+
+                <h2>🔤 ASCII Representation</h2>
+
+                <p>
+                    Explore how computers represent text using ASCII.
+                    Test your understanding with interactive questions
+                    and earn points.
+                </p>
+
+                <a href="{% url 'level1_game' %}" class="level-btn">
+                    Start Level 1 →
+                </a>
+            </div>
+
+            <!-- Level 2 -->
+            <div class="level-card level-two">
+                <span class="level-number">LEVEL 2</span>
+
+                <h2>🖼️ Image Representation</h2>
+
+                <p>
+                    Discover how digital images are represented using
+                    pixels, colours, and binary data. Challenge yourself
+                    with image-related questions.
+                </p>
+
+                <a href="{% url 'level2_game' %}" class="level-btn">
+                    Start Level 2 →
+                </a>
+            </div>
+
+        </section>
+
+        <!-- Learning note -->
+        <div class="note">
+            Choose a level above to get started. Have fun learning! 🚀
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-title">🎯 Data Quest</div>
+
+        <p>
+            Explore data representation, practise your skills,
+            and challenge yourself through interactive learning.
+        </p>
+
+        <p class="copyright">
+            &copy; 2026 Data Quest. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
