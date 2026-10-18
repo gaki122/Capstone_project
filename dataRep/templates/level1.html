@@ -1,12 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Level 1 - ASCII | Data Quest</title>
+    <title>Select Level | Data Quest</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -26,41 +31,107 @@
         }
 
         .container {
-            max-width: 900px;
-            margin: 50px auto;
+            max-width: 1000px;
+            margin: 45px auto;
             padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .heading h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .levels {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
         }
 
         .card {
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             text-align: center;
-        }
-
-        h1 {
-            color: #2563eb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .icon {
-            font-size: 60px;
+            font-size: 58px;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            color: #2563eb;
+            margin: 10px 0;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: #64748b;
+            flex-grow: 1;
         }
 
         .start-button {
             display: inline-block;
-            margin-top: 25px;
-            padding: 14px 30px;
+            margin-top: 20px;
+            padding: 14px 24px;
             background: #2563eb;
             color: white;
             text-decoration: none;
             border-radius: 10px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
         }
 
         .start-button:hover {
             background: #1d4ed8;
+        }
+
+        .level-two .start-button {
+            background: #7c3aed;
+        }
+
+        .level-two .start-button:hover {
+            background: #6d28d9;
+        }
+
+        .back-link {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .levels {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin-top: 25px;
+            }
         }
     </style>
 </head>
@@ -68,36 +139,61 @@
 <body>
 
 <nav class="navbar">
-    <div class="logo">
-        🎯 Data Quest
-    </div>
+    <div class="logo">🎯 Data Quest</div>
 </nav>
 
-<div class="container">
+<main class="container">
 
-    <div class="card">
-
-        <div class="icon">🔤</div>
-
-        <h1>Level 1 — ASCII</h1>
-
+    <div class="heading">
+        <h1>Choose Your Level 🎮</h1>
         <p>
-            Welcome to your first Data Quest level!
+            Welcome to Data Quest! Choose a level below
+            and start learning through fun activities.
         </p>
+    </div>
 
-        <p>
-            Learn how computers represent characters using
-            <strong>ASCII</strong>.
-        </p>
+    <div class="levels">
 
-        <a href="{% url 'level1_game' %}" class="start-button">
-            🚀 Start Level 1
-        </a>
+        <!-- LEVEL 1 -->
+        <section class="card">
+            <div class="icon">🔤</div>
 
+            <h2>Level 1 — ASCII</h2>
+
+            <p>
+                Discover how computers represent letters,
+                numbers, and symbols using ASCII.
+                Test your knowledge with interactive questions.
+            </p>
+
+            <a href="{% url 'level1_game' %}" class="start-button">
+                🚀 Start Level 1
+            </a>
+        </section>
+
+        <!-- LEVEL 2 -->
+        <section class="card level-two">
+            <div class="icon">🖼️</div>
+
+            <h2>Level 2 — Image Representation</h2>
+
+            <p>
+                Explore pixels, binary numbers, image dimensions,
+                rows, and columns through 20 interactive questions.
+            </p>
+
+            <a href="{% url 'level2_game' %}" class="start-button">
+                🎮 Start Level 2
+            </a>
+        </section>
 
     </div>
 
-</div>
+    <a href="{% url 'home' %}" class="back-link">
+        ← Back to Home
+    </a>
+
+</main>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -31,12 +32,7 @@ class ClassSection(models.Model):
         max_length=100
     )
 
-    # Unique code that students use to join this section.
-    # The same code can be used by all students
-    # belonging to this section.
-    #
-    # null=True and blank=True are temporarily allowed
-    # because existing sections do not have a join code yet.
+    # Unique code students use to join a section.
     join_code = models.CharField(
         max_length=20,
         unique=True,
@@ -73,9 +69,6 @@ class StudentProfile(models.Model):
         max_length=100
     )
 
-    # Student can belong to only ONE section.
-    # It stays empty until the student joins
-    # a section after logging in.
     class_section = models.ForeignKey(
         'ClassSection',
         on_delete=models.SET_NULL,
@@ -115,29 +108,12 @@ class Level1Result(models.Model):
         on_delete=models.CASCADE
     )
 
-    score = models.IntegerField(
-        default=0
-    )
-
-    total_questions = models.IntegerField(
-        default=20
-    )
-
-    percentage = models.IntegerField(
-        default=0
-    )
-
-    stars = models.IntegerField(
-        default=1
-    )
-
-    completed = models.BooleanField(
-        default=False
-    )
-
-    attempt_number = models.IntegerField(
-        default=1
-    )
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=20)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
+    attempt_number = models.IntegerField(default=1)
 
     completed_at = models.DateTimeField(
         auto_now_add=True
@@ -147,42 +123,25 @@ class Level1Result(models.Model):
         return (
             f"{self.student.full_name} "
             f"- Level 1 - "
-            f"{self.score}/20"
+            f"{self.score}/{self.total_questions}"
         )
 
 
 # =========================
-# Guest Result
+# Guest Result - Level 1
 # =========================
 
 class GuestResult(models.Model):
 
-    # Used to identify the guest's browser session.
-    # Guest results are NOT connected to any student
-    # or teacher account.
     session_key = models.CharField(
         max_length=100
     )
 
-    score = models.IntegerField(
-        default=0
-    )
-
-    total_questions = models.IntegerField(
-        default=20
-    )
-
-    percentage = models.IntegerField(
-        default=0
-    )
-
-    stars = models.IntegerField(
-        default=1
-    )
-
-    completed = models.BooleanField(
-        default=False
-    )
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=20)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
 
     completed_at = models.DateTimeField(
         auto_now_add=True
@@ -202,35 +161,17 @@ class GuestResult(models.Model):
 
 class FinalChallengeResult(models.Model):
 
-    # One student can have only ONE
-    # Final Challenge result.
-    #
-    # This ensures that the Final Challenge
-    # can only be attempted once.
+    # One student can have only one Final Challenge result.
     student = models.OneToOneField(
         StudentProfile,
         on_delete=models.CASCADE
     )
 
-    score = models.IntegerField(
-        default=0
-    )
-
-    total_questions = models.IntegerField(
-        default=25
-    )
-
-    percentage = models.IntegerField(
-        default=0
-    )
-
-    stars = models.IntegerField(
-        default=1
-    )
-
-    completed = models.BooleanField(
-        default=False
-    )
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=25)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
 
     completed_at = models.DateTimeField(
         auto_now_add=True
@@ -240,8 +181,7 @@ class FinalChallengeResult(models.Model):
         return (
             f"{self.student.full_name} "
             f"- Final Challenge - "
-            f"{self.score}/"
-            f"{self.total_questions}"
+            f"{self.score}/{self.total_questions}"
         )
 
 
@@ -251,33 +191,16 @@ class FinalChallengeResult(models.Model):
 
 class GuestFinalChallengeResult(models.Model):
 
-    # Identifies the guest's browser session.
-    # This result is completely separate from
-    # student and teacher accounts.
     session_key = models.CharField(
         max_length=100,
         unique=True
     )
 
-    score = models.IntegerField(
-        default=0
-    )
-
-    total_questions = models.IntegerField(
-        default=25
-    )
-
-    percentage = models.IntegerField(
-        default=0
-    )
-
-    stars = models.IntegerField(
-        default=1
-    )
-
-    completed = models.BooleanField(
-        default=False
-    )
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=25)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
 
     completed_at = models.DateTimeField(
         auto_now_add=True
@@ -286,6 +209,140 @@ class GuestFinalChallengeResult(models.Model):
     def __str__(self):
         return (
             f"Guest Final Challenge - "
-            f"{self.score}/"
-            f"{self.total_questions}"
+            f"{self.score}/{self.total_questions}"
+        )
+
+
+# =========================
+# Level 2 Result
+# =========================
+
+class Level2Result(models.Model):
+
+    # Registered student results are linked to a student.
+    # Guest results can be identified by their session key.
+    student = models.ForeignKey(
+        StudentProfile,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    session_key = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=20)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
+    attempt_number = models.IntegerField(default=1)
+
+    completed_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        if self.student:
+            name = self.student.full_name
+        else:
+            name = "Guest"
+
+        return (
+            f"{name} - Level 2 - "
+            f"{self.score}/{self.total_questions}"
+        )
+
+
+# =========================
+# Level 3 Result
+# =========================
+
+class Level3Result(models.Model):
+
+    # Registered student results
+    student = models.ForeignKey(
+        StudentProfile,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    # Guest player results
+    session_key = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=20)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
+    attempt_number = models.IntegerField(default=1)
+
+    completed_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+
+        if self.student:
+            name = self.student.full_name
+        else:
+            name = "Guest"
+
+        return (
+            f"{name} - Level 3 - "
+            f"{self.score}/{self.total_questions}"
+        )
+
+
+
+
+# =========================
+# Level 4 Result
+# =========================
+
+class Level4Result(models.Model):
+
+    # Registered student results
+    student = models.ForeignKey(
+        StudentProfile,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    # Guest player results
+    session_key = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    score = models.IntegerField(default=0)
+    total_questions = models.IntegerField(default=20)
+    percentage = models.IntegerField(default=0)
+    stars = models.IntegerField(default=1)
+    completed = models.BooleanField(default=False)
+    attempt_number = models.IntegerField(default=1)
+
+    completed_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        if self.student:
+            name = self.student.full_name
+        else:
+            name = "Guest"
+
+        return (
+            f"{name} - Level 4 - "
+            f"{self.score}/{self.total_questions}"
         )

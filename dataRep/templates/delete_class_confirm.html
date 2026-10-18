@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete Class | Data Quest</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #f3f4f6;
+            font-family: Arial, sans-serif;
+            color: #1f2937;
+        }
+
+        .confirmation-card {
+            width: 100%;
+            max-width: 500px;
+            padding: 32px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .warning-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fee2e2;
+            color: #dc2626;
+            border-radius: 50%;
+            font-size: 32px;
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            font-size: 25px;
+            color: #b91c1c;
+        }
+
+        .class-name {
+            margin: 18px 0;
+            padding: 14px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .warning-message {
+            margin: 18px 0;
+            padding: 14px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            color: #9a3412;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .actions button,
+        .actions a {
+            flex: 1;
+            padding: 13px 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .delete-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .delete-button:hover {
+            background: #b91c1c;
+        }
+
+        .cancel-button {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .cancel-button:hover {
+            background: #d1d5db;
+        }
+
+        @media (max-width: 420px) {
+            .confirmation-card {
+                padding: 22px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="confirmation-card">
+        <div class="warning-icon">!</div>
+
+        <h1>Delete Class?</h1>
+
+        <p>
+            Are you sure you want to delete this class?
+        </p>
+
+        <div class="class-name">
+            {{ class_section.name }}
+        </div>
+
+        <div class="warning-message">
+            <strong>Please note:</strong> This action will remove the class
+            and may affect its student associations. Student accounts and
+            saved game results must be protected by the relationships
+            configured in your Django models before you proceed.
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="confirm_delete"
+                value="yes"
+            >
+
+            <div class="actions">
+                <button type="submit" class="delete-button">
+                    Yes, Delete Class
+                </button>
+
+                <a
+                    href="{% url 'teacher_dashboard' %}"
+                    class="cancel-button"
+                >
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

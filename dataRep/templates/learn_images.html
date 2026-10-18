@@ -1,869 +1,1255 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Images & Pixels | Data Quest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Image Representation | Data Quest</title>
 
     <style>
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f8fafc;
-            color: #1f2937;
+            background: #f5f7fb;
+            color: #111827;
             line-height: 1.6;
         }
 
-        /* =========================
-           NAVBAR
-           ========================= */
+        a {
+            text-decoration: none;
+        }
 
-        nav {
-            background: #111827;
-            padding: 18px 8%;
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1180px;
+            margin: auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 25px;
         }
 
         .logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
+            color: #111827;
+            font-size: 26px;
+            font-weight: 900;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+
+        .logo:hover {
+            color: #2563eb;
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
-            list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .nav-links a {
-            color: #d1d5db;
-            text-decoration: none;
-            font-weight: 500;
+            color: #111827;
+            font-size: 15px;
+            font-weight: 800;
+            padding: 9px 13px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            transition: 0.2s;
         }
 
-        .nav-links a:hover {
-            color: white;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #2563eb;
+            background: #eff6ff;
+            border-color: #dbeafe;
         }
-
-        /* =========================
-           HERO
-           ========================= */
 
         .hero {
-            background: linear-gradient(
-                135deg,
-                #7c3aed,
-                #4c1d95
-            );
-
-            color: white;
-            padding: 80px 8%;
             text-align: center;
+            padding: 75px 20px 65px;
+            background: linear-gradient(135deg, #eff6ff, #ffffff);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #ffffff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 22px;
         }
 
         .hero h1 {
-            font-size: 46px;
-            margin-bottom: 15px;
+            color: #111827;
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
         }
 
         .hero p {
-            font-size: 19px;
-            max-width: 750px;
+            max-width: 760px;
             margin: auto;
-            color: #ede9fe;
+            color: #64748b;
+            font-size: 18px;
+            line-height: 1.7;
         }
-
-        /* =========================
-           CONTAINER
-           ========================= */
 
         .container {
-            width: 90%;
             max-width: 1100px;
-            margin: 50px auto;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        /* =========================
-           CONTENT CARD
-           ========================= */
-
-        .content-card {
-            background: white;
-            padding: 35px;
-            margin-bottom: 30px;
+        .section {
+            background: #ffffff;
+            padding: 28px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
             border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
         }
 
-        .content-card h2 {
+        .section h2 {
+            font-size: 25px;
             color: #111827;
             margin-bottom: 15px;
         }
 
-        .content-card p {
-            color: #4b5563;
-            margin-bottom: 15px;
+        .section h3 {
+            color: #1d4ed8;
+            font-size: 19px;
+            margin: 20px 0 8px;
         }
 
-        /* =========================
-           PIXEL GRID
-           ========================= */
-
-        .pixel-box {
-            display: flex;
-            justify-content: center;
-            margin-top: 25px;
+        .section p {
+            color: #475569;
+            margin-bottom: 12px;
         }
 
-        .pixel-grid {
+        .section ul,
+        .section ol {
+            padding-left: 24px;
+            color: #475569;
+            margin: 12px 0;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 17px 20px;
+            border-radius: 10px;
+            margin: 18px 0;
+            color: #1e3a8a;
+        }
+
+        .note {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 17px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .note strong {
+            color: #1d4ed8;
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(8, 30px);
-            grid-template-rows: repeat(8, 30px);
-            gap: 2px;
-            background: #111827;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            padding: 22px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+        }
+
+        .info-card p {
+            margin-bottom: 0;
+        }
+
+        .pixel-example {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            width: min(100%, 320px);
+            aspect-ratio: 1;
+            gap: 3px;
+            margin: 20px auto;
             padding: 8px;
+            background: #e2e8f0;
             border-radius: 10px;
         }
 
         .pixel {
-            background: #e5e7eb;
+            border-radius: 3px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
         }
 
-        .pixel:nth-child(2),
-        .pixel:nth-child(3),
-        .pixel:nth-child(4),
-        .pixel:nth-child(5),
-        .pixel:nth-child(6),
-        .pixel:nth-child(7),
-        .pixel:nth-child(10),
-        .pixel:nth-child(17),
-        .pixel:nth-child(24),
-        .pixel:nth-child(25),
-        .pixel:nth-child(32),
-        .pixel:nth-child(33),
-        .pixel:nth-child(40),
-        .pixel:nth-child(41),
-        .pixel:nth-child(48),
-        .pixel:nth-child(49),
-        .pixel:nth-child(56),
-        .pixel:nth-child(57),
-        .pixel:nth-child(58),
-        .pixel:nth-child(59),
-        .pixel:nth-child(60),
-        .pixel:nth-child(61),
-        .pixel:nth-child(62),
-        .pixel:nth-child(63) {
-            background: #7c3aed;
+        .pixel.dark {
+            background: #2563eb;
+            border-color: #2563eb;
         }
 
-        /* =========================
-           EXAMPLE BOX
-           ========================= */
-
-        .example-box {
-            background: #f5f3ff;
-            border-left: 5px solid #7c3aed;
-            padding: 25px;
-            margin-top: 20px;
-            border-radius: 10px;
+        .pixel.mid {
+            background: #93c5fd;
+            border-color: #93c5fd;
         }
 
-        .example-box h3 {
-            color: #5b21b6;
-            margin-bottom: 12px;
-        }
-
-        /* =========================
-           STEPS
-           ========================= */
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .step {
-            background: #f8fafc;
-            padding: 25px;
-            border-radius: 14px;
+        .caption {
             text-align: center;
-            border: 1px solid #e5e7eb;
-        }
-
-        .step-number {
-            width: 45px;
-            height: 45px;
-            background: #7c3aed;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .step h3 {
-            margin-bottom: 10px;
-        }
-
-        .step p {
+            color: #64748b;
             font-size: 14px;
         }
 
-        /* =========================
-           QUICK FACTS
-           ========================= */
-
-        .facts {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 25px;
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 15px;
         }
 
-        .fact {
-            background: #faf5ff;
-            padding: 25px;
-            text-align: center;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 420px;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+
+        td {
+            color: #475569;
+        }
+
+        .calculator {
+            background: #f8fafc;
+            border: 1px solid #dbeafe;
+            padding: 22px;
             border-radius: 14px;
-            border: 1px solid #e9d5ff;
+            margin-top: 18px;
         }
 
-        .fact strong {
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
             display: block;
-            font-size: 30px;
-            color: #7c3aed;
-            margin-bottom: 8px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: #334155;
         }
 
-        /* =========================
-           RESOURCE BOX
-           ========================= */
-
-        .resource-box {
-            background: linear-gradient(
-                135deg,
-                #f5f3ff,
-                #f8fafc
-            );
-
-            border: 1px solid #ddd6fe;
-            border-radius: 18px;
-            padding: 35px;
-            margin-top: 30px;
-            text-align: center;
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 16px;
+            background: #ffffff;
         }
 
-        .resource-box h2 {
-            color: #111827;
-            margin-bottom: 12px;
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: 2px solid #bfdbfe;
+            border-color: #2563eb;
         }
 
-        .resource-box p {
-            color: #6b7280;
-            margin-bottom: 25px;
-        }
-
-        .resource-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .resource-btn {
+        .button {
             display: inline-block;
-            padding: 13px 22px;
-            background: #7c3aed;
-            color: white;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             border-radius: 10px;
-            font-weight: 600;
-            transition: 0.3s;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 800;
+            transition: 0.2s;
         }
 
-        .resource-btn:hover {
-            background: #6d28d9;
+        .button-primary {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .button-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .button-secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .button-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .result-box {
+            display: none;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e3a8a;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 18px;
+        }
+
+        .result-box p {
+            color: #1e3a8a;
+            margin-bottom: 6px;
+        }
+
+        .result-box strong {
+            color: #1d4ed8;
+        }
+
+        .error-message {
+            color: #b91c1c;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .resource {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 18px;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .resource:hover {
+            border-color: #93c5fd;
+            background: #f8fbff;
             transform: translateY(-2px);
         }
 
-        .resource-btn.secondary {
-            background: #475569;
+        .resource a {
+            display: inline-block;
+            color: #2563eb;
+            font-weight: 800;
+            margin-bottom: 7px;
         }
 
-        .resource-btn.secondary:hover {
-            background: #334155;
+        .resource p {
+            font-size: 14px;
+            margin: 0;
         }
 
-        /* =========================
-           FOOTER
-           ========================= */
+        .bottom-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 35px 0 50px;
+        }
 
         footer {
-            background: #111827;
-            color: #9ca3af;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 25px 15px;
             text-align: center;
-            padding: 25px;
-            margin-top: 60px;
+            color: #64748b;
+            font-size: 14px;
         }
 
-        /* =========================
-           RESPONSIVE
-           ========================= */
+        @media (max-width: 950px) {
+            .navbar {
+                padding: 15px 20px;
+            }
 
-        @media (max-width: 800px) {
-
-            .nav-links {
+            .nav-container {
+                flex-direction: column;
                 gap: 12px;
             }
 
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .steps {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .facts {
-                grid-template-columns: 1fr;
+            .nav-links {
+                justify-content: center;
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 13px 12px;
+            }
 
-            nav {
-                flex-direction: column;
-                gap: 15px;
+            .logo {
+                font-size: 23px;
             }
 
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 1px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+                padding: 6px 7px;
+            }
+
+            .hero {
+                padding: 55px 15px;
             }
 
             .hero h1 {
-                font-size: 32px;
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 16px;
             }
 
             .container {
-                width: 94%;
+                margin-top: 25px;
+                padding: 0 12px;
             }
 
-            .content-card {
-                padding: 25px;
+            .section {
+                padding: 20px;
             }
 
-            .steps {
+            .section h2 {
+                font-size: 22px;
+            }
+
+            .grid,
+            .resource-list {
                 grid-template-columns: 1fr;
             }
 
-            .resource-buttons {
+            .bottom-actions {
                 flex-direction: column;
             }
 
-            .resource-btn {
+            .bottom-actions .button {
                 width: 100%;
-            }
-
-            .pixel-grid {
-                transform: scale(0.8);
+                text-align: center;
             }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
 
-    <!-- =========================
-         NAVBAR
-         ========================= -->
+            <a href="{% url 'home' %}" class="logo">
+                Data Quest
+            </a>
 
-    <nav>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
 
-        <a href="{% url 'home' %}"
-           class="logo">
-            🎮 Data Quest
-        </a>
-
-        <ul class="nav-links">
-
-            <li>
-                <a href="{% url 'home' %}">
-                    Home
-                </a>
-            </li>
-
-            <li>
-                <a href="{% url 'learn' %}">
+                <a href="{% url 'learn' %}"
+                   class="{% if request.resolver_match.url_name == 'learn_images' %}active{% endif %}">
                     Learn
                 </a>
-            </li>
 
-            <li>
-                <a href="{% url 'how_to_play' %}">
-                    How to Play
-                </a>
-            </li>
+                <a href="{% url 'how_to_play' %}">How to Play</a>
 
-            <li>
-                <a href="{% url 'student_login' %}">
-                    Student Login
-                </a>
-            </li>
+                <a href="{% url 'quest_levels' %}">Play Game</a>
 
-            <li>
-                <a href="{% url 'teacher_login' %}">
-                    Teacher Login
-                </a>
-            </li>
+                <a href="{% url 'student_login' %}">Student Login</a>
 
-        </ul>
+                <a href="{% url 'teacher_login' %}">Teacher Login</a>
+            </div>
 
+        </div>
     </nav>
 
-
-    <!-- =========================
-         HERO
-         ========================= -->
-
-    <section class="hero">
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-badge">
+            DATA REPRESENTATION · LESSON 3
+        </div>
 
         <h1>
-            Images & Pixels
+            Learn <span>Image Representation</span>
         </h1>
 
         <p>
-            Learn how computers represent pictures using
-            pixels, colors and digital information.
+            Discover how computers represent pictures using pixels,
+            binary numbers, resolution, colour depth, and digital storage.
+            Learn the concepts step by step with examples and an interactive
+            storage calculator.
         </p>
-
-    </section>
-
-
-    <!-- =========================
-         MAIN CONTENT
-         ========================= -->
+    </header>
 
     <main class="container">
 
-
-        <!-- =========================
-             WHAT IS A DIGITAL IMAGE?
-             ========================= -->
-
-        <section class="content-card">
-
-            <h2>
-                🖼️ What is a Digital Image?
-            </h2>
+        <!-- 1. INTRODUCTION -->
+        <section class="section">
+            <h2>1. What Is Image Representation?</h2>
 
             <p>
-                A digital image is a picture that is stored
-                inside a computer or digital device.
+                Image representation is the way a computer stores and processes
+                a picture using digital information. Instead of storing a
+                physical picture, a computer represents the image using
+                numbers in binary form.
             </p>
 
             <p>
-                Computers represent images using many small
-                individual elements called
-                <strong>pixels</strong>.
+                Most digital photographs and screenshots are made up of tiny
+                picture elements called <strong>pixels</strong>. Each pixel
+                stores information about a small part of the image, such as
+                its colour or brightness.
             </p>
 
-            <div class="example-box">
-
-                <h3>
-                    Think of a Pixel as a Tiny Square
-                </h3>
-
-                <p>
-                    When many tiny pixels are placed together,
-                    they form the complete picture that we see
-                    on a screen.
-                </p>
-
+            <div class="highlight">
+                <strong>Remember:</strong> A digital image is represented
+                using digital information that a computer can store as
+                binary digits (0s and 1s).
             </div>
-
         </section>
 
-
-        <!-- =========================
-             PIXELS
-             ========================= -->
-
-        <section class="content-card">
-
-            <h2>
-                🔲 What is a Pixel?
-            </h2>
+        <!-- 2. PIXELS -->
+        <section class="section">
+            <h2>2. Understanding Pixels</h2>
 
             <p>
-                A pixel is the smallest individual element
-                of a digital image.
+                A pixel is the smallest individual element of a digital image.
+                An image contains many pixels arranged in rows and columns.
+                When viewed together, these pixels form a complete picture.
             </p>
 
-            <p>
-                Each pixel contains information about its
-                color and brightness.
-            </p>
+            <div class="pixel-example"
+                 role="img"
+                 aria-label="An illustration of a blue pattern made from an eight by eight grid of pixels">
 
-            <div class="pixel-box">
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
 
-                <div class="pixel-grid">
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
 
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
 
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
 
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
 
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
 
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel dark"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
 
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-                    <div class="pixel"></div>
-
-                </div>
-
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel mid"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
+                <div class="pixel"></div>
             </div>
 
-        </section>
-
-
-        <!-- =========================
-             RESOLUTION
-             ========================= -->
-
-        <section class="content-card">
-
-            <h2>
-                📐 Image Resolution
-            </h2>
-
-            <p>
-                Image resolution describes how many pixels
-                are used to create an image.
+            <p class="caption">
+                Illustration: each square represents one pixel.
             </p>
 
-            <p>
-                An image with more pixels can usually show
-                more detail than an image with fewer pixels.
-            </p>
-
-            <div class="facts">
-
-                <div class="fact">
-
-                    <strong>640 × 480</strong>
-
-                    Low resolution example
-
-                </div>
-
-                <div class="fact">
-
-                    <strong>1920 × 1080</strong>
-
-                    Full HD example
-
-                </div>
-
-                <div class="fact">
-
-                    <strong>3840 × 2160</strong>
-
-                    4K example
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             COLOR
-             ========================= -->
-
-        <section class="content-card">
-
-            <h2>
-                🎨 How Do Pixels Store Color?
-            </h2>
-
-            <p>
-                Digital images commonly use the
-                <strong>RGB color model</strong>.
-            </p>
-
-            <p>
-                RGB stands for:
-            </p>
-
-            <div class="example-box">
-
-                <p>
-                    🔴 <strong>Red</strong>
-                </p>
-
-                <p>
-                    🟢 <strong>Green</strong>
-                </p>
-
-                <p>
-                    🔵 <strong>Blue</strong>
-                </p>
-
-                <p>
-                    Different combinations of red, green and
-                    blue values can produce many different
-                    colors.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             HOW IMAGE IS STORED
-             ========================= -->
-
-        <section class="content-card">
-
-            <h2>
-                ⚙️ How Does a Computer Store an Image?
-            </h2>
-
-            <p>
-                A digital image is processed through several
-                stages before it appears on your screen.
-            </p>
-
-            <div class="steps">
-
-                <div class="step">
-
-                    <div class="step-number">
-                        1
-                    </div>
-
-                    <h3>
-                        Pixels
-                    </h3>
-
+            <div class="grid">
+                <div class="info-card">
+                    <h3>Fewer Pixels</h3>
                     <p>
-                        The image is divided into many
-                        small pixels.
+                        An image with fewer pixels contains less spatial
+                        detail and may look blocky when enlarged.
                     </p>
-
                 </div>
 
-
-                <div class="step">
-
-                    <div class="step-number">
-                        2
-                    </div>
-
-                    <h3>
-                        Color
-                    </h3>
-
+                <div class="info-card">
+                    <h3>More Pixels</h3>
                     <p>
-                        Each pixel receives color
-                        information.
+                        An image with more pixels can show finer detail,
+                        provided the image contains that detail.
                     </p>
-
                 </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        3
-                    </div>
-
-                    <h3>
-                        Numbers
-                    </h3>
-
-                    <p>
-                        Color information is represented
-                        using numerical values.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        4
-                    </div>
-
-                    <h3>
-                        Binary
-                    </h3>
-
-                    <p>
-                        The numerical information is stored
-                        digitally using bits.
-                    </p>
-
-                </div>
-
             </div>
-
         </section>
 
-
-        <!-- =========================
-             EXTERNAL RESOURCES
-             ========================= -->
-
-        <section class="resource-box">
-
-            <h2>
-                🌐 Explore More
-            </h2>
+        <!-- 3. RESOLUTION -->
+        <section class="section">
+            <h2>3. What Is Image Resolution?</h2>
 
             <p>
-                Want to learn more about pixels and digital
-                images? Explore these external resources.
+                Resolution describes the number of pixels in an image.
+                It is commonly written as width × height.
             </p>
 
-            <div class="resource-buttons">
-
-                <a
-                    href="https://processing.org/tutorials/pixels/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="resource-btn"
-                >
-                    🖼️ Explore Pixels
-                </a>
-
-                <a
-                    href="https://developer.mozilla.org/en-US/docs/Web/Media"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="resource-btn"
-                >
-                    🌐 Learn Digital Media
-                </a>
-
-                <a
-                    href="{% url 'learn' %}"
-                    class="resource-btn secondary"
-                >
-                    ← Back to Learn
-                </a>
-
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image dimensions</th>
+                            <th>Total pixels</th>
+                            <th>Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100 × 100</td>
+                            <td>10,000</td>
+                            <td>A small image</td>
+                        </tr>
+                        <tr>
+                            <td>800 × 600</td>
+                            <td>480,000</td>
+                            <td>A medium-sized image</td>
+                        </tr>
+                        <tr>
+                            <td>1920 × 1080</td>
+                            <td>2,073,600</td>
+                            <td>A Full HD image</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
+            <div class="highlight">
+                <strong>Formula:</strong><br>
+                Total pixels = Width × Height
+            </div>
+
+            <p>
+                For example, an image that is 800 pixels wide and 600 pixels
+                high contains:
+            </p>
+
+            <p>
+                800 × 600 = <strong>480,000 pixels</strong>
+            </p>
         </section>
 
+        <!-- 4. COLOUR DEPTH -->
+        <section class="section">
+            <h2>4. Understanding Colour Depth</h2>
+
+            <p>
+                Colour depth, also called bit depth, describes how many bits
+                are used to represent each pixel's colour. More bits allow
+                a pixel to represent more possible colour values.
+            </p>
+
+            <div class="grid">
+                <div class="info-card">
+                    <h3>1-bit image</h3>
+                    <p>
+                        Each pixel uses 1 bit. It can represent 2 possible
+                        values, such as black and white.
+                    </p>
+                    <p><strong>2¹ = 2 values</strong></p>
+                </div>
+
+                <div class="info-card">
+                    <h3>8-bit grayscale</h3>
+                    <p>
+                        Each pixel uses 8 bits and can represent
+                        256 brightness levels.
+                    </p>
+                    <p><strong>2⁸ = 256 values</strong></p>
+                </div>
+
+                <div class="info-card">
+                    <h3>24-bit RGB colour</h3>
+                    <p>
+                        A common uncompressed format uses 8 bits each for
+                        red, green, and blue.
+                    </p>
+                    <p><strong>8 + 8 + 8 = 24 bits per pixel</strong></p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Number of colours</h3>
+                    <p>
+                        A 24-bit RGB pixel can represent up to
+                        16,777,216 colour combinations.
+                    </p>
+                    <p><strong>2²⁴ = 16,777,216</strong></p>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Important:</strong> A higher bit depth allows more
+                possible colour values. Actual image appearance also depends
+                on the image content, display, and file format.
+            </div>
+        </section>
+
+        <!-- 5. BINARY REPRESENTATION -->
+        <section class="section">
+            <h2>5. How Are Image Colours Stored in Binary?</h2>
+
+            <p>
+                Computers use binary digits: 0 and 1. In a common 24-bit RGB
+                image, each pixel has three colour components:
+                red, green, and blue. Each component is represented by
+                8 bits.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Colour component</th>
+                            <th>Decimal value</th>
+                            <th>8-bit binary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Red</td>
+                            <td>255</td>
+                            <td><code>11111111</code></td>
+                        </tr>
+                        <tr>
+                            <td>Green</td>
+                            <td>0</td>
+                            <td><code>00000000</code></td>
+                        </tr>
+                        <tr>
+                            <td>Blue</td>
+                            <td>0</td>
+                            <td><code>00000000</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>
+                These values represent a fully red RGB pixel: red is at its
+                maximum value, while green and blue are zero.
+            </p>
+
+            <div class="highlight">
+                <strong>RGB means Red, Green, and Blue.</strong>
+                Combining different amounts of these three components
+                produces a wide range of colours.
+            </div>
+        </section>
+
+        <!-- 6. STORAGE CALCULATOR -->
+        <section class="section">
+            <h2>6. How Much Storage Does an Image Need?</h2>
+
+            <p>
+                This calculator estimates the storage required for an
+                uncompressed image. Enter the image width, height, and
+                bits per pixel.
+            </p>
+
+            <div class="highlight">
+                <strong>Formula:</strong><br>
+                Image size in bits = Width × Height × Bits per pixel<br>
+                Image size in bytes = Image size in bits ÷ 8
+            </div>
+
+            <div class="calculator">
+                <div class="form-group">
+                    <label for="imageWidth">Image width (pixels)</label>
+                    <input
+                        type="number"
+                        id="imageWidth"
+                        min="1"
+                        max="100000"
+                        value="800"
+                        placeholder="For example, 800"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="imageHeight">Image height (pixels)</label>
+                    <input
+                        type="number"
+                        id="imageHeight"
+                        min="1"
+                        max="100000"
+                        value="600"
+                        placeholder="For example, 600"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="colourDepth">Bits per pixel</label>
+                    <select id="colourDepth">
+                        <option value="1">1 bit — black and white</option>
+                        <option value="8">8 bits — grayscale</option>
+                        <option value="24" selected>24 bits — RGB colour</option>
+                        <option value="32">32 bits — RGBA-style image</option>
+                    </select>
+                </div>
+
+                <button
+                    type="button"
+                    class="button button-primary"
+                    id="calculateButton">
+                    Calculate Storage
+                </button>
+
+                <button
+                    type="button"
+                    class="button button-secondary"
+                    id="resetButton">
+                    Reset
+                </button>
+
+                <p id="calculatorError"
+                   class="error-message"
+                   role="alert"></p>
+
+                <div class="result-box"
+                     id="calculatorResult"
+                     aria-live="polite">
+                    <p>Total pixels: <strong id="totalPixels">—</strong></p>
+                    <p>Total bits: <strong id="totalBits">—</strong></p>
+                    <p>Total bytes: <strong id="totalBytes">—</strong></p>
+                    <p>Approximate size: <strong id="totalKB">—</strong></p>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Remember:</strong> This is a theoretical estimate for
+                uncompressed pixel data. Real image files may be larger or
+                smaller because of headers, metadata, compression, and
+                file-format details. JPEG and PNG files do not always have
+                the same file size for the same dimensions.
+            </div>
+        </section>
+
+        <!-- 7. IMAGE FORMATS -->
+        <section class="section">
+            <h2>7. Common Image File Formats</h2>
+
+            <p>
+                Digital images can be saved in different file formats.
+                Each format has its own features and suitable uses.
+            </p>
+
+            <div class="grid">
+                <div class="info-card">
+                    <h3>JPEG / JPG</h3>
+                    <p>
+                        Commonly used for photographs. It usually uses
+                        lossy compression to reduce file size.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>PNG</h3>
+                    <p>
+                        Supports lossless compression and transparency.
+                        It is useful for logos, screenshots, and diagrams.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>GIF</h3>
+                    <p>
+                        Supports simple animation and a limited palette
+                        of up to 256 colours per frame.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>SVG</h3>
+                    <p>
+                        A vector format that describes shapes and paths.
+                        It can be resized without the same pixelation
+                        associated with raster images.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. COMPRESSION -->
+        <section class="section">
+            <h2>8. What Is Image Compression?</h2>
+
+            <p>
+                Image compression reduces the amount of data needed to
+                store an image. This can save storage space and make
+                images faster to transfer over a network.
+            </p>
+
+            <div class="grid">
+                <div class="info-card">
+                    <h3>Lossless compression</h3>
+                    <p>
+                        Reduces file size while preserving the original
+                        image data. PNG is a common example.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Lossy compression</h3>
+                    <p>
+                        Reduces file size by discarding some image
+                        information. JPEG commonly uses this method.
+                    </p>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Example:</strong> A compressed photograph may take
+                up less storage space than an uncompressed version, but the
+                exact reduction depends on the image and compression settings.
+            </div>
+        </section>
+
+        <!-- 9. ADVANTAGES AND LIMITATIONS -->
+        <section class="section">
+            <h2>9. Advantages and Limitations of Digital Images</h2>
+
+            <div class="grid">
+                <div class="info-card">
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li>Easy to store and share.</li>
+                        <li>Can be edited using software.</li>
+                        <li>Can be copied and backed up.</li>
+                        <li>Compression can reduce storage requirements.</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Limitations</h3>
+                    <ul>
+                        <li>High-resolution images can use substantial storage.</li>
+                        <li>Enlarging a small raster image can make it look pixelated.</li>
+                        <li>Lossy compression may reduce image quality.</li>
+                        <li>Different file formats have different capabilities.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. SELF-LEARNING NOTES -->
+        <section class="section">
+            <h2>10. Self-Learning Notes</h2>
+
+            <p>
+                Use these notes to revise the important concepts before
+                starting the Image Representation game.
+            </p>
+
+            <h3>Note 1: Learn the key terms</h3>
+            <ul>
+                <li><strong>Pixel:</strong> A small element of a digital image.</li>
+                <li><strong>Resolution:</strong> The image dimensions in pixels.</li>
+                <li><strong>Colour depth:</strong> The number of bits used to represent each pixel's colour.</li>
+                <li><strong>RGB:</strong> Red, Green, and Blue colour components.</li>
+                <li><strong>Compression:</strong> A way to reduce the amount of data stored.</li>
+            </ul>
+
+            <h3>Note 2: Memorise the formulas</h3>
+            <ul>
+                <li>Total pixels = Width × Height</li>
+                <li>Image bits = Total pixels × Bits per pixel</li>
+                <li>Bytes = Bits ÷ 8</li>
+                <li>For 8-bit values, the number of possible values is 2⁸ = 256.</li>
+            </ul>
+
+            <h3>Note 3: Understand image quality</h3>
+            <p>
+                Resolution and colour depth describe different properties.
+                Resolution tells you how many pixels an image contains,
+                while colour depth tells you how many bits are used for
+                each pixel's colour information.
+            </p>
+
+            <h3>Note 4: Understand storage estimates</h3>
+            <p>
+                If two uncompressed images have the same dimensions but
+                different bits per pixel, the image using more bits per pixel
+                requires more pixel-data storage. Compressed file sizes also
+                depend on image content and compression method.
+            </p>
+
+            <h3>Note 5: Practise with everyday examples</h3>
+            <ul>
+                <li>Check the dimensions of a photo on your phone.</li>
+                <li>Compare the file sizes of two photographs.</li>
+                <li>Look at the file extensions of images saved on your computer.</li>
+                <li>Use the storage calculator to try different resolutions.</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Before you move on:</strong> Make sure you can explain
+                pixels, resolution, colour depth, RGB, binary values,
+                and image compression in your own words.
+            </div>
+        </section>
+
+        <!-- 11. LEARNING RESOURCES -->
+        <section class="section">
+            <h2>11. Additional Learning Resources</h2>
+
+            <p>
+                Visit these resources for further reading and examples.
+                External websites may present the information at different
+                levels of difficulty.
+            </p>
+
+            <div class="resource-list">
+                <div class="resource">
+                    <a href="https://www.bbc.co.uk/bitesize"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        BBC Bitesize
+                    </a>
+                    <p>
+                        Look for computing lessons about bitmap images,
+                        pixels, resolution, and colour depth.
+                    </p>
+                </div>
+
+                <div class="resource">
+                    <a href="https://www.csfieldguide.org.nz/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Computer Science Field Guide
+                    </a>
+                    <p>
+                        Explore educational material about digital
+                        information and how computers represent data.
+                    </p>
+                </div>
+
+                <div class="resource">
+                    <a href="https://en.wikipedia.org/wiki/Pixel"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Pixel — Reference
+                    </a>
+                    <p>
+                        Read more about pixels and their role in digital images.
+                    </p>
+                </div>
+
+                <div class="resource">
+                    <a href="https://en.wikipedia.org/wiki/Image_resolution"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Image Resolution — Reference
+                    </a>
+                    <p>
+                        Learn more about image dimensions and resolution.
+                    </p>
+                </div>
+
+                <div class="resource">
+                    <a href="https://en.wikipedia.org/wiki/Color_depth"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Colour Depth — Reference
+                    </a>
+                    <p>
+                        Explore how bit depth affects the range of possible colours.
+                    </p>
+                </div>
+
+                <div class="resource">
+                    <a href="https://en.wikipedia.org/wiki/Image_compression"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Image Compression — Reference
+                    </a>
+                    <p>
+                        Learn the difference between lossy and lossless compression.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NAVIGATION BUTTONS -->
+        <div class="bottom-actions">
+            <a href="{% url 'learn' %}"
+               class="button button-secondary">
+                ← Back to Learning Topics
+            </a>
+
+            <!-- Opens Level 3 directly -->
+            <a href="{% url 'level3_game' %}"
+               class="button button-primary">
+                Attempt Level 3 Game →
+            </a>
+        </div>
 
     </main>
 
+    <script>
+        const widthInput = document.getElementById('imageWidth');
+        const heightInput = document.getElementById('imageHeight');
+        const depthInput = document.getElementById('colourDepth');
 
-    <!-- =========================
-         FOOTER
-         ========================= -->
+        const calculateButton = document.getElementById('calculateButton');
+        const resetButton = document.getElementById('resetButton');
+
+        const resultBox = document.getElementById('calculatorResult');
+        const errorMessage = document.getElementById('calculatorError');
+
+        function calculateStorage() {
+            errorMessage.textContent = '';
+            resultBox.style.display = 'none';
+
+            const width = Number(widthInput.value);
+            const height = Number(heightInput.value);
+            const bitsPerPixel = Number(depthInput.value);
+
+            if (
+                widthInput.value.trim() === '' ||
+                heightInput.value.trim() === '' ||
+                !Number.isInteger(width) ||
+                !Number.isInteger(height) ||
+                width < 1 ||
+                height < 1 ||
+                width > 100000 ||
+                height > 100000
+            ) {
+                errorMessage.textContent =
+                    'Please enter whole-number dimensions between 1 and 100,000 pixels.';
+                return;
+            }
+
+            const totalPixels = width * height;
+            const totalBits = totalPixels * bitsPerPixel;
+            const totalBytes = totalBits / 8;
+            const kilobytes = totalBytes / 1024;
+            const megabytes = totalBytes / (1024 * 1024);
+
+            document.getElementById('totalPixels').textContent =
+                totalPixels.toLocaleString();
+
+            document.getElementById('totalBits').textContent =
+                totalBits.toLocaleString() + ' bits';
+
+            document.getElementById('totalBytes').textContent =
+                totalBytes.toLocaleString() + ' bytes';
+
+            let sizeText;
+
+            if (megabytes >= 1) {
+                sizeText = megabytes.toFixed(2) + ' MiB';
+            } else {
+                sizeText = kilobytes.toFixed(2) + ' KiB';
+            }
+
+            document.getElementById('totalKB').textContent = sizeText;
+
+            resultBox.style.display = 'block';
+        }
+
+        function resetCalculator() {
+            widthInput.value = 800;
+            heightInput.value = 600;
+            depthInput.value = 24;
+
+            errorMessage.textContent = '';
+            resultBox.style.display = 'none';
+        }
+
+        calculateButton.addEventListener('click', calculateStorage);
+        resetButton.addEventListener('click', resetCalculator);
+    </script>
 
     <footer>
-
-        <p>
-            © 2026 Data Quest.
-            Learn • Play • Improve
-        </p>
-
+        <p>Data Quest — Learn, Practise, and Explore Data Representation.</p>
     </footer>
 
-
 </body>
-
 </html>

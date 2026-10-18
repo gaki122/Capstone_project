@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 
@@ -5,7 +6,7 @@ from . import views
 urlpatterns = [
 
     # =========================
-    # Home
+    # HOME
     # =========================
 
     path(
@@ -14,15 +15,20 @@ urlpatterns = [
         name='home'
     ),
 
-
     # =========================
-    # Learning Pages
+    # LEARNING PAGES
     # =========================
 
     path(
         'learn/',
         views.learn,
         name='learn'
+    ),
+
+    path(
+        'learn/ascii/',
+        views.learn_ascii,
+        name='learn_ascii'
     ),
 
     path(
@@ -55,9 +61,8 @@ urlpatterns = [
         name='how_to_play'
     ),
 
-
     # =========================
-    # Student Pages
+    # STUDENT PAGES
     # =========================
 
     path(
@@ -85,14 +90,27 @@ urlpatterns = [
     ),
 
     path(
+        'my-progress/',
+        views.student_my_progress,
+        name='student_my_progress'
+    ),
+
+    # JOIN AND LEAVE CLASS
+
+    path(
         'join-section/',
         views.join_section,
         name='join_section'
     ),
 
+    path(
+        'student/leave-class/',
+        views.leave_class,
+        name='leave_class'
+    ),
 
     # =========================
-    # Teacher Pages
+    # TEACHER PAGES
     # =========================
 
     path(
@@ -126,6 +144,24 @@ urlpatterns = [
     ),
 
     path(
+        'teacher/class/<int:class_id>/add-student/',
+        views.add_student,
+        name='add_student'
+    ),
+
+    path(
+        'teacher/classes/<int:class_id>/delete/',
+        views.delete_class,
+        name='delete_class'
+    ),
+
+    path(
+        'teacher/students/',
+        views.teacher_all_students,
+        name='teacher_all_students'
+    ),
+
+    path(
         'teacher/student/<int:student_id>/progress/',
         views.student_progress,
         name='student_progress'
@@ -137,9 +173,18 @@ urlpatterns = [
         name='teacher_logout'
     ),
 
+    # =========================
+    # LEVEL SELECTION
+    # =========================
+
+    path(
+        'quest-levels/',
+        views.quest_levels,
+        name='quest_levels'
+    ),
 
     # =========================
-    # Level 1
+    # LEVEL 1 — ASCII GAME
     # =========================
 
     path(
@@ -160,9 +205,56 @@ urlpatterns = [
         name='save_level1_result'
     ),
 
+    # =========================
+    # LEVEL 2 — TEXT GAME
+    # =========================
+
+    path(
+        'level2/game/',
+        views.level2_game,
+        name='level2_game'
+    ),
+
+    path(
+        'level2/save-result/',
+        views.save_level2_result,
+        name='save_level2_result'
+    ),
 
     # =========================
-    # Guest Result
+    # LEVEL 3 — IMAGE GAME
+    # =========================
+
+    path(
+        'level3/game/',
+        views.level3_game,
+        name='level3_game'
+    ),
+
+    path(
+        'level3/save-result/',
+        views.save_level3_result,
+        name='save_level3_result'
+    ),
+
+    # =========================
+    # LEVEL 4 — AUDIO / SOUND GAME
+    # =========================
+
+    path(
+        'level4/game/',
+        views.level4_game,
+        name='level4_game'
+    ),
+
+    path(
+        'level4/save-result/',
+        views.save_level4_result,
+        name='save_level4_result'
+    ),
+
+    # =========================
+    # GUEST RESULT
     # =========================
 
     path(
@@ -171,9 +263,8 @@ urlpatterns = [
         name='guest_result'
     ),
 
-
     # =========================
-    # Final Challenge
+    # FINAL CHALLENGE
     # =========================
 
     path(
