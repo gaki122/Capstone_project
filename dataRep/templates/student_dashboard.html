@@ -5,27 +5,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard - Data Quest</title>
+    <meta name="theme-color" content="#244b42">
+    <title>Student Dashboard | Data Quest</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        * { box-sizing: border-box; }
+        :root {
+            --green: #244b42;
+            --green-dark: #17382f;
+            --maroon: #71342d;
+            --gold: #d5a64f;
+            --cream: #fff9ed;
+            --white: #fffdfa;
+            --text: #27332e;
+            --muted: #66736b;
+            --border: #e8dfcd;
+            --shadow: 0 6px 24px rgba(37,49,41,.07);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
+            background: #f8f5ed;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.65;
         }
 
+        h1, h2, h3, .logo,
+        .nav-links a, .primary-btn,
+        .secondary-btn, .leave-btn {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            transition: .2s ease;
+        }
+
+        /* STUDENT NAVIGATION */
+
         .navbar {
-            background: rgba(255,255,255,.97);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 25px;
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-container {
             max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -33,94 +76,222 @@
         }
 
         .logo {
-            color: #111827;
-            font-size: 25px;
-            font-weight: 900;
-            text-decoration: none;
+            color: var(--maroon);
+            font-size: 26px;
+            font-weight: 800;
             white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 6px;
             flex-wrap: wrap;
+            gap: 7px;
         }
 
         .nav-links a {
-            color: #111827;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            line-height: 1.5;
-            white-space: nowrap;
-            transition: .25s;
+            padding: 10px 13px;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 9px;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: white;
         }
 
-        .nav-links .logout { color: #dc2626; }
-        .nav-links .logout:hover {
-            background: #fef2f2;
-            border-color: #fecaca;
-            color: #dc2626;
+        .nav-links .logout {
+            color: #a53d34;
         }
+
+        .nav-links .logout:hover {
+            background: #fff0ed;
+            color: #a53d34;
+        }
+
+        /* MAIN CONTAINER */
 
         .container {
-            max-width: 1150px;
+            max-width: 1180px;
             margin: auto;
-            padding: 35px 20px;
+            padding: 34px 22px 60px;
         }
 
-        .welcome { margin-bottom: 25px; }
-        .welcome h1 { margin: 0 0 8px; font-size: 30px; }
-        .welcome p { color: #6b7280; margin: 0; line-height: 1.6; }
+        /* WELCOME BANNER */
+
+        .welcome {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 92% 12%,
+                    rgba(213,166,79,.20),
+                    transparent 34%
+                ),
+                linear-gradient(
+                    120deg,
+                    #17382f,
+                    #244b42 72%,
+                    #365b4c
+                );
+            color: white;
+            border-radius: 20px;
+            padding: 39px 38px;
+            margin-bottom: 28px;
+            border-bottom: 4px solid var(--gold);
+            box-shadow: 0 12px 30px rgba(23,56,47,.14);
+        }
+
+        .welcome-label {
+            display: inline-block;
+            color: #f0d79c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(25px, 3vw, 35px);
+            line-height: 1.3;
+            margin: 0 0 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .welcome p {
+            color: #e1eae3;
+            font-size: 14px;
+            max-width: 640px;
+            margin: 0;
+        }
+
+        .welcome-decoration {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 92px;
+            opacity: .18;
+            pointer-events: none;
+        }
+
+        /* DJANGO MESSAGES */
+
+        .message {
+            padding: 14px 17px;
+            border-radius: 11px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .message.success {
+            background: #edf6ed;
+            border: 1px solid #c7dec9;
+            color: #27613a;
+        }
+
+        .message.info {
+            background: #f2f1e7;
+            border: 1px solid #ded7bc;
+            color: var(--green-dark);
+        }
+
+        .message.error {
+            background: #fff0ed;
+            border: 1px solid #edc3bd;
+            color: #a22e25;
+        }
+
+        .message.warning {
+            background: #fff7e7;
+            border: 1px solid #ecd8a5;
+            color: #79551a;
+        }
+
+        /* STATISTICS */
 
         .stats {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
+            gap: 17px;
+            margin-bottom: 36px;
         }
 
-        .stat-card, .class-card, .final-card, .result-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 15px;
-            padding: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.04);
-            margin-bottom: 25px;
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 23px;
+            box-shadow: var(--shadow);
+            border-top: 3px solid var(--gold);
+            min-width: 0;
         }
 
-        .stats .stat-card { margin-bottom: 0; }
-        .stat-icon { font-size: 26px; margin-bottom: 10px; }
-        .stat-title { color: #6b7280; font-size: 13px; margin-bottom: 7px; }
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #edf3ec;
+            border-radius: 13px;
+            font-size: 25px;
+            margin-bottom: 14px;
+        }
+
+        .stat-title {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
 
         .stat-value {
+            color: var(--green-dark);
+            font-family: 'Poppins', sans-serif;
             font-size: 27px;
             font-weight: 800;
             overflow-wrap: anywhere;
+            line-height: 1.3;
         }
 
-        .levels-section { margin-bottom: 32px; }
+        /* SECTION HEADING */
 
-        .levels-heading {
-            margin: 0 0 8px;
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 9px;
+        }
+
+        .section-heading h2 {
             font-size: 24px;
+            color: var(--green-dark);
+            margin: 0;
+        }
+
+        .section-accent {
+            width: 5px;
+            height: 29px;
+            background: var(--gold);
+            border-radius: 5px;
         }
 
         .levels-description {
-            color: #6b7280;
-            margin: 0 0 20px;
-            line-height: 1.6;
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 23px;
+        }
+
+        /* LEARNING LEVELS */
+
+        .levels-section {
+            margin-bottom: 36px;
         }
 
         .levels-grid {
@@ -130,33 +301,47 @@
         }
 
         .level-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.04);
-            transition: transform .2s, box-shadow .2s;
+            position: relative;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 27px;
+            box-shadow: var(--shadow);
+            transition: .2s ease;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gold);
         }
 
         .level-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 9px 25px rgba(0,0,0,.08);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(36,75,66,.12);
+            border-color: #d3c7ac;
         }
 
         .level-icon {
-            width: 58px;
-            height: 58px;
+            width: 62px;
+            height: 62px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #eff6ff;
-            border-radius: 14px;
-            font-size: 31px;
+            background: #edf3ec;
+            border: 1px solid #dce7dc;
+            border-radius: 15px;
+            font-size: 30px;
             margin-bottom: 17px;
         }
 
         .level-number {
-            color: #2563eb;
+            color: var(--maroon);
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 1px;
@@ -164,267 +349,392 @@
         }
 
         .level-card h3 {
-            margin: 9px 0;
+            color: var(--green-dark);
             font-size: 21px;
+            margin: 8px 0 10px;
         }
 
         .level-card p {
-            color: #6b7280;
+            color: var(--muted);
             font-size: 14px;
-            line-height: 1.7;
-            min-height: 48px;
-            margin-bottom: 18px;
+            line-height: 1.8;
+            min-height: 76px;
+            margin: 0 0 21px;
         }
 
-        .primary-btn, .secondary-btn, .leave-btn {
-            display: inline-block;
-            text-decoration: none;
-            padding: 12px 18px;
+        /* BUTTONS */
+
+        .primary-btn,
+        .secondary-btn,
+        .leave-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 19px;
             border-radius: 9px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            border: 1px solid #2563eb;
             cursor: pointer;
-            font-family: inherit;
+            transition: .2s ease;
             text-align: center;
         }
 
-        .primary-btn { background: #2563eb; color: white; }
-        .primary-btn:hover { background: #1d4ed8; }
+        .primary-btn {
+            background: var(--green);
+            color: white;
+            border: 1px solid var(--green);
+        }
 
-        .secondary-btn { background: white; color: #2563eb; }
-        .secondary-btn:hover { background: #eff6ff; }
+        .primary-btn:hover {
+            background: var(--green-dark);
+            border-color: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: var(--green);
+            border: 1px solid #c6d6c8;
+        }
+
+        .secondary-btn:hover {
+            background: #edf3ec;
+        }
 
         .leave-btn {
             background: #fff;
-            color: #dc2626;
-            border-color: #dc2626;
+            color: #a53d34;
+            border: 1px solid #dba9a4;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .leave-btn:hover { background: #fef2f2; }
-        .leave-form { margin-top: 20px; }
+        .leave-btn:hover {
+            background: #fff0ed;
+        }
 
-        .class-card h2, .final-header h2, .result-card h2 {
-            margin-top: 0;
+        /* INFORMATION CARDS */
+
+        .class-card,
+        .final-card,
+        .progress-link-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .class-card h2,
+        .final-card h2,
+        .progress-link-card h2 {
+            color: var(--green-dark);
             font-size: 21px;
+            margin: 0 0 16px;
         }
 
-        .class-info { color: #6b7280; margin: 10px 0; }
-        .class-name { color: #111827; font-weight: 700; }
+        /* CLASS INFORMATION */
 
-        .no-class, .locked-message, .ready-message,
-        .completed-message, .empty-result {
-            border-radius: 12px;
-            padding: 16px;
-            line-height: 1.7;
+        .class-info {
+            color: var(--muted);
             font-size: 14px;
+            margin: 12px 0;
+        }
+
+        .class-info strong {
+            color: var(--green-dark);
+        }
+
+        .class-name {
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        .class-status {
+            display: inline-block;
+            color: #27613a;
+            background: #edf6ed;
+            border: 1px solid #c7dec9;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .leave-form {
+            margin-top: 20px;
         }
 
         .no-class {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            color: #1e40af;
+            background: #f2f5ed;
+            border: 1px solid #d7e3d3;
+            border-radius: 12px;
+            padding: 19px;
+            color: var(--green-dark);
+            font-size: 14px;
+            line-height: 1.8;
         }
 
-        .locked-message, .empty-result {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            color: #6b7280;
+        .no-class p {
+            margin: 0 0 17px;
         }
 
-        .ready-message {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #166534;
-            margin-bottom: 18px;
-        }
-
-        .completed-message {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            color: #1e40af;
-        }
-
-        .attempt-note {
-            margin-top: 15px;
-            color: #6b7280;
-            font-size: 13px;
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 14px;
-            margin: 18px 0;
-        }
-
-        .result-item {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 15px;
-            min-width: 0;
-        }
-
-        .result-label {
-            color: #6b7280;
-            font-size: 12px;
-            margin-bottom: 7px;
-        }
-
-        .result-value {
-            font-size: 20px;
-            font-weight: 800;
-            overflow-wrap: anywhere;
-        }
-
-        .result-score { color: #2563eb; }
-        .result-stars { color: #f59e0b; }
+        /* FINAL CHALLENGE */
 
         .final-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
             margin-bottom: 20px;
         }
 
-        .final-header h2 { margin-bottom: 6px; }
-        .final-header p { margin: 0; color: #6b7280; font-size: 14px; }
+        .final-header h2 {
+            margin-bottom: 7px;
+        }
+
+        .final-header p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
 
         .final-status {
             display: inline-block;
-            padding: 7px 12px;
-            border-radius: 10px;
+            padding: 7px 13px;
+            border-radius: 9px;
             font-size: 12px;
             font-weight: 800;
             white-space: nowrap;
         }
 
-        .status-locked { background: #f3f4f6; color: #6b7280; }
-        .status-ready { background: #dcfce7; color: #166534; }
-        .status-completed { background: #dbeafe; color: #1d4ed8; }
+        .status-locked {
+            background: #f0eee9;
+            color: #77756f;
+        }
+
+        .status-ready {
+            background: #e7f3e8;
+            color: #27613a;
+        }
+
+        .status-completed {
+            background: #f8efd9;
+            color: #8b621f;
+        }
 
         .final-content {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
+            background: #f8f7f2;
+            border: 1px solid var(--border);
             border-radius: 13px;
-            padding: 20px;
+            padding: 21px;
         }
 
         .final-result-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0,1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
             margin-bottom: 18px;
         }
 
         .final-result-item {
             background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding: 16px;
         }
 
         .final-result-label {
-            color: #6b7280;
+            color: var(--muted);
             font-size: 12px;
             margin-bottom: 7px;
         }
 
-        .final-result-value { font-size: 20px; font-weight: 800; }
-        .final-score { color: #2563eb; }
-        .final-stars { color: #f59e0b; }
-
-        .progress-link-card {
-            background: white;
-            border: 1px solid #bfdbfe;
-            border-radius: 15px;
-            padding: 24px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.04);
-        }
-
-        .progress-link-card h2 {
-            margin: 0 0 8px;
+        .final-result-value {
+            color: var(--green-dark);
             font-size: 21px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
         }
 
-        .progress-link-card p {
-            color: #6b7280;
-            margin: 0;
+        .final-score {
+            color: var(--green);
+        }
+
+        .final-stars {
+            color: #ad791c;
+        }
+
+        .completed-message,
+        .ready-message,
+        .locked-message {
+            padding: 17px;
+            border-radius: 11px;
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
-        .message {
-            padding: 14px 16px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            font-size: 14px;
+        .completed-message {
+            background: #f8f0df;
+            border: 1px solid #e8d7ae;
+            color: #70521d;
         }
 
-        .message.success {
-            color: #166534;
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
+        .ready-message {
+            background: #edf6ed;
+            border: 1px solid #c7dec9;
+            color: #27613a;
+            margin-bottom: 18px;
         }
 
-        .message.info {
-            color: #1e40af;
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
+        .locked-message {
+            background: #f0eee9;
+            border: 1px solid #e2dfd7;
+            color: #65655f;
         }
 
-        .message.error {
-            color: #991b1b;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-        }
-
-        footer {
-            text-align: center;
-            padding: 28px 15px;
-            color: #6b7280;
+        .attempt-note {
+            margin: 16px 0;
+            color: var(--muted);
             font-size: 13px;
         }
 
-        @media (max-width: 850px) {
-            .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
-            .nav-container { flex-direction: column; }
-            .nav-links { justify-content: center; }
-            .result-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+        /* MY PROGRESS CARD */
+
+        .progress-link-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            border-left: 5px solid var(--gold);
         }
 
-        @media (max-width: 600px) {
-            .container { padding: 25px 15px; }
-            .welcome h1 { font-size: 25px; }
+        .progress-link-card h2 {
+            margin-bottom: 9px;
+        }
 
-            .stats, .levels-grid, .final-result-grid,
-            .result-grid {
+        .progress-link-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+            max-width: 700px;
+        }
+
+        .progress-link-card .primary-btn {
+            white-space: nowrap;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #34221e;
+            color: #f3e6d3;
+            border-top: 4px solid var(--gold);
+            text-align: center;
+            padding: 28px 15px;
+        }
+
+        footer p {
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 950px) {
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .welcome-decoration {
+                font-size: 65px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .container {
+                padding: 24px 15px 40px;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 4px;
+            }
+
+            .nav-links a {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .welcome {
+                padding: 29px 23px;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+
+            .welcome-decoration {
+                display: none;
+            }
+
+            .stats,
+            .levels-grid,
+            .final-result-grid {
                 grid-template-columns: 1fr;
             }
 
-            .final-header { display: block; }
-            .final-status { margin-top: 12px; }
-            .navbar { padding: 15px; }
-            .nav-links { gap: 2px; }
-            .nav-links a {
-                padding: 8px 9px;
-                font-size: 13px;
-                font-weight: 800;
+            .section-heading h2 {
+                font-size: 21px;
             }
 
-            .level-card p { min-height: 0; }
+            .level-card,
+            .class-card,
+            .final-card,
+            .progress-link-card {
+                padding: 22px;
+            }
+
+            .level-card p {
+                min-height: 0;
+            }
+
+            .final-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
             .progress-link-card {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .progress-link-card .primary-btn {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
             }
         }
     </style>
@@ -432,292 +742,489 @@
 
 <body>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="{% url 'home' %}" class="logo">🎯 Data Quest</a>
+    <!-- STUDENT-ONLY NAVIGATION -->
 
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'learn' %}">Learn</a>
-            <a href="{% url 'how_to_play' %}">How to Play</a>
-            <a href="{% url 'student_dashboard' %}" class="active">Dashboard</a>
-            <a href="{% url 'student_my_progress' %}">My Progress</a>
-            <a href="{% url 'student_logout' %}" class="logout">Logout</a>
-        </div>
-    </div>
-</nav>
+    <nav class="navbar">
+        <div class="nav-container">
 
-<main class="container">
+            <a href="{% url 'home' %}" class="logo">
+                Data Quest
+            </a>
 
-    <!-- WELCOME -->
-    <div class="welcome">
-        <h1>Welcome, {{ student.full_name }} 👋</h1>
-        <p>Learn the four topics of Data Representation and track your progress.</p>
-    </div>
+            <div class="nav-links">
 
-    <!-- SUCCESS AND INFORMATION MESSAGES -->
-    {% if messages %}
-        {% for message in messages %}
-            <div class="message {{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
-    <!-- OVERALL STATISTICS -->
-    <div class="stats">
-        <div class="stat-card">
-            <div class="stat-icon">🏆</div>
-            <div class="stat-title">Total Points</div>
-            <div class="stat-value">{{ student.total_points }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">⭐</div>
-            <div class="stat-title">Total Stars</div>
-            <div class="stat-value">{{ student.total_stars }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🔥</div>
-            <div class="stat-title">Best Streak</div>
-            <div class="stat-value">{{ student.best_streak }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🎯</div>
-            <div class="stat-title">Completed Levels</div>
-            <div class="stat-value">{{ student.completed_levels }} / 4</div>
-        </div>
-    </div>
-
-    <!-- LEARNING LEVELS -->
-    <section class="levels-section">
-        <h2 class="levels-heading">🎮 Choose Your Learning Level</h2>
-        <p class="levels-description">
-            Study the four data representation topics, play each game,
-            and track your results.
-        </p>
-
-        <div class="levels-grid">
-
-            <!-- LEVEL 1: ASCII -->
-            <div class="level-card">
-                <div class="level-icon">🔤</div>
-                <div class="level-number">Level 1</div>
-                <h3>ASCII Representation</h3>
-                <p>
-                    Learn how characters are represented using ASCII
-                    numerical codes and how these codes can be expressed
-                    in binary.
-                </p>
-                <a href="{% url 'level1_game' %}" class="primary-btn">
-                    Play Level 1 →
-                </a>
-            </div>
-
-            <!-- LEVEL 2: TEXT -->
-            <div class="level-card">
-                <div class="level-icon">📝</div>
-                <div class="level-number">Level 2</div>
-                <h3>Text Representation</h3>
-                <p>
-                    Discover how computers store text using character
-                    encoding systems, including ASCII and Unicode.
-                </p>
-                <a href="{% url 'level2_game' %}" class="primary-btn">
-                    Play Level 2 →
-                </a>
-            </div>
-
-            <!-- LEVEL 3: IMAGES -->
-            <div class="level-card">
-                <div class="level-icon">🖼️</div>
-                <div class="level-number">Level 3</div>
-                <h3>Image Representation</h3>
-                <p>
-                    Understand pixels, image resolution, colour depth,
-                    binary colour values, and how digital images are
-                    stored by computers.
-                </p>
-                <a href="{% url 'level3_game' %}" class="primary-btn">
-                    Play Level 3 →
-                </a>
-            </div>
-
-            <!-- LEVEL 4: AUDIO / SOUND -->
-            <div class="level-card">
-                <div class="level-icon">🎧</div>
-                <div class="level-number">Level 4</div>
-                <h3>Audio / Sound Representation</h3>
-                <p>
-                    Learn how sound is converted into digital data using
-                    sampling, sample rate, bit depth, and digital audio
-                    representation.
-                </p>
-                <a href="{% url 'level4_game' %}" class="primary-btn">
-                    Play Level 4 →
-                </a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- CLASS INFORMATION -->
-    <div class="class-card">
-        <h2>🏫 Class Information</h2>
-
-        {% if student.class_section %}
-            <p class="class-info">
-                <strong>Class:</strong>
-                <span class="class-name">{{ student.class_section.name }}</span>
-            </p>
-
-            <p class="class-info">
-                <strong>Teacher:</strong>
-                {{ student.class_section.teacher.first_name|default:student.class_section.teacher.username }}
-            </p>
-
-            <p class="class-info"><strong>Status:</strong> Joined</p>
-
-            <form method="POST"
-                  action="{% url 'leave_class' %}"
-                  class="leave-form">
-                {% csrf_token %}
-                <button type="submit" class="leave-btn">
-                    Leave Class
-                </button>
-            </form>
-
-        {% else %}
-            <div class="no-class">
-                You have not joined a class yet.
-                <br><br>
-                You can still play Data Quest and track your own progress.
-                <br><br>
-                <a href="{% url 'join_section' %}" class="primary-btn">
-                    Join a Class
-                </a>
-            </div>
-        {% endif %}
-    </div>
-
-    <!-- FINAL CHALLENGE -->
-    <div class="final-card">
-        <div class="final-header">
-            <div>
-                <h2>🏆 Final Challenge</h2>
-                <p>Complete Levels 1–4 to unlock the Final Challenge.</p>
-            </div>
-
-            {% if final_result %}
-                <span class="final-status status-completed">Completed</span>
-            {% elif student.completed_levels >= 4 %}
-                <span class="final-status status-ready">Ready</span>
-            {% else %}
-                <span class="final-status status-locked">Locked</span>
-            {% endif %}
-        </div>
-
-        <div class="final-content">
-            {% if final_result %}
-
-                <div class="final-result-grid">
-                    <div class="final-result-item">
-                        <div class="final-result-label">Score</div>
-                        <div class="final-result-value final-score">
-                            {{ final_result.score }}/{{ final_result.total_questions }}
-                        </div>
-                    </div>
-
-                    <div class="final-result-item">
-                        <div class="final-result-label">Percentage</div>
-                        <div class="final-result-value">
-                            {{ final_result.percentage }}%
-                        </div>
-                    </div>
-
-                    <div class="final-result-item">
-                        <div class="final-result-label">Stars</div>
-                        <div class="final-result-value final-stars">
-                            ⭐ {{ final_result.stars }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="completed-message">
-                    🎉 You have completed the Final Challenge.
-                    Your result has been saved to your student account.
-
-                    {% if student.class_section %}
-                        Your class teacher can view your progress.
-                    {% else %}
-                        You are not currently assigned to a class.
-                        Your saved result remains in your account.
-                    {% endif %}
-                </div>
-
-                <div class="attempt-note">
-                    🔒 The Final Challenge can only be attempted once.
-                </div>
-                <br>
-
-                <a href="{% url 'final_challenge_result' %}" class="primary-btn">
-                    📊 View Final Result
+                <a href="{% url 'home' %}">
+                    Home
                 </a>
 
-            {% elif student.completed_levels >= 4 %}
-
-                <div class="ready-message">
-                    🎉 Congratulations! You have completed all four learning levels.
-                    The Final Challenge is now unlocked.
-                </div>
-
-                <a href="{% url 'final_challenge' %}" class="primary-btn">
-                    🏆 Start Final Challenge
+                <a href="{% url 'learn' %}">
+                    Learn
                 </a>
 
-                <div class="attempt-note">
-                    🔒 The Final Challenge can only be attempted once.
-                    Make sure you are ready before starting.
-                </div>
+                <a href="{% url 'how_to_play' %}">
+                    How to Play
+                </a>
 
-            {% else %}
+                <a href="{% url 'student_dashboard' %}"
+                   class="active"
+                   aria-current="page">
+                    Student Dashboard
+                </a>
 
-                <div class="locked-message">
-                    🔒 The Final Challenge is currently locked.
-                    <br><br>
-                    Complete Levels 1, 2, 3 and 4 to unlock it.
-                    <br><br>
-                    Your current progress:
-                    <strong>{{ student.completed_levels }} / 4 levels completed</strong>
-                </div>
+                <a href="{% url 'student_my_progress' %}">
+                    My Progress
+                </a>
 
-            {% endif %}
+                <a href="{% url 'student_logout' %}"
+                   class="logout">
+                    Logout
+                </a>
+
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- MY PROGRESS LINK -->
-    <section class="progress-link-card">
-        <div>
-            <h2>📊 My Progress and Game Results</h2>
+    <main class="container">
+
+        <!-- WELCOME BANNER -->
+
+        <section class="welcome">
+
+            <span class="welcome-label">
+                STUDENT DASHBOARD
+            </span>
+
+            <h1>
+                Welcome, {{ student.full_name }} 👋
+            </h1>
+
             <p>
-                View your Level 1 ASCII, Level 2 Text, Level 3 Images,
-                Level 4 Audio / Sound attempts, scores, percentages,
-                stars, and Final Challenge result.
+                Continue your Data Quest learning journey.
+                Explore the four topics of Data Representation,
+                complete challenges, and track your achievements.
             </p>
-        </div>
 
-        <a href="{% url 'student_my_progress' %}" class="primary-btn">
-            View My Progress →
-        </a>
-    </section>
+            <span class="welcome-decoration" aria-hidden="true">
+                🎓
+            </span>
 
-</main>
+        </section>
 
-<footer>
-    © 2026 Data Quest. Learn. Play. Master Data Representation.
-</footer>
+        <!-- DJANGO MESSAGES -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}" role="status">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- STUDENT STATISTICS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-title">Total Points</div>
+                <div class="stat-value">
+                    {{ student.total_points|default:0 }}
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-title">Total Stars</div>
+                <div class="stat-value">
+                    {{ student.total_stars|default:0 }}
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-title">Best Streak</div>
+                <div class="stat-value">
+                    {{ student.best_streak|default:0 }}
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-title">Completed Levels</div>
+                <div class="stat-value">
+                    {{ student.completed_levels|default:0 }} / 4
+                </div>
+            </div>
+
+        </section>
+
+        <!-- LEARNING LEVELS -->
+
+        <section class="levels-section">
+
+            <div class="section-heading">
+                <span class="section-accent"></span>
+                <h2>Choose Your Learning Level</h2>
+            </div>
+
+            <p class="levels-description">
+                Learn each topic, play the interactive game,
+                and improve your Data Representation skills.
+            </p>
+
+            <div class="levels-grid">
+
+                <!-- LEVEL 1 -->
+
+                <article class="level-card">
+
+                    <div class="level-icon">🔤</div>
+
+                    <div class="level-number">
+                        Level 01
+                    </div>
+
+                    <h3>ASCII Representation</h3>
+
+                    <p>
+                        Learn how characters are represented
+                        using ASCII numerical codes and how
+                        those codes are expressed in binary.
+                    </p>
+
+                    <a href="{% url 'level1_game' %}"
+                       class="primary-btn">
+                        Play Level 1 →
+                    </a>
+
+                </article>
+
+                <!-- LEVEL 2 -->
+
+                <article class="level-card">
+
+                    <div class="level-icon">📝</div>
+
+                    <div class="level-number">
+                        Level 02
+                    </div>
+
+                    <h3>Text Representation</h3>
+
+                    <p>
+                        Discover how computers store text
+                        using character encoding systems,
+                        including ASCII and Unicode.
+                    </p>
+
+                    <a href="{% url 'level2_game' %}"
+                       class="primary-btn">
+                        Play Level 2 →
+                    </a>
+
+                </article>
+
+                <!-- LEVEL 3 -->
+
+                <article class="level-card">
+
+                    <div class="level-icon">🖼️</div>
+
+                    <div class="level-number">
+                        Level 03
+                    </div>
+
+                    <h3>Image Representation</h3>
+
+                    <p>
+                        Understand pixels, image resolution,
+                        colour depth, binary colour values,
+                        and digital image storage.
+                    </p>
+
+                    <a href="{% url 'level3_game' %}"
+                       class="primary-btn">
+                        Play Level 3 →
+                    </a>
+
+                </article>
+
+                <!-- LEVEL 4 -->
+
+                <article class="level-card">
+
+                    <div class="level-icon">🎧</div>
+
+                    <div class="level-number">
+                        Level 04
+                    </div>
+
+                    <h3>Audio / Sound Representation</h3>
+
+                    <p>
+                        Learn how sound is converted into
+                        digital data through sampling,
+                        sample rate, bit depth, and encoding.
+                    </p>
+
+                    <a href="{% url 'level4_game' %}"
+                       class="primary-btn">
+                        Play Level 4 →
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- CLASS INFORMATION -->
+
+        <section class="class-card">
+
+            <h2>🏫 Class Information</h2>
+
+            {% if student.class_section %}
+
+                <p class="class-info">
+                    <strong>Class:</strong>
+                    <span class="class-name">
+                        {{ student.class_section.name }}
+                    </span>
+                </p>
+
+                <p class="class-info">
+                    <strong>Teacher:</strong>
+                    {{ student.class_section.teacher.first_name|default:student.class_section.teacher.username }}
+                </p>
+
+                <p class="class-info">
+                    <strong>Status:</strong>
+                    <span class="class-status">
+                        Joined
+                    </span>
+                </p>
+
+                <form method="POST"
+                      action="{% url 'leave_class' %}"
+                      class="leave-form">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="leave-btn">
+                        Leave Class
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <div class="no-class">
+
+                    <p>
+                        You have not joined a class yet.
+                        You can still play Data Quest
+                        and track your own progress.
+                    </p>
+
+                    <a href="{% url 'join_section' %}"
+                       class="primary-btn">
+                        Join a Class →
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+        <!-- FINAL CHALLENGE -->
+
+        <section class="final-card">
+
+            <div class="final-header">
+
+                <div>
+                    <h2>🏆 Final Challenge</h2>
+
+                    <p>
+                        Complete Levels 1–4 to unlock
+                        the Final Challenge.
+                    </p>
+                </div>
+
+                {% if final_result %}
+
+                    <span class="final-status status-completed">
+                        Completed
+                    </span>
+
+                {% elif student.completed_levels >= 4 %}
+
+                    <span class="final-status status-ready">
+                        Ready
+                    </span>
+
+                {% else %}
+
+                    <span class="final-status status-locked">
+                        Locked
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+            <div class="final-content">
+
+                {% if final_result %}
+
+                    <!-- COMPLETED FINAL CHALLENGE -->
+
+                    <div class="final-result-grid">
+
+                        <div class="final-result-item">
+                            <div class="final-result-label">
+                                Score
+                            </div>
+                            <div class="final-result-value final-score">
+                                {{ final_result.score }}/{{ final_result.total_questions }}
+                            </div>
+                        </div>
+
+                        <div class="final-result-item">
+                            <div class="final-result-label">
+                                Percentage
+                            </div>
+                            <div class="final-result-value">
+                                {{ final_result.percentage }}%
+                            </div>
+                        </div>
+
+                        <div class="final-result-item">
+                            <div class="final-result-label">
+                                Stars
+                            </div>
+                            <div class="final-result-value final-stars">
+                                ⭐ {{ final_result.stars }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="completed-message">
+
+                        🎉 You have completed the Final Challenge.
+                        Your result has been saved to your student account.
+
+                        {% if student.class_section %}
+
+                            Your class teacher can view your progress.
+
+                        {% else %}
+
+                            You are not currently assigned to a class.
+                            Your saved result remains in your account.
+
+                        {% endif %}
+
+                    </div>
+
+                    <p class="attempt-note">
+                        🔒 The Final Challenge can only be attempted once.
+                    </p>
+
+                    <a href="{% url 'final_challenge_result' %}"
+                       class="primary-btn">
+                        View Final Result →
+                    </a>
+
+                {% elif student.completed_levels >= 4 %}
+
+                    <!-- UNLOCKED FINAL CHALLENGE -->
+
+                    <div class="ready-message">
+
+                        🎉 Congratulations! You have completed
+                        all four learning levels.
+
+                        The Final Challenge is now unlocked.
+
+                    </div>
+
+                    <a href="{% url 'final_challenge' %}"
+                       class="primary-btn">
+                        Start Final Challenge →
+                    </a>
+
+                    <p class="attempt-note">
+                        🔒 The Final Challenge can only be attempted once.
+                        Make sure you are ready before starting.
+                    </p>
+
+                {% else %}
+
+                    <!-- LOCKED FINAL CHALLENGE -->
+
+                    <div class="locked-message">
+
+                        🔒 The Final Challenge is currently locked.
+
+                        <p>
+                            Complete Levels 1, 2, 3 and 4
+                            to unlock it.
+                        </p>
+
+                        Your current progress:
+
+                        <strong>
+                            {{ student.completed_levels|default:0 }} / 4
+                            levels completed
+                        </strong>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        <!-- MY PROGRESS -->
+
+        <section class="progress-link-card">
+
+            <div>
+
+                <h2>📊 My Progress and Game Results</h2>
+
+                <p>
+                    View your Level 1 ASCII, Level 2 Text,
+                    Level 3 Images, Level 4 Audio / Sound
+                    attempts, scores, percentages, stars,
+                    and Final Challenge result.
+                </p>
+
+            </div>
+
+            <a href="{% url 'student_my_progress' %}"
+               class="primary-btn">
+                View My Progress →
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer>
+        <p>Learn. Practise. Progress. Master.</p>
+
+        <p>
+            &copy; 2026 Data Quest. All rights reserved.
+        </p>
+    </footer>
 
 </body>
 </html>

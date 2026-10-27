@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST, require_http_methods
 from django.views.decorators.cache import never_cache
 from django.db import transaction
 from django.db.models.functions import Lower
+from django.urls import reverse
 import secrets
 
 from .models import (
@@ -52,7 +53,6 @@ def learn_audio(request):
     return render(request, 'learn_audio.html')
 
 
-# Retained for compatibility with any existing URL or template.
 def learn_video(request):
     return render(request, 'learn_video.html')
 
@@ -259,7 +259,10 @@ def leave_class(request):
         return redirect('student_login')
 
     if student.class_section is None:
-        messages.info(request, 'You are not currently in a class.')
+        messages.info(
+            request,
+            'You are not currently in a class.'
+        )
         return redirect('student_dashboard')
 
     student.class_section = None
@@ -296,7 +299,9 @@ def _render_game_for_student_or_guest(request, template_name):
 
 
 def level1(request):
-    return _render_game_for_student_or_guest(request, 'level1.html')
+    return _render_game_for_student_or_guest(
+        request, 'level1.html'
+    )
 
 
 def level1_game(request):
@@ -379,7 +384,7 @@ def get_next_attempt_number(result_model, **filters):
 
 
 # ==========================================================
-# SAVE STUDENT LEVEL RESULTS
+# SAVE REGISTERED STUDENT LEVEL RESULTS
 # ==========================================================
 
 @transaction.atomic
@@ -441,94 +446,193 @@ def save_student_level_result(
 
 
 # ==========================================================
-# SAVE LEVEL 1 RESULT
+# GUEST RESULTS — LEVELS 1 TO 4
+# ==========================================================
+
+GUEST_LEVELS = {
+    1: ("ASCII Representation", "level1_game"),
+    2: ("Text Representation", "level2_game"),
+    3: ("Image Representation", "level3_game"),
+    4: ("Audio Representation", "level4_game"),
+}
+
+
+def save_guest_level_result(request, level_number, data):
+    """
+    Save guest result in the current Django session.
+    Do not create a registered student result.
+    """
+
+    if level_number not in GUEST_LEVELS:
+        return redirect('quest_levels')
+
+    guest_results = request.session.get(
+        'guest_level_results', {}
+    )
+
+    guest_results[str(level_number)] = dict(data)
+    request.session['guest_level_results'] = guest_results
+
+    # Track consecutively completed guest levels.
+    # The Final Challenge uses completed_levels.
+    consecutive = 0
+
+    for number in range(1, 5):
+        if str(number) not in guest_results:
+            break
+
+        consecutive = number
+
+    request.session['completed_levels'] = consecutive
+    request.session.modified = True
+
+    result_url = (
+        reverse('guest_result')
+        + f'?level={level_number}'
+    )
+
+    is_ajax = (
+        request.headers.get('X-Requested-With')
+        == 'XMLHttpRequest'
+    )
+
+    if is_ajax:
+        return JsonResponse({
+            'success': True,
+            'saved': True,
+            'guest': True,
+            'redirect_url': result_url,
+            'message': 'Guest result saved for this session.',
+        })
+
+    return redirect(result_url)
+
+
+# ==========================================================
+# SHARED SAVE HANDLER FOR LEVELS 1, 2 AND 3
+# ==========================================================
+
+def save_level_for_student_or_guest(
+    request,
+    level_number,
+    result_model,
+):
+    game_url = GUEST_LEVELS[level_number][1]
+
+    data = get_game_result_data(request)
+
+    if data is None:
+        is_ajax = (
+            request.headers.get('X-Requested-With')
+            == 'XMLHttpRequest'
+        )
+
+        if is_ajax:
+            return JsonResponse({
+                'success': False,
+                'saved': False,
+                'message': 'Invalid result data.',
+            }, status=400)
+
+        return redirect(game_url)
+
+    # GUEST PLAYER
+    if not request.user.is_authenticated:
+        return save_guest_level_result(
+            request,
+            level_number,
+            data,
+        )
+
+    # REGISTERED STUDENT
+    if not StudentProfile.objects.filter(
+        user=request.user
+    ).exists():
+        return redirect('home')
+
+    return save_student_level_result(
+        request,
+        result_model,
+        level_number,
+        data,
+    )
+
+
+# ==========================================================
+# SAVE LEVEL 1 RESULT — ASCII
 # ==========================================================
 
 @require_POST
 def save_level1_result(request):
-    if not request.user.is_authenticated:
-        return redirect('level1_game')
-
-    if not StudentProfile.objects.filter(user=request.user).exists():
-        return redirect('home')
-
-    data = get_game_result_data(request)
-
-    if data is None:
-        return redirect('level1_game')
-
-    return save_student_level_result(
-        request, Level1Result, 1, data
+    return save_level_for_student_or_guest(
+        request,
+        1,
+        Level1Result,
     )
 
 
 # ==========================================================
-# SAVE LEVEL 2 RESULT
+# SAVE LEVEL 2 RESULT — TEXT
 # ==========================================================
 
 @require_POST
 def save_level2_result(request):
-    if not request.user.is_authenticated:
-        return redirect('level2_game')
-
-    if not StudentProfile.objects.filter(user=request.user).exists():
-        return redirect('home')
-
-    data = get_game_result_data(request)
-
-    if data is None:
-        return redirect('level2_game')
-
-    return save_student_level_result(
-        request, Level2Result, 2, data
+    return save_level_for_student_or_guest(
+        request,
+        2,
+        Level2Result,
     )
 
 
 # ==========================================================
-# SAVE LEVEL 3 RESULT
+# SAVE LEVEL 3 RESULT — IMAGE
 # ==========================================================
 
 @require_POST
 def save_level3_result(request):
-    if not request.user.is_authenticated:
-        return redirect('level3_game')
-
-    if not StudentProfile.objects.filter(user=request.user).exists():
-        return redirect('home')
-
-    data = get_game_result_data(request)
-
-    if data is None:
-        return redirect('level3_game')
-
-    return save_student_level_result(
-        request, Level3Result, 3, data
+    return save_level_for_student_or_guest(
+        request,
+        3,
+        Level3Result,
     )
 
 
 # ==========================================================
-# SAVE LEVEL 4 RESULT
-# Guests cannot save Level 4 results.
-# After Final Challenge, practice is allowed but not saved.
+# SAVE LEVEL 4 RESULT — AUDIO
 # ==========================================================
 
 @require_POST
 @transaction.atomic
 def save_level4_result(request):
     is_ajax = (
-        request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+        request.headers.get('X-Requested-With')
+        == 'XMLHttpRequest'
     )
 
+    # GUEST PLAYER
     if not request.user.is_authenticated:
-        if is_ajax:
-            return JsonResponse({
-                'success': False,
-                'saved': False,
-                'message': 'Guest results are not saved.',
-            }, status=403)
+        data = get_game_result_data(
+            request,
+            default_total=20,
+        )
 
-        return redirect('level4_game')
+        if data is None:
+            if is_ajax:
+                return JsonResponse({
+                    'success': False,
+                    'saved': False,
+                    'message': 'Invalid guest result data.',
+                }, status=400)
 
+            return redirect('level4_game')
+
+        return save_guest_level_result(
+            request,
+            4,
+            data,
+        )
+
+    # REGISTERED STUDENT
     try:
         student = StudentProfile.objects.select_for_update().get(
             user=request.user
@@ -543,6 +647,7 @@ def save_level4_result(request):
 
         return redirect('home')
 
+    # PRACTICE MODE AFTER FINAL CHALLENGE
     if has_saved_final_challenge(student):
         message = (
             'You have already completed the Final Challenge. '
@@ -562,7 +667,11 @@ def save_level4_result(request):
         messages.info(request, message)
         return redirect('level4_game')
 
-    data = get_game_result_data(request, default_total=20)
+    # VALIDATE RESULT
+    data = get_game_result_data(
+        request,
+        default_total=20,
+    )
 
     if data is None:
         if is_ajax:
@@ -581,6 +690,7 @@ def save_level4_result(request):
         )
         return redirect('level4_game')
 
+    # SAVE ATTEMPT
     attempt_number = get_next_attempt_number(
         Level4Result,
         student=student,
@@ -598,7 +708,10 @@ def save_level4_result(request):
 
     student.total_points += data['score']
     student.total_stars += data['stars']
-    student.completed_levels = max(student.completed_levels, 4)
+    student.completed_levels = max(
+        student.completed_levels,
+        4,
+    )
 
     student.save(update_fields=[
         'total_points',
@@ -617,16 +730,57 @@ def save_level4_result(request):
             'attempt_number': attempt_number,
         })
 
-    messages.success(request, 'Level 4 result saved successfully!')
+    messages.success(
+        request,
+        'Level 4 result saved successfully!'
+    )
     return redirect('student_dashboard')
 
 
 # ==========================================================
-# GUEST RESULT PAGE
+# SHARED GUEST RESULT PAGE — LEVELS 1 TO 4
 # ==========================================================
 
+@never_cache
 def guest_result(request):
-    return redirect('level1_game')
+    if request.user.is_authenticated:
+        if StudentProfile.objects.filter(
+            user=request.user
+        ).exists():
+            return redirect('student_dashboard')
+
+        return redirect('home')
+
+    try:
+        level_number = int(
+            request.GET.get('level', '1')
+        )
+    except (ValueError, TypeError):
+        return redirect('quest_levels')
+
+    if level_number not in GUEST_LEVELS:
+        return redirect('quest_levels')
+
+    result = request.session.get(
+        'guest_level_results', {}
+    ).get(str(level_number))
+
+    if result is None:
+        return redirect(
+            GUEST_LEVELS[level_number][1]
+        )
+
+    level_title, game_url = GUEST_LEVELS[
+        level_number
+    ]
+
+    return render(request, 'guest_result.html', {
+        'result': result,
+        'level_number': level_number,
+        'level_title': level_title,
+        'game_url': game_url,
+        'guest': True,
+    })
 
 
 # ==========================================================
@@ -644,7 +798,9 @@ def quest_levels(request):
 def final_challenge(request):
     if request.user.is_authenticated:
         try:
-            student = StudentProfile.objects.get(user=request.user)
+            student = StudentProfile.objects.get(
+                user=request.user
+            )
         except StudentProfile.DoesNotExist:
             return redirect('home')
 
@@ -671,6 +827,7 @@ def final_challenge(request):
             'guest': False,
         })
 
+    # GUEST PLAYER
     if not request.session.session_key:
         request.session.create()
 
@@ -703,7 +860,10 @@ def final_challenge(request):
 @require_POST
 @transaction.atomic
 def save_final_challenge_result(request):
-    data = get_game_result_data(request, default_total=25)
+    data = get_game_result_data(
+        request,
+        default_total=25,
+    )
 
     if data is None:
         messages.error(
@@ -756,7 +916,10 @@ def save_final_challenge_result(request):
 
         student.total_points += data['score']
         student.total_stars += data['stars']
-        student.save(update_fields=['total_points', 'total_stars'])
+        student.save(update_fields=[
+            'total_points',
+            'total_stars',
+        ])
 
         messages.success(
             request,
@@ -814,7 +977,9 @@ def save_final_challenge_result(request):
 def final_challenge_result(request):
     if request.user.is_authenticated:
         try:
-            student = StudentProfile.objects.get(user=request.user)
+            student = StudentProfile.objects.get(
+                user=request.user
+            )
         except StudentProfile.DoesNotExist:
             return redirect('home')
 
@@ -865,7 +1030,9 @@ def teacher_register(request):
         username = request.POST.get('username', '').strip()
         email = request.POST.get('email', '').strip()
         password = request.POST.get('password', '')
-        confirm_password = request.POST.get('confirm_password', '')
+        confirm_password = request.POST.get(
+            'confirm_password', ''
+        )
 
         if not full_name or not username or not password:
             return render(request, 'teacher_register.html', {
@@ -952,7 +1119,9 @@ def teacher_dashboard(request):
         return redirect('teacher_login')
 
     try:
-        teacher = TeacherProfile.objects.get(user=request.user)
+        teacher = TeacherProfile.objects.get(
+            user=request.user
+        )
     except TeacherProfile.DoesNotExist:
         return redirect('teacher_login')
 
@@ -980,7 +1149,9 @@ def teacher_all_students(request):
     if not request.user.is_authenticated:
         return redirect('teacher_login')
 
-    if not TeacherProfile.objects.filter(user=request.user).exists():
+    if not TeacherProfile.objects.filter(
+        user=request.user
+    ).exists():
         return redirect('teacher_login')
 
     students = StudentProfile.objects.filter(
@@ -1008,11 +1179,15 @@ def add_class(request):
     if not request.user.is_authenticated:
         return redirect('teacher_login')
 
-    if not TeacherProfile.objects.filter(user=request.user).exists():
+    if not TeacherProfile.objects.filter(
+        user=request.user
+    ).exists():
         return redirect('teacher_login')
 
     if request.method == 'POST':
-        class_name = request.POST.get('class_name', '').strip()
+        class_name = request.POST.get(
+            'class_name', ''
+        ).strip()
 
         if not class_name:
             return render(request, 'add_class.html', {
@@ -1047,7 +1222,9 @@ def view_students(request, class_id):
     if not request.user.is_authenticated:
         return redirect('teacher_login')
 
-    if not TeacherProfile.objects.filter(user=request.user).exists():
+    if not TeacherProfile.objects.filter(
+        user=request.user
+    ).exists():
         return redirect('teacher_login')
 
     try:
@@ -1081,7 +1258,9 @@ def add_student(request, class_id):
     if not request.user.is_authenticated:
         return redirect('teacher_login')
 
-    if not TeacherProfile.objects.filter(user=request.user).exists():
+    if not TeacherProfile.objects.filter(
+        user=request.user
+    ).exists():
         return redirect('teacher_login')
 
     try:
@@ -1093,8 +1272,12 @@ def add_student(request, class_id):
         return redirect('teacher_dashboard')
 
     if request.method == 'POST':
-        full_name = request.POST.get('full_name', '').strip()
-        username = request.POST.get('username', '').strip()
+        full_name = request.POST.get(
+            'full_name', ''
+        ).strip()
+        username = request.POST.get(
+            'username', ''
+        ).strip()
         password = request.POST.get('password', '')
 
         if not full_name or not username or not password:
@@ -1124,7 +1307,10 @@ def add_student(request, class_id):
                 class_section=section,
             )
 
-        return redirect('view_students', class_id=section.id)
+        return redirect(
+            'view_students',
+            class_id=section.id,
+        )
 
     return render(request, 'add_student.html', {
         'class_section': section,
@@ -1140,7 +1326,9 @@ def student_progress(request, student_id):
     if not request.user.is_authenticated:
         return redirect('teacher_login')
 
-    if not TeacherProfile.objects.filter(user=request.user).exists():
+    if not TeacherProfile.objects.filter(
+        user=request.user
+    ).exists():
         return redirect('teacher_login')
 
     try:
@@ -1170,10 +1358,21 @@ def student_progress(request, student_id):
         student=student
     ).order_by('-completed_at', '-id')
 
-    level1_is_completed = results.filter(completed=True).exists()
-    level2_is_completed = level2_results.filter(completed=True).exists()
-    level3_is_completed = level3_results.filter(completed=True).exists()
-    level4_is_completed = level4_results.filter(completed=True).exists()
+    level1_is_completed = results.filter(
+        completed=True
+    ).exists()
+
+    level2_is_completed = level2_results.filter(
+        completed=True
+    ).exists()
+
+    level3_is_completed = level3_results.filter(
+        completed=True
+    ).exists()
+
+    level4_is_completed = level4_results.filter(
+        completed=True
+    ).exists()
 
     final_result = FinalChallengeResult.objects.filter(
         student=student,
@@ -1200,7 +1399,8 @@ def student_progress(request, student_id):
     def get_best_result(level_results):
         completed_results = [
             result for result in level_results
-            if result.completed and result.total_questions > 0
+            if result.completed
+            and result.total_questions > 0
         ]
 
         if not completed_results:
@@ -1240,15 +1440,20 @@ def student_progress(request, student_id):
     overall_correct = sum(
         result.score for result in completed_results
     )
+
     overall_possible = sum(
-        result.total_questions for result in completed_results
+        result.total_questions
+        for result in completed_results
     )
 
     completed_activity_count = len(completed_results)
     total_activities = 5
 
     overall_percentage = (
-        round(overall_correct * 100 / overall_possible, 1)
+        round(
+            overall_correct * 100 / overall_possible,
+            1,
+        )
         if overall_possible > 0
         else None
     )
@@ -1302,7 +1507,9 @@ def student_my_progress(request):
         return redirect('student_login')
 
     try:
-        student = StudentProfile.objects.get(user=request.user)
+        student = StudentProfile.objects.get(
+            user=request.user
+        )
     except StudentProfile.DoesNotExist:
         return redirect('student_login')
 
@@ -1337,7 +1544,8 @@ def student_my_progress(request):
     def get_best_result(results):
         completed_results = [
             result for result in results
-            if result.completed and result.total_questions > 0
+            if result.completed
+            and result.total_questions > 0
         ]
 
         if not completed_results:
@@ -1375,18 +1583,26 @@ def student_my_progress(request):
     ]
 
     overall_correct = sum(
-        result.score for result in completed_activity_results
+        result.score
+        for result in completed_activity_results
     )
+
     overall_possible = sum(
         result.total_questions
         for result in completed_activity_results
     )
 
-    completed_activity_count = len(completed_activity_results)
+    completed_activity_count = len(
+        completed_activity_results
+    )
+
     total_activities = 5
 
     overall_percentage = (
-        round(overall_correct * 100 / overall_possible, 1)
+        round(
+            overall_correct * 100 / overall_possible,
+            1,
+        )
         if overall_possible > 0
         else None
     )
@@ -1422,13 +1638,14 @@ def student_my_progress(request):
 
 # ==========================================================
 # TEACHER: DELETE CLASS
-# Only the owning teacher can delete a class.
 # ==========================================================
 
 @login_required
 @require_http_methods(["GET", "POST"])
 def delete_class(request, class_id):
-    if not TeacherProfile.objects.filter(user=request.user).exists():
+    if not TeacherProfile.objects.filter(
+        user=request.user
+    ).exists():
         messages.error(
             request,
             'You are not authorized to delete classes.'

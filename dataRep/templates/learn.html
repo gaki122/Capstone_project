@@ -1,31 +1,41 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#4338ca">
+    <meta name="theme-color" content="#71342d">
 
     <title>Learn | Data Quest</title>
 
+    <!-- SAME FONTS AS HOME PAGE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        /* RESET */
+
+        /* ================================
+           GLOBAL DESIGN - SAME AS HOME
+        ================================= */
+
+        :root {
+            --maroon: #71342d;
+            --dark-maroon: #49221e;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --text: #302923;
+            --muted: #675d54;
+            --border: #e6d6b9;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #4338ca;
-            --primary-dark: #3730a3;
-            --primary-light: #eef2ff;
-            --text: #1e293b;
-            --muted: #64748b;
-            --border: #e2e8f0;
-            --background: #f5f7fb;
-            --white: #ffffff;
         }
 
         html {
@@ -33,227 +43,269 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--background);
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f3e9;
             color: var(--text);
-            line-height: 1.7;
+            font-size: 15px;
+            line-height: 1.75;
             min-height: 100vh;
+        }
+
+        h1, h2, h3, h4,
+        .logo, .btn, .nav-links a {
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
         a {
             text-decoration: none;
-            transition: 0.25s ease;
+            transition: .2s;
         }
 
-        /* NAVIGATION - MATCHES OTHER PAGES */
+        .container {
+            width: min(1150px, calc(100% - 36px));
+            margin: 0 auto;
+        }
 
-        nav {
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 30px;
+        /* ================================
+           NAVIGATION - SAME AS HOME
+        ================================= */
+
+        .navbar {
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 3px 12px rgba(0,0,0,.1);
         }
 
-        .nav-container {
-            width: 100%;
+        .nav-inner {
             max-width: 1180px;
-            margin: 0 auto;
+            min-height: 78px;
+            margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 25px;
+            gap: 20px;
         }
 
         .logo {
+            color: var(--maroon);
             font-size: 26px;
-            font-weight: 900;
-            color: var(--primary);
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 8px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
             white-space: nowrap;
-            transition: 0.25s;
-        }
-
-        .logo:hover {
-            color: var(--primary-dark);
-            background: var(--primary-light);
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
-            gap: 4px;
             flex-wrap: wrap;
+            gap: 7px;
         }
 
-        /* Same font size and style for every navigation link */
         .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #111827;
-            background: transparent;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            line-height: 1.5;
-            white-space: nowrap;
-            transition: 0.25s;
+            padding: 10px 13px;
+            border-radius: 9px;
+            color: var(--dark-maroon);
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
         }
 
-        .nav-links a:hover {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
-        }
-
+        .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: white;
         }
 
-        /* BUTTONS */
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 800;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-            box-shadow: 0 6px 16px rgba(67, 56, 202, 0.15);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: var(--white);
-            color: var(--primary);
-            border-color: #c7d2fe;
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        /* PAGE HEADER */
+        /* ================================
+           TAKTSANG BACKGROUND HERO
+        ================================= */
 
         .page-header {
-            background: linear-gradient(
-                135deg,
-                #eef2ff,
-                #eff6ff 55%,
-                #ecfeff
-            );
-            border-bottom: 1px solid #dbeafe;
-            padding: 65px 20px;
+            position: relative;
+            min-height: 580px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            padding: 85px 20px;
+            color: white;
+            background-color: #31483c;
+            overflow: hidden;
+            isolation: isolate;
         }
 
-        .container {
-            width: min(1120px, calc(100% - 36px));
-            margin: 0 auto;
+        .page-header-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            z-index: -2;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(12,21,18,.78) 0%,
+                rgba(12,21,18,.56) 55%,
+                rgba(12,21,18,.30) 100%
+            );
+            z-index: -1;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
         }
 
         .badge {
             display: inline-block;
-            padding: 7px 14px;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--gold);
             border-radius: 30px;
-            color: var(--primary);
-            background: var(--white);
-            border: 1px solid #c7d2fe;
+            background: rgba(0,0,0,.35);
+            color: #ffe5a1;
+            font-family: 'Poppins', Arial, sans-serif;
             font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 17px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
         }
 
         .page-header h1 {
-            font-size: clamp(32px, 5vw, 48px);
-            line-height: 1.2;
-            color: var(--text);
-            margin-bottom: 15px;
+            font-size: clamp(36px, 4.5vw, 58px);
+            line-height: 1.18;
+            font-weight: 800;
+            letter-spacing: -1.3px;
+            margin-bottom: 24px;
+            text-shadow: 0 3px 10px rgba(0,0,0,.5);
         }
 
         .page-header h1 span {
-            color: var(--primary);
+            display: block;
+            color: #ffd17a;
         }
 
         .page-header p {
             max-width: 720px;
-            margin: 0 auto 24px;
-            color: #475569;
+            margin: 0 auto 28px;
+            color: #fffdf7;
             font-size: 16px;
+            line-height: 1.85;
+            text-shadow: 0 2px 5px rgba(0,0,0,.6);
         }
 
-        /* SECTION */
+        /* ================================
+           BUTTONS - SAME AS HOME
+        ================================= */
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 9px;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #39261b;
+        }
+
+        .btn-gold:hover {
+            background: #ffd784;
+        }
+
+        .btn-maroon {
+            background: var(--maroon);
+            color: white;
+        }
+
+        .btn-maroon:hover {
+            background: var(--dark-maroon);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--maroon);
+            color: var(--maroon);
+            background: white;
+        }
+
+        .btn-outline:hover {
+            background: #fff2dc;
+        }
+
+        /* ================================
+           GENERAL SECTIONS
+        ================================= */
 
         .section {
-            padding: 55px 0;
+            padding: 65px 0;
         }
 
         .section-heading {
             max-width: 720px;
-            margin: 0 auto 30px;
+            margin: 0 auto 32px;
             text-align: center;
         }
 
         .section-heading h2 {
-            font-size: clamp(25px, 4vw, 32px);
-            line-height: 1.3;
-            margin-bottom: 8px;
+            color: var(--maroon);
+            font-size: clamp(25px, 3vw, 34px);
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin-bottom: 10px;
         }
 
         .section-heading p {
             color: var(--muted);
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.8;
         }
 
-        /* LESSON CARDS */
+        /* ================================
+           LESSON CARDS
+        ================================= */
 
         .lesson-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px;
+            gap: 23px;
         }
 
         .lesson-card {
-            background: var(--white);
+            background: white;
             border: 1px solid var(--border);
-            border-radius: 17px;
-            padding: 28px;
+            border-radius: 15px;
+            padding: 27px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.035);
-            transition: 0.25s;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            transition: .2s;
         }
 
         .lesson-card:hover {
-            transform: translateY(-5px);
-            border-color: #c7d2fe;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+            transform: translateY(-4px);
+            border-color: var(--gold);
+            box-shadow: 0 12px 28px rgba(0,0,0,.1);
         }
 
         .lesson-icon {
@@ -261,51 +313,58 @@
             height: 60px;
             display: grid;
             place-items: center;
-            background: var(--primary-light);
-            border-radius: 15px;
+            background: #f8edda;
+            border-radius: 12px;
             font-size: 30px;
             margin-bottom: 18px;
         }
 
         .lesson-card h3 {
-            font-size: 22px;
-            margin-bottom: 8px;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--maroon);
+            margin-bottom: 9px;
         }
 
         .lesson-card p {
             color: var(--muted);
             font-size: 14px;
+            line-height: 1.8;
             margin-bottom: 20px;
             flex: 1;
         }
 
         .lesson-tag {
             display: inline-block;
-            color: var(--primary);
-            background: var(--primary-light);
+            color: var(--maroon);
+            background: #f8edda;
+            border: 1px solid #eadbc1;
             border-radius: 20px;
-            padding: 4px 10px;
+            padding: 4px 11px;
+            font-family: 'Poppins', Arial, sans-serif;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 600;
             margin-bottom: 12px;
         }
 
-        /* QUEST LEVELS */
+        /* ================================
+           QUEST LEVELS
+        ================================= */
 
         .quest-section {
-            padding: 0 0 60px;
+            padding: 0 0 65px;
         }
 
         .quest-card {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 25px;
             padding: 32px;
-            border: 1px solid #c7d2fe;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #eef2ff, #ffffff);
-            box-shadow: 0 8px 25px rgba(67, 56, 202, 0.06);
+            background: #fffaf0;
+            border: 2px solid var(--gold);
+            border-radius: 17px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
         }
 
         .quest-content {
@@ -315,28 +374,31 @@
         .quest-icon {
             width: 65px;
             height: 65px;
-            min-width: 65px;
             display: grid;
             place-items: center;
-            background: #ffffff;
-            border: 1px solid #c7d2fe;
-            border-radius: 16px;
+            background: #f8edda;
+            border-radius: 12px;
             font-size: 32px;
             margin-bottom: 15px;
         }
 
         .quest-card h2 {
-            font-size: 26px;
-            margin-bottom: 8px;
+            color: var(--maroon);
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .quest-card p {
             color: var(--muted);
             font-size: 14px;
+            line-height: 1.8;
             margin-bottom: 20px;
         }
 
-        /* LEARNING TIPS */
+        /* ================================
+           LEARNING TIPS
+        ================================= */
 
         .tips-grid {
             display: grid;
@@ -345,107 +407,99 @@
         }
 
         .tip-card {
-            padding: 22px;
-            background: var(--white);
+            padding: 24px;
+            background: white;
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 15px;
             text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            transition: .2s;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,.1);
         }
 
         .tip-card .tip-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
+            font-size: 34px;
+            margin-bottom: 12px;
         }
 
         .tip-card h3 {
-            font-size: 17px;
-            margin-bottom: 7px;
+            color: var(--maroon);
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .tip-card p {
             color: var(--muted);
-            font-size: 13px;
+            font-size: 14px;
+            line-height: 1.8;
         }
 
-        /* FOOTER */
+        /* ================================
+           FOOTER - EXACT HOME STYLE
+        ================================= */
 
         footer {
-            background: #172033;
-            color: #cbd5e1;
+            background: #34221e;
+            color: #f3e6d3;
             text-align: center;
-            padding: 26px 20px;
-            font-size: 13px;
-        }
-
-        footer strong {
-            display: block;
-            color: var(--white);
-            font-size: 19px;
-            margin-bottom: 5px;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
         footer p {
-            margin-bottom: 5px;
+            font-size: 13px;
+            margin-top: 5px;
         }
 
-        /* TABLET */
+        /* ================================
+           RESPONSIVE DESIGN
+        ================================= */
 
-        @media (max-width: 850px) {
-            nav {
-                padding: 15px 20px;
-            }
-
-            .nav-container {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .nav-links {
-                justify-content: center;
-            }
-
-            .page-header {
-                padding: 50px 20px;
+        @media (max-width: 900px) {
+            .lesson-grid {
+                grid-template-columns: 1fr;
             }
 
             .tips-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* MOBILE */
-
-        @media (max-width: 600px) {
-            nav {
-                padding: 12px 15px;
-            }
-
-            .logo {
-                font-size: 23px;
+        @media (max-width: 650px) {
+            .nav-inner {
+                flex-direction: column;
             }
 
             .nav-links {
                 justify-content: center;
-                gap: 4px;
             }
 
-            /* Same mobile navigation font size on every page */
             .nav-links a {
-                font-size: 13px;
-                font-weight: 800;
-                padding: 8px 9px;
+                font-size: 12px;
+                padding: 8px;
             }
 
             .page-header {
-                padding: 40px 15px;
+                min-height: 500px;
+                padding: 65px 20px;
             }
 
-            .page-header p {
-                font-size: 14px;
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+            .page-header::before {
+                background: rgba(12,21,18,.67);
             }
 
             .section {
-                padding: 40px 0;
+                padding: 45px 0;
             }
 
             .lesson-grid,
@@ -460,19 +514,13 @@
             .quest-card {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 24px;
-            }
-
-            .quest-card h2 {
-                font-size: 23px;
+                padding: 25px;
             }
 
             .quest-card .btn {
                 width: 100%;
             }
         }
-
-        /* REDUCED MOTION ACCESSIBILITY */
 
         @media (prefers-reduced-motion: reduce) {
             html {
@@ -485,17 +533,21 @@
                 transition: none !important;
             }
         }
+
     </style>
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <div class="nav-container">
+    <!-- ================================
+         NAVIGATION - SAME AS HOME
+    ================================= -->
+
+    <nav class="navbar">
+        <div class="nav-inner">
 
             <a href="{% url 'home' %}" class="logo">
-                🎯 Data Quest
+                Data Quest
             </a>
 
             <div class="nav-links">
@@ -529,12 +581,22 @@
         </div>
     </nav>
 
-    <!-- PAGE HEADER -->
+    <!-- ================================
+         TAKTSANG BACKGROUND BANNER
+    ================================= -->
+
     <header class="page-header">
+
+        <img
+            class="page-header-background"
+            src="{% static 'dataRep/images/chortoen.jpeg' %}"
+            alt="Taktsang Monastery in Bhutan"
+        >
+
         <div class="container">
 
             <span class="badge">
-                📚 DATA QUEST LEARNING CENTRE
+                 DATA QUEST LEARNING CENTRE
             </span>
 
             <h1>
@@ -548,14 +610,17 @@
                 learn, and then attempt the matching Data Quest game.
             </p>
 
-            <a href="{% url 'quest_levels' %}" class="btn btn-primary">
-                🎮 Explore Quest Levels
+            <a href="{% url 'quest_levels' %}" class="btn btn-gold">
+                 Explore Quest Levels
             </a>
 
         </div>
     </header>
 
-    <!-- LESSON TOPICS -->
+    <!-- ================================
+         LESSON TOPICS
+    ================================= -->
+
     <section class="section">
         <div class="container">
 
@@ -569,7 +634,8 @@
 
             <div class="lesson-grid">
 
-                <!-- ASCII -->
+                <!-- LEVEL 1: ASCII -->
+
                 <article class="lesson-card">
                     <div class="lesson-icon">🔤</div>
 
@@ -589,7 +655,8 @@
                     </a>
                 </article>
 
-                <!-- TEXT -->
+                <!-- LEVEL 2: TEXT -->
+
                 <article class="lesson-card">
                     <div class="lesson-icon">📝</div>
 
@@ -609,7 +676,8 @@
                     </a>
                 </article>
 
-                <!-- IMAGES -->
+                <!-- LEVEL 3: IMAGES -->
+
                 <article class="lesson-card">
                     <div class="lesson-icon">🖼️</div>
 
@@ -629,7 +697,8 @@
                     </a>
                 </article>
 
-                <!-- AUDIO -->
+                <!-- LEVEL 4: AUDIO -->
+
                 <article class="lesson-card">
                     <div class="lesson-icon">🎧</div>
 
@@ -653,11 +722,15 @@
         </div>
     </section>
 
-    <!-- QUEST LEVELS -->
+    <!-- ================================
+         QUEST LEVELS
+    ================================= -->
+
     <section class="quest-section">
         <div class="container">
 
             <div class="quest-card">
+
                 <div class="quest-content">
 
                     <div class="quest-icon">🎮</div>
@@ -671,17 +744,19 @@
                     </p>
 
                     <a href="{% url 'quest_levels' %}"
-                       class="btn btn-primary">
+                       class="btn btn-maroon">
                         Open Quest Levels →
                     </a>
 
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- LEARNING TIPS -->
+    <!-- ================================
+         LEARNING TIPS
+    ================================= -->
+
     <section class="section" style="padding-top: 0;">
         <div class="container">
 
@@ -726,9 +801,11 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ================================
+         FOOTER 
+    ================================= -->
+
     <footer>
-        <strong>🎯 Data Quest</strong>
         <p>Learn. Practise. Progress. Master.</p>
         <p>&copy; 2026 Data Quest. All rights reserved.</p>
     </footer>

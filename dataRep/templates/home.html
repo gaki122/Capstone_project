@@ -1,37 +1,31 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#4338ca">
-
     <title>Data Quest | Learn Through Play</title>
 
+    <!-- PROFESSIONAL FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        :root {
+            --maroon: #71342d;
+            --dark-maroon: #49221e;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --text: #302923;
+            --muted: #675d54;
         }
 
-        :root {
-            --primary: #4338ca;
-            --primary-dark: #3730a3;
-            --primary-light: #eef2ff;
-            --text: #1e293b;
-            --muted: #64748b;
-            --border: #e2e8f0;
-            --background: #f5f7fb;
-            --white: #ffffff;
-
-            --font-family: Arial, Helvetica, sans-serif;
-            --font-body: 14px;
-            --font-nav: 15px;
-            --font-button: 14px;
-            --font-small: 12px;
-            --font-section-heading: 30px;
-            --font-card-heading: 19px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html {
@@ -39,38 +33,43 @@
         }
 
         body {
-            font-family: var(--font-family);
-            font-size: var(--font-body);
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f3e9;
             color: var(--text);
-            background: var(--background);
-            line-height: 1.7;
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        h1, h2, h3, h4,
+        .logo, .btn, .nav-links a {
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
         a {
             text-decoration: none;
-            transition: all 0.2s ease;
         }
 
         .container {
-            width: min(1120px, calc(100% - 36px));
+            width: min(1150px, calc(100% - 36px));
             margin: 0 auto;
         }
 
         /* NAVIGATION */
 
         .navbar {
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid var(--border);
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+            box-shadow: 0 3px 12px rgba(0,0,0,.1);
         }
 
         .nav-inner {
-            width: min(1160px, calc(100% - 36px));
-            min-height: 76px;
+            max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -78,387 +77,335 @@
         }
 
         .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--primary);
+            color: var(--maroon);
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
             white-space: nowrap;
-        }
-
-        .logo:hover {
-            color: var(--primary-dark);
-            transform: translateY(-1px);
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: flex-end;
             flex-wrap: wrap;
-            gap: 4px;
+            gap: 7px;
         }
-
-        /* ALL NAVIGATION LINKS USE THE SAME STYLE */
 
         .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #111827;
-            background: transparent;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            line-height: 1.5;
-            white-space: nowrap;
-            transition: 0.25s;
+            padding: 10px 13px;
+            border-radius: 9px;
+            color: var(--dark-maroon);
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
         }
 
-        .nav-links a:hover {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
-        }
-
+        .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: white;
+        }
+
+        /* GANGTEY PHOTO BANNER */
+
+        .hero {
+            position: relative;
+            min-height: 670px;
+            display: flex;
+            align-items: center;
+            padding: 85px 0;
+            color: white;
+            background-color: #31483c;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            z-index: -2;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(12,21,18,.78) 0%,
+                rgba(12,21,18,.56) 55%,
+                rgba(12,21,18,.30) 100%
+            );
+            z-index: -1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            align-items: center;
+            gap: 42px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+            background: rgba(0,0,0,.35);
+            color: #ffe5a1;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 4.5vw, 58px);
+            line-height: 1.18;
+            font-weight: 800;
+            letter-spacing: -1.3px;
+            margin-bottom: 24px;
+            text-shadow: 0 3px 10px rgba(0,0,0,.5);
+        }
+
+        .hero h1 span {
+            display: block;
+            color: #ffd17a;
+        }
+
+        .hero-description {
+            max-width: 620px;
+            margin-bottom: 26px;
+            color: #fffdf7;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.85;
+            text-shadow: 0 2px 5px rgba(0,0,0,.6);
         }
 
         /* BUTTONS */
+
+        .hero-buttons,
+        .account-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
 
         .btn {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-size: var(--font-button);
-            font-weight: 800;
-            line-height: 1.5;
-            text-align: center;
-            border: 1px solid transparent;
+            padding: 12px 22px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
             cursor: pointer;
         }
 
-        .btn-primary {
-            color: white;
-            background: var(--primary);
-            box-shadow: 0 6px 16px rgba(67, 56, 202, 0.15);
+        .btn:hover {
+            transform: translateY(-3px);
         }
 
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 9px 20px rgba(67, 56, 202, 0.22);
+        .btn-gold {
+            background: var(--gold);
+            color: #39261b;
         }
 
-        .btn-light {
-            color: var(--primary);
+        .btn-gold:hover {
+            background: #ffd784;
+        }
+
+        .btn-white {
             background: white;
-            border-color: #c7d2fe;
+            color: var(--maroon);
         }
 
-        .btn-light:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
+        .btn-maroon {
+            background: var(--maroon);
+            color: white;
         }
 
         .btn-outline {
-            color: var(--text);
+            border: 2px solid var(--maroon);
+            color: var(--maroon);
             background: white;
-            border-color: var(--border);
-        }
-
-        .btn-outline:hover {
-            border-color: #a5b4fc;
-            color: var(--primary);
-            background: var(--primary-light);
-        }
-
-        /* HERO */
-
-        .hero {
-            background: linear-gradient(
-                135deg,
-                #eef2ff,
-                #eff6ff 55%,
-                #ecfeff
-            );
-            border-bottom: 1px solid #dbeafe;
-            padding: 65px 0;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 45px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 7px 13px;
-            border-radius: 30px;
-            color: var(--primary);
-            background: white;
-            border: 1px solid #c7d2fe;
-            font-size: var(--font-small);
-            font-weight: 800;
-            margin-bottom: 17px;
-        }
-
-        .hero h1 {
-            font-size: clamp(34px, 4.5vw, 46px);
-            line-height: 1.2;
-            letter-spacing: -0.7px;
-            margin-bottom: 18px;
-            font-weight: 800;
-        }
-
-        .hero h1 span {
-            color: var(--primary);
-        }
-
-        .hero-description {
-            max-width: 650px;
-            color: #475569;
-            font-size: var(--font-body);
-            margin-bottom: 25px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
         }
 
         .hero-note {
-            margin-top: 13px;
-            color: var(--muted);
-            font-size: var(--font-small);
+            margin-top: 18px;
+            color: #fff0d1;
+            font-size: 13px;
         }
 
-        /* LEARNING PATH */
+        /* LEARNING JOURNEY */
 
         .path-card {
-            padding: 24px;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.07);
+            background: rgba(255,250,240,.97);
+            color: var(--text);
+            padding: 26px;
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,.25);
         }
 
         .path-card h2 {
-            font-size: var(--font-card-heading);
-            line-height: 1.4;
-            margin-bottom: 5px;
+            font-size: 23px;
+            font-weight: 700;
+            color: var(--maroon);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .path-intro {
+            font-size: 13px;
             color: var(--muted);
-            font-size: var(--font-body);
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .path-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 13px;
+            background: white;
+            border: 1px solid #eadbc1;
+            border-radius: 10px;
             padding: 12px;
-            margin-bottom: 10px;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            background: #fafcff;
-            transition: all 0.2s ease;
-        }
-
-        .path-item:hover {
-            background: var(--primary-light);
-            border-color: #c7d2fe;
-            transform: translateX(3px);
+            margin-bottom: 9px;
         }
 
         .path-item:last-child {
             margin-bottom: 0;
         }
 
-        .path-number {
-            width: 39px;
-            height: 39px;
-            min-width: 39px;
+        .path-icon {
             display: grid;
             place-items: center;
-            background: var(--primary-light);
-            border-radius: 10px;
-            font-size: 20px;
+            min-width: 47px;
+            height: 47px;
+            background: #f8edda;
+            border-radius: 9px;
+            font-size: 24px;
         }
 
-        .path-info {
-            flex: 1;
-        }
-
-        .path-info strong {
+        .path-item strong {
             display: block;
-            font-size: var(--font-body);
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--maroon);
         }
 
-        .path-info span {
+        .path-item span {
             display: block;
+            font-size: 12px;
             color: var(--muted);
-            font-size: var(--font-small);
         }
 
         /* GENERAL SECTIONS */
 
         .section {
-            padding: 55px 0;
+            padding: 65px 0;
         }
 
         .section-heading {
-            max-width: 700px;
-            margin: 0 auto 30px;
+            max-width: 720px;
+            margin: 0 auto 32px;
             text-align: center;
         }
 
         .section-heading h2 {
-            font-size: clamp(25px, 3.5vw, var(--font-section-heading));
-            line-height: 1.35;
-            margin-bottom: 8px;
-            font-weight: 800;
+            color: var(--maroon);
+            font-size: clamp(25px, 3vw, 34px);
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin-bottom: 10px;
         }
 
         .section-heading p {
             color: var(--muted);
-            font-size: var(--font-body);
+            font-size: 15px;
+            line-height: 1.8;
         }
 
-        /* QUICK LINKS */
-
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .quick-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.035);
-            transition: all 0.25s ease;
-        }
-
-        .quick-card:hover {
-            transform: translateY(-4px);
-            border-color: #c7d2fe;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
-        }
-
-        .quick-icon {
-            width: 52px;
-            height: 52px;
-            display: grid;
-            place-items: center;
-            background: var(--primary-light);
-            border-radius: 14px;
-            font-size: 26px;
-            margin-bottom: 15px;
-        }
-
-        .quick-card h3 {
-            font-size: var(--font-card-heading);
-            line-height: 1.4;
-            margin-bottom: 7px;
-        }
-
-        .quick-card p {
-            flex: 1;
-            color: var(--muted);
-            font-size: var(--font-body);
-            margin-bottom: 18px;
-        }
-
-        .text-link {
-            color: var(--primary);
-            font-weight: 800;
-            font-size: var(--font-body);
-        }
-
-        .text-link:hover {
-            color: var(--primary-dark);
-        }
-
-        /* STUDENT AND TEACHER ACCOUNTS */
-
-        .accounts {
-            background: white;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
+        .quick-grid,
         .account-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px;
+            gap: 23px;
         }
 
-        .account-card {
-            padding: 28px;
-            border: 1px solid var(--border);
-            border-radius: 17px;
-            background: #fafcff;
-            transition: all 0.25s ease;
+        .quick-card,
+        .account-card,
+        .step-card {
+            background: white;
+            border: 1px solid #e6d6b9;
+            border-radius: 15px;
+            padding: 27px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            transition: .2s;
         }
 
-        .account-card:hover {
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
-            transform: translateY(-3px);
+        .quick-card:hover,
+        .account-card:hover,
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,.1);
         }
 
-        .account-card.student {
-            border-top: 4px solid var(--primary);
-        }
-
-        .account-card.teacher {
-            border-top: 4px solid #0891b2;
-        }
-
-        .account-icon {
-            font-size: 34px;
-            margin-bottom: 10px;
-        }
-
+        .quick-card h3,
         .account-card h3 {
-            font-size: 22px;
-            line-height: 1.4;
-            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--maroon);
+            margin-bottom: 9px;
         }
 
-        .account-card p {
+        .quick-card p,
+        .account-card p,
+        .step-card p {
             color: var(--muted);
-            font-size: var(--font-body);
+            font-size: 14px;
+            line-height: 1.8;
             margin-bottom: 18px;
         }
 
-        .account-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        .card-icon {
+            font-size: 34px;
+            margin-bottom: 12px;
         }
 
-        /* HOW IT WORKS */
+        .text-link {
+            color: var(--maroon);
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ACCOUNT SECTION */
+
+        .accounts {
+            background: #f0e6d5;
+        }
+
+        .account-card {
+            border-top: 5px solid var(--gold);
+        }
+
+        /* HOW DATA QUEST WORKS */
 
         .steps-grid {
             display: grid;
@@ -467,33 +414,15 @@
         }
 
         .step-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px 16px;
             text-align: center;
-            transition: all 0.25s ease;
-        }
-
-        .step-card:hover {
-            border-color: #c7d2fe;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-        }
-
-        .step-card .quick-icon {
-            margin: 0 auto 12px;
+            padding: 23px 15px;
         }
 
         .step-card h3 {
-            font-size: 16px;
-            line-height: 1.4;
-            margin-bottom: 5px;
-        }
-
-        .step-card p {
-            color: var(--muted);
-            font-size: var(--font-body);
+            color: var(--maroon);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 7px;
         }
 
         /* FINAL CHALLENGE */
@@ -503,75 +432,66 @@
             align-items: center;
             gap: 22px;
             padding: 30px;
-            background: linear-gradient(135deg, #fffbeb, #ffffff);
-            border: 1px solid #fde68a;
-            border-radius: 18px;
+            background: #fffaf0;
+            border: 2px solid var(--gold);
+            border-radius: 17px;
         }
 
         .final-icon {
-            width: 70px;
-            height: 70px;
-            min-width: 70px;
-            display: grid;
-            place-items: center;
-            background: #fef3c7;
-            border-radius: 17px;
-            font-size: 35px;
+            font-size: 52px;
         }
 
         .final-card h2 {
-            font-size: 24px;
-            line-height: 1.4;
-            margin-bottom: 8px;
+            color: var(--maroon);
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .final-card p {
             color: var(--muted);
-            font-size: var(--font-body);
+            margin-bottom: 8px;
+            line-height: 1.8;
         }
 
-        /* BOTTOM CALL TO ACTION */
+        /* FINAL CALL TO ACTION */
 
         .cta {
-            padding: 43px 22px;
-            margin-bottom: 50px;
-            background: linear-gradient(135deg, #312e81, #4338ca);
+            background: linear-gradient(
+                135deg,
+                var(--dark-maroon),
+                var(--maroon)
+            );
             color: white;
+            border-radius: 18px;
+            padding: 45px 25px;
             text-align: center;
-            border-radius: 20px;
+            margin-bottom: 55px;
         }
 
         .cta h2 {
-            font-size: clamp(25px, 3.5vw, 32px);
-            line-height: 1.4;
-            margin-bottom: 8px;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
         .cta p {
-            color: #e0e7ff;
-            font-size: var(--font-body);
-            margin-bottom: 20px;
+            color: #f5e4d4;
+            margin-bottom: 22px;
         }
 
         /* FOOTER */
 
         footer {
-            padding: 26px 18px;
-            background: #172033;
-            color: #cbd5e1;
+            background: #34221e;
+            color: #f3e6d3;
             text-align: center;
-            font-size: var(--font-body);
-        }
-
-        footer strong {
-            display: block;
-            color: white;
-            font-size: 19px;
-            margin-bottom: 5px;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
         footer p {
-            margin-bottom: 5px;
+            font-size: 13px;
+            margin-top: 5px;
         }
 
         /* RESPONSIVE DESIGN */
@@ -582,55 +502,44 @@
             }
 
             .path-card {
-                max-width: 600px;
-                width: 100%;
-                margin: 0 auto;
+                max-width: 650px;
             }
 
             .steps-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 850px) {
-            .nav-inner {
-                flex-direction: column;
-                justify-content: center;
-                padding: 13px 0;
-                gap: 12px;
-            }
-
-            .nav-links {
-                justify-content: center;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 650px) {
             .nav-inner {
-                gap: 8px;
+                flex-direction: column;
             }
 
             .nav-links {
                 justify-content: center;
-                gap: 4px;
             }
 
             .nav-links a {
-                font-size: 13px;
-                font-weight: 800;
-                padding: 8px 9px;
-            }
-
-            .logo {
-                font-size: 23px;
+                font-size: 12px;
+                padding: 8px;
             }
 
             .hero {
-                padding: 42px 0;
+                padding: 65px 0;
             }
 
             .hero h1 {
-                font-size: clamp(30px, 8vw, 38px);
+                font-size: 36px;
+            }
+
+            .hero::before {
+                background: rgba(12,21,18,.67);
+            }
+
+            .quick-grid,
+            .account-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
             }
 
             .hero-buttons {
@@ -641,44 +550,13 @@
                 width: 100%;
             }
 
-            .quick-grid,
-            .account-grid,
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .account-card {
-                padding: 23px;
-            }
-
-            .account-buttons .btn {
-                flex: 1;
-            }
-
             .final-card {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 24px;
             }
 
             .section {
-                padding: 42px 0;
-            }
-
-            .cta {
-                margin-bottom: 35px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-
-            *,
-            *::before,
-            *::after {
-                transition: none !important;
+                padding: 45px 0;
             }
         }
     </style>
@@ -686,13 +564,13 @@
 
 <body>
 
-    <!-- NAVIGATION: ALL LINKS HAVE THE SAME STYLE -->
+    <!-- NAVIGATION -->
 
     <nav class="navbar">
         <div class="nav-inner">
 
             <a href="{% url 'home' %}" class="logo">
-                🎯 Data Quest
+                Data Quest
             </a>
 
             <div class="nav-links">
@@ -726,91 +604,110 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- GANGTEY BACKGROUND BANNER -->
 
     <header class="hero">
+
+        <img
+            class="hero-background"
+            src="{% static 'dataRep/images/gangtey.jpg' %}"
+            alt="Gangtey landscape in Bhutan"
+        >
+
         <div class="container hero-grid">
 
-            <div>
-                <span class="badge">
-                    🎮 INTERACTIVE LEARNING ADVENTURE
+            <!-- LEFT SIDE BANNER TEXT -->
+
+            <div class="hero-content">
+
+                <span class="eyebrow">
+                    EXPLORE • LEARN • PLAY • ACHIEVE
                 </span>
 
                 <h1>
-                    Learn Data Representation
+                    Discover the World of
+                    Data Representation
                     <span>Through Play!</span>
                 </h1>
 
                 <p class="hero-description">
-                    Welcome to Data Quest! Discover how computers represent
-                    letters, text, images and sound. Learn the concepts,
-                    play educational games, earn points and improve your
-                    understanding one level at a time.
+                    Explore how computers transform letters,
+                    images and sounds into digital information.
+                    Discover fascinating concepts, take on exciting
+                    challenges and build your knowledge—one level at a time.
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="{% url 'quest_levels' %}" class="btn btn-primary">
-                        🚀 Start Data Quest
+
+                    <a href="{% url 'quest_levels' %}"
+                       class="btn btn-gold">
+                        Start Data Quest
                     </a>
 
-                    <a href="{% url 'learn' %}" class="btn btn-light">
-                        📚 Learn First
+                    <a href="{% url 'learn' %}"
+                       class="btn btn-white">
+                        Learn First
                     </a>
+
                 </div>
 
                 <p class="hero-note">
                     You can start exploring without creating an account.
                 </p>
+
             </div>
 
-            <!-- LEARNING PATH PREVIEW -->
+            <!-- RIGHT SIDE LEARNING JOURNEY -->
 
             <div class="path-card">
+
                 <h2>🗺️ Your Learning Journey</h2>
 
                 <p class="path-intro">
-                    Four topics, followed by the Final Challenge.
+                    Explore four essential topics, develop your skills
+                    and put your knowledge to the test in the Final Challenge.
                 </p>
 
                 <div class="path-item">
-                    <div class="path-number">🔤</div>
-                    <div class="path-info">
+                    <div class="path-icon">🔤</div>
+                    <div>
                         <strong>Level 1 — ASCII</strong>
                         <span>Character codes and binary</span>
                     </div>
                 </div>
 
                 <div class="path-item">
-                    <div class="path-number">📝</div>
-                    <div class="path-info">
+                    <div class="path-icon">📝</div>
+                    <div>
                         <strong>Level 2 — Text</strong>
                         <span>Characters and text encoding</span>
                     </div>
                 </div>
 
                 <div class="path-item">
-                    <div class="path-number">🖼️</div>
-                    <div class="path-info">
+                    <div class="path-icon">🖼️</div>
+                    <div>
                         <strong>Level 3 — Images</strong>
                         <span>Pixels, colours and resolution</span>
                     </div>
                 </div>
 
                 <div class="path-item">
-                    <div class="path-number">🎧</div>
-                    <div class="path-info">
+                    <div class="path-icon">🎧</div>
+                    <div>
                         <strong>Level 4 — Audio</strong>
                         <span>Sampling and digital sound</span>
                     </div>
                 </div>
 
                 <div class="path-item">
-                    <div class="path-number">🏆</div>
-                    <div class="path-info">
+                    <div class="path-icon">🏆</div>
+                    <div>
                         <strong>Final Challenge</strong>
                         <span>Review all four topics</span>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -822,25 +719,24 @@
         <div class="container">
 
             <div class="section-heading">
-                <h2>Where Would You Like to Start?</h2>
-
+                <h2>Where Will Your Learning Journey Begin?</h2>
                 <p>
-                    Start learning about data representation or find out
-                    how to play Data Quest.
+                    Every great discovery begins with curiosity.
+                    Explore engaging lessons and prepare for
+                    exciting challenges.
                 </p>
             </div>
 
             <div class="quick-grid">
 
                 <article class="quick-card">
-                    <div class="quick-icon">📚</div>
-
-                    <h3>Learn the Topics</h3>
+                    <div class="card-icon">📚</div>
+                    <h3>Explore the Lessons</h3>
 
                     <p>
-                        Read the lesson notes about ASCII, text, images
-                        and audio. You can find the Quest Levels page
-                        inside the Learn section.
+                        Discover how computers represent text,
+                        images and audio. Build a strong foundation
+                        with clear, engaging lessons before you play.
                     </p>
 
                     <a href="{% url 'learn' %}" class="text-link">
@@ -849,13 +745,13 @@
                 </article>
 
                 <article class="quick-card">
-                    <div class="quick-icon">❓</div>
-
+                    <div class="card-icon">❓</div>
                     <h3>How to Play</h3>
 
                     <p>
-                        Learn how to navigate the game, answer questions
-                        and work through your learning journey.
+                        Find out how to play, solve questions,
+                        earn stars and progress confidently
+                        through each learning level.
                     </p>
 
                     <a href="{% url 'how_to_play' %}" class="text-link">
@@ -867,36 +763,38 @@
         </div>
     </section>
 
-    <!-- STUDENT AND TEACHER ACCOUNTS -->
+    <!-- STUDENT AND TEACHER ACCESS -->
 
     <section class="section accounts">
         <div class="container">
 
             <div class="section-heading">
                 <h2>Student and Teacher Access</h2>
-
                 <p>
-                    Sign in to access your account and the features
-                    available for your role.
+                    Access your personalised learning space,
+                    manage activities and follow your progress
+                    throughout Data Quest.
                 </p>
             </div>
 
             <div class="account-grid">
 
-                <article class="account-card student">
-                    <div class="account-icon">🎓</div>
+                <!-- STUDENT -->
 
+                <article class="account-card">
+                    <div class="card-icon">🎓</div>
                     <h3>Student</h3>
 
                     <p>
-                        Access your student account, save your learning
-                        progress and join a teacher's class if you have
-                        a class join code.
+                        Join your teacher's class using a join code,
+                        explore learning levels and keep track
+                        of your achievements.
                     </p>
 
                     <div class="account-buttons">
+
                         <a href="{% url 'student_login' %}"
-                           class="btn btn-primary">
+                           class="btn btn-maroon">
                             Student Login
                         </a>
 
@@ -904,23 +802,26 @@
                            class="btn btn-outline">
                             Create Account
                         </a>
+
                     </div>
                 </article>
 
-                <article class="account-card teacher">
-                    <div class="account-icon">👨‍🏫</div>
+                <!-- TEACHER -->
 
+                <article class="account-card">
+                    <div class="card-icon">👨‍🏫</div>
                     <h3>Teacher</h3>
 
                     <p>
-                        Create and manage classes, share class join codes,
-                        and monitor the progress of students who join
-                        your classes.
+                        Create and manage classes, share join codes
+                        and support students by monitoring their
+                        learning progress.
                     </p>
 
                     <div class="account-buttons">
+
                         <a href="{% url 'teacher_login' %}"
-                           class="btn btn-primary">
+                           class="btn btn-maroon">
                             Teacher Login
                         </a>
 
@@ -928,6 +829,7 @@
                            class="btn btn-outline">
                             Register as Teacher
                         </a>
+
                     </div>
                 </article>
 
@@ -935,92 +837,106 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- HOW DATA QUEST WORKS -->
 
     <section class="section">
         <div class="container">
 
             <div class="section-heading">
                 <h2>How Data Quest Works</h2>
-
                 <p>
-                    Follow these simple steps to build your knowledge
-                    and test what you have learned.
+                    Explore, practise and challenge yourself
+                    in four simple steps to strengthen
+                    your digital knowledge.
                 </p>
             </div>
 
             <div class="steps-grid">
 
                 <article class="step-card">
-                    <div class="quick-icon">📖</div>
+                    <div class="card-icon">📖</div>
                     <h3>1. Learn</h3>
-                    <p>Read about ASCII, text, images and audio.</p>
+                    <p>
+                        Discover the key concepts of ASCII,
+                        text, images and audio.
+                    </p>
                 </article>
 
                 <article class="step-card">
-                    <div class="quick-icon">🎮</div>
+                    <div class="card-icon">🎮</div>
                     <h3>2. Play</h3>
-                    <p>Attempt the game for the topic you studied.</p>
+                    <p>
+                        Put your knowledge into action
+                        through educational games.
+                    </p>
                 </article>
 
                 <article class="step-card">
-                    <div class="quick-icon">⭐</div>
+                    <div class="card-icon">⭐</div>
                     <h3>3. Improve</h3>
-                    <p>Practise questions and build your understanding.</p>
+                    <p>
+                        Build confidence, earn stars
+                        and improve with practice.
+                    </p>
                 </article>
 
                 <article class="step-card">
-                    <div class="quick-icon">🏆</div>
+                    <div class="card-icon">🏆</div>
                     <h3>4. Challenge</h3>
-                    <p>Test your knowledge in the Final Challenge.</p>
+                    <p>
+                        Bring your skills together
+                        in the Final Challenge.
+                    </p>
                 </article>
 
             </div>
         </div>
     </section>
 
-    <!-- FINAL CHALLENGE INFORMATION -->
+    <!-- FINAL CHALLENGE -->
 
-    <section class="section" style="padding-top: 0;">
+    <section class="section" style="padding-top:0">
         <div class="container">
 
             <div class="final-card">
+
                 <div class="final-icon">🏆</div>
 
                 <div>
-                    <h2>Get Ready for the Final Challenge</h2>
+                    <h2>The Ultimate Data Quest Challenge</h2>
 
                     <p>
-                        Complete the required levels and test your
-                        understanding of ASCII, Text, Image and Audio
-                        Representation. Review your lessons before
-                        attempting the final game.
+                        Ready to put everything you have learned
+                        into action? Complete the required levels
+                        and test your understanding of ASCII,
+                        text, image and audio representation.
                     </p>
 
-                    <p style="margin-top: 10px;">
-                        <strong>Remember:</strong> The game should enforce
-                        the required level-completion rules before
-                        allowing access to the Final Challenge.
+                    <p>
+                        Review the lessons, strengthen your skills
+                        and prepare to take on your ultimate challenge.
                     </p>
                 </div>
-            </div>
 
+            </div>
         </div>
     </section>
 
-    <!-- BOTTOM CALL TO ACTION -->
+    <!-- START GAME -->
 
     <div class="container">
         <section class="cta">
 
-            <h2>Ready to Begin Your Quest? 🚀</h2>
+            <h2>Your Digital Adventure Starts Here!</h2>
 
             <p>
-                Choose a level, learn something new and put your
-                knowledge to the test.
+                Every challenge is an opportunity to learn.
+                Take your first step, explore digital information
+                and see how far your knowledge can take you.
             </p>
 
-            <a href="{% url 'quest_levels' %}" class="btn btn-light">
+            <a href="{% url 'quest_levels' %}"
+               class="btn btn-gold">
                 Start Data Quest →
             </a>
 
@@ -1030,7 +946,6 @@
     <!-- FOOTER -->
 
     <footer>
-        <strong>🎯 Data Quest</strong>
         <p>Learn. Practise. Progress. Master.</p>
         <p>&copy; 2026 Data Quest. All rights reserved.</p>
     </footer>

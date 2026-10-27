@@ -1,252 +1,638 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level {{ level_number }} Guest Result | Data Quest</title>
 
-    <title>Data Quest - Guest Result</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --green: #244b42;
+            --green-dark: #17382f;
+            --maroon: #71342d;
+            --gold: #e8b95b;
+            --white: #fffdfa;
+            --text: #27332e;
+            --muted: #66736b;
+            --border: #e8dfcd;
+        }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            background: #f8f5ed;
+            color: var(--text);
+            line-height: 1.65;
         }
 
-        .result-card {
-            width: 100%;
-            max-width: 650px;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+        h1, h2, h3, .logo, .nav-links a, .btn {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            transition: .2s;
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1180px;
+            min-height: 78px;
+            margin: auto;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         .logo {
-            font-size: 42px;
+            color: var(--maroon);
+            font-size: 26px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            padding: 10px 13px;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 9px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--maroon);
+            color: white;
+        }
+
+        /* MAIN PAGE */
+
+        .page {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 34px 22px 60px;
+            flex: 1;
+        }
+
+        /* PAGE HEADER */
+
+        .page-header {
+            background: linear-gradient(
+                120deg,
+                #17382f,
+                #244b42 72%,
+                #365b4c
+            );
+            border-bottom: 4px solid var(--gold);
+            border-radius: 20px;
+            padding: 35px 38px;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 30px rgba(23,56,47,.14);
+        }
+
+        .header-label {
+            display: block;
+            color: #f0d79c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             margin-bottom: 10px;
         }
 
-        h1 {
-            color: #1e293b;
-            margin-bottom: 8px;
+        .page-header h1 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 10px;
         }
 
-        .subtitle {
-            color: #64748b;
-            margin-bottom: 30px;
+        .page-header h1 span {
+            color: #f0d79c;
+        }
+
+        .page-header p {
+            color: #e1eae3;
+            font-size: 14px;
+        }
+
+        /* RESULT CARD */
+
+        .result-wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .result-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--gold);
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(37,49,41,.07);
+        }
+
+        .result-icon {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 18px;
+            background: #edf3ec;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+        }
+
+        .result-card h2 {
+            color: var(--green-dark);
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .result-description {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .guest-badge {
             display: inline-block;
-            background: #eef2ff;
-            color: #4338ca;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 30px;
+            background: #edf3ec;
+            border: 1px solid #d7e3d3;
+            color: var(--green-dark);
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 27px;
         }
 
+        /* SCORE */
+
         .score-box {
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
+            background: #f8f7f2;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 28px;
+            margin-bottom: 22px;
+        }
+
+        .score-label {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .score {
+            color: var(--green);
             font-size: 52px;
-            font-weight: bold;
-            color: #2563eb;
-            margin-bottom: 8px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
         }
 
         .percentage {
-            font-size: 22px;
-            color: #475569;
+            color: var(--maroon);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
         }
+
+        .progress-track {
+            height: 12px;
+            background: #e5e7dd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                var(--green),
+                var(--gold)
+            );
+            border-radius: 20px;
+        }
+
+        /* STATS */
 
         .stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 25px;
         }
 
         .stat {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 14px;
+            background: #f8f7f2;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 22px;
         }
 
         .stat-number {
-            font-size: 28px;
-            font-weight: bold;
-            color: #1e293b;
+            color: var(--green-dark);
+            font-size: 29px;
+            font-weight: 800;
         }
 
         .stat-label {
-            color: #64748b;
-            font-size: 14px;
-            margin-top: 5px;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
         }
 
-        .message {
-            color: #475569;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        /* MESSAGE */
+
+        .message-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            background: #edf3ec;
+            border: 1px solid #d7e3d3;
+            border-radius: 12px;
+            padding: 19px;
+            margin-bottom: 27px;
+            text-align: left;
         }
+
+        .message-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .message-box h3 {
+            color: var(--green-dark);
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .message-box p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* BUTTONS */
 
         .buttons {
             display: flex;
-            gap: 12px;
+            gap: 13px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-block;
-            text-decoration: none;
-            padding: 13px 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 13px 19px;
             border-radius: 10px;
-            font-weight: bold;
-            transition: 0.2s;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
         }
 
         .btn-primary {
-            background: #2563eb;
+            background: var(--green);
             color: white;
         }
 
         .btn-primary:hover {
-            background: #1d4ed8;
+            background: var(--green-dark);
         }
 
         .btn-secondary {
-            background: #e2e8f0;
-            color: #334155;
+            background: #f1eee7;
+            border: 1px solid var(--border);
+            color: var(--green-dark);
         }
 
         .btn-secondary:hover {
-            background: #cbd5e1;
+            background: #e7e1d5;
         }
 
-        @media (max-width: 600px) {
+        /* FOOTER */
+
+        .footer {
+            background: #34221e;
+            color: #f3e6d3;
+            text-align: center;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
+        }
+
+        .footer p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                padding: 24px 15px 45px;
+            }
+
+            .page-header {
+                padding: 29px 23px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
 
             .result-card {
-                padding: 25px;
+                padding: 25px 20px;
             }
 
             .score {
-                font-size: 42px;
+                font-size: 43px;
             }
 
+            .nav-links a {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
             .stats {
                 grid-template-columns: 1fr;
             }
 
+            .buttons {
+                flex-direction: column;
+            }
         }
-
     </style>
 </head>
 
 <body>
 
-    <div class="result-card">
+    <!-- NAVIGATION -->
 
-        <div class="logo">
-            🚀
-        </div>
+    <nav class="navbar">
+        <div class="nav-container">
 
-        <h1>Data Quest</h1>
-
-        <p class="subtitle">
-            Level 1 Result
-        </p>
-
-        <div class="guest-badge">
-            👤 Guest Player
-        </div>
-
-        <div class="score-box">
-
-            <div class="score">
-                {{ result.score }}/{{ result.total_questions }}
-            </div>
-
-            <div class="percentage">
-                {{ result.percentage }}%
-            </div>
-
-        </div>
-
-        <div class="stats">
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    ⭐ {{ result.stars }}
-                </div>
-
-                <div class="stat-label">
-                    Stars Earned
-                </div>
-
-            </div>
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    ✓
-                </div>
-
-                <div class="stat-label">
-                    Level Completed
-                </div>
-
-            </div>
-
-        </div>
-
-        <p class="message">
-            Great job! Your Level 1 result has been saved for this
-            guest session.
-            Create a student account if you want to keep your progress
-            connected to your student profile.
-        </p>
-
-        <div class="buttons">
-
-            <a
-                href="{% url 'level1_game' %}"
-                class="btn btn-primary"
-            >
-                🔄 Play Again
+            <a href="{% url 'home' %}" class="logo">
+                Data Quest
             </a>
 
-            <a
-                href="{% url 'home' %}"
-                class="btn btn-secondary"
-            >
-                🏠 Home
-            </a>
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+
+                <a href="{% url 'learn' %}">Learn</a>
+
+                <a href="{% url 'how_to_play' %}">
+                    How to Play
+                </a>
+
+                <a href="{% url 'student_login' %}">
+                    Student Login
+                </a>
+
+                <a href="{% url 'teacher_login' %}">
+                    Teacher Login
+                </a>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+
+    <main class="page">
+
+        <section class="page-header">
+
+            <span class="header-label">
+                DATA QUEST / LEVEL {{ level_number }} RESULT
+            </span>
+
+            <h1>
+                Level {{ level_number }} <span>Result</span>
+            </h1>
+
+            <p>
+                {{ level_title }} — Review your score,
+                percentage, and stars earned.
+            </p>
+
+        </section>
+
+        <div class="result-wrapper">
+
+            <section class="result-card">
+
+                <div class="result-icon">
+                    🚀
+                </div>
+
+                <h2>
+                    Your Level {{ level_number }} Result
+                </h2>
+
+                <p class="result-description">
+                    {{ level_title }}
+                </p>
+
+                <div class="guest-badge">
+                    👤 Guest Player
+                </div>
+
+                <!-- SCORE -->
+
+                <div class="score-box">
+
+                    <div class="score-label">
+                        Your Score
+                    </div>
+
+                    <div class="score">
+                        {{ result.score }}/{{ result.total_questions }}
+                    </div>
+
+                    <div class="percentage">
+                        {{ result.percentage }}%
+                    </div>
+
+                    <div class="progress-track"
+                         role="progressbar"
+                         aria-label="Score percentage"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         aria-valuenow="{{ result.percentage }}">
+
+                        <div class="progress-fill"
+                             style="width: {{ result.percentage }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- STATISTICS -->
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <div class="stat-number">
+                            ⭐ {{ result.stars }}
+                        </div>
+
+                        <div class="stat-label">
+                            Stars Earned
+                        </div>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <div class="stat-number">
+                            ✓
+                        </div>
+
+                        <div class="stat-label">
+                            Level Completed
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- INFORMATION -->
+
+                <div class="message-box">
+
+                    <div class="message-icon">
+                        💡
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Keep Your Learning Progress
+                        </h3>
+
+                        <p>
+                            Great job! Your Level
+                            {{ level_number }} result
+                            is available in this guest
+                            session.
+
+                            Create a student account
+                            if you want your future
+                            learning progress linked
+                            to your student profile.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+
+                <div class="buttons">
+
+                    {% if level_number == 1 %}
+
+                        <a href="{% url 'level1_game' %}"
+                           class="btn btn-primary">
+                            🔄 Play Again
+                        </a>
+
+                    {% elif level_number == 2 %}
+
+                        <a href="{% url 'level2_game' %}"
+                           class="btn btn-primary">
+                            🔄 Play Again
+                        </a>
+
+                    {% elif level_number == 3 %}
+
+                        <a href="{% url 'level3_game' %}"
+                           class="btn btn-primary">
+                            🔄 Play Again
+                        </a>
+
+                    {% elif level_number == 4 %}
+
+                        <a href="{% url 'level4_game' %}"
+                           class="btn btn-primary">
+                            🔄 Play Again
+                        </a>
+
+                    {% endif %}
+
+                    <a href="{% url 'home' %}"
+                       class="btn btn-secondary">
+                        🏠 Home
+                    </a>
+
+                </div>
+
+            </section>
 
         </div>
 
-    </div>
+    </main>
+
+    <!-- FOOTER: SAME AS HOME PAGE -->
+
+    <footer class="footer">
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>

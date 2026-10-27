@@ -1,189 +1,325 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#71342d">
     <title>Learn Audio Representation | Data Quest</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --maroon: #71342d;
+            --dark-maroon: #49221e;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --text: #302923;
+            --muted: #675d54;
+            --border: #e6d6b9;
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
-            line-height: 1.6;
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f3e9;
+            color: var(--text);
+            line-height: 1.75;
+        }
+
+        h1, h2, h3, .logo, .nav-links a, .btn {
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
         a {
             text-decoration: none;
+            transition: 0.2s ease;
         }
+
+        /* ================= NAVIGATION ================= */
 
         .navbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
-            backdrop-filter: blur(10px);
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        .nav-inner {
             max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 25px;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         .logo {
-            color: #111827;
+            color: var(--maroon);
             font-size: 26px;
-            font-weight: 900;
-            padding: 8px 12px;
-        }
-
-        .logo:hover {
-            color: #2563eb;
+            font-weight: 800;
+            white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 7px;
         }
 
         .nav-links a {
-            color: #111827;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
+            padding: 10px 13px;
             border-radius: 9px;
+            color: var(--dark-maroon);
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
+            background: var(--maroon);
+            color: white;
         }
 
+        /* ================= HERO ================= */
+
         .hero {
+            position: relative;
+            min-height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 75px 20px 65px;
-            background: linear-gradient(135deg, #eff6ff, #ffffff);
+            padding: 80px 20px;
+            color: white;
+            background: #31483c;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(12,21,18,0.82),
+                rgba(12,21,18,0.55),
+                rgba(12,21,18,0.32)
+            );
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-badge {
             display: inline-block;
-            background: white;
-            color: #2563eb;
-            border: 1px solid #dbeafe;
-            border-radius: 30px;
             padding: 8px 16px;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+            background: rgba(0,0,0,0.35);
+            color: #ffe5a1;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.1px;
         }
 
         .hero h1 {
-            font-size: 48px;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: clamp(36px, 4.5vw, 58px);
+            line-height: 1.2;
+            margin-bottom: 24px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.5);
         }
 
         .hero h1 span {
-            color: #2563eb;
+            display: block;
+            color: #ffd17a;
         }
 
         .hero p {
             max-width: 760px;
-            margin: auto;
-            color: #64748b;
-            font-size: 18px;
-            line-height: 1.7;
+            margin: 0 auto 26px;
+            font-size: 16px;
+            line-height: 1.85;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
         }
 
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 22px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #39261b;
+        }
+
+        .btn-gold:hover {
+            background: #ffd784;
+        }
+
+        .btn-outline {
+            color: white;
+            border: 1px solid white;
+            background: rgba(255,255,255,0.12);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+
         .container {
-            max-width: 1100px;
-            margin: 45px auto;
-            padding: 0 20px;
+            width: min(1050px, calc(100% - 36px));
+            margin: 0 auto;
+            padding: 55px 0;
         }
 
         .section {
             background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 32px;
             margin-bottom: 25px;
-            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+            box-shadow: 0 6px 22px rgba(0,0,0,0.05);
         }
 
-        h2 {
-            font-size: 27px;
+        .section h2 {
+            color: var(--maroon);
+            font-size: 26px;
             margin-bottom: 15px;
-            color: #111827;
         }
 
-        h3 {
+        .section h3 {
+            color: var(--dark-maroon);
             font-size: 19px;
-            margin-bottom: 10px;
-            color: #1d4ed8;
+            margin: 20px 0 10px;
         }
 
-        p {
-            margin-bottom: 14px;
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.85;
+            margin-bottom: 15px;
         }
 
-        ul, ol {
+        .section ul,
+        .section ol {
             padding-left: 25px;
+            color: var(--muted);
             margin: 12px 0;
         }
 
-        li {
+        .section li {
             margin-bottom: 9px;
         }
 
+        /* ================= LESSON CARDS ================= */
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
             margin-top: 20px;
         }
 
         .topic-card {
             padding: 22px;
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 14px;
+            transition: 0.2s ease;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold);
         }
 
         .topic-card h3 {
-            margin-bottom: 10px;
+            margin-top: 0;
         }
 
+        .topic-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ================= EXAMPLES ================= */
+
         .example {
-            background: #eff6ff;
-            border-left: 5px solid #2563eb;
-            border-radius: 10px;
+            background: #fff8e9;
+            border: 1px solid #ead8b2;
+            border-left: 5px solid var(--gold);
+            border-radius: 12px;
             padding: 20px;
-            margin: 18px 0;
+            margin: 20px 0;
+            color: var(--text);
         }
 
         .warning {
-            background: #fff7ed;
-            border-left: 5px solid #f59e0b;
-            border-radius: 10px;
-            padding: 18px;
+            background: #fff5e7;
+            border: 1px solid #f0d3a7;
+            border-left: 5px solid #c98627;
+            border-radius: 12px;
+            padding: 20px;
             margin-top: 18px;
         }
+
+        /* ================= TABLE ================= */
 
         .table-wrap {
             overflow-x: auto;
@@ -197,109 +333,168 @@
         }
 
         th, td {
-            text-align: left;
+            border: 1px solid #eadfcd;
             padding: 13px;
-            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 14px;
         }
 
         th {
-            background: #eff6ff;
-            color: #1d4ed8;
+            background: var(--maroon);
+            color: white;
         }
+
+        tbody tr:nth-child(even) {
+            background: #fff9ef;
+        }
+
+        tbody tr:hover {
+            background: #f8edda;
+        }
+
+        /* ================= SOUND WAVE ================= */
 
         .sound-wave {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
-            height: 115px;
+            height: 125px;
             padding: 15px;
             margin: 20px 0;
-            background: #eff6ff;
-            border-radius: 12px;
+            background: #fffaf0;
+            border: 1px solid var(--border);
+            border-radius: 14px;
         }
 
         .sound-wave span {
             width: 7px;
+            flex-shrink: 0;
             border-radius: 8px;
-            background: #3b82f6;
+            background: var(--maroon);
         }
 
         .sound-wave span:nth-child(3n) {
-            background: #8b5cf6;
+            background: var(--gold);
         }
 
+        .wave-caption {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ================= RESOURCES ================= */
+
         .resource-list a {
-            color: #2563eb;
-            font-weight: bold;
+            color: var(--maroon);
+            font-weight: 700;
         }
 
         .resource-list a:hover {
             text-decoration: underline;
         }
 
+        .resource-list li {
+            margin-bottom: 15px;
+        }
+
         .checklist {
             list-style: none;
-            padding-left: 0;
+            padding-left: 0 !important;
         }
 
         .checklist li::before {
             content: "✓ ";
-            color: #16a34a;
-            font-weight: bold;
+            color: var(--maroon);
+            font-weight: 800;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 35px 0 50px;
-        }
+        /* ================= LEVEL 4 GAME ================= */
 
-        .btn {
-            display: inline-block;
-            padding: 13px 22px;
-            border-radius: 10px;
-            font-weight: bold;
+        .game-callout {
+            background: linear-gradient(
+                135deg,
+                var(--dark-maroon),
+                var(--maroon)
+            );
+            border: 2px solid var(--gold);
+            border-radius: 17px;
+            padding: 38px 25px;
             text-align: center;
-        }
-
-        .btn-primary {
-            background: #2563eb;
+            margin-top: 30px;
             color: white;
         }
 
-        .btn-primary:hover {
-            background: #1d4ed8;
+        .game-callout h2 {
+            color: white;
+            font-size: 26px;
+            margin-bottom: 12px;
         }
 
-        .btn-secondary {
-            background: white;
-            color: #2563eb;
-            border: 1px solid #bfdbfe;
+        .game-callout p {
+            color: #f5e4d4;
+            margin-bottom: 22px;
         }
 
-        .btn-secondary:hover {
-            background: #eff6ff;
+        /* SAME BOTTOM BUTTON STYLE AS ASCII */
+
+        .resource-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
+
+        .resource-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold);
+            color: #39261b;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Poppins', Arial, sans-serif;
+            transition: 0.2s ease;
+        }
+
+        .resource-btn:hover {
+            background: #ffd784;
+            transform: translateY(-2px);
+        }
+
+        .resource-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .resource-btn.secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* ================= FOOTER ================= */
 
         footer {
+            background: #34221e;
+            color: #f3e6d3;
             text-align: center;
-            padding: 25px;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
-            background: white;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
-        @media (max-width: 950px) {
-            .navbar {
-                padding: 15px 20px;
-            }
+        footer p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
 
-            .nav-container {
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 950px) {
+            .nav-inner {
                 flex-direction: column;
-                gap: 12px;
             }
 
             .nav-links {
@@ -308,42 +503,54 @@
         }
 
         @media (max-width: 650px) {
-            .navbar {
-                padding: 13px 12px;
-            }
-
-            .logo {
-                font-size: 23px;
-            }
-
-            .nav-links {
-                gap: 1px;
-                justify-content: center;
-            }
-
             .nav-links a {
                 font-size: 12px;
-                padding: 6px 7px;
+                padding: 8px;
             }
 
             .hero {
-                padding: 55px 15px;
+                min-height: 480px;
+                padding: 60px 20px;
             }
 
             .hero h1 {
-                font-size: 38px;
+                font-size: 36px;
             }
 
-            .hero p {
-                font-size: 16px;
+            .hero::before {
+                background: rgba(12,21,18,0.7);
+            }
+
+            .container {
+                padding: 35px 0;
             }
 
             .section {
-                padding: 21px;
+                padding: 22px;
             }
 
-            h2 {
-                font-size: 23px;
+            .section h2 {
+                font-size: 22px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-buttons {
+                flex-direction: column;
+            }
+
+            .resource-btn {
+                width: 100%;
+            }
+
+            .sound-wave {
+                gap: 3px;
+            }
+
+            .sound-wave span {
+                width: 5px;
             }
         }
     </style>
@@ -351,531 +558,857 @@
 
 <body>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="{% url 'home' %}" class="logo">Data Quest</a>
+    <!-- ================= NAVIGATION ================= -->
 
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
+    <nav class="navbar">
+        <div class="nav-inner">
 
-            <a href="{% url 'learn' %}"
-               class="{% if request.resolver_match.url_name == 'learn' or request.resolver_match.url_name == 'learn_audio' %}active{% endif %}">
-                Learn
+            <a href="{% url 'home' %}" class="logo">
+                Data Quest
             </a>
 
-            <a href="{% url 'how_to_play' %}">How to Play</a>
-            <a href="{% url 'student_login' %}">Student Login</a>
-            <a href="{% url 'teacher_login' %}">Teacher Login</a>
-        </div>
-    </div>
-</nav>
-
-<header class="hero">
-    <div class="hero-badge">DATA REPRESENTATION • LEARNING TOPIC</div>
-
-    <h1>Learn <span>Audio Representation</span></h1>
-
-    <p>
-        Discover how computers record, represent, store and play sound
-        using digital data. Learn about sampling, sample rate, bit depth
-        and common audio file formats.
-    </p>
-</header>
-
-<main class="container">
-
-    <section class="section">
-        <h2>1. What Is Digital Audio?</h2>
-
-        <p>
-            <strong>Audio</strong> is sound that we can hear, such as speech,
-            music, singing, birds and other environmental sounds.
-        </p>
-
-        <p>
-            Computers cannot directly store sound in the same way that
-            our ears hear it. They convert sound into digital information
-            represented using binary digits: <strong>0 and 1</strong>.
-        </p>
-
-        <p>
-            This process allows computers, mobile phones and other devices
-            to record, store, edit and play sound.
-        </p>
-
-        <div class="example">
-            <strong>Example:</strong>
-            When you record your voice using a mobile phone, the phone
-            converts the sound into digital data and saves it as an audio file.
-        </div>
-
-        <div class="sound-wave" aria-label="Illustration of a sound wave">
-            <span style="height: 18px"></span>
-            <span style="height: 35px"></span>
-            <span style="height: 55px"></span>
-            <span style="height: 28px"></span>
-            <span style="height: 70px"></span>
-            <span style="height: 45px"></span>
-            <span style="height: 85px"></span>
-            <span style="height: 52px"></span>
-            <span style="height: 32px"></span>
-            <span style="height: 66px"></span>
-            <span style="height: 40px"></span>
-            <span style="height: 78px"></span>
-            <span style="height: 25px"></span>
-            <span style="height: 48px"></span>
-            <span style="height: 62px"></span>
-            <span style="height: 30px"></span>
-            <span style="height: 73px"></span>
-            <span style="height: 42px"></span>
-            <span style="height: 20px"></span>
-            <span style="height: 56px"></span>
-        </div>
-
-        <p style="text-align:center;color:#64748b;">
-            Illustration: sound can be represented by a changing waveform.
-        </p>
-    </section>
-
-    <section class="section">
-        <h2>2. How Is Sound Converted into Digital Data?</h2>
-
-        <p>
-            Digital audio is commonly created through a process called
-            <strong>analog-to-digital conversion</strong>.
-        </p>
-
-        <div class="grid">
-            <div class="topic-card">
-                <h3>Step 1: Sound Wave</h3>
-                <p>
-                    A microphone receives sound vibrations and produces
-                    an electrical signal that changes with the sound.
-                </p>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'learn' %}" class="active">Learn</a>
+                <a href="{% url 'how_to_play' %}">How to Play</a>
+                <a href="{% url 'student_login' %}">Student Login</a>
+                <a href="{% url 'teacher_login' %}">Teacher Login</a>
             </div>
 
-            <div class="topic-card">
-                <h3>Step 2: Sampling</h3>
-                <p>
-                    The system measures the signal at regular time intervals.
-                    Each measurement is called a sample.
-                </p>
-            </div>
-
-            <div class="topic-card">
-                <h3>Step 3: Quantization</h3>
-                <p>
-                    Each measurement is assigned a digital value from a
-                    set of available levels.
-                </p>
-            </div>
-
-            <div class="topic-card">
-                <h3>Step 4: Binary Storage</h3>
-                <p>
-                    The digital values are encoded as binary data and stored
-                    in an audio file.
-                </p>
-            </div>
         </div>
+    </nav>
 
-        <div class="example">
-            <strong>Remember:</strong> Sampling measures sound over time,
-            while quantization represents the measured amplitudes using
-            discrete numerical levels.
-        </div>
-    </section>
+    <!-- ================= HERO ================= -->
 
-    <section class="section">
-        <h2>3. What Is Sampling?</h2>
+    <header class="hero">
 
-        <p>
-            <strong>Sampling</strong> is the process of measuring a sound
-            signal at regular intervals to represent it digitally.
-        </p>
+        <img
+            class="hero-background"
+            src="{% static 'dataRep/images/audio.jpeg' %}"
+            alt="Audio representation background"
+        >
 
-        <p>
-            The number of samples taken per second is called the
-            <strong>sample rate</strong>. It is measured in hertz (Hz).
-        </p>
+        <div class="hero-content">
 
-        <ul>
-            <li><strong>8,000 Hz:</strong> 8,000 samples each second.</li>
-            <li><strong>22,050 Hz:</strong> 22,050 samples each second.</li>
-            <li><strong>44,100 Hz:</strong> 44,100 samples each second.</li>
-            <li><strong>48,000 Hz:</strong> 48,000 samples each second.</li>
-        </ul>
+            <span class="hero-badge">
+                DATA QUEST LEARNING TOPIC
+            </span>
 
-        <div class="example">
-            <strong>Example:</strong> CD audio commonly uses a sample rate
-            of 44,100 Hz, meaning that 44,100 samples are taken per second
-            for each channel.
-        </div>
+            <h1>
+                Learn
+                <span>Audio Representation</span>
+            </h1>
 
-        <h3>Why Does Sample Rate Matter?</h3>
-
-        <p>
-            A higher sample rate can represent higher-frequency details,
-            provided the recording and playback systems support them.
-            It can also increase the amount of audio data when other settings
-            remain unchanged.
-        </p>
-
-        <p>
-            The sample rate alone does not determine overall sound quality.
-            Microphone quality, recording conditions, bit depth and compression
-            also matter.
-        </p>
-    </section>
-
-    <section class="section">
-        <h2>4. What Is Bit Depth?</h2>
-
-        <p>
-            <strong>Bit depth</strong> describes how many bits are used to
-            represent each audio sample in common uncompressed PCM audio.
-            It affects how precisely sample amplitudes can be represented.
-        </p>
-
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Bit Depth</th>
-                        <th>Possible Quantization Levels</th>
-                        <th>General Description</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>8-bit</td>
-                        <td>256</td>
-                        <td>Fewer levels; limited precision</td>
-                    </tr>
-
-                    <tr>
-                        <td>16-bit</td>
-                        <td>65,536</td>
-                        <td>Common for CD-quality PCM audio</td>
-                    </tr>
-
-                    <tr>
-                        <td>24-bit</td>
-                        <td>16,777,216</td>
-                        <td>Common in professional recording workflows</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <p>
-            The number of theoretical levels is calculated using
-            <strong>2<sup>bit depth</sup></strong>.
-        </p>
-
-        <div class="example">
-            <strong>Example:</strong> For 16-bit audio, the number of possible
-            quantization levels is 2<sup>16</sup> = 65,536.
-        </div>
-
-        <p>
-            A higher bit depth can reduce quantization noise and provide
-            greater dynamic range. It also uses more data per sample in
-            uncompressed audio.
-        </p>
-    </section>
-
-    <section class="section">
-        <h2>5. What Is a Bit Rate?</h2>
-
-        <p>
-            <strong>Bit rate</strong> describes how many bits of audio data
-            are processed or stored per second. It is commonly measured in
-            kilobits per second (kbps).
-        </p>
-
-        <ul>
-            <li>128 kbps: a common compressed-audio setting.</li>
-            <li>256 kbps: a higher compressed-audio bit rate.</li>
-            <li>320 kbps: a high bit rate used by some MP3 encoders.</li>
-        </ul>
-
-        <p>
-            For many compressed formats, a higher bit rate can preserve
-            more audio detail, but the result also depends on the encoder,
-            format and original recording.
-        </p>
-
-        <div class="warning">
-            <strong>Important distinction:</strong>
-            Sample rate is measured in samples per second. Bit depth is
-            measured in bits per sample. Bit rate is measured in bits per
-            second. They describe different things.
-        </div>
-    </section>
-
-    <section class="section">
-        <h2>6. How Is Audio File Size Calculated?</h2>
-
-        <p>
-            For uncompressed PCM audio, an approximate file data size can
-            be calculated using:
-        </p>
-
-        <div class="example">
-            <p><strong>Audio size in bits =</strong></p>
             <p>
-                Sample rate × Bit depth × Number of channels × Duration
+                Discover how computers record, represent, store
+                and play sound using digital data. Learn about
+                sampling, sample rate, bit depth, bit rate,
+                and common audio file formats.
             </p>
+
+            <div class="hero-actions">
+
+                <a href="#lesson-content" class="btn btn-gold">
+                    Start Learning
+                </a>
+
+                <a href="{% url 'learn' %}" class="btn btn-outline">
+                    ← All Learning Topics
+                </a>
+
+            </div>
+
         </div>
+    </header>
 
-        <p>Let's calculate the approximate data size for a 10-second recording:</p>
+    <!-- ================= LESSON CONTENT ================= -->
 
-        <ul>
-            <li>Sample rate: 44,100 samples per second</li>
-            <li>Bit depth: 16 bits</li>
-            <li>Channels: 2 (stereo)</li>
-            <li>Duration: 10 seconds</li>
-        </ul>
+    <main class="container" id="lesson-content">
 
-        <p>
-            44,100 × 16 × 2 × 10 = 14,112,000 bits
-        </p>
+        <!-- SECTION 1 -->
 
-        <p>
-            14,112,000 ÷ 8 = 1,764,000 bytes, or approximately
-            <strong>1.76 MB</strong> before file headers and other overhead.
-        </p>
+        <section class="section">
 
-        <p>
-            This is an estimate for uncompressed PCM data. Compressed formats
-            such as MP3 can produce much smaller files, while actual sizes
-            depend on encoding settings and file metadata.
-        </p>
-    </section>
+            <h2>1. What Is Digital Audio?</h2>
 
-    <section class="section">
-        <h2>7. Common Audio File Formats</h2>
+            <p>
+                <strong>Audio</strong> is sound that we can hear,
+                such as speech, music, singing, birds and other
+                environmental sounds.
+            </p>
 
-        <div class="grid">
-            <div class="topic-card">
-                <h3>MP3 (.mp3)</h3>
+            <p>
+                Computers cannot directly store sound in the same
+                way that our ears hear it. They convert sound
+                into digital information represented using
+                binary digits: <strong>0 and 1</strong>.
+            </p>
+
+            <p>
+                This process allows computers, mobile phones
+                and other devices to record, store, edit
+                and play sound.
+            </p>
+
+            <div class="example">
+                <strong>Example:</strong>
+                When you record your voice using a mobile phone,
+                the phone converts the sound into digital data
+                and saves it as an audio file.
+            </div>
+
+            <div class="sound-wave"
+                 role="img"
+                 aria-label="Illustration of a sound wave">
+
+                <span style="height:18px"></span>
+                <span style="height:35px"></span>
+                <span style="height:55px"></span>
+                <span style="height:28px"></span>
+                <span style="height:70px"></span>
+                <span style="height:45px"></span>
+                <span style="height:85px"></span>
+                <span style="height:52px"></span>
+                <span style="height:32px"></span>
+                <span style="height:66px"></span>
+                <span style="height:40px"></span>
+                <span style="height:78px"></span>
+                <span style="height:25px"></span>
+                <span style="height:48px"></span>
+                <span style="height:62px"></span>
+                <span style="height:30px"></span>
+                <span style="height:73px"></span>
+                <span style="height:42px"></span>
+                <span style="height:20px"></span>
+                <span style="height:56px"></span>
+
+            </div>
+
+            <p class="wave-caption">
+                Illustration: sound can be represented by
+                a changing waveform.
+            </p>
+
+        </section>
+
+        <!-- SECTION 2 -->
+
+        <section class="section">
+
+            <h2>2. How Is Sound Converted into Digital Data?</h2>
+
+            <p>
+                Digital audio is commonly created through
+                a process called
+                <strong>analog-to-digital conversion</strong>.
+            </p>
+
+            <div class="grid">
+
+                <div class="topic-card">
+                    <h3>Step 1: Sound Wave</h3>
+                    <p>
+                        A microphone receives sound vibrations
+                        and produces an electrical signal
+                        that changes with the sound.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Step 2: Sampling</h3>
+                    <p>
+                        The system measures the signal
+                        at regular time intervals.
+                        Each measurement is called a sample.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Step 3: Quantization</h3>
+                    <p>
+                        Each measurement is assigned
+                        a digital value from a set
+                        of available levels.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Step 4: Binary Storage</h3>
+                    <p>
+                        The digital values are encoded
+                        as binary data and stored
+                        in an audio file.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="example">
+                <strong>Remember:</strong>
+                Sampling measures sound over time,
+                while quantization represents the measured
+                amplitudes using discrete numerical levels.
+            </div>
+
+        </section>
+
+        <!-- SECTION 3 -->
+
+        <section class="section">
+
+            <h2>3. What Is Sampling?</h2>
+
+            <p>
+                <strong>Sampling</strong> is the process
+                of measuring a sound signal at regular
+                intervals to represent it digitally.
+            </p>
+
+            <p>
+                The number of samples taken per second
+                is called the <strong>sample rate</strong>.
+                It is measured in hertz (Hz).
+            </p>
+
+            <ul>
+                <li><strong>8,000 Hz:</strong> 8,000 samples each second.</li>
+                <li><strong>22,050 Hz:</strong> 22,050 samples each second.</li>
+                <li><strong>44,100 Hz:</strong> 44,100 samples each second.</li>
+                <li><strong>48,000 Hz:</strong> 48,000 samples each second.</li>
+            </ul>
+
+            <div class="example">
+                <strong>Example:</strong>
+                CD audio commonly uses a sample rate
+                of 44,100 Hz, meaning that 44,100 samples
+                are taken per second for each channel.
+            </div>
+
+            <h3>Why Does Sample Rate Matter?</h3>
+
+            <p>
+                A higher sample rate can represent
+                higher-frequency details, provided
+                the recording and playback systems
+                support them.
+            </p>
+
+            <p>
+                It can also increase the amount of audio
+                data when other settings remain unchanged.
+            </p>
+
+            <p>
+                The sample rate alone does not determine
+                overall sound quality. Microphone quality,
+                recording conditions, bit depth and
+                compression also matter.
+            </p>
+
+        </section>
+
+        <!-- SECTION 4 -->
+
+        <section class="section">
+
+            <h2>4. What Is Bit Depth?</h2>
+
+            <p>
+                <strong>Bit depth</strong> describes how many
+                bits are used to represent each audio sample
+                in common uncompressed PCM audio.
+            </p>
+
+            <p>
+                It affects how precisely sample amplitudes
+                can be represented.
+            </p>
+
+            <div class="table-wrap">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bit Depth</th>
+                            <th>Possible Quantization Levels</th>
+                            <th>General Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>8-bit</td>
+                            <td>256</td>
+                            <td>Fewer levels; limited precision</td>
+                        </tr>
+
+                        <tr>
+                            <td>16-bit</td>
+                            <td>65,536</td>
+                            <td>Common for CD-quality PCM audio</td>
+                        </tr>
+
+                        <tr>
+                            <td>24-bit</td>
+                            <td>16,777,216</td>
+                            <td>Common in professional recording workflows</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <p>
+                The number of theoretical levels
+                is calculated using
+                <strong>2<sup>bit depth</sup></strong>.
+            </p>
+
+            <div class="example">
+                <strong>Example:</strong>
+                For 16-bit audio, the number of possible
+                quantization levels is
+                2<sup>16</sup> = 65,536.
+            </div>
+
+            <p>
+                A higher bit depth can reduce quantization
+                noise and provide greater dynamic range.
+                It also uses more data per sample
+                in uncompressed audio.
+            </p>
+
+        </section>
+
+        <!-- SECTION 5 -->
+
+        <section class="section">
+
+            <h2>5. What Is a Bit Rate?</h2>
+
+            <p>
+                <strong>Bit rate</strong> describes how many
+                bits of audio data are processed or stored
+                per second.
+            </p>
+
+            <p>
+                It is commonly measured in
+                kilobits per second (kbps).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>128 kbps:</strong>
+                    A common compressed-audio setting.
+                </li>
+
+                <li>
+                    <strong>256 kbps:</strong>
+                    A higher compressed-audio bit rate.
+                </li>
+
+                <li>
+                    <strong>320 kbps:</strong>
+                    A high bit rate used by some MP3 encoders.
+                </li>
+            </ul>
+
+            <p>
+                For many compressed formats, a higher
+                bit rate can preserve more audio detail,
+                but the result also depends on the encoder,
+                format and original recording.
+            </p>
+
+            <div class="warning">
+
+                <strong>Important distinction:</strong>
+
+                <ul>
+                    <li>Sample rate is measured in samples per second.</li>
+                    <li>Bit depth is measured in bits per sample.</li>
+                    <li>Bit rate is measured in bits per second.</li>
+                </ul>
+
+                These terms describe different
+                characteristics of digital audio.
+
+            </div>
+
+        </section>
+
+        <!-- SECTION 6 -->
+
+        <section class="section">
+
+            <h2>6. How Is Audio File Size Calculated?</h2>
+
+            <p>
+                For uncompressed PCM audio, an approximate
+                file data size can be calculated
+                using the following formula:
+            </p>
+
+            <div class="example">
+                <strong>Audio size in bits =</strong>
+
                 <p>
-                    A widely supported lossy compressed audio format.
-                    It can make music files much smaller, with some audio
-                    information discarded during compression.
+                    Sample rate × Bit depth × Number
+                    of channels × Duration
                 </p>
             </div>
 
-            <div class="topic-card">
-                <h3>WAV (.wav)</h3>
+            <h3>Worked Example</h3>
+
+            <p>
+                Let's calculate the approximate data size
+                for a 10-second recording:
+            </p>
+
+            <ul>
+                <li>Sample rate: 44,100 samples per second</li>
+                <li>Bit depth: 16 bits</li>
+                <li>Channels: 2 (stereo)</li>
+                <li>Duration: 10 seconds</li>
+            </ul>
+
+            <div class="example">
+
+                <strong>Step 1: Calculate the total bits</strong>
+
                 <p>
-                    A container commonly used for uncompressed PCM audio.
-                    It is useful for recording and editing but can require
-                    considerable storage space.
+                    44,100 × 16 × 2 × 10
+                    = 14,112,000 bits
                 </p>
+
+                <strong>Step 2: Convert bits to bytes</strong>
+
+                <p>
+                    14,112,000 ÷ 8
+                    = 1,764,000 bytes
+                </p>
+
+                <strong>Final answer:</strong>
+
+                <p>
+                    Approximately 1.76 MB
+                    of uncompressed audio data.
+                </p>
+
             </div>
 
-            <div class="topic-card">
-                <h3>AAC (.aac, .m4a)</h3>
-                <p>
-                    AAC is a lossy compression format used by many devices
-                    and streaming services. The .m4a extension commonly
-                    identifies an audio file in an MP4 container.
-                </p>
+            <p>
+                This is an estimate for uncompressed PCM data.
+                Compressed formats such as MP3 can produce
+                much smaller files, while actual sizes
+                depend on encoding settings and metadata.
+            </p>
+
+        </section>
+
+        <!-- SECTION 7 -->
+
+        <section class="section">
+
+            <h2>7. Common Audio File Formats</h2>
+
+            <div class="grid">
+
+                <div class="topic-card">
+                    <h3>MP3 (.mp3)</h3>
+                    <p>
+                        A widely supported lossy compressed
+                        audio format. It can make music files
+                        much smaller, with some audio
+                        information discarded during compression.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>WAV (.wav)</h3>
+                    <p>
+                        A container commonly used for uncompressed
+                        PCM audio. It is useful for recording
+                        and editing but can require
+                        considerable storage space.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>AAC (.aac, .m4a)</h3>
+                    <p>
+                        AAC is a lossy compression format
+                        used by many devices and streaming services.
+                        The .m4a extension commonly identifies
+                        an audio file in an MP4 container.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>FLAC (.flac)</h3>
+                    <p>
+                        A lossless compressed format.
+                        It reduces file size while preserving
+                        the original audio data.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>OGG (.ogg)</h3>
+                    <p>
+                        Ogg is a multimedia container.
+                        It often stores Vorbis or Opus audio,
+                        depending on how the file was created.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>AIFF (.aiff, .aif)</h3>
+                    <p>
+                        An audio file format used in some
+                        recording and editing workflows,
+                        often for uncompressed audio.
+                    </p>
+                </div>
+
             </div>
 
-            <div class="topic-card">
-                <h3>FLAC (.flac)</h3>
+            <div class="example">
+
+                <strong>Quick comparison:</strong>
+
                 <p>
-                    A lossless compressed format. It reduces file size while
-                    preserving the original audio data.
+                    <strong>Lossy:</strong>
+                    Reduces file size by discarding
+                    some audio information.
                 </p>
+
+                <p>
+                    <strong>Lossless:</strong>
+                    Reduces file size without losing
+                    the original encoded audio data.
+                </p>
+
+                <p>
+                    <strong>Uncompressed:</strong>
+                    Keeps the PCM samples without compression.
+                </p>
+
             </div>
 
-            <div class="topic-card">
-                <h3>OGG (.ogg)</h3>
-                <p>
-                    Ogg is a multimedia container. It often stores Vorbis
-                    or Opus audio, depending on how the file was created.
-                </p>
+        </section>
+
+        <!-- SECTION 8 -->
+
+        <section class="section">
+
+            <h2>8. Mono and Stereo Audio</h2>
+
+            <div class="grid">
+
+                <div class="topic-card">
+                    <h3>Mono</h3>
+
+                    <p>
+                        Mono audio has one audio channel.
+                        It is often suitable for voice recordings,
+                        announcements and spoken lessons.
+                    </p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Stereo</h3>
+
+                    <p>
+                        Stereo audio has two channels:
+                        left and right.
+                    </p>
+
+                    <p>
+                        It can create a sense of space
+                        and direction when played through
+                        suitable headphones or speakers.
+                    </p>
+                </div>
+
             </div>
 
-            <div class="topic-card">
-                <h3>AIFF (.aiff, .aif)</h3>
-                <p>
-                    An audio file format used in some recording and editing
-                    workflows, often for uncompressed audio.
-                </p>
-            </div>
-        </div>
+            <div class="example">
+                <strong>Example:</strong>
 
-        <div class="example">
-            <strong>Quick comparison:</strong> Lossy formats reduce file size
-            by discarding some audio information. Lossless formats reduce
-            file size without losing the original encoded audio data.
-            Uncompressed audio keeps the PCM samples without compression.
-        </div>
-    </section>
-
-    <section class="section">
-        <h2>8. Mono and Stereo Audio</h2>
-
-        <div class="grid">
-            <div class="topic-card">
-                <h3>Mono</h3>
-                <p>
-                    Mono audio has one audio channel. It is often suitable
-                    for voice recordings, announcements and spoken lessons.
-                </p>
+                A classroom voice recording might use mono
+                audio, while a music recording may use stereo
+                to represent sounds across left
+                and right channels.
             </div>
 
-            <div class="topic-card">
-                <h3>Stereo</h3>
-                <p>
-                    Stereo audio has two channels: left and right. It can
-                    create a sense of space and direction when played through
-                    suitable headphones or speakers.
-                </p>
-            </div>
-        </div>
+        </section>
 
-        <div class="example">
-            <strong>Example:</strong> A classroom voice recording might use
-            mono audio, while a music recording may use stereo to represent
-            sounds across left and right channels.
-        </div>
-    </section>
+        <!-- SECTION 9 -->
 
-    <section class="section">
-        <h2>9. Where Is Digital Audio Used?</h2>
+        <section class="section">
 
-        <ul>
-            <li>Music streaming and music players.</li>
-            <li>Mobile phone voice recordings.</li>
-            <li>Online classes and educational videos.</li>
-            <li>Video games and computer applications.</li>
-            <li>Podcasts, radio and voice messages.</li>
-            <li>Voice and video calls.</li>
-            <li>Audio editing, sound production and digital media.</li>
-        </ul>
-    </section>
+            <h2>9. Where Is Digital Audio Used?</h2>
 
-    <section class="section">
-        <h2>10. Self-Learning Notes</h2>
+            <p>
+                Digital audio is used in many everyday
+                applications and devices.
+            </p>
 
-        <h3>Important Terms to Remember</h3>
+            <ul>
+                <li>Music streaming and music players.</li>
+                <li>Mobile phone voice recordings.</li>
+                <li>Online classes and educational videos.</li>
+                <li>Video games and computer applications.</li>
+                <li>Podcasts, radio and voice messages.</li>
+                <li>Voice and video calls.</li>
+                <li>Audio editing, sound production and digital media.</li>
+            </ul>
 
-        <ul>
-            <li><strong>Digital audio:</strong> Sound represented as digital data.</li>
-            <li><strong>Sampling:</strong> Measuring a sound signal at regular intervals.</li>
-            <li><strong>Sample rate:</strong> Number of samples taken per second.</li>
-            <li><strong>Bit depth:</strong> Number of bits used to represent each sample.</li>
-            <li><strong>Bit rate:</strong> Amount of audio data processed per second.</li>
-            <li><strong>Mono:</strong> Audio with one channel.</li>
-            <li><strong>Stereo:</strong> Audio with two channels.</li>
-            <li><strong>Lossy compression:</strong> Reduces file size by discarding some information.</li>
-            <li><strong>Lossless compression:</strong> Reduces file size without losing the original encoded data.</li>
-        </ul>
+        </section>
 
-        <h3>Key Points</h3>
+        <!-- SECTION 10 -->
 
-        <ul class="checklist">
-            <li>Computers represent digital audio using binary data.</li>
-            <li>Sampling measures a signal at regular time intervals.</li>
-            <li>Sample rate is measured in hertz.</li>
-            <li>Bit depth affects the precision of sample amplitude representation.</li>
-            <li>More channels increase uncompressed audio data size.</li>
-            <li>Compression can reduce the size of audio files.</li>
-            <li>Different audio formats are designed for different uses.</li>
-        </ul>
+        <section class="section">
 
-        <h3>Try This at Home</h3>
+            <h2>10. Self-Learning Notes</h2>
 
-        <ol>
-            <li>Record a short voice message on your phone.</li>
-            <li>Find the file name and extension, if your device displays them.</li>
-            <li>Check the file size and recording duration.</li>
-            <li>Compare a voice recording with a music file.</li>
-            <li>Explore the audio settings in a recording or editing application.</li>
-        </ol>
-    </section>
+            <p>
+                Review these notes before attempting
+                the Audio Representation game.
+            </p>
 
-    <section class="section resource-list">
-        <h2>11. Useful Learning Resources</h2>
+            <h3>Important Terms to Remember</h3>
 
-        <p>Use these resources to explore digital audio in more detail:</p>
+            <ul>
+                <li>
+                    <strong>Digital audio:</strong>
+                    Sound represented as digital data.
+                </li>
 
-        <ul>
-            <li>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs"
-                   target="_blank" rel="noopener noreferrer">
-                    MDN Web Docs – Audio codecs
+                <li>
+                    <strong>Sampling:</strong>
+                    Measuring a sound signal at regular intervals.
+                </li>
+
+                <li>
+                    <strong>Sample rate:</strong>
+                    Number of samples taken per second.
+                </li>
+
+                <li>
+                    <strong>Bit depth:</strong>
+                    Number of bits used to represent each sample.
+                </li>
+
+                <li>
+                    <strong>Bit rate:</strong>
+                    Amount of audio data processed per second.
+                </li>
+
+                <li>
+                    <strong>Mono:</strong>
+                    Audio with one channel.
+                </li>
+
+                <li>
+                    <strong>Stereo:</strong>
+                    Audio with two channels.
+                </li>
+
+                <li>
+                    <strong>Lossy compression:</strong>
+                    Reduces file size by discarding some information.
+                </li>
+
+                <li>
+                    <strong>Lossless compression:</strong>
+                    Reduces file size without losing
+                    the original encoded data.
+                </li>
+            </ul>
+
+            <h3>Key Points</h3>
+
+            <ul class="checklist">
+                <li>
+                    Computers represent digital audio
+                    using binary data.
+                </li>
+
+                <li>
+                    Sampling measures a signal
+                    at regular time intervals.
+                </li>
+
+                <li>
+                    Sample rate is measured in hertz.
+                </li>
+
+                <li>
+                    Bit depth affects the precision
+                    of sample amplitude representation.
+                </li>
+
+                <li>
+                    More channels increase uncompressed
+                    audio data size.
+                </li>
+
+                <li>
+                    Compression can reduce the size
+                    of audio files.
+                </li>
+
+                <li>
+                    Different audio formats are designed
+                    for different uses.
+                </li>
+            </ul>
+
+            <h3>Try This at Home</h3>
+
+            <ol>
+                <li>
+                    Record a short voice message
+                    on your phone.
+                </li>
+
+                <li>
+                    Find the file name and extension,
+                    if your device displays them.
+                </li>
+
+                <li>
+                    Check the file size and recording duration.
+                </li>
+
+                <li>
+                    Compare a voice recording
+                    with a music file.
+                </li>
+
+                <li>
+                    Explore the audio settings in
+                    a recording or editing application.
+                </li>
+            </ol>
+
+        </section>
+
+        <!-- SECTION 11 -->
+
+        <section class="section resource-list">
+
+            <h2>11. Useful Learning Resources</h2>
+
+            <p>
+                Use these resources to explore
+                digital audio in more detail.
+            </p>
+
+            <ul>
+
+                <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        MDN Web Docs – Audio Codecs
+                    </a>
+                    — Learn about audio formats
+                    and browser support.
+                </li>
+
+                <li>
+                    <a href="https://en.wikipedia.org/wiki/Digital_audio"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Digital Audio – Wikipedia
+                    </a>
+                    — Read about the principles
+                    of digital sound.
+                </li>
+
+                <li>
+                    <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Sampling in Signal Processing
+                    </a>
+                    — Learn how continuous signals are sampled.
+                </li>
+
+                <li>
+                    <a href="https://en.wikipedia.org/wiki/Audio_bit_depth"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Audio Bit Depth
+                    </a>
+                    — Understand sample precision
+                    and bit depth.
+                </li>
+
+                <li>
+                    <a href="https://manual.audacityteam.org/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Audacity User Manual
+                    </a>
+                    — Explore audio recording
+                    and editing concepts.
+                </li>
+
+                <li>
+                    <a href="https://www.soundonsound.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Sound On Sound
+                    </a>
+                    — Explore articles about recording
+                    and audio technology.
+                </li>
+
+            </ul>
+
+        </section>
+
+        <!-- ================= LEVEL 4 GAME ================= -->
+
+        <section class="game-callout">
+
+            <h2>Ready to Attempt Level 4?</h2>
+
+            <p>
+                You have completed the Audio Representation
+                learning topic. Now test your knowledge
+                by attempting the Level 4 game.
+            </p>
+
+            <div class="resource-buttons">
+
+                <a href="{% url 'level4_game' %}"
+                   class="resource-btn">
+                    Attempt Level 4 Game →
                 </a>
-                — Learn about audio formats and browser support.
-            </li>
 
-            <li>
-                <a href="https://en.wikipedia.org/wiki/Digital_audio"
-                   target="_blank" rel="noopener noreferrer">
-                    Digital Audio – Wikipedia
+                <a href="{% url 'learn' %}"
+                   class="resource-btn secondary">
+                    ← Back to Learn Topics
                 </a>
-                — Read about the principles of digital sound.
-            </li>
 
-            <li>
-                <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)"
-                   target="_blank" rel="noopener noreferrer">
-                    Sampling in Signal Processing
-                </a>
-                — Learn how continuous signals are sampled.
-            </li>
+            </div>
 
-            <li>
-                <a href="https://en.wikipedia.org/wiki/Audio_bit_depth"
-                   target="_blank" rel="noopener noreferrer">
-                    Audio Bit Depth
-                </a>
-                — Understand sample precision and bit depth.
-            </li>
+        </section>
 
-            <li>
-                <a href="https://manual.audacityteam.org/"
-                   target="_blank" rel="noopener noreferrer">
-                    Audacity User Manual
-                </a>
-                — Explore audio recording and editing concepts.
-            </li>
+    </main>
 
-            <li>
-                <a href="https://www.soundonsound.com/"
-                   target="_blank" rel="noopener noreferrer">
-                    Sound On Sound
-                </a>
-                — Explore articles about recording and audio technology.
-            </li>
-        </ul>
-    </section>
+    <!-- ================= MATCHING FOOTER ================= -->
 
-    <!-- Bottom navigation buttons -->
-    <div class="buttons">
-
-        <a href="{% url 'learn' %}" class="btn btn-secondary">
-            ← Back to Learning Topics
-        </a>
-
-        <a href="{% url 'level4_game' %}" class="btn btn-primary">
-            Attempt Level 4 Game →
-        </a>
-
-    </div>
-
-</main>
-
-<footer>
-    © 2026 Data Quest. Learn. Play. Master Data Representation.
-</footer>
+    <footer>
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>

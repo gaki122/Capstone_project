@@ -1,631 +1,699 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Dashboard | Data Quest</title>
 
-    <title>Teacher Dashboard | Data Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+:root {
+    --green: #244b42;
+    --green-dark: #17382f;
+    --maroon: #71342d;
+    --gold: #e8b95b;
+    --cream: #fff9ed;
+    --white: #fffdfa;
+    --text: #27332e;
+    --muted: #66736b;
+    --border: #e8dfcd;
+}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            min-height: 100vh;
-            color: #111827;
-            display: flex;
-            flex-direction: column;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* NAVIGATION */
-        .navbar {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
-            backdrop-filter: blur(8px);
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f5ed;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.65;
+}
 
-        .nav-container {
-            max-width: 1180px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 25px;
-        }
+h1, h2, h3, .logo, .nav-links a, .btn {
+    font-family: 'Poppins', sans-serif;
+}
 
-        .logo {
-            color: #111827;
-            font-size: 26px;
-            font-weight: 900;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: 0.2s;
-            white-space: nowrap;
-        }
+a {
+    text-decoration: none;
+    transition: .2s;
+}
 
-        .logo:hover {
-            color: #2563eb;
-            background: #eff6ff;
-        }
+/* NAVIGATION */
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
+.navbar {
+    background: #fffaf0;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #111827;
-            background: transparent;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            white-space: nowrap;
-            transition: 0.2s;
-        }
+.nav-container {
+    max-width: 1180px;
+    min-height: 78px;
+    margin: auto;
+    padding: 12px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
-        }
+.logo {
+    color: var(--maroon);
+    font-size: 26px;
+    font-weight: 800;
+    white-space: nowrap;
+}
 
-        .logout {
-            color: #dc2626 !important;
-        }
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}
 
-        .logout:hover {
-            background: #fef2f2 !important;
-            color: #b91c1c !important;
-            border-color: #fecaca !important;
-        }
+.nav-links a {
+    padding: 10px 13px;
+    color: var(--green-dark);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 9px;
+}
 
-        /* MAIN */
-        .page {
-            flex: 1;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 45px 20px 60px;
-        }
+.nav-links a:hover,
+.nav-links a.active {
+    background: var(--maroon);
+    color: white;
+}
 
-        /* PAGE HEADER */
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+.nav-links .logout {
+    color: #a53d34;
+}
 
-        .page-header h1 {
-            color: #111827;
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
+.nav-links .logout:hover {
+    background: #fff0ed;
+    color: #a53d34;
+}
 
-        .page-header h1 span {
-            color: #2563eb;
-        }
+/* MAIN */
 
-        .page-header p {
-            color: #6b7280;
-            font-size: 15px;
-            line-height: 1.6;
-        }
+.page {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 22px 60px;
+    flex: 1;
+}
 
-        /* BUTTONS */
-        .add-class {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            padding: 13px 20px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: 0.2s;
-        }
+/* HEADER */
 
-        .add-class:hover {
-            background: #1d4ed8;
-        }
+.page-header {
+    background: linear-gradient(
+        120deg,
+        #17382f,
+        #244b42 72%,
+        #365b4c
+    );
+    border-bottom: 4px solid var(--gold);
+    border-radius: 20px;
+    padding: 35px 38px;
+    margin-bottom: 28px;
+    box-shadow: 0 12px 30px rgba(23,56,47,.14);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
 
-        /* CLASS GRID */
-        .classes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 22px;
-        }
+.header-label {
+    display: block;
+    color: #f0d79c;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
 
-        /* CLASS CARD */
-        .class-card {
-            position: relative;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-top: 4px solid #2563eb;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+.page-header h1 {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
 
-        .class-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 38px rgba(0, 0, 0, 0.10);
-        }
+.page-header h1 span {
+    color: #f0d79c;
+}
 
-        .class-card h2 {
-            color: #111827;
-            font-size: 22px;
-            margin: 0 45px 12px 0;
-            overflow-wrap: anywhere;
-        }
+.page-header p {
+    color: #e1eae3;
+    font-size: 14px;
+    max-width: 650px;
+}
 
-        /* PER-CLASS STUDENT COUNT */
-        .students-count {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 10px;
-            padding: 12px 14px;
-            margin-bottom: 20px;
-        }
+/* BUTTONS */
 
-        .students-count-icon {
-            width: 38px;
-            height: 38px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #dcfce7;
-            border-radius: 9px;
-            font-size: 20px;
-        }
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 19px;
+    background: var(--green);
+    color: white;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
 
-        .students-count-label {
-            color: #166534;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 3px;
-        }
+.btn:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+}
 
-        .students-count-number {
-            color: #15803d;
-            font-size: 20px;
-            font-weight: 800;
-            line-height: 1.3;
-        }
+.btn-gold {
+    background: var(--gold);
+    color: var(--green-dark);
+    white-space: nowrap;
+}
 
-        /* THREE-DOT MENU */
-        .class-menu {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 5;
-        }
+.btn-gold:hover {
+    background: #f0d79c;
+}
 
-        .menu-toggle {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid transparent;
-            border-radius: 9px;
-            background: transparent;
-            color: #374151;
-            font-size: 25px;
-            line-height: 1;
-            cursor: pointer;
-            list-style: none;
-        }
+/* SECTION */
 
-        .menu-toggle::-webkit-details-marker {
-            display: none;
-        }
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 23px;
+}
 
-        .menu-toggle:hover,
-        .class-menu[open] .menu-toggle {
-            background: #f3f4f6;
-            border-color: #e5e7eb;
-        }
+.section-accent {
+    width: 5px;
+    height: 29px;
+    background: var(--gold);
+    border-radius: 5px;
+}
 
-        .menu-dropdown {
-            position: absolute;
-            top: 42px;
-            right: 0;
-            min-width: 175px;
-            padding: 6px;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-        }
+.section-heading h2 {
+    color: var(--green-dark);
+    font-size: 24px;
+}
 
-        .menu-dropdown a {
-            display: block;
-            padding: 11px 12px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            color: #dc2626;
-        }
+/* CLASSES */
 
-        .menu-dropdown a:hover {
-            background: #fef2f2;
-            color: #b91c1c;
-        }
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 310px), 1fr)
+    );
+    gap: 20px;
+}
 
-        /* JOIN CODE */
-        .join-code-box {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            border-radius: 12px;
-            padding: 17px;
-            margin-bottom: 20px;
-        }
+.class-card {
+    position: relative;
+    min-width: 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 27px;
+    box-shadow: 0 6px 24px rgba(37,49,41,.07);
+    transition: .2s;
+}
 
-        .join-code-label {
-            color: #6b7280;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 7px;
-        }
+.class-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 18px 18px 0 0;
+}
 
-        .join-code {
-            color: #1d4ed8;
-            font-size: 25px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            margin-bottom: 6px;
-            overflow-wrap: anywhere;
-        }
+.class-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(36,75,66,.12);
+}
 
-        .join-code-help {
-            color: #6b7280;
-            font-size: 13px;
-            line-height: 1.5;
-        }
+.class-card h2 {
+    color: var(--green-dark);
+    font-size: 21px;
+    margin: 5px 45px 22px 0;
+    overflow-wrap: anywhere;
+}
 
-        /* ACTIONS */
-        .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+/* STUDENT COUNT */
 
-        .button {
-            display: inline-block;
-            text-align: center;
-            text-decoration: none;
-            padding: 11px 16px;
-            border-radius: 9px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
+.students-count {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: #edf3ec;
+    border: 1px solid #d7e3d3;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
 
-        .view-students {
-            background: #2563eb;
-            color: white;
-        }
+.students-icon {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    flex-shrink: 0;
+}
 
-        .view-students:hover {
-            background: #1d4ed8;
-        }
+.small-label {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
 
-        /* EMPTY STATE */
-        .empty {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 18px;
-            padding: 55px 30px;
-            text-align: center;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-        }
+.students-number {
+    color: var(--green-dark);
+    font-size: 21px;
+    font-weight: 800;
+}
 
-        .empty-icon {
-            width: 64px;
-            height: 64px;
-            background: #eff6ff;
-            color: #2563eb;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px;
-            font-size: 30px;
-        }
+/* JOIN CODE */
 
-        .empty h2 {
-            color: #111827;
-            font-size: 23px;
-            margin-bottom: 10px;
-        }
+.join-code-box {
+    background: #f8f7f2;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 19px;
+    margin-bottom: 20px;
+}
 
-        .empty p {
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 22px;
-        }
+.join-code-label {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
 
-        /* FOOTER */
-        .footer {
-            background: #111827;
-            color: #9ca3af;
-            text-align: center;
-            padding: 18px 20px;
-            font-size: 13px;
-        }
+.join-code {
+    color: var(--maroon);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    overflow-wrap: anywhere;
+    margin-bottom: 7px;
+}
 
-        /* RESPONSIVE */
-        @media (max-width: 800px) {
-            .navbar {
-                padding: 15px 20px;
-            }
+.join-code-help {
+    color: var(--muted);
+    font-size: 13px;
+}
 
-            .nav-container {
-                flex-direction: column;
-                align-items: center;
-            }
+/* CLASS MENU */
 
-            .nav-links {
-                justify-content: center;
-            }
+.class-menu {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    z-index: 5;
+}
 
-            .page {
-                padding: 35px 15px 50px;
-            }
+.menu-toggle {
+    width: 37px;
+    height: 37px;
+    background: #f8f7f2;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--green-dark);
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    list-style: none;
+}
 
-            .page-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
+.menu-toggle::-webkit-details-marker {
+    display: none;
+}
 
-        @media (max-width: 500px) {
-            .nav-links {
-                gap: 4px;
-            }
+.menu-dropdown {
+    position: absolute;
+    top: 43px;
+    right: 0;
+    min-width: 180px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 7px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+}
 
-            .nav-links a {
-                font-size: 14px;
-                padding: 8px 9px;
-            }
+.menu-dropdown a {
+    display: block;
+    padding: 11px 12px;
+    border-radius: 7px;
+    color: #a53d34;
+    font-size: 13px;
+    font-weight: 700;
+}
 
-            .page-header h1 {
-                font-size: 27px;
-            }
+.menu-dropdown a:hover {
+    background: #fff0ed;
+}
 
-            .add-class {
-                width: 100%;
-                text-align: center;
-            }
+/* EMPTY STATE */
 
-            .class-card {
-                padding: 22px;
-            }
+.empty {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 55px 30px;
+    text-align: center;
+}
 
-            .students-count {
-                padding: 10px;
-            }
-        }
-    </style>
+.empty-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.empty h2 {
+    color: var(--green-dark);
+    margin-bottom: 10px;
+}
+
+.empty p {
+    color: var(--muted);
+    margin-bottom: 22px;
+}
+
+/* EXACT HOME PAGE FOOTER */
+
+.footer {
+    background: #34221e;
+    color: #f3e6d3;
+    text-align: center;
+    padding: 28px 15px;
+    border-top: 4px solid var(--gold);
+}
+
+.footer p {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 950px) {
+    .nav-container {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .page {
+        padding: 24px 15px 45px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 29px 23px;
+    }
+
+    .page-header h1 {
+        font-size: 26px;
+    }
+
+    .page-header .btn {
+        width: 100%;
+    }
+
+    .class-card {
+        padding: 22px;
+    }
+
+    .nav-links a {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <nav class="navbar">
-        <div class="nav-container">
+<!-- NAVIGATION -->
 
-            <a href="{% url 'home' %}" class="logo">
-                Data Quest
+<nav class="navbar">
+    <div class="nav-container">
+
+        <a href="{% url 'home' %}" class="logo">
+            Data Quest
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
             </a>
 
-            <div class="nav-links">
-                <a
-                    href="{% url 'home' %}"
-                    class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                >
-                    Home
-                </a>
-
-                <a
-                    href="{% url 'learn' %}"
-                    class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
-                >
-                    Learn
-                </a>
-
-                <a
-                    href="{% url 'how_to_play' %}"
-                    class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
-                >
-                    How to Play
-                </a>
-
-                <a href="{% url 'teacher_logout' %}" class="logout">
-                    Logout
-                </a>
-            </div>
-
-        </div>
-    </nav>
-
-    <!-- MAIN CONTENT -->
-    <main class="page">
-
-        <div class="page-header">
-            <div>
-                <h1>My <span>Classes</span></h1>
-                <p>
-                    Create classes, share join codes, and manage your students.
-                </p>
-            </div>
-
-            <a href="{% url 'add_class' %}" class="add-class">
-                + Add New Class
+            <a href="{% url 'learn' %}">
+                Learn
             </a>
+
+            <a href="{% url 'how_to_play' %}">
+                How to Play
+            </a>
+
+            <a href="{% url 'teacher_dashboard' %}"
+               class="active">
+                Teacher Dashboard
+            </a>
+
+            <a href="{% url 'teacher_logout' %}"
+               class="logout">
+                Logout
+            </a>
+
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+
+<main class="page">
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+        <div>
+            <span class="header-label">
+                TEACHER DASHBOARD
+            </span>
+
+            <h1>
+                My <span>Classes</span>
+            </h1>
+
+            <p>
+                Create classes, share unique join codes,
+                manage your students, and monitor their
+                learning progress in Data Quest.
+            </p>
         </div>
 
-        <!-- CLASS LIST -->
-        {% if classes %}
+        <a href="{% url 'add_class' %}"
+           class="btn btn-gold">
+            + Add New Class
+        </a>
 
-            <div class="classes-grid">
+    </section>
 
-                {% for class in classes %}
+    <!-- SECTION HEADING -->
 
-                    <div class="class-card">
+    <div class="section-heading">
+        <span class="section-accent"></span>
+        <h2>Manage Your Classes</h2>
+    </div>
 
-                        <!-- THREE-DOT MENU -->
-                        <details class="class-menu">
-                            <summary
-                                class="menu-toggle"
-                                aria-label="Class options"
-                                title="Class options"
-                            >
-                                &#8942;
-                            </summary>
+    <!-- CLASS LIST -->
 
-                            <div class="menu-dropdown">
-                                <a href="{% url 'delete_class' class.id %}">
-                                    🗑️ Delete Class
-                                </a>
-                            </div>
-                        </details>
+    {% if classes %}
 
-                        <!-- CLASS NAME -->
-                        <h2>🎓 {{ class.name }}</h2>
+    <div class="classes-grid">
 
-                        <!-- STUDENT COUNT FOR THIS CLASS ONLY -->
-                        <div class="students-count">
-                            <div class="students-count-icon" aria-hidden="true">
-                                👥
-                            </div>
+        {% for class in classes %}
 
-                            <div>
-                                <div class="students-count-label">
-                                    Students in this class
-                                </div>
+        <article class="class-card">
 
-                                <div class="students-count-number">
-                                    {{ class.total_students }}
-                                    student{{ class.total_students|pluralize }}
-                                </div>
-                            </div>
-                        </div>
+            <!-- DELETE CLASS MENU -->
 
-                        <!-- JOIN CODE -->
-                        <div class="join-code-box">
-                            <div class="join-code-label">
-                                Class Join Code
-                            </div>
+            <details class="class-menu">
 
-                            <div class="join-code">
-                                {{ class.join_code }}
-                            </div>
+                <summary class="menu-toggle"
+                         aria-label="Class options">
+                    &#8942;
+                </summary>
 
-                            <div class="join-code-help">
-                                Give this code to students who belong
-                                to this class.
-                            </div>
-                        </div>
+                <div class="menu-dropdown">
 
-                        <!-- ACTIONS -->
-                        <div class="actions">
-                            <a
-                                href="{% url 'view_students' class.id %}"
-                                class="button view-students"
-                            >
-                                👥 View Students
-                            </a>
-                        </div>
+                    <a href="{% url 'delete_class' class.id %}">
+                        🗑️ Delete Class
+                    </a>
 
+                </div>
+
+            </details>
+
+            <!-- CLASS NAME -->
+
+            <h2>
+                🎓 {{ class.name }}
+            </h2>
+
+            <!-- STUDENT COUNT -->
+
+            <div class="students-count">
+
+                <div class="students-icon">
+                    👥
+                </div>
+
+                <div>
+                    <div class="small-label">
+                        Students in this class
                     </div>
 
-                {% endfor %}
+                    <div class="students-number">
+                        {{ class.total_students }}
+                        student{{ class.total_students|pluralize }}
+                    </div>
+                </div>
 
             </div>
 
-        {% else %}
+            <!-- JOIN CODE -->
 
-            <!-- EMPTY STATE -->
-            <div class="empty">
+            <div class="join-code-box">
 
-                <div class="empty-icon">🎓</div>
+                <div class="join-code-label">
+                    Class Join Code
+                </div>
 
-                <h2>No Classes Yet</h2>
+                <div class="join-code">
+                    {{ class.join_code }}
+                </div>
 
-                <p>
-                    Create your first class to get a unique
-                    student join code and start managing
-                    your students.
-                </p>
-
-                <a href="{% url 'add_class' %}" class="add-class">
-                    + Create Your First Class
-                </a>
+                <div class="join-code-help">
+                    Share this code with students
+                    who belong to this class.
+                    Students can use it to join
+                    their assigned class.
+                </div>
 
             </div>
 
-        {% endif %}
+            <!-- VIEW STUDENTS -->
 
-    </main>
+            <a href="{% url 'view_students' class.id %}"
+               class="btn">
+                👥 View Students
+            </a>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        © 2026 Data Quest. Learn. Play. Master Data Representation.
-    </footer>
+        </article>
 
-    <script>
-        // Close other class menus when a new menu is opened.
-        document.querySelectorAll(".class-menu").forEach(function (menu) {
-            menu.addEventListener("toggle", function () {
-                if (menu.open) {
-                    document.querySelectorAll(".class-menu").forEach(function (otherMenu) {
-                        if (otherMenu !== menu) {
-                            otherMenu.open = false;
-                        }
-                    });
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <!-- NO CLASSES -->
+
+    <div class="empty">
+
+        <div class="empty-icon">
+            🎓
+        </div>
+
+        <h2>No Classes Yet</h2>
+
+        <p>
+            Create your first class to get a unique
+            student join code and start managing students.
+        </p>
+
+        <a href="{% url 'add_class' %}"
+           class="btn">
+            + Create Your First Class
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</main>
+
+<!-- FOOTER: SAME AS HOME PAGE -->
+
+<footer class="footer">
+    <p>Learn. Practise. Progress. Master.</p>
+    <p>&copy; 2026 Data Quest. All rights reserved.</p>
+</footer>
+
+<!-- CLASS MENU SCRIPT -->
+
+<script>
+document.querySelectorAll(".class-menu").forEach(function(menu) {
+    menu.addEventListener("toggle", function() {
+        if (menu.open) {
+            document.querySelectorAll(".class-menu").forEach(
+                function(otherMenu) {
+                    if (otherMenu !== menu) {
+                        otherMenu.open = false;
+                    }
                 }
-            });
-        });
+            );
+        }
+    });
+});
 
-        // Close an open menu when the user clicks elsewhere.
-        document.addEventListener("click", function (event) {
-            document.querySelectorAll(".class-menu[open]").forEach(function (menu) {
-                if (!menu.contains(event.target)) {
-                    menu.open = false;
-                }
-            });
-        });
-    </script>
+document.addEventListener("click", function(event) {
+    document.querySelectorAll(".class-menu[open]").forEach(
+        function(menu) {
+            if (!menu.contains(event.target)) {
+                menu.open = false;
+            }
+        }
+    );
+});
+</script>
 
 </body>
 </html>

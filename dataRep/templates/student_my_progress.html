@@ -1,34 +1,73 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Progress - Data Quest</title>
+    <meta name="theme-color" content="#244b42">
+    <title>My Progress | Data Quest</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --green: #244b42;
+            --green-dark: #17382f;
+            --maroon: #71342d;
+            --gold: #d5a64f;
+            --cream: #fff9ed;
+            --white: #fffdfa;
+            --text: #27332e;
+            --muted: #66736b;
+            --border: #e8dfcd;
+            --shadow: 0 6px 24px rgba(37,49,41,.07);
+        }
+
         * {
             box-sizing: border-box;
         }
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* NAVIGATION - SAME AS STUDENT DASHBOARD */
+        body {
+            margin: 0;
+            background: #f8f5ed;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.65;
+        }
+
+        h1, h2, h3, .logo,
+        .nav-links a, .primary-btn {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            transition: .2s ease;
+        }
+
+        /* NAVIGATION */
 
         .navbar {
-            background: rgba(255, 255, 255, .97);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 25px;
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-container {
             max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -36,258 +75,426 @@
         }
 
         .logo {
-            color: #111827;
-            font-size: 25px;
-            font-weight: 900;
-            text-decoration: none;
+            color: var(--maroon);
+            font-size: 26px;
+            font-weight: 800;
             white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 6px;
             flex-wrap: wrap;
+            gap: 7px;
         }
 
         .nav-links a {
-            color: #111827;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            line-height: 1.5;
-            white-space: nowrap;
-            transition: .25s;
+            padding: 10px 13px;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 9px;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: white;
         }
 
         .nav-links .logout {
-            color: #dc2626;
+            color: #a53d34;
         }
 
         .nav-links .logout:hover {
-            background: #fef2f2;
-            border-color: #fecaca;
-            color: #dc2626;
+            background: #fff0ed;
+            color: #a53d34;
         }
 
         /* MAIN CONTAINER */
 
         .container {
-            max-width: 1150px;
+            max-width: 1180px;
             margin: auto;
-            padding: 35px 20px;
+            padding: 34px 22px 60px;
         }
 
         /* PAGE HEADER */
 
         .page-header {
-            background: white;
-            padding: 25px;
-            border: 1px solid #e5e7eb;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, .04);
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 92% 12%,
+                    rgba(213,166,79,.20),
+                    transparent 34%
+                ),
+                linear-gradient(
+                    120deg,
+                    #17382f,
+                    #244b42 72%,
+                    #365b4c
+                );
+            color: white;
+            border-radius: 20px;
+            padding: 39px 38px;
+            margin-bottom: 28px;
+            border-bottom: 4px solid var(--gold);
+            box-shadow: 0 12px 30px rgba(23,56,47,.14);
+        }
+
+        .header-label {
+            display: inline-block;
+            color: #f0d79c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
         .page-header h1 {
-            margin: 0 0 10px;
-            font-size: 28px;
-            color: #111827;
+            font-size: clamp(25px, 3vw, 35px);
+            line-height: 1.3;
+            margin: 0 0 12px;
         }
 
         .page-header p {
+            color: #e1eae3;
+            font-size: 14px;
+            max-width: 680px;
             margin: 0;
-            color: #6b7280;
-            line-height: 1.7;
         }
 
         .back-link {
-            display: inline-block;
-            margin-top: 16px;
-            color: #2563eb;
-            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 19px;
+            color: #f0d79c;
+            font-size: 13px;
             font-weight: 700;
-            font-size: 14px;
         }
 
         .back-link:hover {
+            color: white;
             text-decoration: underline;
+        }
+
+        .header-decoration {
+            position: absolute;
+            right: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 85px;
+            opacity: .16;
+            pointer-events: none;
         }
 
         /* MESSAGES */
 
         .message {
-            padding: 14px 16px;
-            border-radius: 10px;
+            padding: 14px 17px;
+            border-radius: 11px;
             margin-bottom: 20px;
-            line-height: 1.5;
             font-size: 14px;
         }
 
         .message.success {
-            color: #166534;
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
+            background: #edf6ed;
+            border: 1px solid #c7dec9;
+            color: #27613a;
         }
 
         .message.info {
-            color: #1e40af;
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
+            background: #f2f1e7;
+            border: 1px solid #ded7bc;
+            color: var(--green-dark);
         }
 
         .message.error {
-            color: #991b1b;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
+            background: #fff0ed;
+            border: 1px solid #edc3bd;
+            color: #a22e25;
         }
 
-        /* PROGRESS SUMMARY CARDS */
+        .message.warning {
+            background: #fff7e7;
+            border: 1px solid #ecd8a5;
+            color: #79551a;
+        }
+
+        /* STATISTICS */
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(4, minmax(0,1fr));
+            gap: 17px;
+            margin-bottom: 30px;
         }
 
         .stat-card {
-            background: white;
-            padding: 22px;
-            border: 1px solid #e5e7eb;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, .04);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--gold);
+            border-radius: 16px;
+            padding: 23px;
+            box-shadow: var(--shadow);
             min-width: 0;
         }
 
-        .stat-card p {
-            margin: 0 0 8px;
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.6;
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #edf3ec;
+            border-radius: 13px;
+            font-size: 25px;
+            margin-bottom: 14px;
         }
 
-        .stat-card h2 {
-            margin: 0;
-            color: #111827;
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .stat-value {
+            color: var(--green-dark);
+            font-family: 'Poppins', sans-serif;
             font-size: 27px;
             font-weight: 800;
             overflow-wrap: anywhere;
+            line-height: 1.3;
         }
 
         /* OVERALL GRADE */
 
         .overall-grade-card {
-            text-align: center;
-            grid-column: span 2;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
         }
 
-        .overall-grade-card h3 {
-            margin: 0 0 12px;
-            color: #111827;
-            font-size: 19px;
+        .grade-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .grade-header h2 {
+            color: var(--green-dark);
+            font-size: 23px;
+            margin: 0 0 8px;
+        }
+
+        .grade-header p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .grade-content {
+            display: grid;
+            grid-template-columns: minmax(0,1fr) minmax(0,1.2fr);
+            gap: 25px;
+            align-items: center;
+        }
+
+        .grade-score-panel {
+            background: #edf3ec;
+            border: 1px solid #d7e3d3;
+            border-radius: 14px;
+            padding: 27px;
+            text-align: center;
+        }
+
+        .grade-score-label {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .overall-grade-number {
-            font-size: 32px;
+            color: var(--green-dark);
+            font-family: 'Poppins', sans-serif;
+            font-size: 46px;
             font-weight: 800;
-            color: #2563eb;
-            margin: 12px 0;
+            line-height: 1.2;
             overflow-wrap: anywhere;
+        }
+
+        .grade-score-detail {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .grade-progress-heading {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--green-dark);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
         .grade-progress-track {
             width: 100%;
-            height: 12px;
-            background: #e5e7eb;
-            border-radius: 10px;
+            height: 13px;
+            background: #e5e7dd;
+            border-radius: 20px;
             overflow: hidden;
-            margin: 14px 0;
         }
 
         .grade-progress-fill {
             height: 100%;
-            background: #2563eb;
-            border-radius: 10px;
+            background: linear-gradient(90deg, var(--green), var(--gold));
+            border-radius: 20px;
             transition: width .3s ease;
         }
 
         .grade-status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 9px;
+            font-size: 12px;
             font-weight: 800;
-            margin: 10px 0;
+            margin-bottom: 14px;
         }
 
         .grade-final {
-            color: #15803d;
+            background: #e7f3e8;
+            color: #27613a;
         }
 
         .grade-provisional {
-            color: #b45309;
+            background: #f8efd9;
+            color: #8b621f;
+        }
+
+        .grade-help {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 12px 0 0;
+        }
+
+        .grade-empty {
+            text-align: center;
+            padding: 25px;
+            background: #f8f7f2;
+            border: 1px dashed #d4cbb9;
+            border-radius: 12px;
+        }
+
+        .grade-empty p {
+            color: var(--muted);
+            font-size: 14px;
         }
 
         /* RESULT SECTIONS */
 
         .section {
-            background: white;
-            padding: 24px;
-            border: 1px solid #e5e7eb;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, .04);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 27px;
+            margin-bottom: 27px;
+            box-shadow: var(--shadow);
         }
 
-        .section h2 {
-            color: #111827;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 21px;
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 10px;
         }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #edf3ec;
+            border-radius: 12px;
+            font-size: 25px;
+        }
+
+        .section-header h2 {
+            color: var(--green-dark);
+            font-size: 21px;
+            margin: 0;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 20px;
+        }
+
+        /* RESULT TABLES */
 
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
             min-width: 650px;
-        }
-
-        th,
-        td {
-            padding: 13px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 14px;
+            border-collapse: collapse;
         }
 
         th {
-            background: #eff6ff;
-            color: #1e40af;
+            background: #edf3ec;
+            color: var(--green-dark);
+            padding: 15px;
+            text-align: left;
+            font-size: 12px;
             font-weight: 800;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 13px;
         }
 
         tbody tr:hover {
-            background: #f8fafc;
+            background: #fbfaf5;
         }
 
         tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* STATUS LABELS */
+        .percentage {
+            color: var(--green);
+            font-weight: 800;
+        }
+
+        .stars {
+            color: #ad791c;
+            white-space: nowrap;
+        }
 
         .status {
             display: inline-block;
@@ -299,55 +506,96 @@
         }
 
         .completed {
-            background: #dcfce7;
-            color: #166534;
+            background: #e7f3e8;
+            color: #27613a;
         }
 
         .pending {
-            background: #fef3c7;
-            color: #92400e;
+            background: #f8efd9;
+            color: #8b621f;
         }
 
-        /* EMPTY RESULT MESSAGE */
+        /* EMPTY RESULTS */
 
         .empty {
-            padding: 20px;
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            color: #6b7280;
-            line-height: 1.7;
+            padding: 24px;
+            background: #f8f7f2;
+            border: 1px dashed #d4cbb9;
+            border-radius: 12px;
+            color: var(--muted);
             font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .empty-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
         /* FINAL CHALLENGE */
 
-        .challenge-card {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            padding: 20px;
+        .challenge-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px,1fr));
+            gap: 15px;
+        }
+
+        .challenge-item {
+            background: #f8f7f2;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            line-height: 2;
+            padding: 17px;
+            min-width: 0;
+        }
+
+        .challenge-label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .challenge-value {
+            color: var(--green-dark);
+            font-size: 18px;
+            font-weight: 800;
             overflow-wrap: anywhere;
         }
 
-        .challenge-card strong {
-            display: inline-block;
-            margin-right: 5px;
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--green);
+            color: white;
+            border-radius: 9px;
+            padding: 12px 19px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 17px;
+        }
+
+        .primary-btn:hover {
+            background: var(--green-dark);
         }
 
         /* FOOTER */
 
         footer {
+            background: #34221e;
+            color: #f3e6d3;
+            border-top: 4px solid var(--gold);
             text-align: center;
             padding: 28px 15px;
-            color: #6b7280;
-            font-size: 13px;
         }
 
-        /* TABLET RESPONSIVENESS */
+        footer p {
+            font-size: 13px;
+            margin: 5px 0;
+        }
 
-        @media (max-width: 850px) {
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
             .nav-container {
                 flex-direction: column;
             }
@@ -357,54 +605,67 @@
             }
 
             .stats {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, minmax(0,1fr));
             }
         }
 
-        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 650px) {
+            .container {
+                padding: 24px 15px 40px;
+            }
 
-        @media (max-width: 600px) {
-            .navbar {
-                padding: 15px;
+            .logo {
+                font-size: 23px;
             }
 
             .nav-links {
-                gap: 2px;
+                gap: 4px;
                 justify-content: center;
             }
 
             .nav-links a {
-                padding: 8px 9px;
-                font-size: 13px;
-                font-weight: 800;
-            }
-
-            .container {
-                padding: 25px 15px;
+                padding: 8px;
+                font-size: 12px;
             }
 
             .page-header {
-                padding: 20px;
+                padding: 29px 23px;
             }
 
             .page-header h1 {
-                font-size: 25px;
+                font-size: 26px;
             }
 
-            .stats {
+            .header-decoration {
+                display: none;
+            }
+
+            .stats,
+            .grade-content {
                 grid-template-columns: 1fr;
             }
 
-            .overall-grade-card {
-                grid-column: span 1;
-            }
-
+            .overall-grade-card,
             .section {
-                padding: 18px;
+                padding: 21px;
             }
 
             .overall-grade-number {
-                font-size: 29px;
+                font-size: 39px;
+            }
+
+            .section-header h2 {
+                font-size: 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
             }
         }
     </style>
@@ -413,12 +674,10 @@
 <body>
 
 <!-- NAVIGATION -->
-
 <nav class="navbar">
     <div class="nav-container">
-
         <a href="{% url 'home' %}" class="logo">
-            🎯 Data Quest
+            Data Quest
         </a>
 
         <div class="nav-links">
@@ -426,148 +685,190 @@
             <a href="{% url 'learn' %}">Learn</a>
             <a href="{% url 'how_to_play' %}">How to Play</a>
             <a href="{% url 'student_dashboard' %}">Dashboard</a>
-            <a href="{% url 'student_my_progress' %}" class="active">
+            <a href="{% url 'student_my_progress' %}" class="active" aria-current="page">
                 My Progress
             </a>
             <a href="{% url 'student_logout' %}" class="logout">
                 Logout
             </a>
         </div>
-
     </div>
 </nav>
 
 <main class="container">
 
     <!-- PAGE HEADER -->
+    <section class="page-header">
+        <span class="header-label">YOUR LEARNING JOURNEY</span>
 
-    <div class="page-header">
-        <h1>📊 My Progress</h1>
+        <h1>My Progress</h1>
 
         <p>
             Hello, {{ student.full_name }}!
             Review your completed levels, scores, stars,
-            overall grade, and previous attempts here.
+            overall grade, and previous game attempts.
         </p>
 
         <a class="back-link" href="{% url 'student_dashboard' %}">
             ← Back to Dashboard
         </a>
-    </div>
 
-    <!-- SUCCESS AND INFORMATION MESSAGES -->
+        <span class="header-decoration" aria-hidden="true">📊</span>
+    </section>
 
+    <!-- DJANGO MESSAGES -->
     {% if messages %}
         {% for message in messages %}
-            <div class="message {{ message.tags }}">
+            <div class="message {{ message.tags }}" role="status">
                 {{ message }}
             </div>
         {% endfor %}
     {% endif %}
 
     <!-- PROGRESS SUMMARY -->
-
-    <div class="stats">
+    <section class="stats">
 
         <div class="stat-card">
-            <p>🏆 Total Points</p>
-            <h2>{{ student.total_points|default:0 }}</h2>
+            <div class="stat-icon">🏆</div>
+            <div class="stat-label">Total Points</div>
+            <div class="stat-value">
+                {{ student.total_points|default:0 }}
+            </div>
         </div>
 
         <div class="stat-card">
-            <p>⭐ Total Stars</p>
-            <h2>{{ student.total_stars|default:0 }}</h2>
+            <div class="stat-icon">⭐</div>
+            <div class="stat-label">Total Stars</div>
+            <div class="stat-value">
+                {{ student.total_stars|default:0 }}
+            </div>
         </div>
 
         <div class="stat-card">
-            <p>🎯 Levels Completed</p>
-            <h2>{{ student.completed_levels|default:0 }} / 4</h2>
+            <div class="stat-icon">🎯</div>
+            <div class="stat-label">Levels Completed</div>
+            <div class="stat-value">
+                {{ student.completed_levels|default:0 }} / 4
+            </div>
         </div>
 
         <div class="stat-card">
-            <p>🎮 Total Level Attempts</p>
-            <h2>{{ total_level_attempts|default:0 }}</h2>
+            <div class="stat-icon">🎮</div>
+            <div class="stat-label">Total Level Attempts</div>
+            <div class="stat-value">
+                {{ total_level_attempts|default:0 }}
+            </div>
         </div>
 
-        <!-- OVERALL GRADE -->
+    </section>
 
-        <div class="stat-card overall-grade-card">
-            <h3>📈 Overall Grade</h3>
+    <!-- OVERALL GRADE -->
+    <section class="overall-grade-card">
 
-            {% if overall_percentage != None %}
-
-                <div class="overall-grade-number">
-                    {{ overall_percentage }}%
-                </div>
-
+        <div class="grade-header">
+            <div>
+                <h2>📈 Overall Grade</h2>
                 <p>
-                    {{ overall_correct }} correct answers
-                    out of {{ overall_possible }} questions
+                    Your performance across the four learning levels
+                    and the Final Challenge.
                 </p>
+            </div>
+        </div>
 
-                <div
-                    class="grade-progress-track"
-                    role="progressbar"
-                    aria-label="Overall grade progress"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    aria-valuenow="{{ overall_percentage }}"
-                >
-                    <div
-                        class="grade-progress-fill"
-                        style="width: {{ overall_percentage }}%;"
-                    ></div>
+        {% if overall_percentage != None %}
+
+            <div class="grade-content">
+
+                <div class="grade-score-panel">
+                    <div class="grade-score-label">
+                        Overall Percentage
+                    </div>
+
+                    <div class="overall-grade-number">
+                        {{ overall_percentage }}%
+                    </div>
+
+                    <div class="grade-score-detail">
+                        {{ overall_correct }} correct answers
+                        out of {{ overall_possible }} questions
+                    </div>
                 </div>
 
-                {% if overall_grade_finalized %}
+                <div class="grade-progress-section">
 
-                    <p class="grade-status grade-final">
-                        Final Grade
-                    </p>
+                    {% if overall_grade_finalized %}
+                        <span class="grade-status grade-final">
+                            ✓ Final Grade
+                        </span>
+                    {% else %}
+                        <span class="grade-status grade-provisional">
+                            Provisional Grade
+                        </span>
+                    {% endif %}
 
-                    <p>
-                        You have completed all five activities.
-                    </p>
+                    <div class="grade-progress-heading">
+                        <span>Overall Score</span>
+                        <span>{{ overall_percentage }}%</span>
+                    </div>
 
-                {% else %}
+                    <div
+                        class="grade-progress-track"
+                        role="progressbar"
+                        aria-label="Overall grade progress"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="{{ overall_percentage }}"
+                    >
+                        <div
+                            class="grade-progress-fill"
+                            style="width: {{ overall_percentage }}%;"
+                        ></div>
+                    </div>
 
-                    <p class="grade-status grade-provisional">
-                        Provisional Grade
-                    </p>
+                    {% if overall_grade_finalized %}
+                        <p class="grade-help">
+                            Congratulations! You have completed all five
+                            activities. Your overall grade is now final.
+                        </p>
+                    {% else %}
+                        <p class="grade-help">
+                            Completed {{ completed_activity_count }}
+                            of {{ total_activities }} activities.
+                            Complete all five activities to finalize
+                            your overall grade.
+                        </p>
+                    {% endif %}
 
-                    <p>
-                        Completed {{ completed_activity_count }}
-                        of {{ total_activities }} activities.
-                    </p>
+                </div>
+            </div>
 
-                    <p>
-                        Complete all five activities to finalize
-                        your overall grade.
-                    </p>
+        {% else %}
 
-                {% endif %}
-
-            {% else %}
-
+            <div class="grade-empty">
                 <div class="overall-grade-number">--</div>
-
                 <p>
                     Complete an activity to start calculating
                     your overall grade.
                 </p>
+            </div>
 
-            {% endif %}
+        {% endif %}
+
+    </section>
+
+    <!-- LEVEL 1 -->
+    <section class="section">
+
+        <div class="section-header">
+            <div class="section-icon">🔤</div>
+            <h2>Level 1 — ASCII Representation</h2>
         </div>
 
-    </div>
-
-    <!-- LEVEL 1: ASCII REPRESENTATION -->
-
-    <section class="section">
-        <h2>🔤 Level 1 — ASCII Representation: Previous Attempts</h2>
+        <p class="section-description">
+            Your previous attempts, scores, percentages, and stars.
+        </p>
 
         {% if level1_results %}
-
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -580,21 +881,20 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {% for result in level1_results %}
                             <tr>
                                 <td>{{ result.attempt_number }}</td>
-
                                 <td>
                                     {{ result.score }} /
                                     {{ result.total_questions }}
                                 </td>
-
-                                <td>{{ result.percentage }}%</td>
-
-                                <td>⭐ {{ result.stars }}</td>
-
+                                <td class="percentage">
+                                    {{ result.percentage }}%
+                                </td>
+                                <td class="stars">
+                                    ⭐ {{ result.stars }}
+                                </td>
                                 <td>
                                     {% if result.completed %}
                                         <span class="status completed">
@@ -606,7 +906,6 @@
                                         </span>
                                     {% endif %}
                                 </td>
-
                                 <td>
                                     {{ result.completed_at|date:"d M Y, H:i" }}
                                 </td>
@@ -615,25 +914,30 @@
                     </tbody>
                 </table>
             </div>
-
         {% else %}
-
             <div class="empty">
+                <div class="empty-icon">🔤</div>
                 You have not completed Level 1 yet.
                 Play the ASCII Representation game to see your
                 score, percentage, stars, and attempt history here.
             </div>
-
         {% endif %}
+
     </section>
 
-    <!-- LEVEL 2: TEXT REPRESENTATION -->
-
+    <!-- LEVEL 2 -->
     <section class="section">
-        <h2>📝 Level 2 — Text Representation: Previous Attempts</h2>
+
+        <div class="section-header">
+            <div class="section-icon">📝</div>
+            <h2>Level 2 — Text Representation</h2>
+        </div>
+
+        <p class="section-description">
+            Review your Text Representation game attempts.
+        </p>
 
         {% if level2_results %}
-
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -646,21 +950,20 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {% for result in level2_results %}
                             <tr>
                                 <td>{{ result.attempt_number }}</td>
-
                                 <td>
                                     {{ result.score }} /
                                     {{ result.total_questions }}
                                 </td>
-
-                                <td>{{ result.percentage }}%</td>
-
-                                <td>⭐ {{ result.stars }}</td>
-
+                                <td class="percentage">
+                                    {{ result.percentage }}%
+                                </td>
+                                <td class="stars">
+                                    ⭐ {{ result.stars }}
+                                </td>
                                 <td>
                                     {% if result.completed %}
                                         <span class="status completed">
@@ -672,7 +975,6 @@
                                         </span>
                                     {% endif %}
                                 </td>
-
                                 <td>
                                     {{ result.completed_at|date:"d M Y, H:i" }}
                                 </td>
@@ -681,25 +983,30 @@
                     </tbody>
                 </table>
             </div>
-
         {% else %}
-
             <div class="empty">
+                <div class="empty-icon">📝</div>
                 You have not completed Level 2 yet.
-                Your Text Representation game results will appear here
-                after your attempts are saved.
+                Your Text Representation game results will appear
+                here after your attempts are saved.
             </div>
-
         {% endif %}
+
     </section>
 
-    <!-- LEVEL 3: IMAGE REPRESENTATION -->
-
+    <!-- LEVEL 3 -->
     <section class="section">
-        <h2>🖼️ Level 3 — Image Representation: Previous Attempts</h2>
+
+        <div class="section-header">
+            <div class="section-icon">🖼️</div>
+            <h2>Level 3 — Image Representation</h2>
+        </div>
+
+        <p class="section-description">
+            Review your Image Representation game attempts.
+        </p>
 
         {% if level3_results %}
-
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -712,21 +1019,20 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {% for result in level3_results %}
                             <tr>
                                 <td>{{ result.attempt_number }}</td>
-
                                 <td>
                                     {{ result.score }} /
                                     {{ result.total_questions }}
                                 </td>
-
-                                <td>{{ result.percentage }}%</td>
-
-                                <td>⭐ {{ result.stars }}</td>
-
+                                <td class="percentage">
+                                    {{ result.percentage }}%
+                                </td>
+                                <td class="stars">
+                                    ⭐ {{ result.stars }}
+                                </td>
                                 <td>
                                     {% if result.completed %}
                                         <span class="status completed">
@@ -738,7 +1044,6 @@
                                         </span>
                                     {% endif %}
                                 </td>
-
                                 <td>
                                     {{ result.completed_at|date:"d M Y, H:i" }}
                                 </td>
@@ -747,26 +1052,31 @@
                     </tbody>
                 </table>
             </div>
-
         {% else %}
-
             <div class="empty">
+                <div class="empty-icon">🖼️</div>
                 You have not completed Level 3 yet.
                 Once your Image Representation result is saved,
                 your score, percentage, stars, and attempt history
                 will appear here.
             </div>
-
         {% endif %}
+
     </section>
 
-    <!-- LEVEL 4: AUDIO / SOUND REPRESENTATION -->
-
+    <!-- LEVEL 4 -->
     <section class="section">
-        <h2>🎧 Level 4 — Audio / Sound Representation: Previous Attempts</h2>
+
+        <div class="section-header">
+            <div class="section-icon">🎧</div>
+            <h2>Level 4 — Audio / Sound Representation</h2>
+        </div>
+
+        <p class="section-description">
+            Review your Audio / Sound Representation attempts.
+        </p>
 
         {% if level4_results %}
-
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -779,21 +1089,20 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {% for result in level4_results %}
                             <tr>
                                 <td>{{ result.attempt_number }}</td>
-
                                 <td>
                                     {{ result.score }} /
                                     {{ result.total_questions }}
                                 </td>
-
-                                <td>{{ result.percentage }}%</td>
-
-                                <td>⭐ {{ result.stars }}</td>
-
+                                <td class="percentage">
+                                    {{ result.percentage }}%
+                                </td>
+                                <td class="stars">
+                                    ⭐ {{ result.stars }}
+                                </td>
                                 <td>
                                     {% if result.completed %}
                                         <span class="status completed">
@@ -805,7 +1114,6 @@
                                         </span>
                                     {% endif %}
                                 </td>
-
                                 <td>
                                     {{ result.completed_at|date:"d M Y, H:i" }}
                                 </td>
@@ -814,60 +1122,78 @@
                     </tbody>
                 </table>
             </div>
-
         {% else %}
-
             <div class="empty">
+                <div class="empty-icon">🎧</div>
                 You have not completed Level 4 yet.
                 Once your Audio / Sound Representation result is saved,
                 your score, percentage, stars, and attempt history
                 will appear here.
             </div>
-
         {% endif %}
+
     </section>
 
     <!-- FINAL CHALLENGE -->
-
     <section class="section">
-        <h2>🏆 Final Challenge</h2>
+
+        <div class="section-header">
+            <div class="section-icon">🏆</div>
+            <h2>Final Challenge</h2>
+        </div>
+
+        <p class="section-description">
+            Your Final Challenge result and achievements.
+        </p>
 
         {% if final_result %}
 
-            <div class="challenge-card">
+            <div class="challenge-summary">
 
-                <strong>Status:</strong>
+                <div class="challenge-item">
+                    <div class="challenge-label">Status</div>
+                    <div class="challenge-value">
+                        {% if final_result.completed %}
+                            <span class="status completed">
+                                Completed
+                            </span>
+                        {% else %}
+                            <span class="status pending">
+                                Incomplete
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
 
-                {% if final_result.completed %}
-                    <span class="status completed">
-                        Completed
-                    </span>
-                {% else %}
-                    <span class="status pending">
-                        Incomplete
-                    </span>
-                {% endif %}
+                <div class="challenge-item">
+                    <div class="challenge-label">Score</div>
+                    <div class="challenge-value">
+                        {{ final_result.score }} /
+                        {{ final_result.total_questions }}
+                    </div>
+                </div>
 
-                <br>
+                <div class="challenge-item">
+                    <div class="challenge-label">Percentage</div>
+                    <div class="challenge-value percentage">
+                        {{ final_result.percentage }}%
+                    </div>
+                </div>
 
-                <strong>Score:</strong>
-                {{ final_result.score }} /
-                {{ final_result.total_questions }}
-
-                <br>
-
-                <strong>Percentage:</strong>
-                {{ final_result.percentage }}%
-
-                <br>
-
-                <strong>Stars:</strong>
-                ⭐ {{ final_result.stars }}
+                <div class="challenge-item">
+                    <div class="challenge-label">Stars</div>
+                    <div class="challenge-value stars">
+                        ⭐ {{ final_result.stars }}
+                    </div>
+                </div>
 
                 {% if final_result.completed_at %}
-                    <br>
-                    <strong>Date:</strong>
-                    {{ final_result.completed_at|date:"d M Y, H:i" }}
+                    <div class="challenge-item">
+                        <div class="challenge-label">Completed Date</div>
+                        <div class="challenge-value">
+                            {{ final_result.completed_at|date:"d M Y, H:i" }}
+                        </div>
+                    </div>
                 {% endif %}
 
             </div>
@@ -876,53 +1202,46 @@
 
             <div class="empty">
 
+                <div class="empty-icon">🏆</div>
+
                 {% if student.completed_levels >= 4 %}
 
                     You have completed the four learning levels.
-                    Your Final Challenge result will appear here after
-                    you complete the challenge and save your result.
+                    Your Final Challenge result will appear here
+                    after you complete the challenge and save your result.
 
                 {% else %}
 
                     Complete Levels 1, 2, 3, and 4 first.
                     The Final Challenge comes after Level 4.
 
-                    <br><br>
-
-                    Current progress:
-                    <strong>
-                        {{ student.completed_levels|default:0 }} / 4 levels
-                    </strong>
+                    <p>
+                        Current progress:
+                        <strong>
+                            {{ student.completed_levels|default:0 }} / 4 levels
+                        </strong>
+                    </p>
 
                 {% endif %}
 
-                <br><br>
-
                 <a
                     href="{% url 'student_dashboard' %}"
-                    style="
-                        display: inline-block;
-                        padding: 10px 16px;
-                        background: #2563eb;
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 8px;
-                        font-weight: 700;
-                        font-size: 14px;
-                    "
+                    class="primary-btn"
                 >
-                    Return to Dashboard
+                    Return to Dashboard →
                 </a>
 
             </div>
 
         {% endif %}
+
     </section>
 
 </main>
 
 <footer>
-    © 2026 Data Quest. Learn. Play. Master Data Representation.
+    <p>Learn. Practise. Progress. Master.</p>
+    <p>&copy; 2026 Data Quest. All rights reserved.</p>
 </footer>
 
 </body>

@@ -1,39 +1,94 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#244b42">
 
     <title>Join Class | Data Quest</title>
 
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
     <style>
+
+        /* ==========================
+           GLOBAL STYLES
+        ========================== */
+
+        :root {
+            --green: #244b42;
+            --green-dark: #17382f;
+            --maroon: #71342d;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --white: #fffdfa;
+            --text: #27332e;
+            --muted: #66736b;
+            --border: #e8dfcd;
+            --shadow: 0 6px 24px rgba(37,49,41,.07);
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
+            font-family: 'Inter', sans-serif;
+            background: #f8f5ed;
+            color: var(--text);
             min-height: 100vh;
-            color: #111827;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.65;
         }
 
-        /* =========================
+        h1, h2, h3,
+        .logo,
+        .nav-links a,
+        .button {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            transition: .2s ease;
+        }
+
+        /* ==========================
            NAVIGATION
-        ========================= */
+        ========================== */
 
         .navbar {
-            width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 40px;
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -41,299 +96,426 @@
         }
 
         .logo {
-            color: #2563eb;
-            font-size: 25px;
-            font-weight: 700;
-            text-decoration: none;
+            color: var(--maroon);
+            font-size: 26px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .logo:hover {
+            color: var(--green);
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
             flex-wrap: wrap;
+            gap: 7px;
         }
 
         .nav-links a {
-            text-decoration: none;
-            color: #374151;
-            font-size: 15px;
-            font-weight: 500;
-            padding: 9px 13px;
-            border-radius: 8px;
-            transition: 0.2s;
+            padding: 10px 13px;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 9px;
         }
 
-        .nav-links a:hover {
-            background: #eff6ff;
-            color: #2563eb;
-        }
-
+        .nav-links a:hover,
         .nav-links a.active {
-            background: #2563eb;
+            background: var(--maroon);
             color: white;
         }
 
-        /* =========================
-           PAGE
-        ========================= */
+        .nav-links .logout {
+            color: #a53d34;
+        }
+
+        .nav-links .logout:hover {
+            background: #fff0ed;
+            color: #a53d34;
+        }
+
+        /* ==========================
+           MAIN CONTENT
+        ========================== */
 
         .page {
-            min-height: calc(100vh - 73px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 50px 20px;
-        }
-
-        .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 34px 22px 60px;
+            flex: 1;
         }
 
-        /* =========================
-           CARD
-        ========================= */
+        /* ==========================
+           PAGE HEADER
+        ========================== */
 
-        .card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 18px;
-            padding: 40px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-        }
-
-        .header {
-            text-align: center;
+        .page-header {
+            background: linear-gradient(
+                120deg,
+                #17382f,
+                #244b42 72%,
+                #365b4c
+            );
+            border-bottom: 4px solid var(--gold);
+            border-radius: 20px;
+            padding: 35px 38px;
             margin-bottom: 28px;
+            box-shadow: 0 12px 30px rgba(23,56,47,.14);
         }
 
-        .header-icon {
-            width: 64px;
-            height: 64px;
-            background: #eff6ff;
-            color: #2563eb;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px;
-            font-size: 30px;
-        }
-
-        .header h1 {
-            color: #111827;
-            font-size: 32px;
+        .header-label {
+            display: block;
+            color: #f0d79c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             margin-bottom: 10px;
         }
 
-        .header h1 span {
-            color: #2563eb;
-        }
-
-        .header p {
-            color: #6b7280;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           WELCOME
-        ========================= */
-
-        .welcome {
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            color: #1e40af;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .welcome strong {
-            color: #1e3a8a;
-        }
-
-        /* =========================
-           ERROR
-        ========================= */
-
-        .error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #b91c1c;
-            padding: 12px 14px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        /* =========================
-           FORM
-        ========================= */
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #374151;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 14px 15px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            outline: none;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 17px;
-            letter-spacing: 2px;
-            text-align: center;
-            text-transform: uppercase;
-            transition: 0.2s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        input[type="text"]::placeholder {
-            color: #9ca3af;
-            letter-spacing: 1px;
-        }
-
-        .button {
-            width: 100%;
-            border: none;
-            background: #2563eb;
+        .page-header h1 {
             color: white;
-            padding: 14px;
-            border-radius: 10px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
+            font-size: 32px;
+            line-height: 1.4;
+            margin-bottom: 10px;
         }
 
-        .button:hover {
-            background: #1d4ed8;
+        .page-header h1 span {
+            color: #f0d79c;
         }
 
-        /* =========================
-           HELP
-        ========================= */
-
-        .help {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
-            font-size: 13px;
-            line-height: 1.6;
-            text-align: center;
-        }
-
-        .help strong {
-            color: #374151;
-        }
-
-        /* =========================
-           BACK LINK
-        ========================= */
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #2563eb;
-            text-decoration: none;
+        .page-header p {
+            color: #e1eae3;
             font-size: 14px;
-            font-weight: 500;
+            max-width: 700px;
+            margin-bottom: 18px;
         }
 
-        .back:hover {
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #f0d79c;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            color: white;
             text-decoration: underline;
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
+        /* ==========================
+           FORM WRAPPER
+        ========================== */
 
-        .footer {
-            background: #111827;
-            color: #9ca3af;
-            text-align: center;
-            padding: 18px 20px;
-            font-size: 13px;
+        .form-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
+        /* ==========================
+           FORM CARD
+        ========================== */
 
-        @media (max-width: 800px) {
+        .form-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--gold);
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+        }
 
-            .navbar {
-                padding: 15px 20px;
-            }
+        .form-icon {
+            width: 68px;
+            height: 68px;
+            background: #edf3ec;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 33px;
+            margin: 0 auto 18px;
+        }
+
+        .form-card h2 {
+            color: var(--green-dark);
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .form-description {
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* ==========================
+           WELCOME MESSAGE
+        ========================== */
+
+        .welcome-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            background: #edf3ec;
+            border: 1px solid #d7e3d3;
+            border-radius: 12px;
+            padding: 19px;
+            margin-bottom: 25px;
+        }
+
+        .welcome-icon {
+            font-size: 23px;
+            flex-shrink: 0;
+        }
+
+        .welcome-box h3 {
+            color: var(--green-dark);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .welcome-box p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ==========================
+           ERROR MESSAGE
+        ========================== */
+
+        .error-box {
+            background: #fff0ed;
+            border: 1px solid #f0cbc6;
+            border-left: 4px solid #b63b35;
+            border-radius: 10px;
+            color: #a53d34;
+            padding: 15px 17px;
+            margin-bottom: 23px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        /* ==========================
+           FORM INPUT
+        ========================== */
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--green-dark);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 16px;
+            background: white;
+            border: 1px solid #d8d9d0;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-align: center;
+            text-transform: uppercase;
+            color: var(--green-dark);
+            outline: none;
+            transition: .2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(36,75,66,.12);
+        }
+
+        .form-group input::placeholder {
+            color: #9aa39b;
+            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .input-help {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 9px;
+            line-height: 1.7;
+        }
+
+        /* ==========================
+           BUTTONS
+        ========================== */
+
+        .button {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 14px 18px;
+            background: var(--green);
+            border: 1px solid var(--green);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .button:hover {
+            background: var(--green-dark);
+            border-color: var(--green-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================
+           HELP SECTION
+        ========================== */
+
+        .help-box {
+            border-top: 1px solid var(--border);
+            margin-top: 28px;
+            padding-top: 23px;
+            text-align: center;
+        }
+
+        .help-box h3 {
+            color: var(--green-dark);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .help-box p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ==========================
+           BACK BUTTON
+        ========================== */
+
+        .bottom-back {
+            display: inline-block;
+            margin-top: 22px;
+            color: var(--maroon);
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .bottom-back:hover {
+            color: var(--green);
+            text-decoration: underline;
+        }
+
+        .back-container {
+            text-align: center;
+        }
+
+        /* ==========================
+           FOOTER - SAME AS HOME
+        ========================== */
+
+        .footer {
+            background: #34221e;
+            color: #f3e6d3;
+            text-align: center;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
+        }
+
+        .footer p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* ==========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media (max-width: 950px) {
 
             .nav-container {
                 flex-direction: column;
-                align-items: center;
             }
 
             .nav-links {
                 justify-content: center;
             }
 
-            .page {
-                padding: 35px 15px;
-            }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 700px) {
 
-            .card {
-                padding: 30px 22px;
+            .page {
+                padding: 24px 15px 45px;
             }
 
-            .header h1 {
-                font-size: 27px;
+            .page-header {
+                padding: 29px 23px;
             }
 
-            .nav-links {
-                gap: 4px;
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .form-card {
+                padding: 25px 20px;
+            }
+
+            .form-card h2 {
+                font-size: 22px;
             }
 
             .nav-links a {
-                font-size: 14px;
-                padding: 8px 9px;
+                padding: 8px;
+                font-size: 12px;
             }
+
         }
+
+        @media (max-width: 480px) {
+
+            .form-group input {
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+
+        }
+
     </style>
 </head>
 
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================= -->
+    <!-- ==========================
+         STUDENT NAVIGATION
+    ========================== -->
 
     <nav class="navbar">
 
         <div class="nav-container">
 
-            <a href="{% url 'home' %}" class="logo">
+            <a href="{% url 'home' %}"
+               class="logo">
                 Data Quest
             </a>
 
@@ -351,12 +533,18 @@
                     How to Play
                 </a>
 
-                <a href="{% url 'student_login' %}" class="active">
-                    Student Login
+                <a href="{% url 'student_dashboard' %}"
+                   class="active">
+                    Student Dashboard
                 </a>
 
-                <a href="{% url 'teacher_login' %}">
-                    Teacher Login
+                <a href="{% url 'student_my_progress' %}">
+                    My Progress
+                </a>
+
+                <a href="{% url 'student_logout' %}"
+                   class="logout">
+                    Logout
                 </a>
 
             </div>
@@ -365,72 +553,105 @@
 
     </nav>
 
-
-    <!-- =========================
+    <!-- ==========================
          MAIN CONTENT
-    ========================= -->
+    ========================== -->
 
     <main class="page">
 
-        <div class="container">
+        <!-- PAGE HEADER -->
 
-            <div class="card">
+        <section class="page-header">
 
-                <!-- Header -->
+            <span class="header-label">
+                STUDENT DASHBOARD / JOIN CLASS
+            </span>
 
-                <div class="header">
+            <h1>
+                Join a <span>Class</span>
+            </h1>
 
-                    <div class="header-icon">
-                        🎓
+            <p>
+                Enter the unique class code provided
+                by your teacher to join your assigned
+                class section in Data Quest.
+            </p>
+
+            <a href="{% url 'student_dashboard' %}"
+               class="back-link">
+                ← Back to Student Dashboard
+            </a>
+
+        </section>
+
+        <!-- FORM WRAPPER -->
+
+        <div class="form-wrapper">
+
+            <section class="form-card">
+
+                <!-- FORM HEADER -->
+
+                <div class="form-icon">
+                    🎓
+                </div>
+
+                <h2>
+                    Join Your Class
+                </h2>
+
+                <p class="form-description">
+                    Use the class join code shared
+                    by your teacher to connect your
+                    account to the correct class.
+                </p>
+
+                <!-- WELCOME MESSAGE -->
+
+                <div class="welcome-box">
+
+                    <div class="welcome-icon">
+                        👋
                     </div>
 
-                    <h1>
-                        Join a <span>Class</span>
-                    </h1>
+                    <div>
 
-                    <p>
-                        Enter your teacher's class code to join your class.
-                    </p>
+                        <h3>
+                            Welcome, {{ student.full_name }}!
+                        </h3>
 
-                </div>
+                        <p>
+                            Enter your teacher's class code
+                            below to join your class and
+                            start learning with Data Quest.
+                        </p>
 
-
-                <!-- Welcome -->
-
-                <div class="welcome">
-
-                    Welcome,
-                    <strong>{{ student.full_name }}</strong>!
-
-                    <br>
-
-                    Enter the class code provided by your teacher
-                    to join your class.
+                    </div>
 
                 </div>
 
-
-                <!-- Error -->
+                <!-- ERROR MESSAGE -->
 
                 {% if error %}
 
-                    <div class="error">
-                        {{ error }}
-                    </div>
+                <div class="error-box" role="alert">
+                    ⚠️ {{ error }}
+                </div>
 
                 {% endif %}
 
-
-                <!-- Join Form -->
+                <!-- JOIN CLASS FORM -->
 
                 <form method="POST">
 
                     {% csrf_token %}
 
+                    <!-- CLASS JOIN CODE -->
+
                     <div class="form-group">
 
                         <label for="join_code">
-                            Class Code
+                            Class Join Code
                         </label>
 
                         <input
@@ -440,60 +661,67 @@
                             placeholder="Enter class code"
                             maxlength="20"
                             autocomplete="off"
-                            required
-                        >
+                            autocapitalize="characters"
+                            spellcheck="false"
+                            required>
+
+                        <p class="input-help">
+                            Enter the exact code provided
+                            by your teacher.
+                        </p>
 
                     </div>
 
+                    <!-- SUBMIT BUTTON -->
 
                     <button
                         type="submit"
-                        class="button"
-                    >
-                        Join Class 🚀
+                        class="button">
+                         Join Class
                     </button>
 
                 </form>
 
+                <!-- HELP SECTION -->
 
-                <!-- Help -->
+                <div class="help-box">
 
-                <div class="help">
+                    <h3>
+                        Don't Have a Class Code?
+                    </h3>
 
-                    <strong>Don't have a class code?</strong>
-
-                    <br>
-
-                    Please ask your teacher for the
-                    class code before joining.
+                    <p>
+                        Please ask your teacher for
+                        the class join code before
+                        attempting to join.
+                    </p>
 
                 </div>
 
+                <!-- BACK LINK -->
 
-                <!-- Back -->
+                <div class="back-container">
 
-                <a
-                    href="{% url 'student_dashboard' %}"
-                    class="back"
-                >
-                    ← Back to Dashboard
-                </a>
+                    <a href="{% url 'student_dashboard' %}"
+                       class="bottom-back">
+                        ← Back to Student Dashboard
+                    </a>
 
-            </div>
+                </div>
+
+            </section>
 
         </div>
 
     </main>
 
-
-    <!-- =========================
-         FOOTER
-    ========================= -->
+    <!-- ==========================
+         FOOTER - SAME AS HOME PAGE
+    ========================== -->
 
     <footer class="footer">
-
-        © 2026 Data Quest. Learn. Play. Master Data Representation.
-
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
     </footer>
 
 </body>

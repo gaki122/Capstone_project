@@ -1,23 +1,34 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#244b42">
 
     <title>Student Login | Data Quest</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
 
-        /* =========================
-           RESET
-        ========================= */
+        /* ========== COLOUR THEME ========== */
+
+        :root {
+            --green: #244b42;
+            --green-dark: #17382f;
+            --maroon: #71342d;
+            --gold: #d5a64f;
+            --cream: #fff9ed;
+            --text: #27332e;
+            --muted: #66736b;
+            --border: #e8dfcd;
+        }
 
         * {
             margin: 0;
@@ -25,565 +36,395 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================
-           BODY
-        ========================= */
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #1f2937;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.65;
         }
 
+        h1, h2, .logo, .nav-links a,
+        button, .home-link {
+            font-family: 'Poppins', sans-serif;
+        }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
+        a {
+            text-decoration: none;
+            transition: .2s ease;
+        }
 
-        nav {
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid #e2e8f0;
+        /* ========== NAVBAR ========== */
 
-            padding: 15px 30px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 25px;
-
+        .navbar {
             position: sticky;
             top: 0;
-            z-index: 1000;
-
-            backdrop-filter: blur(10px);
+            z-index: 100;
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
         }
 
-
-        .nav-container {
-            width: 100%;
+        .nav-inner {
             max-width: 1180px;
-
-            margin: 0 auto;
+            min-height: 78px;
+            margin: auto;
+            padding: 12px 22px;
 
             display: flex;
-            align-items: center;
             justify-content: space-between;
-
-            gap: 25px;
+            align-items: center;
+            gap: 20px;
         }
-
 
         .logo {
+            color: var(--maroon);
             font-size: 26px;
-            font-weight: 900;
-
-            color: #111827;
-
-            text-decoration: none;
-
-            padding: 8px 12px;
-
-            border-radius: 8px;
-
+            font-weight: 800;
             white-space: nowrap;
-
-            transition: 0.25s;
         }
-
-
-        .logo:hover {
-            color: #2563eb;
-            background: #eff6ff;
-        }
-
 
         .nav-links {
             display: flex;
-            align-items: center;
-
-            gap: 4px;
-
             flex-wrap: wrap;
+            gap: 7px;
         }
-
 
         .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            color: #111827;
-
-            background: transparent;
-
-            text-decoration: none;
-
-            font-size: 15px;
-            font-weight: 800;
-
-            padding: 9px 13px;
-
-            border-radius: 8px;
-
-            border: 1px solid transparent;
-
-            white-space: nowrap;
-
-            transition: 0.25s;
+            color: var(--green-dark);
+            padding: 10px 13px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
-
-        .nav-links a:hover {
-            color: #2563eb;
-
-            background: #eff6ff;
-
-            border-color: #dbeafe;
-        }
-
-
+        .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-
-            background: #eff6ff;
-
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: #fff;
         }
 
-
-        /* =========================
-           LOGIN SECTION
-        ========================= */
+        /* ========== LOGIN BACKGROUND ========== */
 
         .login-section {
-            min-height: calc(100vh - 76px);
+            position: relative;
+            min-height: calc(100vh - 78px);
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            padding: 60px 20px;
+            padding: 65px 20px;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(17, 43, 36, .72),
+                    rgba(28, 49, 41, .46),
+                    rgba(17, 43, 36, .62)
+                ),
+                url("{% static 'dataRep/images/student_login.jpeg' %}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
+        /* ========== LOGIN CARD ========== */
 
         .login-container {
             width: 100%;
-            max-width: 470px;
+            max-width: 450px;
+            position: relative;
+            z-index: 1;
         }
-
-
-        /* =========================
-           LOGIN CARD
-        ========================= */
 
         .login-card {
-            background: #ffffff;
-
-            padding: 40px;
-
+            background: rgba(255, 253, 248, .98);
+            padding: 40px 38px;
             border-radius: 18px;
 
-            border: 1px solid #e5e7eb;
+            border: 1px solid rgba(255,255,255,.9);
+            border-top: 5px solid var(--gold);
 
             box-shadow:
-                0 12px 35px rgba(0, 0, 0, 0.08);
+                0 20px 55px rgba(0,0,0,.23);
         }
 
+        /* ========== ICON ========== */
 
         .login-icon {
-            width: 70px;
-            height: 70px;
-
-            margin: 0 auto 20px;
-
+            width: 68px;
+            height: 68px;
             border-radius: 18px;
 
-            background: #eff6ff;
+            margin: 0 auto 18px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            font-size: 34px;
+            background: #edf3ec;
+            border: 1px solid #d7e5d9;
+
+            font-size: 32px;
         }
 
+        /* ========== HEADING ========== */
 
         .login-card h1 {
             text-align: center;
-
-            font-size: 32px;
+            font-size: 30px;
             line-height: 1.3;
-
-            color: #111827;
-
+            color: var(--green-dark);
             margin-bottom: 10px;
         }
 
-
         .login-card h1 span {
-            color: #2563eb;
+            color: var(--maroon);
         }
-
 
         .subtitle {
             text-align: center;
-
-            color: #6b7280;
-
-            font-size: 16px;
-            line-height: 1.6;
-
-            margin-bottom: 30px;
-        }
-
-
-        /* =========================
-           ERROR MESSAGE
-        ========================= */
-
-        .error {
-            background: #fee2e2;
-            color: #b91c1c;
-
-            border: 1px solid #fecaca;
-
-            padding: 12px 14px;
-
-            border-radius: 9px;
-
-            margin-bottom: 22px;
-
-            text-align: center;
-
+            color: var(--muted);
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.75;
+            margin-bottom: 27px;
         }
 
-
-        /* =========================
-           FORM
-        ========================= */
+        /* ========== FORM ========== */
 
         .form-group {
             margin-bottom: 20px;
         }
 
-
-        label {
+        .form-group label {
             display: block;
-
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--green-dark);
             margin-bottom: 8px;
-
-            color: #374151;
-
-            font-size: 15px;
-            font-weight: 600;
         }
 
-
-        input {
+        .form-group input {
             width: 100%;
+            padding: 14px 15px;
 
-            padding: 13px 14px;
-
-            border: 1px solid #d1d5db;
-
+            background: #fff;
+            border: 1px solid #d8ded6;
             border-radius: 9px;
 
-            background: #ffffff;
-
-            color: #111827;
-
+            font-family: 'Inter', sans-serif;
             font-size: 15px;
+            color: var(--text);
 
-            transition: 0.25s;
+            transition: .2s ease;
         }
 
-
-        input::placeholder {
-            color: #9ca3af;
+        .form-group input::placeholder {
+            color: #98a19b;
         }
 
-
-        input:focus {
+        .form-group input:focus {
             outline: none;
-
-            border-color: #2563eb;
-
-            box-shadow:
-                0 0 0 3px rgba(37, 99, 235, 0.10);
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(36,75,66,.1);
         }
 
-
-        /* =========================
-           LOGIN BUTTON
-        ========================= */
+        /* ========== LOGIN BUTTON ========== */
 
         .login-button {
             width: 100%;
-
             padding: 14px 20px;
 
-            border: none;
+            background: var(--green);
+            color: white;
 
+            border: none;
             border-radius: 9px;
 
-            background: #2563eb;
-            color: #ffffff;
-
-            font-size: 16px;
-            font-weight: bold;
-
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
 
-            transition: 0.25s;
+            transition: .2s ease;
         }
-
 
         .login-button:hover {
-            background: #1d4ed8;
-
-            transform: translateY(-1px);
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(23,56,47,.2);
         }
 
+        /* ========== ERROR MESSAGE ========== */
 
-        /* =========================
-           REGISTER
-        ========================= */
+        .error {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+
+            background: #fff0ed;
+            color: #a22e25;
+            border: 1px solid #edc3bd;
+            border-left: 4px solid #c34d40;
+            border-radius: 9px;
+
+            font-size: 14px;
+        }
+
+        /* ========== REGISTER LINK ========== */
 
         .register-link {
             text-align: center;
-
-            margin-top: 24px;
-
-            color: #6b7280;
-
+            margin-top: 25px;
+            color: var(--muted);
             font-size: 14px;
-            line-height: 1.6;
         }
-
 
         .register-link a {
-            color: #2563eb;
-
-            text-decoration: none;
-
-            font-weight: bold;
+            color: var(--maroon);
+            font-weight: 700;
         }
-
 
         .register-link a:hover {
             text-decoration: underline;
         }
 
-
-        /* =========================
-           BACK TO HOME
-        ========================= */
+        /* ========== BACK BUTTON ========== */
 
         .home-link {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-            text-align: center;
-
-            margin-top: 20px;
-
+            margin-top: 22px;
             padding: 12px 16px;
 
-            border: 1px solid #d1d5db;
-
+            background: #f6f5ef;
+            border: 1px solid var(--border);
             border-radius: 9px;
 
-            text-decoration: none;
-
-            color: #374151;
-
-            font-size: 14px;
-            font-weight: 600;
-
-            transition: 0.25s;
+            color: var(--green);
+            font-size: 13px;
+            font-weight: 700;
         }
-
 
         .home-link:hover {
-            background: #f8fafc;
-
-            color: #2563eb;
-
-            border-color: #bfdbfe;
+            background: #edf3ec;
+            border-color: #c7d9ca;
         }
 
-
-        /* =========================
-           FOOTER
-        ========================= */
+        /* ========== FOOTER ========== */
 
         footer {
-            background: #111827;
-
-            color: #9ca3af;
-
+            background: #34221e;
+            color: #f3e6d3;
             text-align: center;
-
-            padding: 22px 20px;
-
-            font-size: 14px;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
+        footer p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
 
-        /* =========================
-           TABLET
-        ========================= */
+        /* ========== RESPONSIVE ========== */
 
-        @media (max-width: 850px) {
+        @media (max-width: 950px) {
 
-            nav {
-                padding: 15px 20px;
-            }
-
-
-            .nav-container {
+            .nav-inner {
                 flex-direction: column;
-
-                gap: 12px;
             }
-
 
             .nav-links {
                 justify-content: center;
             }
 
-
             .login-section {
-                min-height: auto;
-
-                padding: 50px 20px;
+                min-height: 650px;
             }
-
         }
 
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            nav {
-                padding: 12px 15px;
-            }
-
+        @media (max-width: 650px) {
 
             .logo {
                 font-size: 23px;
             }
 
-
             .nav-links {
                 gap: 4px;
+                justify-content: center;
             }
-
 
             .nav-links a {
-                font-size: 13px;
-
-                padding: 8px 9px;
+                font-size: 12px;
+                padding: 8px;
             }
-
 
             .login-section {
-                padding: 35px 15px;
+                min-height: auto;
+                padding: 45px 15px;
             }
-
 
             .login-card {
-                padding: 30px 22px;
-
-                border-radius: 15px;
+                padding: 30px 23px;
             }
-
 
             .login-card h1 {
                 font-size: 27px;
             }
+        }
 
-
-            .subtitle {
-                font-size: 15px;
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
             }
 
+            * {
+                transition: none !important;
+            }
         }
 
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- ========== NAVIGATION ========== -->
 
-    <!-- =========================
-         NAVIGATION
-    ========================= -->
+    <nav class="navbar">
 
-    <nav>
+        <div class="nav-inner">
 
-        <div class="nav-container">
-
-
-            <a
-                href="{% url 'home' %}"
-                class="logo"
-            >
+            <a href="{% url 'home' %}" class="logo">
                 Data Quest
             </a>
 
-
             <div class="nav-links">
 
-
-                <a
-                    href="{% url 'home' %}"
-                    class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                >
+                <a href="{% url 'home' %}">
                     Home
                 </a>
 
-
-                <a
-                    href="{% url 'learn' %}"
-                    class="{% if request.resolver_match.url_name == 'learn' %}active{% endif %}"
-                >
+                <a href="{% url 'learn' %}">
                     Learn
                 </a>
 
-
-                <a
-                    href="{% url 'how_to_play' %}"
-                    class="{% if request.resolver_match.url_name == 'how_to_play' %}active{% endif %}"
-                >
+                <a href="{% url 'how_to_play' %}">
                     How to Play
                 </a>
 
-
-                <a
-                    href="{% url 'student_login' %}"
-                    class="{% if request.resolver_match.url_name == 'student_login' %}active{% endif %}"
-                >
+                <a href="{% url 'student_login' %}"
+                   class="active">
                     Student Login
                 </a>
 
-
-                <a
-                    href="{% url 'teacher_login' %}"
-                    class="{% if request.resolver_match.url_name == 'teacher_login' %}active{% endif %}"
-                >
+                <a href="{% url 'teacher_login' %}">
                     Teacher Login
                 </a>
-
 
             </div>
 
@@ -591,55 +432,47 @@
 
     </nav>
 
-
-    <!-- =========================
-         LOGIN SECTION
-    ========================= -->
+    <!-- ========== STUDENT LOGIN ========== -->
 
     <main class="login-section">
 
-
         <div class="login-container">
 
-
             <div class="login-card">
-
 
                 <div class="login-icon">
                     🎓
                 </div>
 
-
                 <h1>
                     Student <span>Login</span>
                 </h1>
 
-
                 <p class="subtitle">
-                    Sign in to continue your Data Quest journey.
+                    Welcome back to Data Quest!
+                    Sign in to continue your learning
+                    journey and track your progress.
                 </p>
 
+                <!-- ERROR MESSAGE -->
 
                 {% if error %}
-
-                    <div class="error">
+                    <div class="error" role="alert">
                         {{ error }}
                     </div>
-
                 {% endif %}
 
+                <!-- LOGIN FORM -->
 
                 <form method="POST">
 
                     {% csrf_token %}
-
 
                     <div class="form-group">
 
                         <label for="username">
                             Username
                         </label>
-
 
                         <input
                             type="text"
@@ -652,13 +485,11 @@
 
                     </div>
 
-
                     <div class="form-group">
 
                         <label for="password">
                             Password
                         </label>
-
 
                         <input
                             type="password"
@@ -671,17 +502,16 @@
 
                     </div>
 
-
                     <button
                         type="submit"
                         class="login-button"
                     >
-                        Login 🚀
+                        Login to Data Quest →
                     </button>
-
 
                 </form>
 
+                <!-- REGISTER -->
 
                 <div class="register-link">
 
@@ -693,14 +523,12 @@
 
                 </div>
 
+                <!-- BACK TO HOME -->
 
-                <a
-                    href="{% url 'home' %}"
-                    class="home-link"
-                >
+                <a href="{% url 'home' %}"
+                   class="home-link">
                     ← Back to Home
                 </a>
-
 
             </div>
 
@@ -708,19 +536,12 @@
 
     </main>
 
-
-    <!-- =========================
-         FOOTER
-    ========================= -->
+    <!-- ========== FOOTER ========== -->
 
     <footer>
-
-        © 2026 Data Quest.
-        Learn. Play. Master Data Representation.
-
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
     </footer>
 
-
 </body>
-
 </html>

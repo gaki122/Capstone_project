@@ -5,155 +5,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#71342d">
     <title>Learn Text Representation | Data Quest</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --maroon: #71342d;
+            --dark-maroon: #49221e;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --text: #302923;
+            --muted: #675d54;
+            --border: #e6d6b9;
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
-            line-height: 1.6;
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f3e9;
+            color: var(--text);
+            line-height: 1.75;
+        }
+
+        h1, h2, h3, .logo, .nav-links a, .btn,
+        .resource-btn {
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
         a {
             text-decoration: none;
+            transition: 0.2s ease;
         }
 
+        /* ================= NAVBAR ================= */
+
         .navbar {
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(12px);
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        .nav-inner {
             max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 25px;
+            gap: 20px;
         }
 
         .logo {
-            color: #111827;
+            color: var(--maroon);
             font-size: 26px;
-            font-weight: 900;
-            padding: 8px 12px;
+            font-weight: 800;
             white-space: nowrap;
-        }
-
-        .logo:hover {
-            color: #2563eb;
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 7px;
         }
 
         .nav-links a {
-            color: #111827;
-            font-size: 15px;
-            font-weight: 800;
-            padding: 9px 13px;
-            border: 1px solid transparent;
-            border-radius: 10px;
-            transition: 0.2s;
+            padding: 10px 13px;
+            border-radius: 9px;
+            color: var(--dark-maroon);
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: white;
         }
 
+        /* ================= HERO ================= */
+
         .hero {
-            background: linear-gradient(135deg, #eff6ff, #ffffff);
+            position: relative;
+            min-height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 75px 20px 65px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 80px 20px;
+            color: white;
+            background: #31483c;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(12,21,18,0.82),
+                rgba(12,21,18,0.55),
+                rgba(12,21,18,0.32)
+            );
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-badge {
             display: inline-block;
-            background: #ffffff;
-            color: #2563eb;
-            border: 1px solid #bfdbfe;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--gold);
             border-radius: 30px;
-            padding: 7px 15px;
-            font-size: 13px;
-            font-weight: 800;
-            margin-bottom: 20px;
+            background: rgba(0,0,0,0.35);
+            color: #ffe5a1;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.1px;
         }
 
         .hero h1 {
-            color: #111827;
-            font-size: 48px;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: clamp(36px, 4.5vw, 58px);
+            line-height: 1.2;
+            margin-bottom: 24px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.5);
         }
 
         .hero h1 span {
-            color: #2563eb;
+            display: block;
+            color: #ffd17a;
         }
 
         .hero p {
             max-width: 760px;
-            margin: auto;
-            color: #64748b;
-            font-size: 18px;
-            line-height: 1.7;
+            margin: 0 auto 26px;
+            font-size: 16px;
+            line-height: 1.85;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
         }
 
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 22px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #39261b;
+        }
+
+        .btn-gold:hover {
+            background: #ffd784;
+        }
+
+        .btn-outline {
+            color: white;
+            border: 1px solid white;
+            background: rgba(255,255,255,0.12);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+
         .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+            width: min(1050px, calc(100% - 36px));
+            margin: 0 auto;
+            padding: 55px 0;
         }
 
         .section {
-            background: #ffffff;
-            padding: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 32px;
             margin-bottom: 25px;
-            border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+            box-shadow: 0 6px 22px rgba(0,0,0,0.05);
         }
 
         .section h2 {
-            color: #111827;
-            font-size: 27px;
+            color: var(--maroon);
+            font-size: 26px;
             margin-bottom: 15px;
         }
 
         .section h3 {
-            color: #1d4ed8;
+            color: var(--dark-maroon);
             font-size: 19px;
             margin: 20px 0 10px;
         }
 
         .section p {
-            color: #475569;
-            margin-bottom: 14px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.85;
+            margin-bottom: 15px;
         }
 
         .section ul,
         .section ol {
             padding-left: 25px;
-            color: #475569;
+            color: var(--muted);
             margin: 12px 0;
         }
 
@@ -161,26 +269,31 @@
             margin-bottom: 9px;
         }
 
+        /* ================= HIGHLIGHTS ================= */
+
         .highlight {
-            background: #eff6ff;
-            border-left: 5px solid #2563eb;
-            padding: 18px;
-            border-radius: 10px;
+            background: #fff8e9;
+            border: 1px solid #ead8b2;
+            border-left: 5px solid var(--gold);
+            padding: 20px;
+            border-radius: 12px;
             margin: 20px 0;
-            color: #1e3a8a;
+            color: var(--text);
         }
 
         .note {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 18px;
-            margin-top: 15px;
+            padding: 20px;
+            margin-top: 18px;
         }
 
         .note strong {
-            color: #1e40af;
+            color: var(--maroon);
         }
+
+        /* ================= LESSON CARDS ================= */
 
         .example-grid {
             display: grid;
@@ -190,10 +303,16 @@
         }
 
         .example-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 20px;
+            background: #fffaf0;
+            border: 1px solid var(--border);
+            padding: 22px;
             border-radius: 14px;
+            transition: 0.2s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold);
         }
 
         .example-card h3 {
@@ -204,16 +323,21 @@
             margin-bottom: 0;
         }
 
+        /* ================= BINARY EXAMPLES ================= */
+
         .code-example {
-            background: #111827;
-            color: #e5e7eb;
-            padding: 18px;
+            background: #34221e;
+            color: #ffd17a;
+            padding: 22px;
             border-radius: 12px;
             overflow-x: auto;
-            margin: 15px 0;
+            overflow-wrap: anywhere;
+            margin: 18px 0;
             font-family: Consolas, monospace;
-            line-height: 1.8;
+            line-height: 1.9;
         }
+
+        /* ================= TABLES ================= */
 
         .table-wrapper {
             overflow-x: auto;
@@ -226,68 +350,82 @@
             min-width: 420px;
         }
 
-        th,
-        td {
-            border: 1px solid #e2e8f0;
+        th, td {
+            border: 1px solid #eadfcd;
             padding: 13px;
             text-align: left;
+            font-size: 14px;
         }
 
         th {
-            background: #eff6ff;
-            color: #1d4ed8;
+            background: var(--maroon);
+            color: white;
         }
 
-        tr:nth-child(even) {
-            background: #f8fafc;
+        tbody tr:nth-child(even) {
+            background: #fff9ef;
         }
+
+        tbody tr:hover {
+            background: #f8edda;
+        }
+
+        /* ================= INTERACTIVE CONVERTER ================= */
 
         .activity {
-            background: #f8fafc;
-            border: 1px solid #dbeafe;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 22px;
+            padding: 24px;
             margin-top: 18px;
         }
 
         .activity label {
             display: block;
-            font-weight: 800;
+            font-weight: 700;
+            color: var(--dark-maroon);
             margin-bottom: 8px;
         }
 
         .activity input,
         .activity select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
+            padding: 13px;
+            border: 1px solid #d6c4aa;
             border-radius: 9px;
             font-size: 16px;
             margin-bottom: 15px;
-            background: #ffffff;
+            background: white;
+        }
+
+        .activity input:focus,
+        .activity select:focus {
+            outline: none;
+            border-color: var(--maroon);
+            box-shadow: 0 0 0 3px rgba(113,52,45,0.12);
         }
 
         .activity button {
-            background: #2563eb;
-            color: #ffffff;
+            background: var(--maroon);
+            color: white;
             border: none;
             padding: 12px 20px;
             border-radius: 9px;
             cursor: pointer;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 15px;
         }
 
         .activity button:hover {
-            background: #1d4ed8;
+            background: var(--dark-maroon);
         }
 
         .result {
             display: none;
-            background: #ffffff;
-            border: 1px solid #bfdbfe;
+            background: white;
+            border: 1px solid #ead8b2;
             border-radius: 10px;
-            padding: 16px;
+            padding: 18px;
             margin-top: 18px;
             overflow-wrap: anywhere;
         }
@@ -296,9 +434,7 @@
             margin-bottom: 8px;
         }
 
-        .result p:last-child {
-            margin-bottom: 0;
-        }
+        /* ================= LEARNING RESOURCES ================= */
 
         .resource-grid {
             display: grid;
@@ -309,21 +445,22 @@
 
         .resource-card {
             display: block;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
-            transition: 0.2s;
+            padding: 22px;
+            transition: 0.2s ease;
         }
 
         .resource-card:hover {
-            border-color: #93c5fd;
-            background: #eff6ff;
-            transform: translateY(-2px);
+            border-color: var(--gold);
+            background: #fff3dc;
+            transform: translateY(-3px);
         }
 
         .resource-card h3 {
             margin: 0 0 8px;
+            color: var(--maroon);
         }
 
         .resource-card p {
@@ -334,62 +471,94 @@
         .resource-link {
             display: inline-block;
             margin-top: 12px;
-            color: #2563eb;
-            font-weight: 800;
+            color: var(--maroon);
+            font-weight: 700;
         }
 
-        .page-actions {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 35px 0 50px;
-        }
+        /* ================= GAME CALLOUT ================= */
 
-        .btn {
-            display: inline-block;
-            padding: 13px 21px;
-            border-radius: 10px;
-            font-weight: 800;
+        .game-callout {
+            background: linear-gradient(
+                135deg,
+                var(--dark-maroon),
+                var(--maroon)
+            );
+            border: 2px solid var(--gold);
+            border-radius: 17px;
+            padding: 38px 25px;
             text-align: center;
-            transition: 0.2s;
+            margin-top: 30px;
+            color: white;
         }
 
-        .btn-primary {
-            background: #2563eb;
-            color: #ffffff;
+        .game-callout h2 {
+            color: white;
+            font-size: 26px;
+            margin-bottom: 12px;
         }
 
-        .btn-primary:hover {
-            background: #1d4ed8;
+        .game-callout p {
+            color: #f5e4d4;
+            margin-bottom: 22px;
         }
 
-        .btn-secondary {
-            background: #ffffff;
-            color: #1e40af;
-            border: 1px solid #bfdbfe;
+        /* SAME BUTTON STYLE AS LEARN AUDIO */
+
+        .resource-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .btn-secondary:hover {
-            background: #eff6ff;
+        .resource-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold);
+            color: #39261b;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s ease;
         }
+
+        .resource-btn:hover {
+            background: #ffd784;
+            transform: translateY(-2px);
+        }
+
+        .resource-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .resource-btn.secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* ================= FOOTER ================= */
 
         footer {
+            background: #34221e;
+            color: #f3e6d3;
             text-align: center;
-            padding: 25px 15px;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
-            background: #ffffff;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
-        @media (max-width: 950px) {
-            .navbar {
-                padding: 15px 20px;
-            }
+        footer p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
 
-            .nav-container {
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 950px) {
+            .nav-inner {
                 flex-direction: column;
-                gap: 12px;
             }
 
             .nav-links {
@@ -398,46 +567,34 @@
         }
 
         @media (max-width: 650px) {
-            .navbar {
-                padding: 13px 12px;
-            }
-
-            .logo {
-                font-size: 23px;
-            }
-
-            .nav-links {
-                gap: 1px;
-            }
-
             .nav-links a {
                 font-size: 12px;
-                padding: 6px 7px;
+                padding: 8px;
             }
 
             .hero {
-                padding: 55px 15px;
+                min-height: 480px;
+                padding: 60px 20px;
             }
 
             .hero h1 {
-                font-size: 38px;
+                font-size: 36px;
             }
 
-            .hero p {
-                font-size: 16px;
+            .hero::before {
+                background: rgba(12,21,18,0.7);
             }
 
             .container {
-                padding: 0 13px;
-                margin-top: 25px;
+                padding: 35px 0;
             }
 
             .section {
-                padding: 21px;
+                padding: 22px;
             }
 
             .section h2 {
-                font-size: 23px;
+                font-size: 22px;
             }
 
             .example-grid,
@@ -445,12 +602,24 @@
                 grid-template-columns: 1fr;
             }
 
-            .page-actions {
+            .resource-buttons {
                 flex-direction: column;
             }
 
-            .btn {
+            .resource-btn {
                 width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
             }
         }
     </style>
@@ -458,65 +627,105 @@
 
 <body>
 
+    <!-- ================= NAVIGATION ================= -->
+
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="{% url 'home' %}" class="logo">Data Quest</a>
+        <div class="nav-inner">
+
+            <a href="{% url 'home' %}" class="logo">
+                Data Quest
+            </a>
 
             <div class="nav-links">
                 <a href="{% url 'home' %}">Home</a>
-
-                <a href="{% url 'learn' %}"
-                   class="{% if request.resolver_match.url_name == 'learn' or request.resolver_match.url_name == 'learn_text' %}active{% endif %}">
-                    Learn
-                </a>
-
+                <a href="{% url 'learn' %}" class="active">Learn</a>
                 <a href="{% url 'how_to_play' %}">How to Play</a>
                 <a href="{% url 'student_login' %}">Student Login</a>
                 <a href="{% url 'teacher_login' %}">Teacher Login</a>
             </div>
+
         </div>
     </nav>
 
+    <!-- ================= HERO ================= -->
+
     <header class="hero">
-        <div class="hero-badge">DATA QUEST • LEARNING MODULE</div>
 
-        <h1>Learn <span>Text Representation</span></h1>
+        <img
+            class="hero-background"
+            src="{% static 'dataRep/images/text.jpeg' %}"
+            alt="Text representation learning background"
+        >
 
-        <p>
-            Discover how computers store and process letters, words, numbers,
-            and symbols. Learn about character encoding through simple notes,
-            practical examples, and an interactive activity.
-        </p>
-    </header>
+        <div class="hero-content">
 
-    <main class="container">
+            <span class="hero-badge">
+                DATA QUEST LEARNING TOPIC
+            </span>
 
-        <section class="section">
-            <h2>💻 1. What Is Text Representation?</h2>
+            <h1>
+                Learn
+                <span>Text Representation</span>
+            </h1>
 
             <p>
-                Text representation is the way a computer stores and processes
-                written information. This includes letters, numbers,
-                punctuation marks, spaces, and special symbols.
+                Discover how computers store and process letters,
+                words, numbers, and symbols. Learn about character
+                encoding through simple notes, practical examples,
+                and an interactive activity.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#lesson-content" class="btn btn-gold">
+                    Start Learning
+                </a>
+
+                <a href="{% url 'learn' %}" class="btn btn-outline">
+                    ← All Learning Topics
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ================= LESSON CONTENT ================= -->
+
+    <main class="container" id="lesson-content">
+
+        <!-- SECTION 1 -->
+
+        <section class="section">
+
+            <h2>1. What Is Text Representation?</h2>
+
+            <p>
+                Text representation is the way a computer stores and
+                processes written information. This includes letters,
+                numbers, punctuation marks, spaces, and special symbols.
             </p>
 
             <p>
-                Humans can read words such as <strong>Hello</strong>, but a
-                computer stores information using binary digits called bits.
-                A bit can have only one of two values: <strong>0 or 1</strong>.
+                Humans can read words such as <strong>Hello</strong>,
+                but a computer stores information using binary digits
+                called bits. A bit can have only one of two values:
+                <strong>0 or 1</strong>.
             </p>
 
             <div class="highlight">
-                <strong>Remember:</strong> Computers use agreed rules called
-                character encoding systems to represent text as numerical
-                values that can be stored and processed.
+                <strong>Remember:</strong>
+                Computers use agreed rules called character encoding
+                systems to represent text as numerical values that
+                can be stored and processed.
             </div>
 
             <h3>Example</h3>
 
             <p>
-                In ASCII, uppercase A has decimal value 65. Using eight bits,
-                its binary representation is 01000001.
+                In ASCII, uppercase A has decimal value 65.
+                Using eight bits, its binary representation
+                is 01000001.
             </p>
 
             <div class="code-example">
@@ -524,57 +733,77 @@
                 ASCII decimal value: 65<br>
                 Binary representation (8 bits): 01000001
             </div>
+
         </section>
 
+        <!-- SECTION 2 -->
+
         <section class="section">
-            <h2>📚 2. What Is Character Encoding?</h2>
+
+            <h2>2. What Is Character Encoding?</h2>
 
             <p>
                 Character encoding is a system of rules that connects
-                characters with numerical values. These values allow computers
-                to store, send, and display text consistently.
+                characters with numerical values. These values allow
+                computers to store, send, and display text consistently.
             </p>
 
             <div class="example-grid">
+
                 <div class="example-card">
+
                     <h3>ASCII</h3>
+
                     <p>
-                        ASCII stands for American Standard Code for Information
-                        Interchange. It represents 128 standard characters,
-                        including English letters, digits, punctuation, and
-                        control characters, using 7-bit codes.
+                        ASCII stands for American Standard Code for
+                        Information Interchange. It represents 128
+                        standard characters, including English letters,
+                        digits, punctuation, and control characters,
+                        using 7-bit codes.
                     </p>
+
                     <p>
-                        An eight-bit byte can also store an ASCII character,
-                        with the first bit set to zero.
+                        An eight-bit byte can also store an ASCII
+                        character, with the first bit set to zero.
                     </p>
+
                 </div>
 
                 <div class="example-card">
+
                     <h3>Unicode</h3>
+
                     <p>
-                        Unicode provides code points for characters from many
-                        writing systems, including Dzongkha, English, Chinese,
-                        and many others.
+                        Unicode provides code points for characters
+                        from many writing systems, including Dzongkha,
+                        English, Chinese, and many others.
                     </p>
+
                     <p>
-                        UTF-8 is a widely used Unicode encoding. It uses
-                        between one and four bytes to encode a Unicode code
-                        point.
+                        UTF-8 is a widely used Unicode encoding.
+                        It uses between one and four bytes to
+                        encode a Unicode code point.
                     </p>
+
                 </div>
+
             </div>
 
             <div class="note">
-                <strong>Important difference:</strong> Standard ASCII covers
-                a limited set of characters. Unicode supports a much wider
-                range of characters, making it suitable for international
-                languages and symbols.
+                <strong>Important difference:</strong>
+                Standard ASCII covers a limited set of characters.
+                Unicode supports a much wider range of characters,
+                making it suitable for international languages
+                and symbols.
             </div>
+
         </section>
 
+        <!-- SECTION 3 -->
+
         <section class="section">
-            <h2>🔢 3. Examples of Text Representation</h2>
+
+            <h2>3. Examples of Text Representation</h2>
 
             <p>
                 Different characters have different numerical values.
@@ -582,6 +811,7 @@
             </p>
 
             <div class="table-wrapper">
+
                 <table>
                     <thead>
                         <tr>
@@ -590,55 +820,103 @@
                             <th>8-bit Binary</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <tr><td>A</td><td>65</td><td>01000001</td></tr>
-                        <tr><td>B</td><td>66</td><td>01000010</td></tr>
-                        <tr><td>a</td><td>97</td><td>01100001</td></tr>
-                        <tr><td>0</td><td>48</td><td>00110000</td></tr>
-                        <tr><td>Space</td><td>32</td><td>00100000</td></tr>
+                        <tr>
+                            <td>A</td>
+                            <td>65</td>
+                            <td>01000001</td>
+                        </tr>
+
+                        <tr>
+                            <td>B</td>
+                            <td>66</td>
+                            <td>01000010</td>
+                        </tr>
+
+                        <tr>
+                            <td>a</td>
+                            <td>97</td>
+                            <td>01100001</td>
+                        </tr>
+
+                        <tr>
+                            <td>0</td>
+                            <td>48</td>
+                            <td>00110000</td>
+                        </tr>
+
+                        <tr>
+                            <td>Space</td>
+                            <td>32</td>
+                            <td>00100000</td>
+                        </tr>
                     </tbody>
                 </table>
+
             </div>
 
             <div class="highlight">
                 Uppercase A and lowercase a have different ASCII values.
-                The character "0" is also different from the numerical value
-                zero used in calculations: the character "0" has ASCII
-                decimal value 48.
+                The character "0" is also different from the numerical
+                value zero used in calculations: the character "0"
+                has ASCII decimal value 48.
             </div>
+
         </section>
 
+        <!-- SECTION 4 -->
+
         <section class="section">
-            <h2>⚙️ 4. How Does a Computer Store a Word?</h2>
+
+            <h2>4. How Does a Computer Store a Word?</h2>
 
             <p>
-                A word contains individual characters. In an ASCII example,
-                each character is assigned a numerical value and represented
-                in binary.
+                A word contains individual characters. In an ASCII
+                example, each character is assigned a numerical
+                value and represented in binary.
             </p>
 
             <h3>Example: The word CAT</h3>
 
             <div class="table-wrapper">
+
                 <table>
                     <thead>
                         <tr>
                             <th>Letter</th>
-                            <th>Decimal code</th>
-                            <th>8-bit binary</th>
+                            <th>Decimal Code</th>
+                            <th>8-bit Binary</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <tr><td>C</td><td>67</td><td>01000011</td></tr>
-                        <tr><td>A</td><td>65</td><td>01000001</td></tr>
-                        <tr><td>T</td><td>84</td><td>01010100</td></tr>
+                        <tr>
+                            <td>C</td>
+                            <td>67</td>
+                            <td>01000011</td>
+                        </tr>
+
+                        <tr>
+                            <td>A</td>
+                            <td>65</td>
+                            <td>01000001</td>
+                        </tr>
+
+                        <tr>
+                            <td>T</td>
+                            <td>84</td>
+                            <td>01010100</td>
+                        </tr>
                     </tbody>
                 </table>
+
             </div>
 
             <p>
-                The word CAT is represented by three character codes. Each
-                ASCII character uses one byte in the eight-bit format shown.
+                The word CAT is represented by three character codes.
+                Each ASCII character uses one byte in the eight-bit
+                format shown.
             </p>
 
             <div class="code-example">
@@ -651,19 +929,26 @@
                 Real text files may also contain line breaks and other
                 information. Their storage depends on the encoding used.
             </p>
+
         </section>
 
+        <!-- SECTION 5: INTERACTIVE CONVERTER -->
+
         <section class="section">
-            <h2>🧪 5. Try It Yourself: Text to Binary</h2>
+
+            <h2>5. Try It Yourself: Text to Binary</h2>
 
             <p>
-                Enter a short word or sentence and choose an encoding to see
-                how the text is represented. This activity runs in your
-                browser and does not send your text to a server.
+                Enter a short word or sentence and choose an encoding
+                to see how the text is represented. This activity runs
+                in your browser and does not send your text to a server.
             </p>
 
             <div class="activity">
-                <label for="textInput">Enter your text</label>
+
+                <label for="textInput">
+                    Enter your text
+                </label>
 
                 <input
                     type="text"
@@ -673,7 +958,9 @@
                     placeholder="Type a word or sentence"
                 >
 
-                <label for="encodingSelect">Choose an encoding</label>
+                <label for="encodingSelect">
+                    Choose an encoding
+                </label>
 
                 <select id="encodingSelect">
                     <option value="utf8">UTF-8</option>
@@ -684,15 +971,22 @@
                     Convert Text
                 </button>
 
-                <div class="result" id="conversionResult" aria-live="polite">
+                <div
+                    class="result"
+                    id="conversionResult"
+                    aria-live="polite"
+                >
                     <p id="encodingSummary"></p>
                     <p id="binaryOutput"></p>
                     <p id="decimalOutput"></p>
                 </div>
+
             </div>
 
             <div class="note">
+
                 <strong>How to use this activity:</strong>
+
                 <ol>
                     <li>Enter a word, such as DATA.</li>
                     <li>Choose UTF-8 or Standard ASCII.</li>
@@ -700,76 +994,118 @@
                     <li>Compare the binary values shown for each byte.</li>
                     <li>Try a number, punctuation mark, or a space.</li>
                 </ol>
+
             </div>
 
             <p>
-                Standard ASCII accepts only characters with code values from
-                0 to 127. UTF-8 can encode a much wider range of characters.
-                Characters outside ASCII may require multiple bytes in UTF-8.
+                Standard ASCII accepts only characters with code values
+                from 0 to 127. UTF-8 can encode a much wider range of
+                characters. Characters outside ASCII may require
+                multiple bytes in UTF-8.
             </p>
+
         </section>
 
+        <!-- SECTION 6 -->
+
         <section class="section">
-            <h2>🎨 6. Why Is Text Representation Important?</h2>
+
+            <h2>6. Why Is Text Representation Important?</h2>
 
             <p>
-                Text representation allows computers to exchange information
-                and display written content correctly.
+                Text representation allows computers to exchange
+                information and display written content correctly.
             </p>
 
             <ul>
-                <li><strong>Communication:</strong> Text can be sent between computers and devices.</li>
-                <li><strong>Documents:</strong> Applications can save letters, reports, and written content.</li>
-                <li><strong>Websites:</strong> Browsers use character encoding to display text correctly.</li>
-                <li><strong>Programming:</strong> Programs process text, characters, and strings.</li>
-                <li><strong>International languages:</strong> Unicode and UTF-8 help support many languages.</li>
+                <li>
+                    <strong>Communication:</strong>
+                    Text can be sent between computers and devices.
+                </li>
+
+                <li>
+                    <strong>Documents:</strong>
+                    Applications can save letters, reports,
+                    and written content.
+                </li>
+
+                <li>
+                    <strong>Websites:</strong>
+                    Browsers use character encoding to display
+                    text correctly.
+                </li>
+
+                <li>
+                    <strong>Programming:</strong>
+                    Programs process text, characters, and strings.
+                </li>
+
+                <li>
+                    <strong>International languages:</strong>
+                    Unicode and UTF-8 help support many languages.
+                </li>
             </ul>
+
         </section>
 
+        <!-- SECTION 7 -->
+
         <section class="section">
-            <h2>🌍 7. Self-Learning Notes</h2>
+
+            <h2>7. Self-Learning Notes</h2>
 
             <h3>Note 1: What is a bit?</h3>
+
             <p>
-                A bit is the smallest unit of digital information. It can
-                hold either 0 or 1. A group of eight bits is called a byte.
+                A bit is the smallest unit of digital information.
+                It can hold either 0 or 1. A group of eight bits
+                is called a byte.
             </p>
 
             <h3>Note 2: What is a character?</h3>
+
             <p>
-                A character is an individual symbol used in text. Examples
-                include A, b, 7, ?, and a space.
+                A character is an individual symbol used in text.
+                Examples include A, b, 7, ?, and a space.
             </p>
 
             <h3>Note 3: What is a string?</h3>
+
             <p>
                 A string is a sequence of characters. For example,
                 "Data Quest" is a string containing letters and a space.
             </p>
 
             <h3>Note 4: Why does encoding matter?</h3>
+
             <p>
-                If text is decoded using the wrong encoding, some characters
-                may appear incorrectly. Compatible encoding helps applications
-                display the intended text.
+                If text is decoded using the wrong encoding, some
+                characters may appear incorrectly. Compatible
+                encoding helps applications display the intended text.
             </p>
 
             <h3>Note 5: ASCII and Unicode are not the same</h3>
+
             <p>
-                ASCII is a limited character code standard. Unicode defines
-                code points for a broad range of characters. UTF-8 encodes
-                Unicode code points into bytes.
+                ASCII is a limited character code standard.
+                Unicode defines code points for a broad range
+                of characters. UTF-8 encodes Unicode code
+                points into bytes.
             </p>
 
             <h3>Note 6: Characters and bytes</h3>
+
             <p>
                 A character and a byte are not always the same thing.
-                Standard ASCII characters take one byte in UTF-8, while
-                many other Unicode characters require multiple bytes.
+                Standard ASCII characters take one byte in UTF-8,
+                while many other Unicode characters require
+                multiple bytes.
             </p>
 
             <div class="highlight">
+
                 <strong>Key points to remember:</strong>
+
                 <ul>
                     <li>Computers store text as encoded digital data.</li>
                     <li>Binary digits are 0 and 1.</li>
@@ -778,69 +1114,142 @@
                     <li>Unicode supports characters from many languages.</li>
                     <li>UTF-8 is a widely used Unicode encoding.</li>
                 </ul>
+
             </div>
+
         </section>
 
+        <!-- SECTION 8 -->
+
         <section class="section">
-            <h2>📖 8. Additional Learning Resources</h2>
+
+            <h2>8. Additional Learning Resources</h2>
 
             <p>
-                Use these external resources to read more, explore character
-                codes, and practise independently.
+                Use these external resources to read more,
+                explore character codes, and practise independently.
             </p>
 
             <div class="resource-grid">
-                <a class="resource-card"
-                   href="https://www.asciitable.com/"
-                   target="_blank" rel="noopener noreferrer">
+
+                <a
+                    class="resource-card"
+                    href="https://www.asciitable.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <h3>ASCII Table</h3>
-                    <p>Explore ASCII characters and their decimal, hexadecimal, and binary values.</p>
-                    <span class="resource-link">Explore ASCII →</span>
+
+                    <p>
+                        Explore ASCII characters and their decimal,
+                        hexadecimal, and binary values.
+                    </p>
+
+                    <span class="resource-link">
+                        Explore ASCII →
+                    </span>
                 </a>
 
-                <a class="resource-card"
-                   href="https://www.unicode.org/standard/WhatIsUnicode.html"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    class="resource-card"
+                    href="https://www.unicode.org/standard/WhatIsUnicode.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <h3>What Is Unicode?</h3>
-                    <p>Learn about Unicode and how it supports characters from different languages.</p>
-                    <span class="resource-link">Learn about Unicode →</span>
+
+                    <p>
+                        Learn about Unicode and how it supports
+                        characters from different languages.
+                    </p>
+
+                    <span class="resource-link">
+                        Learn about Unicode →
+                    </span>
                 </a>
 
-                <a class="resource-card"
-                   href="https://www.unicode.org/faq/utf_bom.html"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    class="resource-card"
+                    href="https://www.unicode.org/faq/utf_bom.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <h3>UTF-8 and Unicode FAQ</h3>
-                    <p>Read about Unicode encodings and how characters are represented.</p>
-                    <span class="resource-link">Read the FAQ →</span>
+
+                    <p>
+                        Read about Unicode encodings and how
+                        characters are represented.
+                    </p>
+
+                    <span class="resource-link">
+                        Read the FAQ →
+                    </span>
                 </a>
 
-                <a class="resource-card"
-                   href="https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    class="resource-card"
+                    href="https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <h3>Character Encoding Guide</h3>
-                    <p>Learn about character encoding and why it matters on the web.</p>
-                    <span class="resource-link">Read the guide →</span>
+
+                    <p>
+                        Learn about character encoding and why
+                        it matters on the web.
+                    </p>
+
+                    <span class="resource-link">
+                        Read the guide →
+                    </span>
                 </a>
+
             </div>
+
         </section>
 
-        <!-- Page navigation -->
-        <div class="page-actions">
-            <a href="{% url 'learn' %}" class="btn btn-secondary">
-                ← Back to Learning Topics
-            </a>
+        <!-- ================= LEVEL 2 GAME ================= -->
 
-            <!-- IMPORTANT: Opens Level 2 directly -->
-            <a href="{% url 'level2_game' %}" class="btn btn-primary">
-                Attempt Level 2 Game →
-            </a>
-        </div>
+        <section class="game-callout">
+
+            <h2>Ready to Attempt Level 2?</h2>
+
+            <p>
+                You have completed the Text Representation
+                learning topic. Now test your knowledge
+                by attempting the Level 2 game.
+            </p>
+
+            <div class="resource-buttons">
+
+                <a
+                    href="{% url 'level2_game' %}"
+                    class="resource-btn"
+                >
+                    Attempt Level 2 Game →
+                </a>
+
+                <a
+                    href="{% url 'learn' %}"
+                    class="resource-btn secondary"
+                >
+                    ← Back to Learn Topics
+                </a>
+
+            </div>
+
+        </section>
 
     </main>
 
+    <!-- ================= MATCHING FOOTER ================= -->
+
     <footer>
-        <p>Data Quest — Learn, Practise, and Explore Data Representation.</p>
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
     </footer>
+
+    <!-- ================= TEXT TO BINARY CONVERTER ================= -->
 
     <script>
         const textInput = document.getElementById("textInput");

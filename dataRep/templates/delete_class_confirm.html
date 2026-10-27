@@ -1,171 +1,638 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#244b42">
+
     <title>Confirm Delete Class | Data Quest</title>
 
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
     <style>
+
+        :root {
+            --green: #244b42;
+            --green-dark: #17382f;
+            --maroon: #71342d;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --white: #fffdfa;
+            --text: #27332e;
+            --muted: #66736b;
+            --border: #e8dfcd;
+            --danger: #b63b35;
+            --danger-dark: #922d29;
+            --shadow: 0 6px 24px rgba(37,49,41,.07);
+        }
+
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f8f5ed;
+            color: var(--text);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            line-height: 1.65;
+        }
+
+        h1, h2, h3,
+        .logo,
+        .nav-links a,
+        .button {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            transition: .2s ease;
+        }
+
+        /* ==========================
+           NAVIGATION
+        ========================== */
+
+        .navbar {
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 3px 12px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1180px;
+            min-height: 78px;
+            margin: auto;
+            padding: 12px 22px;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: #f3f4f6;
-            font-family: Arial, sans-serif;
-            color: #1f2937;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            color: var(--maroon);
+            font-size: 26px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .logo:hover {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            padding: 10px 13px;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 9px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--maroon);
+            color: white;
+        }
+
+        .nav-links .logout {
+            color: #a53d34;
+        }
+
+        .nav-links .logout:hover {
+            background: #fff0ed;
+            color: #a53d34;
+        }
+
+        /* ==========================
+           MAIN CONTENT
+        ========================== */
+
+        .page {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 34px 22px 60px;
+            flex: 1;
+        }
+
+        /* ==========================
+           PAGE HEADER
+        ========================== */
+
+        .page-header {
+            background: linear-gradient(
+                120deg,
+                #17382f,
+                #244b42 72%,
+                #365b4c
+            );
+            border-bottom: 4px solid var(--gold);
+            border-radius: 20px;
+            padding: 35px 38px;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 30px rgba(23,56,47,.14);
+        }
+
+        .header-label {
+            display: block;
+            color: #f0d79c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            color: white;
+            font-size: 32px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 span {
+            color: #f0d79c;
+        }
+
+        .page-header p {
+            color: #e1eae3;
+            font-size: 14px;
+            max-width: 700px;
+            margin-bottom: 18px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #f0d79c;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* ==========================
+           CONFIRMATION CARD
+        ========================== */
+
+        .confirmation-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
         }
 
         .confirmation-card {
-            width: 100%;
-            max-width: 500px;
-            padding: 32px;
-            background: #ffffff;
-            border-radius: 14px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--gold);
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: var(--shadow);
             text-align: center;
         }
 
+        /* ==========================
+           WARNING ICON
+        ========================== */
+
         .warning-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 18px;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #fee2e2;
-            color: #dc2626;
+            background: #fff0ed;
+            color: var(--danger);
+            border: 2px solid #f3ccc7;
             border-radius: 50%;
-            font-size: 32px;
+            font-size: 34px;
+            font-weight: 800;
         }
 
-        h1 {
-            margin: 0 0 14px;
+        /* ==========================
+           HEADINGS
+        ========================== */
+
+        .confirmation-card h2 {
+            color: var(--danger);
             font-size: 25px;
-            color: #b91c1c;
+            margin-bottom: 12px;
+        }
+
+        .confirmation-description {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        /* ==========================
+           CLASS NAME
+        ========================== */
+
+        .class-name-box {
+            background: #f8f7f2;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .class-label {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            margin-bottom: 8px;
         }
 
         .class-name {
-            margin: 18px 0;
-            padding: 14px;
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
+            color: var(--green-dark);
+            font-family: 'Poppins', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
             overflow-wrap: anywhere;
         }
 
+        /* ==========================
+           WARNING MESSAGE
+        ========================== */
+
         .warning-message {
-            margin: 18px 0;
-            padding: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
             background: #fff7ed;
-            border: 1px solid #fed7aa;
-            border-radius: 8px;
-            color: #9a3412;
-            font-size: 14px;
-            line-height: 1.6;
+            border: 1px solid #f0d3a7;
+            border-left: 4px solid #d69b48;
+            border-radius: 12px;
+            padding: 19px;
+            margin-bottom: 27px;
             text-align: left;
         }
 
-        .actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
+        .warning-message-icon {
+            font-size: 23px;
+            flex-shrink: 0;
         }
 
-        .actions button,
-        .actions a {
+        .warning-message h3 {
+            color: #88501e;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .warning-message p {
+            color: #79552f;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ==========================
+           BUTTONS
+        ========================== */
+
+        .button-group {
+            display: flex;
+            gap: 13px;
+            margin-top: 25px;
+        }
+
+        .button {
             flex: 1;
-            padding: 13px 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 17px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
             cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .cancel-button {
+            background: #f1eee7;
+            border: 1px solid var(--border);
+            color: var(--green-dark);
+        }
+
+        .cancel-button:hover {
+            background: #e7e1d5;
         }
 
         .delete-button {
-            background: #dc2626;
+            background: var(--danger);
+            border: 1px solid var(--danger);
             color: white;
         }
 
         .delete-button:hover {
-            background: #b91c1c;
+            background: var(--danger-dark);
+            border-color: var(--danger-dark);
+            transform: translateY(-2px);
         }
 
-        .cancel-button {
-            background: #e5e7eb;
-            color: #374151;
+        /* ==========================
+           FOOTER - SAME AS HOME
+        ========================== */
+
+        .footer {
+            background: #34221e;
+            color: #f3e6d3;
+            text-align: center;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
-        .cancel-button:hover {
-            background: #d1d5db;
+        .footer p {
+            font-size: 13px;
+            margin-top: 5px;
         }
 
-        @media (max-width: 420px) {
-            .confirmation-card {
-                padding: 22px;
-            }
+        /* ==========================
+           RESPONSIVE DESIGN
+        ========================== */
 
-            .actions {
+        @media (max-width: 950px) {
+
+            .nav-container {
                 flex-direction: column;
             }
+
+            .nav-links {
+                justify-content: center;
+            }
+
         }
+
+        @media (max-width: 700px) {
+
+            .page {
+                padding: 24px 15px 45px;
+            }
+
+            .page-header {
+                padding: 29px 23px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .confirmation-card {
+                padding: 25px 20px;
+            }
+
+            .confirmation-card h2 {
+                font-size: 22px;
+            }
+
+            .nav-links a {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+        }
+
     </style>
 </head>
 
 <body>
-    <main class="confirmation-card">
-        <div class="warning-icon">!</div>
 
-        <h1>Delete Class?</h1>
+    <!-- ==========================
+         TEACHER NAVIGATION
+    ========================== -->
 
-        <p>
-            Are you sure you want to delete this class?
-        </p>
+    <nav class="navbar">
 
-        <div class="class-name">
-            {{ class_section.name }}
-        </div>
+        <div class="nav-container">
 
-        <div class="warning-message">
-            <strong>Please note:</strong> This action will remove the class
-            and may affect its student associations. Student accounts and
-            saved game results must be protected by the relationships
-            configured in your Django models before you proceed.
-        </div>
+            <a href="{% url 'home' %}"
+               class="logo">
+                Data Quest
+            </a>
 
-        <form method="POST">
-            {% csrf_token %}
+            <div class="nav-links">
 
-            <input
-                type="hidden"
-                name="confirm_delete"
-                value="yes"
-            >
-
-            <div class="actions">
-                <button type="submit" class="delete-button">
-                    Yes, Delete Class
-                </button>
-
-                <a
-                    href="{% url 'teacher_dashboard' %}"
-                    class="cancel-button"
-                >
-                    Cancel
+                <a href="{% url 'home' %}">
+                    Home
                 </a>
+
+                <a href="{% url 'learn' %}">
+                    Learn
+                </a>
+
+                <a href="{% url 'how_to_play' %}">
+                    How to Play
+                </a>
+
+                <a href="{% url 'teacher_dashboard' %}"
+                   class="active">
+                    Teacher Dashboard
+                </a>
+
+                <a href="{% url 'teacher_logout' %}"
+                   class="logout">
+                    Logout
+                </a>
+
             </div>
-        </form>
+
+        </div>
+
+    </nav>
+
+    <!-- ==========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="page">
+
+        <!-- PAGE HEADER -->
+
+        <section class="page-header">
+
+            <span class="header-label">
+                TEACHER DASHBOARD / DELETE CLASS
+            </span>
+
+            <h1>
+                Delete <span>Class</span>
+            </h1>
+
+            <p>
+                Review the class details carefully
+                before confirming its deletion.
+            </p>
+
+            <a href="{% url 'teacher_dashboard' %}"
+               class="back-link">
+                ← Back to Teacher Dashboard
+            </a>
+
+        </section>
+
+        <!-- CONFIRMATION WRAPPER -->
+
+        <div class="confirmation-wrapper">
+
+            <section class="confirmation-card">
+
+                <!-- WARNING ICON -->
+
+                <div class="warning-icon">
+                    !
+                </div>
+
+                <!-- CONFIRMATION HEADING -->
+
+                <h2>
+                    Delete This Class?
+                </h2>
+
+                <p class="confirmation-description">
+                    Are you sure you want to delete
+                    the following class section?
+                </p>
+
+                <!-- CLASS NAME -->
+
+                <div class="class-name-box">
+
+                    <span class="class-label">
+                        Selected Class
+                    </span>
+
+                    <div class="class-name">
+                        {{ class_section.name }}
+                    </div>
+
+                </div>
+
+                <!-- WARNING MESSAGE -->
+
+                <div class="warning-message">
+
+                    <div class="warning-message-icon">
+                        ⚠️
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Important Notice
+                        </h3>
+
+                        <p>
+                            This action will remove the
+                            selected class and may affect
+                            its student associations.
+                            Student accounts and saved
+                            game results must be protected
+                            by the relationships configured
+                            in your Django models before
+                            you proceed.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- DELETE CLASS FORM -->
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="confirm_delete"
+                        value="yes"
+                    >
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-group">
+
+                        <a href="{% url 'teacher_dashboard' %}"
+                           class="button cancel-button">
+                            ← Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="button delete-button">
+                            🗑️ Yes, Delete Class
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </div>
+
     </main>
+
+    <!-- ==========================
+         FOOTER - SAME AS HOME PAGE
+    ========================== -->
+
+    <footer class="footer">
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>

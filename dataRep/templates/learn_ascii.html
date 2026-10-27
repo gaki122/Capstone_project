@@ -1,163 +1,259 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#71342d">
     <title>ASCII Representation | Data Quest</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --maroon: #71342d;
+            --dark-maroon: #49221e;
+            --gold: #e8b95b;
+            --cream: #fff9ed;
+            --text: #302923;
+            --muted: #675d54;
+            --border: #e6d6b9;
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #111827;
-            line-height: 1.6;
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f3e9;
+            color: var(--text);
+            line-height: 1.75;
+        }
+
+        h1, h2, h3, .logo, .nav-links a, .btn {
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
         a {
-            transition: all 0.2s ease;
+            text-decoration: none;
+            transition: .2s ease;
         }
+
+        /* NAVIGATION */
 
         .navbar {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.97);
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
+            background: #fffaf0;
+            border-bottom: 3px solid var(--gold);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 3px 12px rgba(0,0,0,.1);
         }
 
-        .nav-container {
+        .nav-inner {
             max-width: 1180px;
+            min-height: 78px;
             margin: auto;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 25px;
+            gap: 20px;
         }
 
         .logo {
-            color: #111827;
+            color: var(--maroon);
             font-size: 26px;
-            font-weight: 900;
-            text-decoration: none;
+            font-weight: 800;
             white-space: nowrap;
-            padding: 8px 12px;
-            border-radius: 8px;
-        }
-
-        .logo:hover {
-            color: #2563eb;
-            background: #eff6ff;
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 4px;
             flex-wrap: wrap;
+            gap: 7px;
         }
 
         .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #111827;
-            background: transparent;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 800;
-            padding: 9px 12px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            white-space: nowrap;
+            padding: 10px 13px;
+            border-radius: 9px;
+            color: var(--dark-maroon);
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
-            border-color: #dbeafe;
+            background: var(--maroon);
+            color: white;
         }
 
+        /* ASCII IMAGE HERO */
+
         .hero {
-            background: linear-gradient(135deg, #eff6ff, #ffffff);
+            position: relative;
+            min-height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 75px 20px 65px;
+            padding: 80px 20px;
+            color: white;
+            background: #31483c;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(12,21,18,.82),
+                rgba(12,21,18,.55),
+                rgba(12,21,18,.32)
+            );
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-badge {
             display: inline-block;
-            background: white;
-            color: #1d4ed8;
-            border: 1px solid #bfdbfe;
-            padding: 7px 13px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 18px;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+            background: rgba(0,0,0,.35);
+            color: #ffe5a1;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.1px;
         }
 
         .hero h1 {
-            color: #111827;
-            font-size: 48px;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: clamp(36px, 4.5vw, 58px);
+            line-height: 1.2;
+            margin-bottom: 24px;
+            text-shadow: 0 3px 10px rgba(0,0,0,.5);
         }
 
         .hero h1 span {
-            color: #2563eb;
+            display: block;
+            color: #ffd17a;
         }
 
         .hero p {
             max-width: 760px;
-            margin: 0 auto;
-            color: #6b7280;
-            font-size: 18px;
-            line-height: 1.7;
+            margin: 0 auto 26px;
+            font-size: 16px;
+            line-height: 1.85;
+            text-shadow: 0 2px 5px rgba(0,0,0,.6);
         }
 
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* BUTTONS */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 22px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #39261b;
+        }
+
+        .btn-gold:hover {
+            background: #ffd784;
+        }
+
+        .btn-outline {
+            color: white;
+            border: 1px solid white;
+            background: rgba(255,255,255,.12);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,.22);
+        }
+
+        /* MAIN CONTENT */
+
         .container {
-            max-width: 1050px;
+            width: min(1050px, calc(100% - 36px));
             margin: 0 auto;
-            padding: 55px 20px;
+            padding: 55px 0;
         }
 
         .content-card,
         .resource-box {
             background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 18px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
             padding: 32px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            box-shadow: 0 6px 22px rgba(0,0,0,.05);
         }
 
         .content-card h2,
         .resource-box h2 {
-            color: #111827;
+            color: var(--maroon);
             font-size: 26px;
             margin-bottom: 15px;
         }
 
         .content-card h3 {
+            color: var(--dark-maroon);
             margin-bottom: 10px;
         }
 
         .content-card p,
         .resource-box > p {
-            color: #6b7280;
+            color: var(--muted);
             font-size: 15px;
-            line-height: 1.8;
+            line-height: 1.85;
             margin-bottom: 15px;
         }
 
@@ -168,40 +264,45 @@
         .content-card ul,
         .content-card ol {
             padding-left: 24px;
-            color: #4b5563;
+            color: var(--muted);
         }
 
         .content-card li {
             margin-bottom: 8px;
         }
 
+        /* EXAMPLE BOX */
+
         .example-box {
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
-            border-left: 5px solid #2563eb;
+            background: #fff8e9;
+            border: 1px solid #ead8b2;
+            border-left: 5px solid var(--gold);
             padding: 24px;
             margin-top: 22px;
             border-radius: 12px;
         }
 
         .example-box h3 {
-            color: #1e3a8a;
+            color: var(--maroon);
             font-size: 18px;
         }
 
         .example-box p {
-            color: #374151;
+            color: var(--text);
             margin-bottom: 8px;
         }
 
         .binary {
-            color: #2563eb;
+            color: var(--maroon);
             font-size: 23px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 2px;
             margin-top: 12px;
             overflow-wrap: anywhere;
+            font-family: Consolas, monospace;
         }
+
+        /* ASCII TABLE */
 
         .table-container {
             overflow-x: auto;
@@ -216,41 +317,43 @@
 
         th, td {
             padding: 13px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #eadfcd;
             text-align: center;
             font-size: 14px;
         }
 
         th {
-            background: #2563eb;
+            background: var(--maroon);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         tbody tr:nth-child(even) {
-            background: #f9fafb;
+            background: #fff9ef;
         }
 
         tbody tr:hover {
-            background: #eff6ff;
+            background: #f8edda;
         }
 
         .binary-cell {
             font-family: Consolas, monospace;
-            font-weight: bold;
-            color: #166534;
+            font-weight: 700;
+            color: #426c42;
         }
+
+        /* CONVERSION STEPS */
 
         .steps {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
             margin-top: 25px;
         }
 
         .step {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 22px;
             text-align: center;
@@ -259,10 +362,9 @@
         .step-number {
             width: 45px;
             height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #2563eb;
+            display: grid;
+            place-items: center;
+            background: var(--maroon);
             color: white;
             border-radius: 50%;
             margin: 0 auto 15px;
@@ -271,7 +373,6 @@
         }
 
         .step h3 {
-            color: #111827;
             font-size: 17px;
         }
 
@@ -280,9 +381,11 @@
             margin-bottom: 0;
         }
 
+        /* INTERACTIVE ASCII CONVERTER */
+
         .converter {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 24px;
             margin-top: 20px;
@@ -292,55 +395,64 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 700;
+            color: var(--dark-maroon);
         }
 
         .converter input {
             width: 100%;
             padding: 13px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid #d6c4aa;
             border-radius: 8px;
             font-size: 16px;
             margin-bottom: 12px;
+            outline: none;
+        }
+
+        .converter input:focus {
+            border-color: var(--maroon);
+            box-shadow: 0 0 0 3px rgba(113,52,45,.12);
         }
 
         .converter button {
-            background: #2563eb;
+            background: var(--maroon);
             color: white;
             border: none;
             padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .converter button:hover {
-            background: #1d4ed8;
+            background: var(--dark-maroon);
         }
 
         .result-box {
             background: white;
-            border: 1px solid #dbeafe;
+            border: 1px solid #ead8b2;
             border-radius: 10px;
             padding: 18px;
             margin-top: 18px;
             overflow-wrap: anywhere;
         }
 
+        .result-box[hidden] {
+            display: none;
+        }
+
         .result-box p {
             margin-bottom: 8px;
         }
 
-        .result-box p:last-child {
-            margin-bottom: 0;
-        }
+        /* ASCII ART */
 
         .ascii-art {
-            background: #111827;
-            color: #60a5fa;
+            background: #34221e;
+            color: #ffd17a;
             padding: 25px;
             border-radius: 12px;
-            font-family: "Courier New", monospace;
+            font-family: 'Courier New', monospace;
             font-size: 18px;
             text-align: center;
             overflow-x: auto;
@@ -350,28 +462,27 @@
         .ascii-art pre {
             display: inline-block;
             text-align: left;
+            line-height: 1.4;
         }
 
+        /* LEARNING NOTES */
+
         .learning-note {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px;
             margin-top: 16px;
         }
 
         .learning-note h3 {
-            color: #1d4ed8;
+            color: var(--maroon);
             font-size: 18px;
             margin-bottom: 8px;
         }
 
         .learning-note p {
             margin-bottom: 8px;
-        }
-
-        .learning-note p:last-child {
-            margin-bottom: 0;
         }
 
         .learning-checklist {
@@ -381,16 +492,14 @@
         }
 
         .learning-checklist li {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: #fffaf0;
+            border: 1px solid var(--border);
             padding: 13px 15px;
             border-radius: 9px;
             margin-bottom: 10px;
         }
 
-        .resource-box h2 {
-            margin-bottom: 12px;
-        }
+        /* RESOURCES */
 
         .resource-list {
             display: grid;
@@ -400,104 +509,113 @@
         }
 
         .resource-item {
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px;
-            background: #f9fafb;
+            background: #fffaf0;
         }
 
         .resource-item h3 {
             font-size: 17px;
             margin-bottom: 8px;
-            color: #111827;
+            color: var(--maroon);
         }
 
         .resource-item p {
-            color: #6b7280;
+            color: var(--muted);
             font-size: 14px;
             line-height: 1.7;
             margin-bottom: 14px;
         }
 
         .resource-item a {
-            display: inline-block;
-            color: #2563eb;
+            color: var(--maroon);
             font-weight: 700;
-            text-decoration: none;
         }
 
         .resource-item a:hover {
             text-decoration: underline;
         }
 
+        /* LEVEL 1 GAME CTA */
+
+        .game-callout {
+            background: linear-gradient(
+                135deg,
+                var(--dark-maroon),
+                var(--maroon)
+            );
+            border: 2px solid var(--gold);
+            border-radius: 17px;
+            padding: 38px 25px;
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+        }
+
+        .game-callout h2 {
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .game-callout p {
+            color: #f5e4d4;
+            margin-bottom: 22px;
+        }
+
         .resource-buttons {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-top: 25px;
         }
 
         .resource-btn {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold);
+            color: #39261b;
             padding: 12px 20px;
             border-radius: 9px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            text-align: center;
         }
 
         .resource-btn:hover {
-            background: #1d4ed8;
+            background: #ffd784;
             transform: translateY(-2px);
         }
 
         .resource-btn.secondary {
-            background: white;
-            color: #2563eb;
-            border: 1px solid #2563eb;
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,.8);
         }
 
         .resource-btn.secondary:hover {
-            background: #eff6ff;
+            background: rgba(255,255,255,.12);
         }
 
-        .game-callout {
-            background: linear-gradient(135deg, #eff6ff, #f5f3ff);
-            border: 1px solid #c7d2fe;
-            border-radius: 16px;
-            padding: 28px;
+        /* FOOTER - SAME AS OTHER PAGES */
+
+        footer {
+            background: #34221e;
+            color: #f3e6d3;
             text-align: center;
-            margin-top: 28px;
+            padding: 28px 15px;
+            border-top: 4px solid var(--gold);
         }
 
-        .game-callout h2 {
-            color: #1e3a8a;
-            margin-bottom: 10px;
-        }
-
-        .game-callout p {
-            color: #4b5563;
-            margin-bottom: 20px;
-        }
-
-        .footer {
-            background: #111827;
-            color: #9ca3af;
-            text-align: center;
-            padding: 20px;
+        footer p {
             font-size: 13px;
+            margin-top: 5px;
         }
+
+        /* RESPONSIVE */
 
         @media (max-width: 950px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .nav-container {
+            .nav-inner {
                 flex-direction: column;
             }
 
@@ -511,41 +629,30 @@
         }
 
         @media (max-width: 650px) {
-            .navbar {
-                padding: 13px 12px;
-            }
-
-            .logo {
-                font-size: 23px;
-            }
-
-            .nav-links {
-                gap: 1px;
-                justify-content: center;
-            }
-
             .nav-links a {
                 font-size: 12px;
-                padding: 6px 7px;
+                padding: 8px;
             }
 
             .hero {
-                padding: 55px 15px;
+                min-height: 480px;
+                padding: 60px 20px;
             }
 
             .hero h1 {
                 font-size: 36px;
             }
 
-            .hero p {
-                font-size: 16px;
+            .hero::before {
+                background: rgba(12,21,18,.7);
             }
 
             .container {
-                padding: 35px 15px;
+                padding: 35px 0;
             }
 
-            .content-card {
+            .content-card,
+            .resource-box {
                 padding: 22px;
             }
 
@@ -554,18 +661,14 @@
                 font-size: 22px;
             }
 
-            .binary {
-                font-size: 18px;
-                letter-spacing: 1px;
-            }
-
             .steps,
             .resource-list {
                 grid-template-columns: 1fr;
             }
 
-            .resource-box {
-                padding: 24px 18px;
+            .binary {
+                font-size: 18px;
+                letter-spacing: 1px;
             }
 
             .resource-buttons {
@@ -576,52 +679,101 @@
                 width: 100%;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <!-- NAVIGATION -->
+
     <nav class="navbar">
-        <div class="nav-container">
+        <div class="nav-inner">
 
             <a href="{% url 'home' %}" class="logo">
-                🎯 Data Quest
+                Data Quest
             </a>
 
             <div class="nav-links">
                 <a href="{% url 'home' %}">Home</a>
 
-                <a href="{% url 'learn' %}" class="active">Learn</a>
+                <a href="{% url 'learn' %}" class="active">
+                    Learn
+                </a>
 
-                <a href="{% url 'how_to_play' %}">How to Play</a>
+                <a href="{% url 'how_to_play' %}">
+                    How to Play
+                </a>
 
-                <a href="{% url 'student_login' %}">🎓 Student Login</a>
+                <a href="{% url 'student_login' %}">
+                    Student Login
+                </a>
 
-                <a href="{% url 'teacher_login' %}">👨‍🏫 Teacher Login</a>
+                <a href="{% url 'teacher_login' %}">
+                    Teacher Login
+                </a>
             </div>
 
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-badge">🔤 Data Quest Learning Topic</div>
+    <!-- ASCII IMAGE BACKGROUND -->
 
-        <h1>Learn <span>ASCII Representation</span></h1>
+    <header class="hero">
 
-        <p>
-            Learn how computers represent characters using ASCII codes.
-            Study the notes, explore the examples, and use the converter
-            to discover how characters are represented in binary.
-        </p>
-    </section>
+        <img
+            class="hero-background"
+            src="{% static 'dataRep/images/ascii.jpeg' %}"
+            alt="ASCII representation learning background"
+        >
 
-    <main class="container">
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                 DATA QUEST LEARNING TOPIC
+            </span>
+
+            <h1>
+                Learn
+                <span>ASCII Representation</span>
+            </h1>
+
+            <p>
+                Learn how computers represent characters using ASCII codes.
+                Study the notes, explore examples, and use the converter
+                to discover how characters are represented in binary.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#lesson-content" class="btn btn-gold">
+                     Start Learning
+                </a>
+
+                <a href="{% url 'learn' %}" class="btn btn-outline">
+                    ← All Learning Topics
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="container" id="lesson-content">
 
         <!-- 1. WHAT IS ASCII -->
+
         <section class="content-card">
-            <h2>💻 1. What is ASCII?</h2>
+            <h2> 1. What is ASCII?</h2>
 
             <p>
                 ASCII stands for
@@ -646,12 +798,14 @@
         </section>
 
         <!-- 2. HOW ASCII WORKS -->
+
         <section class="content-card">
-            <h2>📚 2. How Does ASCII Work?</h2>
+            <h2> 2. How Does ASCII Work?</h2>
 
             <p>
-                Standard ASCII uses 7 bits and defines 128 codes, numbered
-                from 0 to 127. Seven bits can represent 128 different values.
+                Standard ASCII uses 7 bits and defines 128 codes,
+                numbered from 0 to 127. Seven bits can represent
+                128 different values.
             </p>
 
             <p>
@@ -670,8 +824,9 @@
         </section>
 
         <!-- 3. ASCII TABLE -->
+
         <section class="content-card">
-            <h2>🔢 3. Common ASCII Characters</h2>
+            <h2> 3. Common ASCII Characters</h2>
 
             <p>
                 Compare the decimal and binary values of uppercase letters,
@@ -705,12 +860,16 @@
         </section>
 
         <!-- 4. CONVERSION STEPS -->
-        <section class="content-card">
-            <h2>⚙️ 4. How Is a Character Converted to Binary?</h2>
 
-            <p>Follow these steps to understand character representation.</p>
+        <section class="content-card">
+            <h2> 4. How Is a Character Converted to Binary?</h2>
+
+            <p>
+                Follow these steps to understand character representation.
+            </p>
 
             <div class="steps">
+
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Character</h3>
@@ -734,6 +893,7 @@
                     <h3>Represent</h3>
                     <p>Display it using 8 bits: 01000001.</p>
                 </div>
+
             </div>
 
             <div class="example-box">
@@ -742,9 +902,11 @@
                 <p>A = 65 = 01000001</p>
                 <p>T = 84 = 01010100</p>
 
-                <div class="binary">01000011 01000001 01010100</div>
+                <div class="binary">
+                    01000011 01000001 01010100
+                </div>
 
-                <p style="margin-top: 12px;">
+                <p style="margin-top:12px;">
                     Each character has its own code. Together, these three
                     codes represent the letters in CAT.
                 </p>
@@ -752,8 +914,9 @@
         </section>
 
         <!-- 5. INTERACTIVE CONVERTER -->
+
         <section class="content-card">
-            <h2>🧪 5. Explore the ASCII Converter</h2>
+            <h2> 5. Explore the ASCII Converter</h2>
 
             <p>
                 Enter one standard ASCII character to see its decimal value
@@ -786,30 +949,32 @@
         </section>
 
         <!-- 6. ASCII ART -->
+
         <section class="content-card">
-            <h2>🎨 6. What Is ASCII Art?</h2>
+            <h2> 6. What Is ASCII Art?</h2>
 
             <p>
-                ASCII art uses text characters to create pictures, shapes,
-                and designs. It is a creative example of how ordinary characters
-                can be arranged to form an image.
+                ASCII art uses text characters to create pictures,
+                shapes, and designs. It is a creative example of how
+                ordinary characters can be arranged to form an image.
             </p>
 
             <div class="ascii-art"><pre>
-   /\_/\
-  ( o.o )
-   > ^ <
+ /\_/\
+( o.o )
+ > ^ <
 </pre></div>
 
-            <p style="margin-top: 18px;">
+            <p style="margin-top:18px;">
                 This cat is made from ordinary characters such as slashes,
                 brackets, letters, and punctuation marks.
             </p>
         </section>
 
         <!-- 7. ADVANTAGES AND LIMITATIONS -->
+
         <section class="content-card">
-            <h2>🌍 7. Advantages and Limitations of ASCII</h2>
+            <h2> 7. Advantages and Limitations of ASCII</h2>
 
             <h3>Advantages</h3>
             <ul>
@@ -819,7 +984,7 @@
                 <li>Uses simple codes that are easy to study and understand.</li>
             </ul>
 
-            <h3 style="margin-top: 22px;">Limitations</h3>
+            <h3 style="margin-top:22px;">Limitations</h3>
             <ul>
                 <li>Standard ASCII contains only 128 codes.</li>
                 <li>It does not cover all world languages and writing systems.</li>
@@ -828,34 +993,35 @@
         </section>
 
         <!-- 8. SELF-LEARNING NOTES -->
+
         <section class="content-card">
-            <h2>📖 8. Self-Learning Notes</h2>
+            <h2> 8. Self-Learning Notes</h2>
 
             <p>
-                Use these notes to revise important concepts. Read each topic
-                carefully and return to the examples above whenever you need
-                more explanation.
+                Use these notes to revise important concepts.
+                Read each topic carefully and return to the examples
+                above whenever you need more explanation.
             </p>
 
             <div class="learning-note">
                 <h3>Note 1: Character Encoding</h3>
                 <p>
-                    Character encoding is a system that connects characters with
-                    numeric codes. Computers use these codes to store, process,
-                    and exchange text.
+                    Character encoding is a system that connects characters
+                    with numeric codes. Computers use these codes to store,
+                    process, and exchange text.
                 </p>
                 <p>
-                    For example, in ASCII, the uppercase letter A is represented
-                    by the decimal number 65.
+                    For example, in ASCII, the uppercase letter A is
+                    represented by the decimal number 65.
                 </p>
             </div>
 
             <div class="learning-note">
                 <h3>Note 2: Decimal and Binary</h3>
                 <p>
-                    Decimal is the number system we commonly use. It uses ten
-                    digits, from 0 to 9. Binary is a base-2 number system that
-                    uses only two digits: 0 and 1.
+                    Decimal is the number system we commonly use. It uses
+                    ten digits, from 0 to 9. Binary is a base-2 number
+                    system that uses only two digits: 0 and 1.
                 </p>
                 <p>
                     The decimal number 65 is written as 1000001 in binary.
@@ -866,9 +1032,9 @@
             <div class="learning-note">
                 <h3>Note 3: Uppercase and Lowercase Letters</h3>
                 <p>
-                    Uppercase and lowercase letters have different ASCII codes.
-                    For example, uppercase A has decimal code 65, while lowercase
-                    a has decimal code 97.
+                    Uppercase and lowercase letters have different ASCII
+                    codes. For example, uppercase A has decimal code 65,
+                    while lowercase a has decimal code 97.
                 </p>
                 <p>Changing the case of a letter changes its code.</p>
             </div>
@@ -876,8 +1042,9 @@
             <div class="learning-note">
                 <h3>Note 4: Representing a Word</h3>
                 <p>
-                    Each character in a word has its own code. A computer
-                    represents the word as a sequence of character codes.
+                    Each character in a word has its own code.
+                    A computer represents the word as a sequence
+                    of character codes.
                 </p>
                 <p>
                     For example, CAT uses the ASCII codes for C, A, and T:
@@ -888,17 +1055,21 @@
             <div class="learning-note">
                 <h3>Note 5: ASCII and Unicode</h3>
                 <p>
-                    Standard ASCII is limited to 128 codes and does not represent
-                    all characters used around the world. Unicode supports
-                    characters from many languages and writing systems.
+                    Standard ASCII is limited to 128 codes and does not
+                    represent all characters used around the world.
+                    Unicode supports characters from many languages
+                    and writing systems.
                 </p>
                 <p>
-                    UTF-8 is a widely used way to encode Unicode text. It is
-                    compatible with standard ASCII for the first 128 code values.
+                    UTF-8 is a widely used way to encode Unicode text.
+                    It is compatible with standard ASCII for the first
+                    128 code values.
                 </p>
             </div>
 
-            <h3 style="margin-top: 25px;">Important Points to Remember</h3>
+            <h3 style="margin-top:25px;">
+                Important Points to Remember
+            </h3>
 
             <ul class="learning-checklist">
                 <li>✓ ASCII stands for American Standard Code for Information Interchange.</li>
@@ -911,13 +1082,15 @@
             </ul>
         </section>
 
-        <!-- 9. EXTERNAL RESOURCES -->
+        <!-- 9. LEARNING RESOURCES -->
+
         <section class="resource-box">
-            <h2>🌐 9. Learning Resources</h2>
+            <h2> 9. Learning Resources</h2>
 
             <p>
-                Continue learning at your own pace using these resources about
-                ASCII, character codes, binary representation, and Unicode.
+                Continue learning at your own pace using these resources
+                about ASCII, character codes, binary representation,
+                and Unicode.
             </p>
 
             <div class="resource-list">
@@ -929,8 +1102,7 @@
                         and other code representations.
                     </p>
                     <a href="https://www.asciitable.com/"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                       target="_blank" rel="noopener noreferrer">
                         Explore the ASCII table →
                     </a>
                 </div>
@@ -938,12 +1110,11 @@
                 <div class="resource-item">
                     <h3>💻 Introduction to ASCII</h3>
                     <p>
-                        Read an overview of ASCII, its codes, and how it is
-                        used to represent text.
+                        Read an overview of ASCII, its codes, and how
+                        it is used to represent text.
                     </p>
                     <a href="https://en.wikipedia.org/wiki/ASCII"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                       target="_blank" rel="noopener noreferrer">
                         Read about ASCII →
                     </a>
                 </div>
@@ -951,11 +1122,11 @@
                 <div class="resource-item">
                     <h3>🎨 ASCII Art</h3>
                     <p>
-                        Explore pictures and designs created from text characters.
+                        Explore pictures and designs created from
+                        text characters.
                     </p>
                     <a href="https://www.asciiart.eu/"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                       target="_blank" rel="noopener noreferrer">
                         Explore ASCII art →
                     </a>
                 </div>
@@ -963,12 +1134,11 @@
                 <div class="resource-item">
                     <h3>🌍 Introduction to Unicode</h3>
                     <p>
-                        Learn how Unicode helps computers represent characters
-                        from many languages.
+                        Learn how Unicode helps computers represent
+                        characters from many languages.
                     </p>
                     <a href="https://www.unicode.org/standard/WhatIsUnicode.html"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                       target="_blank" rel="noopener noreferrer">
                         Learn about Unicode →
                     </a>
                 </div>
@@ -976,12 +1146,11 @@
                 <div class="resource-item">
                     <h3>📚 OpenLearn</h3>
                     <p>
-                        Explore educational material about computers and
-                        digital information.
+                        Explore educational material about computers
+                        and digital information.
                     </p>
                     <a href="https://www.open.edu/openlearn/"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                       target="_blank" rel="noopener noreferrer">
                         Explore OpenLearn →
                     </a>
                 </div>
@@ -993,8 +1162,7 @@
                         character codes and control characters.
                     </p>
                     <a href="https://www.man7.org/linux/man-pages/man7/ascii.7.html"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                       target="_blank" rel="noopener noreferrer">
                         View the ASCII reference →
                     </a>
                 </div>
@@ -1006,19 +1174,20 @@
                 <p>
                     First, read the notes. Next, study the character table.
                     Then, use the converter to explore several characters.
-                    Finally, open the learning resources to understand the topic
-                    in greater detail.
+                    Finally, open the learning resources to understand
+                    the topic in greater detail.
                 </p>
             </div>
         </section>
 
-        <!-- DIRECT LEVEL 1 GAME BUTTON -->
+        <!-- LEVEL 1 GAME -->
+
         <section class="game-callout">
-            <h2>🎮 Ready to Attempt Level 1?</h2>
+            <h2> Ready to Attempt Level 1?</h2>
 
             <p>
-                You have explored ASCII representation. Now test your knowledge
-                in the Level 1 game.
+                You have explored ASCII representation.
+                Now test your knowledge in the Level 1 game.
             </p>
 
             <div class="resource-buttons">
@@ -1034,15 +1203,17 @@
 
     </main>
 
-    <footer class="footer">
-        © 2026 Data Quest. Learn. Play. Master Data Representation.
-    </footer>
+    <!-- INTERACTIVE ASCII CONVERTER -->
 
-    <!-- ASCII CONVERTER SCRIPT -->
     <script>
-        const characterInput = document.getElementById("ascii-character");
-        const convertButton = document.getElementById("convert-button");
-        const converterResult = document.getElementById("converter-result");
+        const characterInput =
+            document.getElementById("ascii-character");
+
+        const convertButton =
+            document.getElementById("convert-button");
+
+        const converterResult =
+            document.getElementById("converter-result");
 
         function convertASCIICharacter() {
             const character = characterInput.value;
@@ -1066,7 +1237,9 @@
 
             const binary7 = code.toString(2).padStart(7, "0");
             const binary8 = code.toString(2).padStart(8, "0");
-            const displayCharacter = character === " " ? "Space" : character;
+
+            const displayCharacter =
+                character === " " ? "Space" : character;
 
             const results = [
                 ["Character", displayCharacter],
@@ -1075,7 +1248,7 @@
                 ["8-bit display", binary8]
             ];
 
-            results.forEach(function (item) {
+            results.forEach(function(item) {
                 const paragraph = document.createElement("p");
                 const label = document.createElement("strong");
 
@@ -1089,15 +1262,27 @@
             });
         }
 
-        convertButton.addEventListener("click", convertASCIICharacter);
+        convertButton.addEventListener(
+            "click",
+            convertASCIICharacter
+        );
 
-        characterInput.addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                convertASCIICharacter();
+        characterInput.addEventListener(
+            "keydown",
+            function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    convertASCIICharacter();
+                }
             }
-        });
+        );
     </script>
+     <!-- MATCHING FOOTER -->
+
+    <footer>
+        <p>Learn. Practise. Progress. Master.</p>
+        <p>&copy; 2026 Data Quest. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>
