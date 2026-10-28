@@ -428,7 +428,7 @@ select:focus-visible {
         </div>
     </div>
 
-    <!-- QUESTION 1 -->
+    <!-- QUESTION 1: UNCHANGED -->
     <div class="question-card active" data-question="1">
         <div class="question-number">Question 1</div>
         <div class="question">What is 101101₂ in decimal?</div>
@@ -451,27 +451,39 @@ select:focus-visible {
     <!-- QUESTION 2 -->
     <div class="question-card" data-question="2">
         <div class="question-number">Question 2</div>
-        <div class="question">Convert 58₁₀ to binary.</div>
-        <input type="text" class="answer-input" id="q2"
-               placeholder="Enter your answer">
+        <div class="question">Which one is numeric data?</div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q2" value="A"> −3.5
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="B"> 3.5 kg
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="C"> A3.5
+            </label>
+            <label class="option">
+                <input type="radio" name="q2" value="D"> @3.5
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 3 -->
     <div class="question-card" data-question="3">
         <div class="question-number">Question 3</div>
-        <div class="question">What decimal value does A₁₆ represent?</div>
+        <div class="question">Which image has more pixels?</div>
         <div class="options">
             <label class="option">
-                <input type="radio" name="q3" value="8"> 8
+                <input type="radio" name="q3" value="A"> 8 × 8 pixels
             </label>
             <label class="option">
-                <input type="radio" name="q3" value="9"> 9
+                <input type="radio" name="q3" value="B"> 6 × 10 pixels
             </label>
             <label class="option">
-                <input type="radio" name="q3" value="10"> 10
+                <input type="radio" name="q3" value="C"> Both have the same pixels
             </label>
             <label class="option">
-                <input type="radio" name="q3" value="11"> 11
+                <input type="radio" name="q3" value="D"> Neither has pixels
             </label>
         </div>
     </div>
@@ -479,22 +491,23 @@ select:focus-visible {
     <!-- QUESTION 4 -->
     <div class="question-card" data-question="4">
         <div class="question-number">Question 4</div>
-        <div class="question">
-            Which number system uses digits from 0 to 7?
-        </div>
+        <div class="question">Which file requires the least storage?</div>
         <div class="options">
             <label class="option">
-                <input type="radio" name="q4" value="binary"> Binary
+                <input type="radio" name="q4" value="A">
+                10 × 10 black-and-white image (100 bits)
             </label>
             <label class="option">
-                <input type="radio" name="q4" value="octal"> Octal
+                <input type="radio" name="q4" value="B">
+                Text of 1,000 characters (8,000 bits)
             </label>
             <label class="option">
-                <input type="radio" name="q4" value="decimal"> Decimal
+                <input type="radio" name="q4" value="C">
+                1-second audio (64,000 bits)
             </label>
             <label class="option">
-                <input type="radio" name="q4" value="hexadecimal">
-                Hexadecimal
+                <input type="radio" name="q4" value="D">
+                All require equal storage
             </label>
         </div>
     </div>
@@ -502,217 +515,256 @@ select:focus-visible {
     <!-- QUESTION 5 -->
     <div class="question-card" data-question="5">
         <div class="question-number">Question 5</div>
-        <div class="question">Convert 347₈ to decimal.</div>
-        <input type="text" class="answer-input" id="q5"
-               placeholder="Enter your answer">
+        <div class="question">
+            Arrange these text units from smallest to largest.
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q5" value="A">
+                Character → Word → Sentence
+            </label>
+            <label class="option">
+                <input type="radio" name="q5" value="B">
+                Sentence → Word → Character
+            </label>
+            <label class="option">
+                <input type="radio" name="q5" value="C">
+                Word → Character → Sentence
+            </label>
+            <label class="option">
+                <input type="radio" name="q5" value="D">
+                Character → Sentence → Word
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 6 -->
     <div class="question-card" data-question="6">
         <div class="question-number">Question 6</div>
         <div class="question">
-            Match each number with its decimal value.
+            Arrange these images from fewest to most pixels.
         </div>
-
-        <div class="matching-row">
-            <div class="matching-label">1010₂</div>
-            <select class="matching-select" id="q6a">
-                <option value="">Select</option>
-                <option value="10">10</option>
-                <option value="13">13</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">15₈</div>
-            <select class="matching-select" id="q6b">
-                <option value="">Select</option>
-                <option value="10">10</option>
-                <option value="13">13</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">F₁₆</div>
-            <select class="matching-select" id="q6c">
-                <option value="">Select</option>
-                <option value="10">10</option>
-                <option value="13">13</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">20₁₀</div>
-            <select class="matching-select" id="q6d">
-                <option value="">Select</option>
-                <option value="10">10</option>
-                <option value="13">13</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q6" value="A">
+                5 × 5 → 6 × 6 → 4 × 10
+            </label>
+            <label class="option">
+                <input type="radio" name="q6" value="B">
+                6 × 6 → 5 × 5 → 4 × 10
+            </label>
+            <label class="option">
+                <input type="radio" name="q6" value="C">
+                4 × 10 → 6 × 6 → 5 × 5
+            </label>
+            <label class="option">
+                <input type="radio" name="q6" value="D">
+                5 × 5 → 4 × 10 → 6 × 6
+            </label>
         </div>
     </div>
 
     <!-- QUESTION 7 -->
     <div class="question-card" data-question="7">
         <div class="question-number">Question 7</div>
-        <div class="question">Convert 2A₁₆ to decimal.</div>
-        <input type="text" class="answer-input" id="q7"
-               placeholder="Enter your answer">
+        <div class="question">
+            What is the correct order of steps for recording sound digitally?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q7" value="A">
+                Microphone → Take samples → Store as binary
+            </label>
+            <label class="option">
+                <input type="radio" name="q7" value="B">
+                Store as binary → Microphone → Take samples
+            </label>
+            <label class="option">
+                <input type="radio" name="q7" value="C">
+                Take samples → Store as binary → Microphone
+            </label>
+            <label class="option">
+                <input type="radio" name="q7" value="D">
+                Microphone → Store as binary → Take samples
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 8 -->
     <div class="question-card" data-question="8">
         <div class="question-number">Question 8</div>
-        <div class="question">10000₂ is equal to 16₁₀.</div>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q8" value="true"> True
-            </label>
-            <label class="option">
-                <input type="radio" name="q8" value="false"> False
-            </label>
+        <div class="question">
+            The 7-bit binary code 1000011 represents which uppercase letter in ASCII?
         </div>
+        <input type="text"
+               class="answer-input"
+               id="q8"
+               placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 9 -->
     <div class="question-card" data-question="9">
         <div class="question-number">Question 9</div>
-        <div class="question">Convert 25₁₀ to binary.</div>
-        <input type="text" class="answer-input" id="q9"
+        <div class="question">
+            How many bytes does one basic ASCII character use?
+        </div>
+        <input type="text"
+               class="answer-input"
+               id="q9"
                placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 10 -->
     <div class="question-card" data-question="10">
         <div class="question-number">Question 10</div>
-        <div class="question">What is 110101₂ in decimal?</div>
-        <input type="text" class="answer-input" id="q10"
+        <div class="question">
+            How many colours can a 1-bit-per-pixel image represent?
+        </div>
+        <input type="text"
+               class="answer-input"
+               id="q10"
                placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 11 -->
     <div class="question-card" data-question="11">
         <div class="question-number">Question 11</div>
-        <div class="question">Convert 31₁₀ to hexadecimal.</div>
-        <input type="text" class="answer-input" id="q11"
+        <div class="question">
+            How many loudness levels can 3-bit audio represent?
+        </div>
+        <input type="text"
+               class="answer-input"
+               id="q11"
                placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 12 -->
     <div class="question-card" data-question="12">
         <div class="question-number">Question 12</div>
-        <div class="question">Convert 52₈ to binary.</div>
-        <input type="text" class="answer-input" id="q12"
-               placeholder="Enter your answer">
+        <div class="question">
+            Which compression type is used by a standard .zip file?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q12" value="A"> Lossless
+            </label>
+            <label class="option">
+                <input type="radio" name="q12" value="B"> Lossy
+            </label>
+            <label class="option">
+                <input type="radio" name="q12" value="C"> Uncompressed
+            </label>
+            <label class="option">
+                <input type="radio" name="q12" value="D"> Analog
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 13 -->
     <div class="question-card" data-question="13">
         <div class="question-number">Question 13</div>
-        <div class="question">20₁₆ is equal to 32₁₀.</div>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q13" value="true"> True
-            </label>
-            <label class="option">
-                <input type="radio" name="q13" value="false"> False
-            </label>
+        <div class="question">
+            How many bits are needed to store “Hi5!” using 7-bit ASCII?
         </div>
+        <input type="text"
+               class="answer-input"
+               id="q13"
+               placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 14 -->
     <div class="question-card" data-question="14">
         <div class="question-number">Question 14</div>
         <div class="question">
-            Match each number system with its base.
+            A text file is 5 KB. How many bytes is it? (1 KB = 1024 bytes)
         </div>
-
-        <div class="matching-row">
-            <div class="matching-label">Binary</div>
-            <select class="matching-select" id="q14a">
-                <option value="">Select</option>
-                <option value="2">2</option>
-                <option value="8">8</option>
-                <option value="10">10</option>
-                <option value="16">16</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">Octal</div>
-            <select class="matching-select" id="q14b">
-                <option value="">Select</option>
-                <option value="2">2</option>
-                <option value="8">8</option>
-                <option value="10">10</option>
-                <option value="16">16</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">Decimal</div>
-            <select class="matching-select" id="q14c">
-                <option value="">Select</option>
-                <option value="2">2</option>
-                <option value="8">8</option>
-                <option value="10">10</option>
-                <option value="16">16</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">Hexadecimal</div>
-            <select class="matching-select" id="q14d">
-                <option value="">Select</option>
-                <option value="2">2</option>
-                <option value="8">8</option>
-                <option value="10">10</option>
-                <option value="16">16</option>
-            </select>
-        </div>
+        <input type="text"
+               class="answer-input"
+               id="q14"
+               placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 15 -->
     <div class="question-card" data-question="15">
         <div class="question-number">Question 15</div>
-        <div class="question">Convert 100₁₀ to hexadecimal.</div>
-        <input type="text" class="answer-input" id="q15"
+        <div class="question">
+            A 16 × 16 black-and-white image uses 1 bit per pixel.
+            What is its size in bytes?
+        </div>
+        <input type="text"
+               class="answer-input"
+               id="q15"
                placeholder="Enter your answer">
     </div>
 
     <!-- QUESTION 16 -->
     <div class="question-card" data-question="16">
         <div class="question-number">Question 16</div>
-        <div class="question">What is 1011₂ + 0101₂?</div>
-        <input type="text" class="answer-input" id="q16"
-               placeholder="Enter your answer">
+        <div class="question">
+            What does ASCII primarily represent in a computer?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q16" value="A">
+                Text characters as numeric codes
+            </label>
+            <label class="option">
+                <input type="radio" name="q16" value="B">
+                The brightness of a pixel
+            </label>
+            <label class="option">
+                <input type="radio" name="q16" value="C">
+                Sound wave frequency
+            </label>
+            <label class="option">
+                <input type="radio" name="q16" value="D">
+                File compression ratio
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 17 -->
     <div class="question-card" data-question="17">
         <div class="question-number">Question 17</div>
-        <div class="question">Convert 111111₂ to decimal.</div>
-        <input type="text" class="answer-input" id="q17"
-               placeholder="Enter your answer">
+        <div class="question">How many bits are there in one byte?</div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q17" value="A"> 4
+            </label>
+            <label class="option">
+                <input type="radio" name="q17" value="B"> 8
+            </label>
+            <label class="option">
+                <input type="radio" name="q17" value="C"> 16
+            </label>
+            <label class="option">
+                <input type="radio" name="q17" value="D"> 32
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 18 -->
     <div class="question-card" data-question="18">
         <div class="question-number">Question 18</div>
-        <div class="question">77₈ is equal to 63₁₀.</div>
+        <div class="question">
+            Which change increases the number of colours an image can represent?
+        </div>
         <div class="options">
             <label class="option">
-                <input type="radio" name="q18" value="true"> True
+                <input type="radio" name="q18" value="A">
+                Increasing bit depth
             </label>
             <label class="option">
-                <input type="radio" name="q18" value="false"> False
+                <input type="radio" name="q18" value="B">
+                Reducing bit depth
+            </label>
+            <label class="option">
+                <input type="radio" name="q18" value="C">
+                Reducing the number of pixels
+            </label>
+            <label class="option">
+                <input type="radio" name="q18" value="D">
+                Changing the file name
             </label>
         </div>
     </div>
@@ -721,80 +773,94 @@ select:focus-visible {
     <div class="question-card" data-question="19">
         <div class="question-number">Question 19</div>
         <div class="question">
-            Match each binary number with its decimal value.
+            How many colours can a 2-bit-per-pixel image represent?
         </div>
-
-        <div class="matching-row">
-            <div class="matching-label">1001₂</div>
-            <select class="matching-select" id="q19a">
-                <option value="">Select</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="21">21</option>
-                <option value="30">30</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">1100₂</div>
-            <select class="matching-select" id="q19b">
-                <option value="">Select</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="21">21</option>
-                <option value="30">30</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">10101₂</div>
-            <select class="matching-select" id="q19c">
-                <option value="">Select</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="21">21</option>
-                <option value="30">30</option>
-            </select>
-        </div>
-
-        <div class="matching-row">
-            <div class="matching-label">11110₂</div>
-            <select class="matching-select" id="q19d">
-                <option value="">Select</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="21">21</option>
-                <option value="30">30</option>
-            </select>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q19" value="A"> 2
+            </label>
+            <label class="option">
+                <input type="radio" name="q19" value="B"> 4
+            </label>
+            <label class="option">
+                <input type="radio" name="q19" value="C"> 8
+            </label>
+            <label class="option">
+                <input type="radio" name="q19" value="D"> 16
+            </label>
         </div>
     </div>
 
     <!-- QUESTION 20 -->
     <div class="question-card" data-question="20">
         <div class="question-number">Question 20</div>
-        <div class="question">Convert 3C₁₆ to decimal.</div>
-        <input type="text" class="answer-input" id="q20"
-               placeholder="Enter your answer">
+        <div class="question">
+            Which device captures sound for digital recording?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q20" value="A"> Microphone
+            </label>
+            <label class="option">
+                <input type="radio" name="q20" value="B"> Monitor
+            </label>
+            <label class="option">
+                <input type="radio" name="q20" value="C"> Printer
+            </label>
+            <label class="option">
+                <input type="radio" name="q20" value="D"> Projector
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 21 -->
     <div class="question-card" data-question="21">
         <div class="question-number">Question 21</div>
-        <div class="question">Convert 11001101₂ to hexadecimal.</div>
-        <input type="text" class="answer-input" id="q21"
-               placeholder="Enter your answer">
+        <div class="question">
+            What is sampling in digital audio?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q21" value="A">
+                Measuring a sound signal at regular intervals
+            </label>
+            <label class="option">
+                <input type="radio" name="q21" value="B">
+                Changing text into an image
+            </label>
+            <label class="option">
+                <input type="radio" name="q21" value="C">
+                Removing every second audio file
+            </label>
+            <label class="option">
+                <input type="radio" name="q21" value="D">
+                Printing a sound waveform
+            </label>
+        </div>
     </div>
 
     <!-- QUESTION 22 -->
     <div class="question-card" data-question="22">
         <div class="question-number">Question 22</div>
-        <div class="question">11111111₂ is equal to 255₁₀.</div>
+        <div class="question">
+            Which statement about lossless compression is correct?
+        </div>
         <div class="options">
             <label class="option">
-                <input type="radio" name="q22" value="true"> True
+                <input type="radio" name="q22" value="A">
+                The original data can be reconstructed exactly
             </label>
             <label class="option">
-                <input type="radio" name="q22" value="false"> False
+                <input type="radio" name="q22" value="B">
+                Some original data is permanently discarded
+            </label>
+            <label class="option">
+                <input type="radio" name="q22" value="C">
+                It always makes files larger
+            </label>
+            <label class="option">
+                <input type="radio" name="q22" value="D">
+                It works only with audio
             </label>
         </div>
     </div>
@@ -802,12 +868,27 @@ select:focus-visible {
     <!-- QUESTION 23 -->
     <div class="question-card" data-question="23">
         <div class="question-number">Question 23</div>
-        <div class="question">What is 11010₂ − 00111₂?</div>
-        <input type="text" class="answer-input" id="q23"
-               placeholder="Enter your answer">
+        <div class="question">
+            A 4 × 4 black-and-white image uses 1 bit per pixel.
+            How many bits are required?
+        </div>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q23" value="A"> 8 bits
+            </label>
+            <label class="option">
+                <input type="radio" name="q23" value="B"> 16 bits
+            </label>
+            <label class="option">
+                <input type="radio" name="q23" value="C"> 32 bits
+            </label>
+            <label class="option">
+                <input type="radio" name="q23" value="D"> 64 bits
+            </label>
+        </div>
     </div>
 
-    <!-- QUESTION 24 -->
+    <!-- QUESTION 24: UNCHANGED -->
     <div class="question-card" data-question="24">
         <div class="question-number">Question 24</div>
         <div class="question">Convert 2D₁₆ to decimal.</div>
@@ -815,7 +896,7 @@ select:focus-visible {
                placeholder="Enter your answer">
     </div>
 
-    <!-- QUESTION 25 -->
+    <!-- QUESTION 25: UNCHANGED -->
     <div class="question-card" data-question="25">
         <div class="question-number">Question 25</div>
         <div class="question">Match each conversion correctly.</div>
@@ -926,49 +1007,28 @@ const totalQuestions = 25;
 /* CORRECT ANSWERS */
 const correctAnswers = {
     1: "45",
-    2: "111010",
-    3: "10",
-    4: "octal",
-    5: "231",
-
-    6: {
-        a: "10",
-        b: "13",
-        c: "15",
-        d: "20"
-    },
-
-    7: "42",
-    8: "true",
-    9: "11001",
-    10: "53",
-    11: "1F",
-    12: "101010",
-    13: "true",
-
-    14: {
-        a: "2",
-        b: "8",
-        c: "10",
-        d: "16"
-    },
-
-    15: "64",
-    16: "10000",
-    17: "63",
-    18: "true",
-
-    19: {
-        a: "9",
-        b: "12",
-        c: "21",
-        d: "30"
-    },
-
-    20: "60",
-    21: "CD",
-    22: "true",
-    23: "10011",
+    2: "A",
+    3: "A",
+    4: "A",
+    5: "A",
+    6: "A",
+    7: "A",
+    8: "C",
+    9: "1",
+    10: "2",
+    11: "8",
+    12: "A",
+    13: "28",
+    14: "5120",
+    15: "32",
+    16: "A",
+    17: "B",
+    18: "A",
+    19: "B",
+    20: "A",
+    21: "A",
+    22: "A",
+    23: "B",
     24: "45",
 
     25: {
@@ -990,7 +1050,7 @@ function normalizeAnswer(value) {
 
 /* GET ANSWER */
 function getAnswer(questionNumber) {
-    if ([6, 14, 19, 25].includes(questionNumber)) {
+    if ([25].includes(questionNumber)) {
         return {
             a: document.getElementById(
                 "q" + questionNumber + "a"

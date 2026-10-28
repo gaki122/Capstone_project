@@ -85,10 +85,7 @@ def register(request):
 
         if User.objects.filter(username=username).exists():
             return render(request, 'register.html', {
-                'error': (
-                    'Username already exists. '
-                    'Please choose another username.'
-                )
+                'error': 'Username already exists. Please choose another username.'
             })
 
         with transaction.atomic():
@@ -97,7 +94,6 @@ def register(request):
                 email=email,
                 password=password,
             )
-
             user.first_name = full_name
             user.save(update_fields=['first_name'])
 
@@ -225,10 +221,7 @@ def join_section(request):
         except ClassSection.DoesNotExist:
             return render(request, 'join_section.html', {
                 'student': student,
-                'error': (
-                    'Invalid class code. '
-                    'Please check the code and try again.'
-                )
+                'error': 'Invalid class code. Please check the code and try again.'
             })
 
         student.class_section = section
@@ -395,14 +388,7 @@ def save_student_level_result(
     data,
 ):
     if not request.user.is_authenticated:
-        if level_number == 1:
-            return redirect('level1_game')
-        elif level_number == 2:
-            return redirect('level2_game')
-        elif level_number == 3:
-            return redirect('level3_game')
-
-        return redirect('level4_game')
+        return redirect(GUEST_LEVELS[level_number][1])
 
     try:
         student = StudentProfile.objects.select_for_update().get(
@@ -411,6 +397,7 @@ def save_student_level_result(
     except StudentProfile.DoesNotExist:
         return redirect('home')
 
+    # Every completed attempt is saved.
     attempt_number = get_next_attempt_number(
         result_model,
         student=student,
@@ -426,21 +413,33 @@ def save_student_level_result(
         attempt_number=attempt_number,
     )
 
-    student.total_points += data['score']
-    student.total_stars += data['stars']
+    # After the Final Challenge, new attempts are saved,
+    # but cumulative points and stars remain unchanged.
+    final_already_saved = has_saved_final_challenge(student)
+
+    if not final_already_saved:
+        student.total_points += data['score']
+        student.total_stars += data['stars']
+
     student.completed_levels = max(
         student.completed_levels,
         level_number,
     )
 
     if (
-        level_number == 1
+        not final_already_saved
+        and level_number == 1
         and data['score'] == data['total_questions']
         and data['score'] > student.best_streak
     ):
         student.best_streak = data['score']
 
     student.save()
+
+    messages.success(
+        request,
+        f'Level {level_number} result saved successfully!'
+    )
 
     return redirect('student_dashboard')
 
@@ -459,8 +458,7 @@ GUEST_LEVELS = {
 
 def save_guest_level_result(request, level_number, data):
     """
-    Save guest result in the current Django session.
-    Do not create a registered student result.
+    Save guest results in the current Django session.
     """
 
     if level_number not in GUEST_LEVELS:
@@ -473,14 +471,11 @@ def save_guest_level_result(request, level_number, data):
     guest_results[str(level_number)] = dict(data)
     request.session['guest_level_results'] = guest_results
 
-    # Track consecutively completed guest levels.
-    # The Final Challenge uses completed_levels.
     consecutive = 0
 
     for number in range(1, 5):
         if str(number) not in guest_results:
             break
-
         consecutive = number
 
     request.session['completed_levels'] = consecutive
@@ -509,7 +504,7 @@ def save_guest_level_result(request, level_number, data):
 
 
 # ==========================================================
-# SHARED SAVE HANDLER FOR LEVELS 1, 2 AND 3
+# SHARED SAVE HANDLER — LEVELS 1 TO 4
 # ==========================================================
 
 def save_level_for_student_or_guest(
@@ -534,9 +529,12 @@ def save_level_for_student_or_guest(
                 'message': 'Invalid result data.',
             }, status=400)
 
+        messages.error(
+            request,
+            'Invalid result data. Please try again.'
+        )
         return redirect(game_url)
 
-    # GUEST PLAYER
     if not request.user.is_authenticated:
         return save_guest_level_result(
             request,
@@ -544,7 +542,6 @@ def save_level_for_student_or_guest(
             data,
         )
 
-    # REGISTERED STUDENT
     if not StudentProfile.objects.filter(
         user=request.user
     ).exists():
@@ -602,143 +599,16 @@ def save_level3_result(request):
 # ==========================================================
 
 @require_POST
-@transaction.atomic
 def save_level4_result(request):
-    is_ajax = (
-        request.headers.get('X-Requested-With')
-        == 'XMLHttpRequest'
-    )
-
-    # GUEST PLAYER
-    if not request.user.is_authenticated:
-        data = get_game_result_data(
-            request,
-            default_total=20,
-        )
-
-        if data is None:
-            if is_ajax:
-                return JsonResponse({
-                    'success': False,
-                    'saved': False,
-                    'message': 'Invalid guest result data.',
-                }, status=400)
-
-            return redirect('level4_game')
-
-        return save_guest_level_result(
-            request,
-            4,
-            data,
-        )
-
-    # REGISTERED STUDENT
-    try:
-        student = StudentProfile.objects.select_for_update().get(
-            user=request.user
-        )
-    except StudentProfile.DoesNotExist:
-        if is_ajax:
-            return JsonResponse({
-                'success': False,
-                'saved': False,
-                'message': 'Only student accounts can save results.',
-            }, status=403)
-
-        return redirect('home')
-
-    # PRACTICE MODE AFTER FINAL CHALLENGE
-    if has_saved_final_challenge(student):
-        message = (
-            'You have already completed the Final Challenge. '
-            'You can continue practising Level 4, but this '
-            'attempt has not been saved. Your saved scores '
-            'and overall grade remain unchanged.'
-        )
-
-        if is_ajax:
-            return JsonResponse({
-                'success': True,
-                'saved': False,
-                'practice_mode': True,
-                'message': message,
-            })
-
-        messages.info(request, message)
-        return redirect('level4_game')
-
-    # VALIDATE RESULT
-    data = get_game_result_data(
+    return save_level_for_student_or_guest(
         request,
-        default_total=20,
-    )
-
-    if data is None:
-        if is_ajax:
-            return JsonResponse({
-                'success': False,
-                'saved': False,
-                'message': (
-                    'The submitted result is invalid. '
-                    'Please try again.'
-                ),
-            }, status=400)
-
-        messages.error(
-            request,
-            'The submitted result is invalid. Please try again.'
-        )
-        return redirect('level4_game')
-
-    # SAVE ATTEMPT
-    attempt_number = get_next_attempt_number(
-        Level4Result,
-        student=student,
-    )
-
-    Level4Result.objects.create(
-        student=student,
-        score=data['score'],
-        total_questions=data['total_questions'],
-        percentage=data['percentage'],
-        stars=data['stars'],
-        completed=True,
-        attempt_number=attempt_number,
-    )
-
-    student.total_points += data['score']
-    student.total_stars += data['stars']
-    student.completed_levels = max(
-        student.completed_levels,
         4,
+        Level4Result,
     )
-
-    student.save(update_fields=[
-        'total_points',
-        'total_stars',
-        'completed_levels',
-    ])
-
-    if is_ajax:
-        return JsonResponse({
-            'success': True,
-            'saved': True,
-            'message': (
-                'Your Level 4 result has been saved. '
-                'You can view your progress from your dashboard.'
-            ),
-            'attempt_number': attempt_number,
-        })
-
-    messages.success(
-        request,
-        'Level 4 result saved successfully!'
-    )
-    return redirect('student_dashboard')
 
 
 # ==========================================================
-# SHARED GUEST RESULT PAGE — LEVELS 1 TO 4
+# SHARED GUEST RESULT PAGE
 # ==========================================================
 
 @never_cache
@@ -766,13 +636,9 @@ def guest_result(request):
     ).get(str(level_number))
 
     if result is None:
-        return redirect(
-            GUEST_LEVELS[level_number][1]
-        )
+        return redirect(GUEST_LEVELS[level_number][1])
 
-    level_title, game_url = GUEST_LEVELS[
-        level_number
-    ]
+    level_title, game_url = GUEST_LEVELS[level_number]
 
     return render(request, 'guest_result.html', {
         'result': result,
@@ -795,6 +661,25 @@ def quest_levels(request):
 # FINAL CHALLENGE
 # ==========================================================
 
+def student_completed_all_levels(student):
+    """
+    Confirm that the student has completed
+    Levels 1, 2, 3, and 4.
+    """
+    return all(
+        model.objects.filter(
+            student=student,
+            completed=True,
+        ).exists()
+        for model in (
+            Level1Result,
+            Level2Result,
+            Level3Result,
+            Level4Result,
+        )
+    )
+
+
 def final_challenge(request):
     if request.user.is_authenticated:
         try:
@@ -804,9 +689,7 @@ def final_challenge(request):
         except StudentProfile.DoesNotExist:
             return redirect('home')
 
-        if student.completed_levels < 4:
-            return redirect('student_dashboard')
-
+        # If already completed, show the saved result.
         result = FinalChallengeResult.objects.filter(
             student=student
         ).order_by('-id').first()
@@ -821,6 +704,14 @@ def final_challenge(request):
                     'guest': False,
                 }
             )
+
+        # Must complete all four levels first.
+        if not student_completed_all_levels(student):
+            messages.warning(
+                request,
+                'Please complete Levels 1–4 before the Final Challenge.'
+            )
+            return redirect('student_dashboard')
 
         return render(request, 'final_challenge.html', {
             'student': student,
@@ -854,12 +745,81 @@ def final_challenge(request):
 
 
 # ==========================================================
+# CALCULATE FINAL OVERALL SCORE
+# ==========================================================
+
+def calculate_final_overall_score(
+    student,
+    final_score,
+    final_total,
+):
+    """
+    Calculate the final overall score from:
+    - Best Level 1 attempt
+    - Best Level 2 attempt
+    - Best Level 3 attempt
+    - Best Level 4 attempt
+    - Final Challenge score
+
+    This is calculated when the Final Challenge
+    is submitted and stored permanently.
+    """
+
+    overall_correct = final_score
+    overall_possible = final_total
+
+    level_models = (
+        Level1Result,
+        Level2Result,
+        Level3Result,
+        Level4Result,
+    )
+
+    for result_model in level_models:
+        results = result_model.objects.filter(
+            student=student,
+            completed=True,
+            total_questions__gt=0,
+        )
+
+        best = max(
+            results,
+            key=lambda result: (
+                result.score / result.total_questions,
+                result.score,
+                result.id,
+            ),
+            default=None,
+        )
+
+        if best is not None:
+            overall_correct += best.score
+            overall_possible += best.total_questions
+
+    overall_percentage = (
+        round(
+            overall_correct * 100 / overall_possible,
+            1,
+        )
+        if overall_possible > 0
+        else 0.0
+    )
+
+    return {
+        'overall_correct': overall_correct,
+        'overall_possible': overall_possible,
+        'overall_percentage': overall_percentage,
+    }
+
+
+# ==========================================================
 # SAVE FINAL CHALLENGE RESULT
 # ==========================================================
 
 @require_POST
 @transaction.atomic
 def save_final_challenge_result(request):
+
     data = get_game_result_data(
         request,
         default_total=25,
@@ -885,14 +845,7 @@ def save_final_challenge_result(request):
             )
             return redirect('home')
 
-        if student.completed_levels < 4:
-            messages.warning(
-                request,
-                'Please complete Levels 1–4 before taking '
-                'the Final Challenge.'
-            )
-            return redirect('student_dashboard')
-
+        # One Final Challenge attempt only.
         existing_result = FinalChallengeResult.objects.filter(
             student=student
         ).first()
@@ -901,9 +854,24 @@ def save_final_challenge_result(request):
             messages.info(
                 request,
                 'You have already completed the Final Challenge. '
-                'Your saved result is displayed below.'
+                'You cannot attempt it again.'
             )
             return redirect('final_challenge_result')
+
+        if not student_completed_all_levels(student):
+            messages.warning(
+                request,
+                'Please complete Levels 1–4 before taking '
+                'the Final Challenge.'
+            )
+            return redirect('student_dashboard')
+
+        # Calculate and freeze the overall score.
+        frozen = calculate_final_overall_score(
+            student,
+            data['score'],
+            data['total_questions'],
+        )
 
         FinalChallengeResult.objects.create(
             student=student,
@@ -912,10 +880,15 @@ def save_final_challenge_result(request):
             percentage=data['percentage'],
             stars=data['stars'],
             completed=True,
+            overall_correct=frozen['overall_correct'],
+            overall_possible=frozen['overall_possible'],
+            overall_percentage=frozen['overall_percentage'],
         )
 
+        # Add Final Challenge points only once.
         student.total_points += data['score']
         student.total_stars += data['stars']
+
         student.save(update_fields=[
             'total_points',
             'total_stars',
@@ -923,8 +896,10 @@ def save_final_challenge_result(request):
 
         messages.success(
             request,
-            'Your Final Challenge result has been saved successfully!'
+            'Final Challenge completed successfully! '
+            'Your overall grade is now finalized.'
         )
+
         return redirect('final_challenge_result')
 
     # GUEST PLAYER
@@ -948,8 +923,7 @@ def save_final_challenge_result(request):
     if existing_result:
         messages.info(
             request,
-            'You have already completed the Final Challenge. '
-            'Your saved result is displayed below.'
+            'You have already completed the Final Challenge.'
         )
         return redirect('final_challenge_result')
 
@@ -966,6 +940,7 @@ def save_final_challenge_result(request):
         request,
         'Your Final Challenge result has been saved successfully!'
     )
+
     return redirect('final_challenge_result')
 
 
@@ -1046,10 +1021,7 @@ def teacher_register(request):
 
         if User.objects.filter(username=username).exists():
             return render(request, 'teacher_register.html', {
-                'error': (
-                    'Username already exists. '
-                    'Please choose another username.'
-                )
+                'error': 'Username already exists. Please choose another username.'
             })
 
         with transaction.atomic():
@@ -1399,8 +1371,7 @@ def student_progress(request, student_id):
     def get_best_result(level_results):
         completed_results = [
             result for result in level_results
-            if result.completed
-            and result.total_questions > 0
+            if result.completed and result.total_questions > 0
         ]
 
         if not completed_results:
@@ -1442,8 +1413,7 @@ def student_progress(request, student_id):
     )
 
     overall_possible = sum(
-        result.total_questions
-        for result in completed_results
+        result.total_questions for result in completed_results
     )
 
     completed_activity_count = len(completed_results)
@@ -1461,6 +1431,18 @@ def student_progress(request, student_id):
     overall_grade_finalized = (
         completed_activity_count == total_activities
     )
+
+    # After the Final Challenge, use the frozen score.
+    if (
+        final_result is not None
+        and final_result.overall_correct is not None
+        and final_result.overall_possible is not None
+        and final_result.overall_percentage is not None
+    ):
+        overall_correct = final_result.overall_correct
+        overall_possible = final_result.overall_possible
+        overall_percentage = final_result.overall_percentage
+        overall_grade_finalized = True
 
     return render(request, 'student_progress.html', {
         'student': student,
@@ -1544,8 +1526,7 @@ def student_my_progress(request):
     def get_best_result(results):
         completed_results = [
             result for result in results
-            if result.completed
-            and result.total_questions > 0
+            if result.completed and result.total_questions > 0
         ]
 
         if not completed_results:
@@ -1583,8 +1564,7 @@ def student_my_progress(request):
     ]
 
     overall_correct = sum(
-        result.score
-        for result in completed_activity_results
+        result.score for result in completed_activity_results
     )
 
     overall_possible = sum(
@@ -1592,10 +1572,7 @@ def student_my_progress(request):
         for result in completed_activity_results
     )
 
-    completed_activity_count = len(
-        completed_activity_results
-    )
-
+    completed_activity_count = len(completed_activity_results)
     total_activities = 5
 
     overall_percentage = (
@@ -1610,6 +1587,18 @@ def student_my_progress(request):
     overall_grade_finalized = (
         completed_activity_count == total_activities
     )
+
+    # After the Final Challenge, use the frozen score.
+    if (
+        final_result is not None
+        and final_result.overall_correct is not None
+        and final_result.overall_possible is not None
+        and final_result.overall_percentage is not None
+    ):
+        overall_correct = final_result.overall_correct
+        overall_possible = final_result.overall_possible
+        overall_percentage = final_result.overall_percentage
+        overall_grade_finalized = True
 
     return render(request, 'student_my_progress.html', {
         'student': student,

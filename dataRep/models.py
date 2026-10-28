@@ -159,6 +159,11 @@ class GuestResult(models.Model):
 # Final Challenge Result
 # =========================
 
+
+# =========================
+# Final Challenge Result
+# =========================
+
 class FinalChallengeResult(models.Model):
 
     # One student can have only one Final Challenge result.
@@ -173,6 +178,24 @@ class FinalChallengeResult(models.Model):
     stars = models.IntegerField(default=1)
     completed = models.BooleanField(default=False)
 
+    # Permanently stored overall result.
+    # These values will not change when students
+    # replay Levels 1, 2, 3, or 4.
+    overall_correct = models.IntegerField(
+        null=True,
+        blank=True
+    )
+
+    overall_possible = models.IntegerField(
+        null=True,
+        blank=True
+    )
+
+    overall_percentage = models.FloatField(
+        null=True,
+        blank=True
+    )
+
     completed_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -183,6 +206,7 @@ class FinalChallengeResult(models.Model):
             f"- Final Challenge - "
             f"{self.score}/{self.total_questions}"
         )
+
 
 
 # =========================

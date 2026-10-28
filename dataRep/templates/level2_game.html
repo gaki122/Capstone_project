@@ -553,191 +553,182 @@ const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
 
 const questions = [
     {
-        type: "mcq",
-        question: "What is a pixel?",
-        description: "Choose the best answer.",
-        options: [
-            "The smallest individual element of a digital image",
-            "A type of computer keyboard",
-            "A device used to print documents",
-            "A computer network cable"
-        ],
-        answer: "The smallest individual element of a digital image",
-        hint: "Digital images are made up of many tiny picture elements."
-    },
-    {
-        type: "mcq",
-        question: "What are digital raster images commonly made up of?",
+        type: "fill",
+        question: "A single letter, number, symbol or space in text is called a ______.",
         description: "",
-        options: ["Pixels", "Folders", "Speakers", "Cables"],
-        answer: "Pixels",
-        hint: "Think of the tiny squares that form a picture."
-    },
-    {
-        type: "mcq",
-        question: "Which two digits are used in the binary number system?",
-        description: "",
-        options: ["0 and 1", "1 and 2", "2 and 3", "0 and 9"],
-        answer: "0 and 1",
-        hint: "Binary uses only two different digits."
+        answer: "Character",
+        hint: "A character is one individual unit of text."
     },
     {
         type: "fill",
-        question: "The smallest unit of a digital image is called a ____.",
-        description: "Type the missing word.",
-        answer: "pixel",
-        hint: "The word starts with the letter P."
-    },
-    {
-        type: "mcq",
-        question: "What does image resolution commonly describe?",
+        question: "Before text is stored, each character is first given a ______ using a code system like ASCII or Unicode.",
         description: "",
-        options: [
-            "The number of pixels in an image",
-            "The size of the keyboard",
-            "The speed of the mouse",
-            "The number of folders"
-        ],
-        answer: "The number of pixels in an image",
-        hint: "Resolution is related to the detail in an image."
-    },
-    {
-        type: "mcq",
-        question: "What do the letters RGB stand for?",
-        description: "",
-        options: [
-            "Red, Green, Blue",
-            "Red, Grey, Black",
-            "Round, Green, Bright",
-            "Read, Give, Build"
-        ],
-        answer: "Red, Green, Blue",
-        hint: "These are the three primary colours used in the RGB colour model."
-    },
-    {
-        type: "mcq",
-        question: "In a simple black-and-white image, how many values can one pixel use?",
-        description: "",
-        options: ["Two", "Four", "Eight", "Sixteen"],
-        answer: "Two",
-        hint: "A basic binary pixel can represent black or white."
+        answer: "Number",
+        hint: "ASCII and Unicode assign numerical codes to characters."
     },
     {
         type: "fill",
-        question: "The binary digits are 0 and ____.",
-        description: "Enter the missing digit.",
-        answer: "1",
-        hint: "Binary has just two digits."
-    },
-    {
-        type: "mcq",
-        question: "An image is 10 pixels wide and 10 pixels high. How many pixels does it contain?",
+        question: "A group of eight bits is called a ______.",
         description: "",
-        options: ["20", "50", "100", "200"],
-        answer: "100",
-        hint: "Multiply the width by the height."
-    },
-    {
-        type: "mcq",
-        question: "What might you see when you zoom in closely on a small raster image?",
-        description: "",
-        options: [
-            "Individual pixels",
-            "Computer cables",
-            "Keyboard buttons",
-            "Printed pages"
-        ],
-        answer: "Individual pixels",
-        hint: "Zooming in reveals the small elements that form the image."
-    },
-    {
-        type: "pixel",
-        question: "Create a heart using pixels.",
-        description: "Click the squares to turn them blue and reproduce the pattern.",
-        pattern: "0101011111111111111101110",
-        hint: "Look for two rounded upper sections and a pointed lower section."
-    },
-    {
-        type: "pixel",
-        question: "Create an arrow using pixels.",
-        description: "Click the squares to reproduce the arrow pattern.",
-        pattern: "0010000111001111100100100",
-        hint: "The arrow has a point at the top and a narrow stem."
-    },
-    {
-        type: "mcq",
-        question: "What does colour depth describe?",
-        description: "",
-        options: [
-            "The number of bits used to represent a pixel's colour",
-            "The physical depth of a monitor",
-            "The length of a computer cable",
-            "The size of a keyboard"
-        ],
-        answer: "The number of bits used to represent a pixel's colour",
-        hint: "It describes how much colour information is stored per pixel."
+        answer: "Byte",
+        hint: "Eight bits make one byte."
     },
     {
         type: "fill",
-        question: "An image is 4 pixels wide and 3 pixels high. It contains ____ pixels.",
-        description: "Enter the total number of pixels.",
-        answer: "12",
-        hint: "Multiply 4 by 3."
-    },
-    {
-        type: "mcq",
-        question: "Which factor can affect the size of an uncompressed digital image?",
+        question: "One binary digit (0 or 1) is called a ______.",
         description: "",
-        options: [
-            "Image dimensions and colour depth",
-            "Keyboard colour",
-            "Mouse shape",
-            "Speaker volume"
-        ],
-        answer: "Image dimensions and colour depth",
-        hint: "Consider the number of pixels and the data stored for each pixel."
-    },
-    {
-        type: "pixel",
-        question: "Create a house using pixels.",
-        description: "Click the squares to reproduce the house pattern.",
-        pattern: "0010001110010100111001110",
-        hint: "Look for a roof, a door or centre section, and a base."
-    },
-    {
-        type: "mcq",
-        question: "How many different values can one bit represent?",
-        description: "",
-        options: ["2", "4", "8", "16"],
-        answer: "2",
-        hint: "One bit can be either 0 or 1."
+        answer: "Bit",
+        hint: "A bit is the smallest unit of binary data."
     },
     {
         type: "fill",
-        question: "A grid of pixels can be used to represent a digital ____.",
-        description: "Type the missing word.",
-        answer: "image",
-        hint: "A photograph on a computer screen is an example."
-    },
-    {
-        type: "pixel",
-        question: "Create a tree using pixels.",
-        description: "Click the squares to reproduce the tree pattern.",
-        pattern: "0010000100011100010001110",
-        hint: "Look for a leafy top and a trunk below it."
+        question: "Alphabetic data includes capital letters, small letters and ______.",
+        description: "",
+        answer: "Spaces",
+        hint: "Spaces separate words in alphabetic text."
     },
     {
         type: "mcq",
-        question: "Which statement about digital images is correct?",
+        question: "Computers can understand letters directly.",
         description: "",
-        options: [
-            "Images can be represented using pixels and binary data",
-            "Digital images cannot be stored on computers",
-            "Every image must contain only one pixel",
-            "Pixels are physical keyboard buttons"
+        options: ["True", "False"],
+        answer: "False",
+        hint: "Computers represent text using numerical codes and binary."
+    },
+    {
+        type: "mcq",
+        question: "A space is also a character.",
+        description: "",
+        options: ["True", "False"],
+        answer: "True",
+        hint: "Spaces have their own character codes."
+    },
+    {
+        type: "mcq",
+        question: "ASCII and Unicode are code systems that give numbers to characters.",
+        description: "",
+        options: ["True", "False"],
+        answer: "True",
+        hint: "Both systems associate characters with numerical values."
+    },
+    {
+        type: "mcq",
+        question: "Alphabetic data includes the digits 0 to 9.",
+        description: "",
+        options: ["True", "False"],
+        answer: "False",
+        hint: "Digits belong to numeric data."
+    },
+    {
+        type: "mcq",
+        question: "@, # and % are special characters.",
+        description: "",
+        options: ["True", "False"],
+        answer: "True",
+        hint: "These are symbols rather than letters or digits."
+    },
+    {
+        type: "mcq",
+        question: "What type of data is “Hello”?",
+        description: "",
+        options: ["Numeric", "Alphabetic", "Alphanumeric", "Binary"],
+        answer: "Alphabetic",
+        hint: "Hello contains only letters."
+    },
+    {
+        type: "mcq",
+        question: "What type of data is “2025”?",
+        description: "",
+        options: ["Numeric", "Alphabetic", "Alphanumeric", "Special"],
+        answer: "Numeric",
+        hint: "2025 contains only digits."
+    },
+    {
+        type: "mcq",
+        question: "What type of data is “Dorji12@”?",
+        description: "",
+        options: ["Numeric", "Alphabetic", "Alphanumeric", "Binary"],
+        answer: "Alphanumeric",
+        hint: "The text combines letters, digits, and a symbol."
+    },
+    {
+        type: "mcq",
+        question: "Which of these is a special character?",
+        description: "",
+        options: ["A", "5", "b", "@"],
+        answer: "@",
+        hint: "Look for the symbol rather than a letter or digit."
+    },
+    {
+        type: "mcq",
+        question: "Which number system do computers use to store text?",
+        description: "",
+        options: ["Decimal", "Binary", "Octal", "Hexadecimal"],
+        answer: "Binary",
+        hint: "Computer data is stored using 0s and 1s."
+    },
+    {
+        type: "fill",
+        question: "Arrange the letters to form a word: T, X, E, T.",
+        description: "",
+        answer: "TEXT",
+        hint: "The word describes written characters."
+    },
+    {
+        type: "fill",
+        question: "Arrange the letters to form a word: C, O, D, E.",
+        description: "",
+        answer: "CODE",
+        hint: "A code system represents characters using numbers."
+    },
+    {
+        type: "fill",
+        question: "Arrange the words to form a sentence: stored / text / as / binary / is.",
+        description: "",
+        answer: "Text is stored as binary.",
+        hint: "Begin with Text, followed by is."
+    },
+    {
+        type: "fill",
+        question: "Arrange the steps of storing text in the correct order: Binary code / Character / Number code.",
+        description: "",
+        answer: "Character → Number code → Binary code",
+        hint: "A character is assigned a number before being represented in binary."
+    },
+    {
+        type: "matching",
+        question: "Match each data type with its correct description.",
+        description: "",
+        pairs: [
+            {
+                item: "Alphabetic",
+                answer: "c"
+            },
+            {
+                item: "Numeric",
+                answer: "a"
+            },
+            {
+                item: "Alphanumeric",
+                answer: "b"
+            }
         ],
-        answer: "Images can be represented using pixels and binary data",
-        hint: "Digital images are stored as computer data."
+        choices: [
+            {
+                value: "a",
+                label: "a. Digits, +/− signs, decimal point"
+            },
+            {
+                value: "b",
+                label: "b. Letters, numbers and symbols like @ # %"
+            },
+            {
+                value: "c",
+                label: "c. Letters A–Z, a–z and spaces"
+            }
+        ],
+        answer: "c,a,b",
+        hint: "Alphabetic means letters, numeric means numbers, and alphanumeric combines them."
     }
 ];
 
@@ -760,7 +751,8 @@ function loadQuestion() {
         `Question ${currentQuestion + 1} of ${questions.length}`;
 
     $("question").textContent = q.question;
-    $("questionDescription").textContent = q.description || "";
+    $("questionDescription").textContent = "";
+
     $("answerArea").innerHTML = "";
     $("hintBox").textContent = q.hint;
     $("hintBox").classList.remove("show");
@@ -778,6 +770,7 @@ function loadQuestion() {
     if (q.type === "mcq") renderMCQ(q);
     if (q.type === "fill") renderFill();
     if (q.type === "pixel") renderPixel();
+    if (q.type === "matching") renderMatching(q);
 }
 
 function renderMCQ(q) {
@@ -828,6 +821,48 @@ function renderFill() {
 
     $("answerArea").appendChild(input);
     input.focus();
+}
+
+function renderMatching(q) {
+    q.pairs.forEach((pair, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.style.marginBottom = "18px";
+
+        const label = document.createElement("label");
+        label.textContent = `${index + 1}. ${pair.item}`;
+        label.style.display = "block";
+        label.style.fontWeight = "700";
+        label.style.marginBottom = "8px";
+
+        const dropdown = document.createElement("select");
+        dropdown.className = "fill-input matching-select";
+        dropdown.style.marginBottom = "0";
+
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "Select the correct description";
+        dropdown.appendChild(placeholder);
+
+        q.choices.forEach(choice => {
+            const option = document.createElement("option");
+            option.value = choice.value;
+            option.textContent = choice.label;
+            dropdown.appendChild(option);
+        });
+
+        dropdown.addEventListener("change", () => {
+            const selects = document.querySelectorAll(".matching-select");
+            const completed = Array.from(selects).every(
+                select => select.value !== ""
+            );
+
+            $("nextButton").classList.toggle("hidden", !completed);
+        });
+
+        wrapper.appendChild(label);
+        wrapper.appendChild(dropdown);
+        $("answerArea").appendChild(wrapper);
+    });
 }
 
 function renderPixel() {
@@ -887,6 +922,12 @@ function getUserAnswer(q) {
         return $("fillAnswer").value.trim();
     }
 
+    if (q.type === "matching") {
+        return Array.from(
+            document.querySelectorAll(".matching-select")
+        ).map(select => select.value).join(",");
+    }
+
     if (q.type === "pixel") {
         return Array.from(
             $("pixelGrid").querySelectorAll(".pixel")
@@ -913,6 +954,20 @@ function displayAnswer(q, answer) {
         return "Pixel pattern submitted";
     }
 
+    if (q.type === "matching") {
+        const values = String(answer || "").split(",");
+        const labels = {
+            a: "a. Digits, +/− signs, decimal point",
+            b: "b. Letters, numbers and symbols like @ # %",
+            c: "c. Letters A–Z, a–z and spaces"
+        };
+
+        return values.map((value, index) => {
+            const types = ["Alphabetic", "Numeric", "Alphanumeric"];
+            return `${types[index]}: ${labels[value] || "Not selected"}`;
+        }).join(" | ");
+    }
+
     return answer || "No answer";
 }
 
@@ -926,6 +981,10 @@ function nextQuestion() {
         if (q.type === "fill") {
             $("fillAnswer").focus();
         }
+        return;
+    }
+
+    if (q.type === "matching" && userAnswer.split(",").some(value => !value)) {
         return;
     }
 
@@ -981,12 +1040,11 @@ function showResults() {
 
     $("encouragement").textContent =
         percentage >= 80
-            ? "Excellent work! You understand image representation very well."
+            ? "Excellent work! You understand text representation very well."
             : percentage >= 50
                 ? "Good effort! Review your answers and keep practising."
                 : "Keep practising. Review your answers to improve.";
 
-    // These fields exist only for authenticated students.
     const resultScore = $("resultScore");
     const resultTotal = $("resultTotal");
     const resultPercentage = $("resultPercentage");
@@ -1000,7 +1058,6 @@ function showResults() {
     showReview();
 
     if (!isAuthenticated) {
-        // Guests see only their final result, review, and Home button.
         $("topBar").classList.add("hidden");
         $("progressSection").classList.add("hidden");
     }
@@ -1035,12 +1092,10 @@ function showReview() {
         if (!item.isCorrect) {
             const correctAnswer = document.createElement("div");
             correctAnswer.className = "review-line";
-
             correctAnswer.textContent =
                 item.type === "pixel"
                     ? "Correct answer: Reproduce the target picture pattern shown by the activity."
                     : `Correct answer: ${displayAnswer({type: item.type}, item.correctAnswer)}`;
-
             box.appendChild(correctAnswer);
         }
 

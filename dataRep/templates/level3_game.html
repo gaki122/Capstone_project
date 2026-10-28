@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Quest - Level 3</title>
+<title>Data Quest: Level 3</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +25,7 @@
     --border: #e8dfcd;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -77,9 +75,7 @@ h1, h2, h3, .title, .btn, .dashboard-button {
     margin: 5px;
 }
 
-.dashboard-button:hover {
-    background: #e8e0d0;
-}
+.dashboard-button:hover { background: #e8e0d0; }
 
 .title {
     font-size: 26px;
@@ -173,11 +169,6 @@ h1, h2, h3, .title, .btn, .dashboard-button {
     font-weight: 700;
 }
 
-.option:disabled {
-    cursor: default;
-    opacity: .85;
-}
-
 .fill-input {
     width: 100%;
     padding: 15px 16px;
@@ -207,9 +198,7 @@ h1, h2, h3, .title, .btn, .dashboard-button {
     transition: .2s;
 }
 
-.btn:hover {
-    background: var(--green-dark);
-}
+.btn:hover { background: var(--green-dark); }
 
 .btn-secondary {
     background: #eee9df;
@@ -217,13 +206,9 @@ h1, h2, h3, .title, .btn, .dashboard-button {
     border: 1px solid var(--border);
 }
 
-.btn-secondary:hover {
-    background: #e3dbcd;
-}
+.btn-secondary:hover { background: #e3dbcd; }
 
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
 .hint-button {
     background: var(--gold);
@@ -231,9 +216,7 @@ h1, h2, h3, .title, .btn, .dashboard-button {
     margin-bottom: 15px;
 }
 
-.hint-button:hover {
-    background: #dca74a;
-}
+.hint-button:hover { background: #dca74a; }
 
 .hint-box {
     background: var(--cream);
@@ -246,18 +229,14 @@ h1, h2, h3, .title, .btn, .dashboard-button {
     display: none;
 }
 
-.hint-box.show {
-    display: block;
-}
+.hint-box.show { display: block; }
 
 .next-area {
     text-align: right;
     margin-top: 20px;
 }
 
-.result-card {
-    text-align: center;
-}
+.result-card { text-align: center; }
 
 .result-card h2 {
     font-size: 26px;
@@ -320,47 +299,166 @@ h1, h2, h3, .title, .btn, .dashboard-button {
 .review-line {
     margin-top: 6px;
     line-height: 1.5;
-    overflow-wrap: anywhere;
 }
 
-.audio-visual {
-    padding: 18px;
-    background: #edf3ec;
+/* Image question illustration */
+.image-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: #f3f5ef;
     border: 1px solid #d2e1d4;
     border-radius: 12px;
-    margin: 15px 0 20px;
+    margin-bottom: 20px;
+}
+
+.pixel-example {
+    display: grid;
+    grid-template-columns: repeat(8, 19px);
+    gap: 2px;
+}
+
+.pixel-example span {
+    width: 19px;
+    height: 19px;
+    background: white;
+    border: 1px solid #e0e0e0;
+}
+
+.pixel-example span.black {
+    background: #202020;
+}
+
+.visual-label {
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 9px;
+}
+
+.resolution-box {
+    background: var(--green);
+    border: 3px solid var(--gold);
+    border-radius: 5px;
+}
+
+.visual-block {
     text-align: center;
 }
 
-.wave {
+/* Arrange question */
+.arrange-instruction {
+    color: var(--muted);
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.arrange-options,
+.arrange-answer {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 65px;
+    padding: 12px;
+    border-radius: 11px;
+    margin-bottom: 15px;
+}
+
+.arrange-options {
+    background: #f3f0e8;
+    border: 1px solid var(--border);
+}
+
+.arrange-answer {
+    background: #edf3ec;
+    border: 2px dashed #91ae9c;
+}
+
+.arrange-chip {
+    padding: 11px 15px;
+    background: white;
+    border: 1px solid #d4cbb9;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--green-dark);
+}
+
+.arrange-chip:hover {
+    border-color: var(--green);
+}
+
+.arrange-chip:focus-visible {
+    outline: 3px solid var(--gold);
+}
+
+/* Matching dropdown */
+.matching-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 18px;
+    background: #f3f5ef;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.matching-term {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--green-dark);
+    min-width: 130px;
+}
+
+.matching-arrow {
+    font-size: 25px;
+    color: var(--maroon);
+}
+
+.matching-select {
+    flex: 1;
+    min-width: 230px;
+    margin: 0;
+    background: white;
+}
+
+/* Calculation diagram */
+.calculation-visual {
+    padding: 20px;
+    background: #f3f5ef;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.calculation-width,
+.calculation-height {
+    font-weight: 800;
+    color: var(--green-dark);
+}
+
+.calculation-rectangle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    height: 80px;
-    margin: 12px 0;
+    gap: 15px;
+    margin-top: 10px;
 }
 
-.wave span {
-    width: 9px;
-    border-radius: 5px;
-    background: var(--green);
-}
-
-.sample-grid {
+.calculation-grid {
     display: grid;
-    grid-template-columns: repeat(8, minmax(30px, 1fr));
-    gap: 7px;
-    margin: 15px 0;
+    gap: 1px;
+    background: #bbb;
+    border: 2px solid var(--green-dark);
+    max-width: 100%;
 }
 
-.sample-cell {
-    padding: 12px 3px;
-    background: #f3f0e8;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    font-weight: 700;
-    text-align: center;
+.calculation-grid span {
+    background: #27332e;
 }
 
 .guest-home-area {
@@ -389,13 +487,9 @@ h1, h2, h3, .title, .btn, .dashboard-button {
         margin: 15px auto;
     }
 
-    .game-card {
-        padding: 20px;
-    }
+    .game-card { padding: 20px; }
 
-    .top-bar {
-        align-items: stretch;
-    }
+    .top-bar { align-items: stretch; }
 
     .title {
         order: -1;
@@ -403,16 +497,17 @@ h1, h2, h3, .title, .btn, .dashboard-button {
         font-size: 23px;
     }
 
-    .question {
-        font-size: 20px;
+    .question { font-size: 20px; }
+
+    .next-area { text-align: left; }
+
+    .pixel-example {
+        grid-template-columns: repeat(8, 14px);
     }
 
-    .next-area {
-        text-align: left;
-    }
-
-    .sample-grid {
-        grid-template-columns: repeat(4, minmax(35px, 1fr));
+    .pixel-example span {
+        width: 14px;
+        height: 14px;
     }
 }
 </style>
@@ -455,6 +550,8 @@ h1, h2, h3, .title, .btn, .dashboard-button {
         <div class="question" id="question"></div>
         <div class="question-description" id="questionDescription"></div>
 
+        <div id="visualArea"></div>
+
         <button id="hintButton" class="btn hint-button" type="button">
             💡 Hint
         </button>
@@ -484,10 +581,15 @@ h1, h2, h3, .title, .btn, .dashboard-button {
                 <input type="hidden" name="total_questions" id="resultTotal">
                 <input type="hidden" name="percentage" id="resultPercentage">
                 <input type="hidden" name="stars" id="resultStars">
-                <button type="submit" class="btn">💾 Save Result</button>
+
+                <button type="submit" class="btn">
+                    💾 Save Result
+                </button>
             </form>
 
-            <button id="playAgainButton" class="btn btn-secondary" type="button">
+            <button id="playAgainButton"
+                    class="btn btn-secondary"
+                    type="button">
                 🔄 Play Again
             </button>
 
@@ -497,7 +599,8 @@ h1, h2, h3, .title, .btn, .dashboard-button {
             </p>
         {% else %}
             <div class="guest-home-area">
-                <a href="{% url 'home' %}" class="dashboard-button">🏠 Home</a>
+                <a href="{% url 'home' %}"
+                   class="dashboard-button">🏠 Home</a>
             </div>
         {% endif %}
     </div>
@@ -510,232 +613,300 @@ h1, h2, h3, .title, .btn, .dashboard-button {
 </div>
 
 <script>
-const isStudent = {% if user.is_authenticated and student_profile %}true{% else %}false{% endif %};
+const isStudent =
+    {% if user.is_authenticated and student_profile %}
+        true
+    {% else %}
+        false
+    {% endif %};
+
+/*
+========================================
+LEVEL 3: IMAGE REPRESENTATION
+20 QUESTIONS FROM IMAGE DOCUMENT
+========================================
+*/
 
 const questions = [
+
+    // GAME 1: IDENTIFY
+
     {
         type: "mcq",
-        question: "How is sound normally produced?",
-        description: "Choose the best answer.",
+        question: "What is a pixel?",
+        description: "",
+        visual: "pixel",
         options: [
-            "By vibrations that travel through a medium as sound waves",
-            "By pixels changing colour",
-            "By binary digits moving through a monitor",
-            "By light alone"
+            "The smallest individual element of a digital image",
+            "A type of audio file",
+            "A computer keyboard",
+            "A type of internet connection"
         ],
-        answer: "By vibrations that travel through a medium as sound waves",
-        hint: "Think about what happens when a speaker cone or guitar string vibrates."
+        answer: "The smallest individual element of a digital image",
+        hint: "A digital image is made from many tiny picture elements."
     },
     {
         type: "mcq",
-        question: "What is analogue sound?",
+        question: "Which image type is made up of pixels?",
+        description: "",
+        visual: "pixel",
+        options: [
+            "Raster (bitmap) image",
+            "Vector image made only from mathematical paths",
+            "Audio waveform",
+            "Text document"
+        ],
+        answer: "Raster (bitmap) image",
+        hint: "A raster image stores a grid of pixels."
+    },
+    {
+        type: "mcq",
+        question: "What does image resolution describe?",
+        description: "",
+        visual: "resolution",
+        options: [
+            "The number of pixels in an image, usually expressed as width × height",
+            "The loudness of a sound",
+            "The name of an image file",
+            "The number of folders on a computer"
+        ],
+        answer: "The number of pixels in an image, usually expressed as width × height",
+        hint: "Resolution is often written as 1920 × 1080."
+    },
+    {
+        type: "mcq",
+        question: "Which usually contains more pixels: 1920 × 1080 or 640 × 480?",
+        description: "",
+        visual: "compare",
+        options: [
+            "1920 × 1080",
+            "640 × 480",
+            "Both contain the same number",
+            "Neither contains pixels"
+        ],
+        answer: "1920 × 1080",
+        hint: "Multiply width by height for each resolution."
+    },
+    {
+        type: "mcq",
+        question: "Which is an image file extension?",
         description: "",
         options: [
-            "Sound represented by a continuous signal",
-            "Sound stored only as text",
-            "Sound made entirely of separate folders",
-            "Sound that cannot change in volume"
+            ".jpg",
+            ".mp3",
+            ".txt"
         ],
-        answer: "Sound represented by a continuous signal",
-        hint: "An analogue signal can vary continuously over time."
+        answer: ".jpg",
+        hint: "JPG is commonly used for photographs."
     },
+
+    // GAME 2: ARRANGE
+
     {
-        type: "mcq",
-        question: "How does a computer represent recorded sound digitally?",
+        type: "arrange",
+        question: "Arrange the steps in correct order to display an image on a screen.",
         description: "",
-        options: [
-            "By taking samples of the sound signal and storing numerical values",
-            "By saving the shape of a speaker",
-            "By recording only the name of the song",
-            "By converting sound directly into image pixels"
+        items: [
+            "Display image",
+            "Capture image",
+            "Store pixel data"
         ],
-        answer: "By taking samples of the sound signal and storing numerical values",
-        hint: "Digital audio measures the signal at regular intervals."
+        answer: [
+            "Capture image",
+            "Store pixel data",
+            "Display image"
+        ],
+        hint: "First capture the image, then store its pixel data, and finally display it."
     },
     {
-        type: "fill",
-        question: "The process of measuring an analogue sound signal at regular intervals is called ______.",
-        description: "Type the missing word.",
-        answer: ["sampling", "sample taking"],
-        hint: "The word begins with 'sample'."
-    },
-    {
-        type: "mcq",
-        question: "What does the sample rate tell us?",
+        type: "arrange",
+        question: "Arrange from smaller to larger resolution.",
         description: "",
-        options: [
-            "How many samples are taken per second",
-            "How many speakers are in a room",
-            "How long the audio file name is",
-            "How many songs are in a folder"
+        items: [
+            "1000 × 1000",
+            "100 × 100",
+            "500 × 500"
         ],
-        answer: "How many samples are taken per second",
-        hint: "Sample rate is measured in samples per second or hertz."
+        answer: [
+            "100 × 100",
+            "500 × 500",
+            "1000 × 1000"
+        ],
+        hint: "Compare the total pixel count of each resolution."
     },
     {
-        type: "mcq",
-        question: "An audio recording has a sample rate of 44,100 Hz. How many samples are taken each second?",
-        description: "Select the correct number.",
-        options: ["44.1", "441", "4,410", "44,100"],
-        answer: "44,100",
-        hint: "One hertz means one occurrence per second."
-    },
-    {
-        type: "fill",
-        question: "Sample rate is commonly measured in ______ (Hz).",
-        description: "Type the full word.",
-        answer: ["hertz", "hz"],
-        hint: "The unit is named after physicist Heinrich Hertz."
-    },
-    {
-        type: "mcq",
-        question: "What does bit depth describe in digital audio?",
+        type: "arrange",
+        question: "Arrange the terms from part to whole.",
         description: "",
-        options: [
-            "The number of bits used to represent each sample's amplitude",
-            "The number of minutes in a song",
-            "The number of speakers connected to a computer",
-            "The physical depth of a microphone"
+        items: [
+            "Image",
+            "Pixel"
         ],
-        answer: "The number of bits used to represent each sample's amplitude",
-        hint: "Bit depth affects how precisely each sample's amplitude can be represented."
+        answer: [
+            "Pixel",
+            "Image"
+        ],
+        hint: "An image is made up of individual pixels."
     },
     {
-        type: "mcq",
-        question: "Which recording can represent more amplitude levels per sample?",
+        type: "arrange",
+        question: "Arrange the steps in correct order to edit an image file.",
         description: "",
-        options: [
-            "16-bit audio",
-            "4-bit audio",
-            "Both always represent exactly the same number",
-            "Neither can represent amplitude"
+        items: [
+            "Save image",
+            "Open image",
+            "Edit image"
         ],
-        answer: "16-bit audio",
-        hint: "More bits allow more possible numerical values."
+        answer: [
+            "Open image",
+            "Edit image",
+            "Save image"
+        ],
+        hint: "Open the file before editing and save your changes afterward."
     },
     {
-        type: "fill",
-        question: "A 3-bit sample can represent ______ different binary values.",
-        description: "Enter a number.",
-        answer: ["8", "eight"],
-        hint: "Calculate 2 raised to the power of 3."
-    },
-    {
-        type: "mcq",
-        question: "What is the difference between mono and stereo audio?",
+        type: "arrange",
+        question: "Arrange the dimensions from lowest to highest pixel count.",
         description: "",
-        options: [
-            "Mono uses one audio channel; stereo uses two",
-            "Mono uses two channels; stereo uses one",
-            "Mono is always compressed; stereo is never compressed",
-            "There is no difference"
+        items: [
+            "20 × 10",
+            "30 × 10",
+            "10 × 10"
         ],
-        answer: "Mono uses one audio channel; stereo uses two",
-        hint: "Count the audio channels."
-    },
-    {
-        type: "mcq",
-        question: "A recording uses 48,000 samples per second, 16 bits per sample, and one channel. What is its raw data rate in bits per second?",
-        description: "Assume uncompressed audio.",
-        options: [
-            "48,000 bits/s",
-            "768,000 bits/s",
-            "96,000 bits/s",
-            "1,536,000 bits/s"
+        answer: [
+            "10 × 10",
+            "20 × 10",
+            "30 × 10"
         ],
-        answer: "768,000 bits/s",
-        hint: "Multiply sample rate × bit depth × number of channels."
+        hint: "The pixel counts are 200, 100, and 300."
     },
+
+    // GAME 3: DRAG & MATCH
+    // Implemented as dropdown matching
+
     {
-        type: "fill",
-        question: "Calculate the raw file size in bytes for 1 second of mono audio recorded at 8,000 Hz and 8 bits per sample. Ignore headers and compression.",
-        description: "Enter the number of bytes only.",
-        answer: ["8000", "8,000"],
-        hint: "Bytes = sample rate × bit depth × channels × duration ÷ 8."
-    },
-    {
-        type: "mcq",
-        question: "A 10-second stereo recording uses 44,100 Hz and 16-bit samples. What is its approximate raw size in bytes?",
-        description: "Ignore headers and compression.",
-        options: [
-            "882,000 bytes",
-            "1,764,000 bytes",
-            "176,400 bytes",
-            "44,100 bytes"
-        ],
-        answer: "1,764,000 bytes",
-        hint: "Calculate 44,100 × 16 × 2 × 10, then divide by 8."
-    },
-    {
-        type: "mcq",
-        question: "Two recordings have the same duration, sample rate, and bit depth. One is mono and one is stereo. Which usually has the larger uncompressed data size?",
+        type: "matching",
+        question: "Match JPEG with its common use.",
         description: "",
-        options: [
-            "Stereo, because it has two channels",
-            "Mono, because it has one channel",
-            "They must have different durations",
-            "They always have the same size"
+        term: "JPEG",
+        choices: [
+            "Photographs and realistic images",
+            "Storing sound recordings",
+            "Writing plain text",
+            "Creating spreadsheet formulas"
         ],
-        answer: "Stereo, because it has two channels",
-        hint: "Stereo stores two audio channels."
+        answer: "Photographs and realistic images",
+        hint: "JPEG is widely used for digital photographs."
     },
     {
-        type: "fill",
-        question: "Complete the formula: raw audio size in bytes = sample rate × bit depth × channels × duration ÷ ______.",
-        description: "Enter the number.",
-        answer: ["8", "eight"],
-        hint: "There are eight bits in one byte."
-    },
-    {
-        type: "mcq",
-        question: "A student doubles the sample rate but keeps bit depth, channels, and duration unchanged. What happens to the raw audio file size?",
+        type: "matching",
+        question: "Match PNG with a feature it supports.",
         description: "",
-        options: [
-            "It approximately doubles",
-            "It becomes half as large",
-            "It stays the same",
-            "It becomes zero"
+        term: "PNG",
+        choices: [
+            "Transparency",
+            "Recording microphone audio",
+            "Running computer programs",
+            "Storing only plain text"
         ],
-        answer: "It approximately doubles",
-        hint: "More samples are stored every second."
+        answer: "Transparency",
+        hint: "PNG can store images with transparent backgrounds."
     },
     {
-        type: "mcq",
-        question: "A sound editor uses a very low sample rate when recording high-frequency sounds. What may happen?",
+        type: "matching",
+        question: "Match pixel with its meaning.",
         description: "",
-        options: [
-            "Some sound details may be represented inaccurately",
-            "The recording automatically gains more detail",
-            "The audio becomes a digital image",
-            "The file must contain more samples"
+        term: "Pixel",
+        choices: [
+            "The smallest individual element of a digital image",
+            "The total length of a video",
+            "A sound frequency",
+            "A computer network address"
         ],
-        answer: "Some sound details may be represented inaccurately",
-        hint: "The sample rate limits how well changes in a sound signal can be captured."
+        answer: "The smallest individual element of a digital image",
+        hint: "Pixel is short for picture element."
     },
     {
-        type: "fill",
-        question: "A recording has 2 channels, 10 samples per second, 8 bits per sample, and lasts 5 seconds. Its raw size is ______ bytes.",
-        description: "Calculate the answer. Ignore headers and compression.",
-        answer: ["100", "100 bytes"],
-        hint: "Use 10 × 8 × 2 × 5 ÷ 8."
+        type: "matching",
+        question: "Match resolution with its meaning.",
+        description: "",
+        term: "Resolution",
+        choices: [
+            "The number of pixels across an image's width and height",
+            "The speed of an internet connection",
+            "The volume of a speaker",
+            "The number of characters in a document"
+        ],
+        answer: "The number of pixels across an image's width and height",
+        hint: "Resolution is commonly expressed as width × height in pixels."
     },
     {
-        type: "mcq",
-        question: "A student says, 'A compressed audio file must always have better sound quality than an uncompressed file.' Is the statement correct?",
-        description: "Choose the best explanation.",
-        options: [
-            "No. Compression can reduce file size, and some methods may discard audio information",
-            "Yes. Compression always increases bit depth",
-            "Yes. Compressed audio always contains more samples",
-            "No. Compression converts all sound into text"
+        type: "matching",
+        question: "Match .gif with a common feature.",
+        description: "",
+        term: ".gif",
+        choices: [
+            "Simple animations",
+            "High-quality audio recording",
+            "Executable software",
+            "Plain text editing"
         ],
-        answer: "No. Compression can reduce file size, and some methods may discard audio information",
-        hint: "Compression concerns how audio data is encoded and stored."
+        answer: "Simple animations",
+        hint: "GIF files can contain multiple frames for animation."
+    },
+
+    // GAME 4: CALCULATE
+
+    {
+        type: "calculate",
+        question: "An image is 10 pixels wide and 5 pixels high. How many pixels does it contain?",
+        description: "",
+        width: 10,
+        height: 5,
+        answer: ["50", "50 pixels"],
+        hint: "Total pixels = width × height = 10 × 5."
+    },
+    {
+        type: "calculate",
+        question: "An image is 20 × 10 pixels. How many pixels does it contain?",
+        description: "",
+        width: 20,
+        height: 10,
+        answer: ["200", "200 pixels"],
+        hint: "Multiply 20 by 10."
+    },
+    {
+        type: "calculate",
+        question: "An image is 8 pixels wide and 8 pixels high. How many pixels does it contain?",
+        description: "",
+        width: 8,
+        height: 8,
+        answer: ["64", "64 pixels"],
+        hint: "Multiply 8 by 8."
+    },
+    {
+        type: "calculate",
+        question: "An image is 12 pixels wide and 4 pixels high. How many pixels does it contain?",
+        description: "",
+        width: 12,
+        height: 4,
+        answer: ["48", "48 pixels"],
+        hint: "Multiply 12 by 4."
+    },
+    {
+        type: "calculate",
+        question: "An image is 100 pixels wide and 50 pixels high. How many pixels does it contain?",
+        description: "",
+        width: 100,
+        height: 50,
+        answer: ["5000", "5,000", "5000 pixels"],
+        hint: "Multiply 100 by 50."
     }
 ];
 
 let currentQuestion = 0;
 let userAnswers = [];
+let arrangedItems = [];
 
 const $ = id => document.getElementById(id);
 
@@ -745,6 +916,17 @@ function normalise(value) {
         .toLowerCase()
         .replace(/,/g, "")
         .replace(/\s+/g, " ");
+}
+
+function shuffle(items) {
+    const copy = [...items];
+
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+
+    return copy;
 }
 
 function loadQuestion() {
@@ -757,8 +939,10 @@ function loadQuestion() {
         `Question ${currentQuestion + 1} of ${questions.length}`;
 
     $("question").textContent = q.question;
-    $("questionDescription").textContent = q.description || "";
+    $("questionDescription").textContent = "";
+
     $("answerArea").innerHTML = "";
+    $("visualArea").innerHTML = "";
 
     $("hintBox").textContent = q.hint;
     $("hintBox").classList.remove("show");
@@ -769,19 +953,129 @@ function loadQuestion() {
             ? "Finish Level"
             : "Next Question →";
 
-    const progress = (currentQuestion / questions.length) * 100;
+    const progress =
+        (currentQuestion / questions.length) * 100;
+
     $("progressBar").style.width = `${progress}%`;
-    $("progressText").textContent = `${Math.round(progress)}%`;
+    $("progressText").textContent =
+        `${Math.round(progress)}%`;
+
+    if (q.visual) {
+        renderVisual(q.visual);
+    }
 
     if (q.type === "mcq") {
         renderMCQ(q);
-    } else {
-        renderFill();
+    } else if (q.type === "arrange") {
+        renderArrange(q);
+    } else if (q.type === "matching") {
+        renderMatching(q);
+    } else if (q.type === "calculate") {
+        renderCalculation(q);
+    }
+}
+
+function renderVisual(type) {
+    const area = $("visualArea");
+
+    if (type === "pixel") {
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-visual";
+
+        const block = document.createElement("div");
+        block.className = "visual-block";
+
+        const grid = document.createElement("div");
+        grid.className = "pixel-example";
+
+        const pattern = [
+            "00111100",
+            "01000010",
+            "10000001",
+            "10100101",
+            "10000001",
+            "10100101",
+            "01011010",
+            "00111100"
+        ];
+
+        pattern.join("").split("").forEach(value => {
+            const cell = document.createElement("span");
+            if (value === "1") cell.className = "black";
+            grid.appendChild(cell);
+        });
+
+        const label = document.createElement("div");
+        label.className = "visual-label";
+        label.textContent = "Zoomed-in pixel image";
+
+        block.appendChild(grid);
+        block.appendChild(label);
+        wrapper.appendChild(block);
+        area.appendChild(wrapper);
+    }
+
+    if (type === "resolution") {
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-visual";
+
+        const sizes = [
+            { width: 70, height: 70, label: "Lower resolution" },
+            { width: 160, height: 110, label: "Higher resolution" }
+        ];
+
+        sizes.forEach(size => {
+            const block = document.createElement("div");
+            block.className = "visual-block";
+
+            const rectangle = document.createElement("div");
+            rectangle.className = "resolution-box";
+            rectangle.style.width = size.width + "px";
+            rectangle.style.height = size.height + "px";
+
+            const label = document.createElement("div");
+            label.className = "visual-label";
+            label.textContent = size.label;
+
+            block.appendChild(rectangle);
+            block.appendChild(label);
+            wrapper.appendChild(block);
+        });
+
+        area.appendChild(wrapper);
+    }
+
+    if (type === "compare") {
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-visual";
+
+        [
+            { width: 200, height: 113, label: "1920 × 1080" },
+            { width: 90, height: 68, label: "640 × 480" }
+        ].forEach(size => {
+            const block = document.createElement("div");
+            block.className = "visual-block";
+
+            const rectangle = document.createElement("div");
+            rectangle.className = "resolution-box";
+            rectangle.style.width = size.width + "px";
+            rectangle.style.height = size.height + "px";
+
+            const label = document.createElement("div");
+            label.className = "visual-label";
+            label.textContent = size.label;
+
+            block.appendChild(rectangle);
+            block.appendChild(label);
+            wrapper.appendChild(block);
+        });
+
+        area.appendChild(wrapper);
     }
 }
 
 function renderMCQ(q) {
-    const options = [...q.options].sort(() => Math.random() - 0.5);
+    const options = shuffle(q.options);
 
     options.forEach(option => {
         const button = document.createElement("button");
@@ -790,9 +1084,11 @@ function renderMCQ(q) {
         button.textContent = option;
 
         button.addEventListener("click", () => {
-            $("answerArea").querySelectorAll(".option").forEach(item => {
-                item.classList.remove("selected");
-            });
+            $("answerArea")
+                .querySelectorAll(".option")
+                .forEach(item => {
+                    item.classList.remove("selected");
+                });
 
             button.classList.add("selected");
             $("nextButton").classList.remove("hidden");
@@ -802,13 +1098,177 @@ function renderMCQ(q) {
     });
 }
 
-function renderFill() {
+function renderArrange(q) {
+    arrangedItems = [];
+
+    const instruction = document.createElement("p");
+    instruction.className = "arrange-instruction";
+    instruction.textContent =
+        "Click the items in the correct order. Click a selected item to remove it.";
+
+    const optionsArea = document.createElement("div");
+    optionsArea.className = "arrange-options";
+    optionsArea.id = "arrangeOptions";
+
+    const answerLabel = document.createElement("p");
+    answerLabel.textContent = "Your arranged answer:";
+    answerLabel.style.fontWeight = "700";
+
+    const answerArea = document.createElement("div");
+    answerArea.className = "arrange-answer";
+    answerArea.id = "arrangeSelected";
+
+    const shuffled = shuffle(q.items);
+
+    function refresh() {
+        optionsArea.innerHTML = "";
+        answerArea.innerHTML = "";
+
+        shuffled.forEach((item, index) => {
+            if (arrangedItems.some(x => x.index === index)) return;
+
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "arrange-chip";
+            chip.textContent = item;
+
+            chip.addEventListener("click", () => {
+                arrangedItems.push({ index, value: item });
+                refresh();
+            });
+
+            optionsArea.appendChild(chip);
+        });
+
+        arrangedItems.forEach((item, position) => {
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "arrange-chip";
+            chip.textContent =
+                `${position + 1}. ${item.value}`;
+
+            chip.addEventListener("click", () => {
+                arrangedItems.splice(position, 1);
+                refresh();
+            });
+
+            answerArea.appendChild(chip);
+        });
+
+        $("nextButton").classList.toggle(
+            "hidden",
+            arrangedItems.length !== q.items.length
+        );
+    }
+
+    $("answerArea").appendChild(instruction);
+    $("answerArea").appendChild(optionsArea);
+    $("answerArea").appendChild(answerLabel);
+    $("answerArea").appendChild(answerArea);
+
+    refresh();
+}
+
+function renderMatching(q) {
+    const row = document.createElement("div");
+    row.className = "matching-row";
+
+    const term = document.createElement("div");
+    term.className = "matching-term";
+    term.textContent = q.term;
+
+    const arrow = document.createElement("div");
+    arrow.className = "matching-arrow";
+    arrow.textContent = "↔";
+
+    const select = document.createElement("select");
+    select.id = "matchingAnswer";
+    select.className = "fill-input matching-select";
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "-- Select the correct match --";
+    select.appendChild(placeholder);
+
+    shuffle(q.choices).forEach(choice => {
+        const option = document.createElement("option");
+        option.value = choice;
+        option.textContent = choice;
+        select.appendChild(option);
+    });
+
+    select.addEventListener("change", () => {
+        $("nextButton").classList.toggle(
+            "hidden",
+            select.value === ""
+        );
+    });
+
+    row.appendChild(term);
+    row.appendChild(arrow);
+    row.appendChild(select);
+
+    $("answerArea").appendChild(row);
+}
+
+function renderCalculation(q) {
+    const visual = document.createElement("div");
+    visual.className = "calculation-visual";
+
+    const widthLabel = document.createElement("div");
+    widthLabel.className = "calculation-width";
+    widthLabel.textContent = `${q.width} px`;
+
+    const rectangle = document.createElement("div");
+    rectangle.className = "calculation-rectangle";
+
+    const heightLabel = document.createElement("div");
+    heightLabel.className = "calculation-height";
+    heightLabel.textContent = `${q.height} px`;
+
+    const grid = document.createElement("div");
+    grid.className = "calculation-grid";
+
+    const displayCols = Math.min(q.width, 20);
+    const displayRows = Math.min(q.height, 10);
+
+    const cellSize = Math.max(
+        7,
+        Math.min(18, Math.floor(260 / displayCols))
+    );
+
+    grid.style.gridTemplateColumns =
+        `repeat(${displayCols}, ${cellSize}px)`;
+
+    for (let i = 0; i < displayCols * displayRows; i++) {
+        const cell = document.createElement("span");
+        cell.style.width = cellSize + "px";
+        cell.style.height = cellSize + "px";
+        grid.appendChild(cell);
+    }
+
+    rectangle.appendChild(heightLabel);
+    rectangle.appendChild(grid);
+
+    visual.appendChild(widthLabel);
+    visual.appendChild(rectangle);
+
+    const caption = document.createElement("p");
+    caption.style.fontSize = "12px";
+    caption.style.color = "#66736b";
+    caption.textContent =
+        "Diagram is illustrative. Use the labelled dimensions for your calculation.";
+
+    visual.appendChild(caption);
+    $("visualArea").appendChild(visual);
+
     const input = document.createElement("input");
     input.type = "text";
     input.id = "fillAnswer";
     input.className = "fill-input";
-    input.placeholder = "Type your answer here...";
+    input.placeholder = "Enter the total number of pixels...";
     input.autocomplete = "off";
+    input.inputMode = "numeric";
 
     input.addEventListener("input", () => {
         $("nextButton").classList.toggle(
@@ -824,25 +1284,54 @@ function renderFill() {
     });
 
     $("answerArea").appendChild(input);
-    input.focus();
 }
 
 function getUserAnswer(q) {
     if (q.type === "mcq") {
-        const selected = $("answerArea").querySelector(".option.selected");
+        const selected =
+            $("answerArea").querySelector(".option.selected");
+
         return selected ? selected.textContent : "";
     }
 
-    return $("fillAnswer") ? $("fillAnswer").value.trim() : "";
+    if (q.type === "arrange") {
+        return arrangedItems.map(item => item.value).join(" → ");
+    }
+
+    if (q.type === "matching") {
+        return $("matchingAnswer")
+            ? $("matchingAnswer").value
+            : "";
+    }
+
+    if (q.type === "calculate") {
+        return $("fillAnswer")
+            ? $("fillAnswer").value.trim()
+            : "";
+    }
+
+    return "";
 }
 
 function isCorrect(q, answer) {
+    if (q.type === "arrange") {
+        const submitted = arrangedItems.map(item => item.value);
+
+        return submitted.length === q.answer.length &&
+            submitted.every((item, index) =>
+                normalise(item) === normalise(q.answer[index])
+            );
+    }
+
     const user = normalise(answer);
+
     const acceptedAnswers = Array.isArray(q.answer)
         ? q.answer
         : [q.answer];
 
-    return acceptedAnswers.some(correct => normalise(correct) === user);
+    return acceptedAnswers.some(correct =>
+        normalise(correct) === user
+    );
 }
 
 function nextQuestion() {
@@ -854,11 +1343,23 @@ function nextQuestion() {
         return;
     }
 
+    if (q.type === "arrange" &&
+        arrangedItems.length !== q.items.length) {
+        return;
+    }
+
+    const correctAnswer =
+        q.type === "arrange"
+            ? q.answer.join(" → ")
+            : Array.isArray(q.answer)
+                ? q.answer[0]
+                : q.answer;
+
     userAnswers.push({
         questionNumber: currentQuestion + 1,
         question: q.question,
         userAnswer: userAnswer,
-        correctAnswer: Array.isArray(q.answer) ? q.answer[0] : q.answer,
+        correctAnswer: correctAnswer,
         isCorrect: isCorrect(q, userAnswer),
         hint: q.hint
     });
@@ -885,9 +1386,13 @@ function calculateStars(percentage) {
 
 function showResults() {
     const total = questions.length;
+
     const finalScore =
         userAnswers.filter(item => item.isCorrect).length;
-    const percentage = Math.round((finalScore / total) * 100);
+
+    const percentage =
+        Math.round((finalScore / total) * 100);
+
     const stars = calculateStars(percentage);
 
     $("progressBar").style.width = "100%";
@@ -897,16 +1402,21 @@ function showResults() {
     $("gameArea").classList.add("hidden");
     $("resultArea").classList.remove("hidden");
 
-    $("finalScore").textContent = `${finalScore} / ${total}`;
-    $("finalPercentage").textContent = `${percentage}%`;
-    $("finalStars").textContent = "⭐".repeat(stars);
+    $("finalScore").textContent =
+        `${finalScore} / ${total}`;
+
+    $("finalPercentage").textContent =
+        `${percentage}%`;
+
+    $("finalStars").textContent =
+        "⭐".repeat(stars);
 
     $("encouragement").textContent =
         percentage >= 80
-            ? "Excellent work! You understand audio and sound representation very well."
+            ? "Excellent work! You understand image representation very well."
             : percentage >= 50
                 ? "Good effort! Review the answers and keep practising."
-                : "Keep practising. Review the answers to improve your understanding of digital audio.";
+                : "Keep practising. Review the answers to improve your understanding of digital images.";
 
     if (isStudent) {
         $("resultScore").value = finalScore;
@@ -916,7 +1426,11 @@ function showResults() {
     }
 
     showReview();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 function showReview() {
@@ -925,13 +1439,18 @@ function showReview() {
 
     userAnswers.forEach(item => {
         const box = document.createElement("div");
+
         box.className =
             `review-item ${item.isCorrect ? "correct" : "wrong"}`;
 
         const title = document.createElement("div");
         title.className = "review-title";
+
         title.textContent =
-            `Question ${item.questionNumber}: ${item.isCorrect ? "✅ Correct" : "❌ Incorrect"}`;
+            `Question ${item.questionNumber}: ${
+                item.isCorrect ? "✅ Correct" : "❌ Incorrect"
+            }`;
+
         box.appendChild(title);
 
         const question = document.createElement("div");
@@ -943,6 +1462,7 @@ function showReview() {
         userAnswer.className = "review-line";
         userAnswer.textContent =
             `Your answer: ${item.userAnswer || "No answer"}`;
+
         box.appendChild(userAnswer);
 
         if (!item.isCorrect) {
@@ -950,14 +1470,15 @@ function showReview() {
             correctAnswer.className = "review-line";
             correctAnswer.textContent =
                 `Correct answer: ${item.correctAnswer}`;
+
             box.appendChild(correctAnswer);
         }
 
         const hint = document.createElement("div");
         hint.className = "review-line";
         hint.textContent = `Hint: ${item.hint}`;
-        box.appendChild(hint);
 
+        box.appendChild(hint);
         review.appendChild(box);
     });
 }
@@ -974,6 +1495,7 @@ if (playAgainButton && isStudent) {
     playAgainButton.addEventListener("click", () => {
         currentQuestion = 0;
         userAnswers = [];
+        arrangedItems = [];
 
         $("resultArea").classList.add("hidden");
         $("gameArea").classList.remove("hidden");
@@ -982,7 +1504,11 @@ if (playAgainButton && isStudent) {
         $("topScore").textContent = "0";
 
         loadQuestion();
-        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     });
 }
 
