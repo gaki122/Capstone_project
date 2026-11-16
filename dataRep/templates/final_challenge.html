@@ -1,4 +1,5 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -999,10 +1000,12 @@ select:focus-visible {
     <p>&copy; 2026 Data Quest. All rights reserved.</p>
 </div>
 
+<script src="{% static 'dataRep/quiz-audio.js' %}"></script>
 <script>
 /* CURRENT QUESTION */
 let currentQuestion = 1;
 const totalQuestions = 25;
+const checkedQuestions = new Set();
 
 /* CORRECT ANSWERS */
 const correctAnswers = {
@@ -1146,11 +1149,79 @@ function updateProgress() {
 
     document.getElementById(
         "scorePreview"
-    ).textContent = "Score: " + calculateScore();
+    ).textContent = "Score: " + calculateCheckedScore();
+}
+
+function calculateCheckedScore() {
+    let score = 0;
+
+    checkedQuestions.forEach(function(questionNumber) {
+        if (checkQuestion(questionNumber)) {
+            score++;
+        }
+    });
+
+    return score;
+}
+
+function isCurrentQuestionComplete() {
+    const card = document.querySelector(
+        '[data-question="' + currentQuestion + '"]'
+    );
+
+    if (!card) return false;
+
+    const radios = card.querySelectorAll('input[type="radio"]');
+    if (radios.length) {
+        return Array.from(radios).some(function(radio) {
+            return radio.checked;
+        });
+    }
+
+    const selects = card.querySelectorAll("select");
+    if (selects.length) {
+        return Array.from(selects).every(function(select) {
+            return select.value !== "";
+        });
+    }
+
+    const inputs = card.querySelectorAll(".answer-input");
+    return inputs.length > 0 &&
+        Array.from(inputs).every(function(input) {
+            return input.value.trim() !== "";
+        });
+}
+
+function checkCurrentQuestion() {
+    if (checkedQuestions.has(currentQuestion) ||
+        !isCurrentQuestionComplete()) {
+        return false;
+    }
+
+    const correct = checkQuestion(currentQuestion);
+    checkedQuestions.add(currentQuestion);
+    updateProgress();
+    window.quizAudio.playAnswer(correct);
+    window.quizFeedback.showAnswer(
+        correct,
+        correctAnswers[currentQuestion],
+        calculateCheckedScore()
+    );
+
+    const card = document.querySelector(
+        '[data-question="' + currentQuestion + '"]'
+    );
+    card.querySelectorAll("input, select").forEach(function(control) {
+        control.disabled = true;
+    });
+
+    return true;
 }
 
 /* SHOW QUESTION */
 function showQuestion(number) {
+    window.quizFeedback.clear();
+
     document.querySelectorAll(
         ".question-card"
     ).forEach(function(question) {
@@ -1188,10 +1259,21 @@ function showQuestion(number) {
     }
 
     updateProgress();
+
+    if (checkedQuestions.has(number)) {
+        window.quizFeedback.showAnswer(
+            checkQuestion(number),
+            correctAnswers[number],
+            calculateCheckedScore(),
+            false
+        );
+    }
 }
 
 /* NEXT QUESTION */
 function nextQuestion() {
+    if (checkCurrentQuestion()) return;
+
     if (currentQuestion < totalQuestions) {
         currentQuestion++;
         showQuestion(currentQuestion);
@@ -1200,6 +1282,8 @@ function nextQuestion() {
 
 /* PREVIOUS QUESTION */
 function previousQuestion() {
+    if (checkCurrentQuestion()) return;
+
     if (currentQuestion > 1) {
         currentQuestion--;
         showQuestion(currentQuestion);
@@ -1208,6 +1292,8 @@ function previousQuestion() {
 
 /* SUBMIT CHALLENGE */
 function submitChallenge() {
+    if (checkCurrentQuestion()) return;
+
     const score = calculateScore();
 
     const percentage = Math.round(
@@ -1257,6 +1343,10 @@ document.querySelectorAll(
     ".option"
 ).forEach(function(option) {
     option.addEventListener("click", function() {
+        if (checkedQuestions.has(currentQuestion)) {
+            return;
+        }
+
         const radio = option.querySelector("input");
 
         if (!radio) {
@@ -1277,6 +1367,7 @@ document.querySelectorAll(
 
         option.classList.add("selected");
         updateProgress();
+        checkCurrentQuestion();
     });
 });
 
@@ -1285,7 +1376,12 @@ document.querySelectorAll(
     ".answer-input, .matching-select"
 ).forEach(function(element) {
     element.addEventListener("input", updateProgress);
-    element.addEventListener("change", updateProgress);
+    element.addEventListener("change", function() {
+        updateProgress();
+        if (element.matches(".matching-select")) {
+            checkCurrentQuestion();
+        }
+    });
 });
 
 /* START */

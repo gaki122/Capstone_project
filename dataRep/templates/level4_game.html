@@ -657,6 +657,7 @@ h1, h2, h3, .title, .btn, .dashboard-button {
 </div>
 </div>
 
+<script src="{% static 'dataRep/quiz-audio.js' %}"></script>
 <script>
 "use strict";
 
@@ -943,6 +944,7 @@ let currentQuestion = 0;
 let userAnswers = [];
 let displayedOptions = [];
 let quizFinished = false;
+let answered = false;
 
 const $ = id => document.getElementById(id);
 
@@ -972,6 +974,8 @@ function getScore() {
 
 function loadQuestion() {
     const q = questions[currentQuestion];
+    answered = false;
+    window.quizFeedback.clear();
 
     $("topScore").textContent = getScore();
 
@@ -1044,6 +1048,7 @@ function renderMCQ(q) {
 
         button.addEventListener("click", () => {
             if (quizFinished) return;
+            if (answered) return;
 
             $("answerArea")
                 .querySelectorAll(".option")
@@ -1056,6 +1061,7 @@ function renderMCQ(q) {
             button.setAttribute("aria-pressed", "true");
 
             $("nextButton").classList.remove("hidden");
+            nextQuestion();
         });
 
         $("answerArea").appendChild(button);
@@ -1205,6 +1211,17 @@ function getSelectedAnswer(q) {
 
 function nextQuestion() {
     if (quizFinished) return;
+    if (answered) {
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+
+        return;
+    }
 
     const q = questions[currentQuestion];
 
@@ -1232,13 +1249,15 @@ function nextQuestion() {
 
     $("topScore").textContent = getScore();
 
-    currentQuestion++;
+    answered = true;
+    window.quizAudio.playAnswer(correct);
+    window.quizFeedback.showAnswer(correct, q.answer, getScore());
+    $("nextButton").textContent =
+        currentQuestion === questions.length - 1
+            ? "Finish Level"
+            : "Next Question →";
+    $("nextButton").classList.remove("hidden");
 
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-    } else {
-        showResults();
-    }
 }
 
 /*

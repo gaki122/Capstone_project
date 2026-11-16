@@ -168,6 +168,7 @@ h1,h2,h3,.title,.btn,.dashboard-button{font-family:'Poppins',sans-serif}
 </div>
 </div>
 
+<script src="{% static 'dataRep/quiz-audio.js' %}"></script>
 <script>
 const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
 
@@ -369,8 +370,10 @@ function loadQuestion() {
     const q = questions[currentQuestion];
 
     answered = false;
+    window.quizFeedback.clear();
     answerArea.innerHTML = "";
     nextButton.classList.add("hidden");
+    nextButton.textContent = "Next Question →";
     hintBox.classList.remove("show");
     hintBox.textContent = q.hint;
 
@@ -424,7 +427,7 @@ function selectAnswer(button) {
     });
 
     button.classList.add("selected");
-    nextButton.classList.remove("hidden");
+    nextQuestion();
 }
 
 function getSelectedMCQAnswer() {
@@ -649,7 +652,17 @@ function saveMatchingAnswer() {
 }
 
 function nextQuestion() {
-    if (answered) return;
+    if (answered) {
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+
+        return;
+    }
 
     const q = questions[currentQuestion];
 
@@ -675,13 +688,24 @@ function nextQuestion() {
         if (!saveMatchingAnswer()) return;
     }
 
-    currentQuestion++;
+    const answerResult = userAnswers[userAnswers.length - 1];
+    answered = true;
 
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-    } else {
-        showResults();
-    }
+    if (answerResult.isCorrect) score++;
+    scoreElement.textContent = score;
+
+    window.quizAudio.playAnswer(answerResult.isCorrect);
+    window.quizFeedback.showAnswer(
+        answerResult.isCorrect,
+        answerResult.correctAnswer,
+        score
+    );
+    nextButton.textContent =
+        currentQuestion === questions.length - 1
+            ? "Finish Level"
+            : "Next Question →";
+    nextButton.classList.remove("hidden");
+
 }
 
 nextButton.addEventListener("click", nextQuestion);
